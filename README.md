@@ -22,10 +22,37 @@ If you prefer reading, you can try our [wiki](https://wiki.justsgmod.eu) (in 6 l
 ***
 [![Trailer](https://img.youtube.com/vi/Ip-lWaQ3CnE/0.jpg)](https://www.youtube.com/watch?v=Ip-lWaQ3CnE)
 ***
-Disclaimer: Base of this repo is from another mod (The Aunis Mod). Author of that mod knows about this repo. (more in License)
 
-> Created and coded by MineDragonCZ_ and matousss (Base of the mod by MrJake222)<br>
+> Created and coded by Tau'ri Dev Team<br>
 > Models by MarcelMPL, **Harald de Luca** and from Aunis<br>
 > Checkout our official website: [JustSGMod.eu](https://justsgmod.eu)<br>
-> *Big thanks to MrJake222 for making base of this mod*
+> *Big thanks to MrJake222 for making base of this mod*<br>
 
+# **Creating own JSG addon**
+## Adding dependency
+To create and addon you need to add our maven repository to your project:
+``` gradle
+repositories {
+    maven {
+        name = "jsg-api"
+        url = "https://maven.justsgmod.eu/api/"
+    }
+}
+```
+
+And also add dependency:
+``` gradle
+dependencies {
+    compileOnly "dev.tauri:jsg:[version]"
+}
+```
+
+## Creating Loaders for Models and Textures
+You can use our API to load custom OBJ models that are triangulated or custom (even custom sized or with custom format (png/jpg/jpeg)) textures.
+
+Simply register your loaders:
+``` java
+public static final APIOBJLoader EXAMPLE_OBJ_LOADER = APIOBJLoader.createLoader(your mod id, main class of the mod);
+public static final APITextureLoader EXAMPLE_TEXTURE_LOADER = APITextureLoader.createLoader(your mod id, main class of the mod);
+```
+You can check our example addon mod: https://github.com/Tau-ri-Dev/Example-JSG-1.20.x-Addon
