@@ -6,6 +6,11 @@ import dev.tauri.jsg.loader.FolderLoader;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Resources scanner for your mod.
+ *
+ * Gets all files inside resources folder (or your path)
+ */
 @SuppressWarnings("unused")
 public class JarResourcesScanner {
     public static JarResourcesScanner createScanner(String modId, Class<?> modMainClass) {

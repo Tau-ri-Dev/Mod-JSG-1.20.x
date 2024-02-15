@@ -3,7 +3,9 @@ package dev.tauri.jsg.api.loader.texture;
 import dev.tauri.jsg.loader.texture.Texture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
-
+/**
+ * Holder for Texture since JSG TEXTURE class is not inside API
+ */
 public record APITexture(Texture tex) {
     public APITexture(@Nullable Texture tex) {
         if (tex == null) {
