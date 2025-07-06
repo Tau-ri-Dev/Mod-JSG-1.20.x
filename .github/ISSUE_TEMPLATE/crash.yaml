@@ -1,0 +1,59 @@
+name: Crash report
+description: "Some kind of issue that does not result in a crash such as incorrect behaviour or forced disconnectes from a server"
+labels: ["crash"]
+body:
+  - type: textarea
+    attributes:
+      label: What happened
+      description: >
+        Please describe what you were doing/what was happening when the crash occured in as much detail as possible, images and videos can help.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Latest log
+      description: >
+        We need your latest log for additional information about why the crash may have occured.
+        you can find this file in the \"`logs`\" folder within your minecraft profile anmed \"`latest.log`\"
+        Please uplaod the file to https://mclo.gs/ and put the link here.
+        Do **NOT** paste the *contents* of the file here, doing so will make it very difficult to read and diagnose this issue.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: crash log
+      description: >
+        We need your crash log for additional information about why the crash may have occured.
+        you can find this file in the \"`crash-reports`\" folder within your minecraft profile named something along the lines of crash-<date>_<time>-client.txt or crash-<date>_<time>-server.txt
+        (you may not see the .txt if you do not have file extensions shown)
+        Please uplaod the file to https://mclo.gs/ and put the link here.
+        Do **NOT** paste the *contents* of the file here, doing so will make it very difficult to read and diagnose this issue.
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Occurs in clean environment
+      description: >
+        Does the crash still occur when only JSG is present
+      options:
+        - label: Yes
+        - label: No
+        - label: Unknown
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: JSG Version
+      description: >
+        Please provide the version of JSG you are using as the full name of the mod jar file located in your \"`mods`\" folder
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to report this bug to help improve JSG"
+
