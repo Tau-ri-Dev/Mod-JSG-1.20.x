@@ -2,7 +2,7 @@
 name: Dev build bug
 about: Dev build bug report (use this when playing with dev build)
 title: "[Dev build bug]"
-labels: ''
+labels: DEV BUILD
 assignees: MineDragonCZ
 
 ---
