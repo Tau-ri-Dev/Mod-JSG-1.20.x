@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "ingredients" : [
+    {
+      "tag": "forge:ingots/trinium"
+    },
+    {
+      "item": "jsg:hammer"
+    }
+  ],
+  "result": {
+    "item": "jsg:plate_trinium",
+    "count": 1
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "values": [
+    {
+      "id": "ad_astra:venus_wastelands",
+      "required": false
+    },
+    {
+      "id": "ad_astra:infernal_venus_barrens",
+      "required": false
+    },
+    {
+      "id": "ad_astra:glacio_ice_peaks",
+      "required": false
+    },
+    {
+      "id": "ad_astra:glacio_snowy_barrens",
+      "required": false
+    },
+    {
+      "id": "ad_astra:lunar_wastelands",
+      "required": false
+    },
+    {
+      "id": "ad_astra:martian_canyon_creek",
+      "required": false
+    },
+    {
+      "id": "ad_astra:martian_polar_caps",
+      "required": false
+    },
+    {
+      "id": "ad_astra:martian_wastelands",
+      "required": false
+    }
+  ]
+}

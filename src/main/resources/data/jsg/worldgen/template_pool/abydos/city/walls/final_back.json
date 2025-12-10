@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/city/walls/final_back",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/wall_final_back",
+        "processors": "jsg:abydos_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

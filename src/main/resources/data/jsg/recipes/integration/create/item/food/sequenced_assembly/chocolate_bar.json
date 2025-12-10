@@ -1,0 +1,86 @@
+{
+  "type": "create:sequenced_assembly",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "jsg:chocolate_bar"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "minecraft:paper"
+        },
+        {
+          "item": "minecraft:cookie"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        },
+        {
+          "amount": 250,
+          "fluid": "create:chocolate",
+          "nbt": {}
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        },
+        {
+          "item": "minecraft:paper"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_chocolate_bar"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "jsg:incomplete_chocolate_bar"
+  }
+}

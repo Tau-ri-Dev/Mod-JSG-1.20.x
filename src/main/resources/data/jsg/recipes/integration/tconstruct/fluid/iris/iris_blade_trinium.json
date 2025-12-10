@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "jsg:iris_blade_trinium"
+  },
+  "result": {
+    "amount": 280,
+    "tag": "forge:molten_trinium"
+  },
+  "temperature": 1400,
+  "time": 177
+}

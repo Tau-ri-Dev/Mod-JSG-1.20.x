@@ -1,0 +1,19 @@
+{
+  "type": "thermal:crucible",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/naquadah"
+  },
+  "result": [
+    {
+      "fluid": "jsg:naquadah_molten_raw_still",
+      "amount": 10
+    }
+  ],
+  "energy": 800
+}

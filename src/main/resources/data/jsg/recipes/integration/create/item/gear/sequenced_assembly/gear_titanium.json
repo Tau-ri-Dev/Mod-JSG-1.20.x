@@ -1,0 +1,65 @@
+{
+  "type": "create:sequenced_assembly",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/titanium"
+  },
+  "loops": 3,
+  "results": [
+    {
+      "chance": 145,
+      "item": "jsg:gear_titanium"
+    },
+    {
+      "chance": 10,
+      "item": "jsg:titanium_ingot"
+    },
+    {
+      "chance": 10,
+      "item": "jsg:titanium_nugget"
+    },
+    {
+      "chance": 5,
+      "item": "jsg:plate_titanium"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "tag": "jsg:ingots/titanium"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_gear_titanium"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "jsg:incomplete_gear_titanium"
+        },
+        {
+          "tag": "forge:ingots/titanium"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_gear_titanium"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "jsg:incomplete_gear_titanium"
+  }
+}

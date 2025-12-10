@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "jsg:quad_iris_blade"
+  },
+  "result": {
+    "amount": 1480,
+    "tag": "forge:molten_titanium"
+  },
+  "temperature": 950,
+  "time": 304
+}

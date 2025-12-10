@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/city/walls/inner_corner_east",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/wall_inner_corner_east",
+        "processors": "jsg:abydos_degradation",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

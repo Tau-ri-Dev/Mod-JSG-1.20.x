@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:trinium_ingot"
+    }
+  ],
+  "result": {
+    "item": "jsg:trinium_nugget",
+    "count": 9
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "heatRequirement": "superheated",
+  "ingredients": [
+    {
+      "tag": "forge:plates/trinium"
+    }
+  ],
+  "results": [
+    {
+      "amount": 90,
+      "fluid": "jsg:trinium_molten_still"
+    }
+  ]
+}

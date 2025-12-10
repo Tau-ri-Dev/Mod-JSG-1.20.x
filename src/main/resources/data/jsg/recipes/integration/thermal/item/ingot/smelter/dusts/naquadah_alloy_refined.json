@@ -1,0 +1,19 @@
+{
+  "type": "thermal:smelter",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/naquadah_refined"
+  },
+  "result": [
+    {
+      "item": "jsg:naquadah_alloy_refined",
+      "count": 1
+    }
+  ],
+  "energy_mod": 0.5
+}

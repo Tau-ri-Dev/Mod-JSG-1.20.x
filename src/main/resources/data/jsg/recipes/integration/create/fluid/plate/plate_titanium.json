@@ -1,0 +1,21 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "tag": "forge:plates/titanium"
+    }
+  ],
+  "results": [
+    {
+      "amount": 90,
+      "fluid": "jsg:titanium_molten_still"
+    }
+  ]
+}

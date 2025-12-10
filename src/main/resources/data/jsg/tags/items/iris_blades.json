@@ -1,0 +1,7 @@
+{
+  "values": [
+    "jsg:iris_blade",
+    "jsg:iris_blade_trinium",
+    {"id": "jsg:iris_blade_stone", "required": false}
+  ]
+}

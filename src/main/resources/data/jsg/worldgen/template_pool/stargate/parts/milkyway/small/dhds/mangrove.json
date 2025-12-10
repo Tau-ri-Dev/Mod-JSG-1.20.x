@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/milkyway/small/dhds/mangrove",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/mangrove/dhd_1",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/mangrove/dhd_2",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/mangrove/dhd_3",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/mangrove/dhd_4",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

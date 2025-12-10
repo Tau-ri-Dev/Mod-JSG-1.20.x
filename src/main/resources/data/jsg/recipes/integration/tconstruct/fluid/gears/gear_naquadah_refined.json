@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/naquadah_refined"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "forge:molten_naquadah_refined"
+  },
+  "temperature": 1250,
+  "time": 147
+}

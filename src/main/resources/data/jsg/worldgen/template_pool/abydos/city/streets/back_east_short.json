@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/city/streets/back_east_short",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/street_back_east_short",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

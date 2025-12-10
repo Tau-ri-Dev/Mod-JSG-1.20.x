@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:universe_outpost_main_island_end",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:concentric_rings",
+    "salt": 1762081930,
+    "count": 1,
+    "distance": 0,
+    "spread": 10,
+    "preferred_biomes": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:jigsaw",
+  "start_pool": "jsg:stargate/parts/milkyway/common/bases/nether",
+  "size": 2,
+  "max_distance_from_center": 80,
+  "biomes": "#jsg:has_structure/milkyway_outpost_nether",
+  "terrain_adaptation": "beard_box",
+  "step": "underground_structures",
+  "start_height": {
+    "type": "minecraft:trapezoid",
+    "min_inclusive": {
+      "above_bottom": 40
+    },
+    "max_inclusive": {
+      "below_top": 30
+    },
+    "plateau": 5
+  },
+  "use_expansion_hack": false,
+  "spawn_overrides": {}
+}

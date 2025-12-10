@@ -1,0 +1,33 @@
+{
+  "name": "jsg:abydos/city/starting_pieces",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/small_city_1",
+        "processors": "minecraft:farm_desert",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/small_city_2",
+        "processors": "minecraft:farm_desert",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "jsg:abydos/city/entrance",
+        "processors": "jsg:abydos_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_naquadah_alloy"
+    },
+    {
+      "amount": 100,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_naquadah_refined"
+  },
+  "temperature": 1250
+}

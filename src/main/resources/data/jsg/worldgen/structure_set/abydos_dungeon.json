@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:abydos_dungeon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1763159973,
+    "spacing": 50,
+    "separation": 32,
+    "exclusion_zone": {
+      "chunk_count": 16,
+      "other_set": "jsg:abydos_main_pyramid"
+    },
+    "type": "minecraft:random_spread"
+  }
+}

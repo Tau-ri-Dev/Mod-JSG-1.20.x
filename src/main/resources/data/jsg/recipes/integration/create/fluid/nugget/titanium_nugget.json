@@ -1,0 +1,21 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "tag": "forge:nuggets/titanium"
+    }
+  ],
+  "results": [
+    {
+      "amount": 10,
+      "fluid": "jsg:titanium_molten_still"
+    }
+  ]
+}

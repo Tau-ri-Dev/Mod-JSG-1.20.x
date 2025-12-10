@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/milkyway/small/dhds/desert",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/desert/dhd_1",
+        "processors": "jsg:offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/desert/dhd_2",
+        "processors": "jsg:offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/desert/dhd_3",
+        "processors": "jsg:offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/small/dhds/desert/dhd_4",
+        "processors": "jsg:offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

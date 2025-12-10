@@ -1,0 +1,52 @@
+{
+  "parent": "jsg:gate_activated_branch/entry_wormhole",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:oxidized_copper_ingot"
+    },
+    "title": {
+      "translate": "advancement.jsg.oxidized_copper.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.oxidized_copper.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "crafting_event_#1": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "jsg:general/item/ingots/conversion/block_to_ingot/waxed_oxidized_copper_block_to_ingot"
+      }
+    },
+    "crafting_event_#2": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "jsg:general/item/ingots/conversion/block_to_ingot/oxidized_copper_block_to_ingot"
+      }
+    },
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:oxidized_copper_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafting_event_#1",
+      "crafting_event_#2",
+      "pickup_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

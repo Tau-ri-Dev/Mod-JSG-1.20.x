@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "CBC",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "C": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "B": {
+      "item": "minecraft:cookie"
+    }
+  },
+  "result": {
+    "item": "jsg:chocolate_bar",
+    "count": 1
+  }
+}

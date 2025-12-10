@@ -1,0 +1,40 @@
+{
+  "type": "thermal:smelter",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": [
+    {
+      "value": [
+        {
+          "tag": "forge:ingots/naquadah"
+        },
+        {
+          "tag": "forge:dusts/naquadah"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "value": [
+        {
+          "tag": "forge:ingots/iron"
+        },
+        {
+          "tag": "forge:dusts/iron"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "result": [
+    {
+      "item": "jsg:naquadah_alloy",
+      "count": 2
+    }
+  ],
+  "energy_mod": 1.5
+}

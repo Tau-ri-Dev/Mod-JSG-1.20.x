@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "WHW",
+    "WRW",
+    "TWT"
+  ],
+  "key": {
+    "W": {
+      "tag": "forge:gems/white"
+    },
+    "H": {
+      "tag": "forge:glass/white"
+    },
+    "R": {
+      "tag": "forge:plates/naquadah"
+    },
+    "T": {
+      "tag": "forge:plates/titanium"
+    }
+  },
+  "result": {
+    "item": "jsg:stargate_universe_chevron_block",
+    "count": 1
+  }
+}

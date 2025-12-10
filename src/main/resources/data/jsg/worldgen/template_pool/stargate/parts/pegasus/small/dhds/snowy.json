@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/pegasus/small/dhds/snowy",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/pegasus/small/dhds/snowy/dhd_1",
+        "processors": "jsg:offset_2_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/pegasus/small/dhds/snowy/dhd_2",
+        "processors": "jsg:offset_2_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/pegasus/small/dhds/snowy/dhd_3",
+        "processors": "jsg:offset_2_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/pegasus/small/dhds/snowy/dhd_4",
+        "processors": "jsg:offset_2_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

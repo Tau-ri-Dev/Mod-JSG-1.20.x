@@ -1,0 +1,20 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "additives": [],
+  "energy": 51200,
+  "input": {
+    "tag": "forge:dusts/naquadah_refined"
+  },
+  "results": [
+    {
+      "item": "jsg:naquadah_alloy_refined"
+    }
+  ],
+  "time": 100
+}

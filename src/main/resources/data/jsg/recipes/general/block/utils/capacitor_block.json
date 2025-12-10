@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "TNT",
+    "GBT",
+    "TAT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:ingots/titanium"
+    },
+    "N": {
+      "tag": "forge:ingots/netherite"
+    },
+    "G": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "B": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "A": {
+      "item": "jsg:circuit_control_naquadah"
+    }
+  },
+  "result": {
+    "item": "jsg:capacitor_block",
+    "count": 1
+  }
+}

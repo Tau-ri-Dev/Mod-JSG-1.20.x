@@ -1,0 +1,32 @@
+{
+  "parent": "jsg:address_crystal_branch/universe_gate_merge",
+  "display": {
+    "announce_to_chat": true,
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "jsg:stargate_universe_chevron_block"
+    },
+    "title": {
+      "translate": "advancement.jsg.chevron_9_lock.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.chevron_9_lock.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "dial_event": {
+      "trigger": "jsg:chevron_nine_locked"
+    }
+  },
+  "rewards": {
+    "experience": 10
+  },
+  "requirements": [
+    [
+      "dial_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

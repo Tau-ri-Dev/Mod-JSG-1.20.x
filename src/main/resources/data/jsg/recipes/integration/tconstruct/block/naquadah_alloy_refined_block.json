@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "cooling_time": 221,
+  "fluid": {
+    "amount": 810,
+    "tag": "forge:molten_naquadah_refined"
+  },
+  "result": {
+    "item": "jsg:naquadah_alloy_refined_block"
+  }
+}

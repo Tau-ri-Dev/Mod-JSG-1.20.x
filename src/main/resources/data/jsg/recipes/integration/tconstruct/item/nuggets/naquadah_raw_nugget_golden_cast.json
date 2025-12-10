@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "cooling_time": 22,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_naquadah"
+  },
+  "result": {
+    "item": "jsg:naquadah_raw_nugget"
+  }
+}

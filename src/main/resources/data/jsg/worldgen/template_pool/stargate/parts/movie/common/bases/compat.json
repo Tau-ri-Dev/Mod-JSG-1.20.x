@@ -1,0 +1,7 @@
+{
+  "name": "jsg:stargate/parts/movie/common/bases/compat",
+  "fallback": "minecraft:empty",
+
+  "__comment": "The elements are filled at runtime because of the stargate size configuration",
+  "elements": []
+}

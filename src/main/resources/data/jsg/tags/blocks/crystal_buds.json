@@ -1,0 +1,28 @@
+{
+  "values": [
+    "jsg:red_crystal_cluster",
+    "jsg:blue_crystal_cluster",
+    "jsg:yellow_crystal_cluster",
+    "jsg:white_crystal_cluster",
+    "jsg:ender_crystal_cluster",
+    "jsg:pegasus_crystal_cluster",
+    "jsg:small_red_crystal_bud",
+    "jsg:small_blue_crystal_bud",
+    "jsg:small_yellow_crystal_bud",
+    "jsg:small_white_crystal_bud",
+    "jsg:small_ender_crystal_bud",
+    "jsg:small_pegasus_crystal_bud",
+    "jsg:medium_red_crystal_bud",
+    "jsg:medium_blue_crystal_bud",
+    "jsg:medium_yellow_crystal_bud",
+    "jsg:medium_white_crystal_bud",
+    "jsg:medium_ender_crystal_bud",
+    "jsg:medium_pegasus_crystal_bud",
+    "jsg:large_red_crystal_bud",
+    "jsg:large_blue_crystal_bud",
+    "jsg:large_yellow_crystal_bud",
+    "jsg:large_white_crystal_bud",
+    "jsg:large_ender_crystal_bud",
+    "jsg:large_pegasus_crystal_bud"
+  ]
+}

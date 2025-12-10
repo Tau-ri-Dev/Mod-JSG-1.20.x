@@ -1,0 +1,18 @@
+{
+  "type": "mekanism:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "input": {
+    "ingredient": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "output": {
+    "count": 4,
+    "item": "jsg:crushed_calcite"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:universe_outpost_end",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1762081925,
+    "separation": 11,
+    "spacing": 20,
+    "spread_type": "triangular"
+  }
+}

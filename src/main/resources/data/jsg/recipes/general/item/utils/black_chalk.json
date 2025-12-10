@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "jsg",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "jsg:charcoal_stick_mixture"
+    },
+    {
+      "item": "jsg:charcoal_stick_mixture"
+    },
+    {
+      "item": "jsg:charcoal_stick_mixture"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": {
+    "item": "jsg:black_chalk",
+    "count": 2
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "thermal:pulverizer",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:plates/titanium"
+  },
+  "result": [
+    {
+      "item": "jsg:titanium_dust"
+    }
+  ],
+  "energy_mod": 0.5
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "JSG",
+  "ingredient": {
+    "item": "jsg:endstone_titanium_ore"
+  },
+  "result": "jsg:titanium_ingot",
+  "experience": 0.2,
+  "cookingtime": 200
+}

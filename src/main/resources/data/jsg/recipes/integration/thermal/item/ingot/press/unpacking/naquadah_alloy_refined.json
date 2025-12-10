@@ -1,0 +1,24 @@
+{
+  "type": "thermal:press",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "jsg:naquadah_alloy_refined_block"
+    },
+    {
+      "item": "thermal:press_unpacking_die"
+    }
+  ],
+  "result": [
+    {
+      "item": "jsg:naquadah_alloy_refined",
+      "count": 9
+    }
+  ],
+  "energy": 400
+}

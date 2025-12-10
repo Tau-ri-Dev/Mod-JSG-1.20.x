@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/city/walls/west_side",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/wall_side_west",
+        "processors": "jsg:abydos_degradation",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "values": [
+    "jsg:capacitor_block",
+    "#forge:ores/naquadah",
+    "#forge:ores/titanium",
+    "#forge:storage_blocks/naquadah",
+    "#forge:storage_blocks/naquadah_alloy",
+    "#forge:storage_blocks/titanium",
+    "#forge:storage_blocks/raw_naquadah",
+    "#forge:storage_blocks/raw_titanium",
+    "#jsg:stargate/single_use_stargate_part"
+  ]
+}

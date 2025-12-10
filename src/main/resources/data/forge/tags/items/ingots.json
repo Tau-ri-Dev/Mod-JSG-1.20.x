@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#forge:ingots/copper_exposed",
+    "#forge:ingots/copper_oxidized",
+    "#forge:ingots/copper_weathered",
+    "#forge:ingots/naquadah",
+    "#forge:ingots/naquadah_alloy",
+    "#forge:ingots/naquadah_refined",
+    "#forge:ingots/titanium",
+    "#forge:ingots/trinium"
+  ]
+}

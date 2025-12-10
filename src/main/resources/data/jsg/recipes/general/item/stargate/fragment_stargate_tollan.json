@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "TTT",
+    "III",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:plates/titanium"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "jsg:fragment_stargate_tollan",
+    "count": 1
+  }
+}

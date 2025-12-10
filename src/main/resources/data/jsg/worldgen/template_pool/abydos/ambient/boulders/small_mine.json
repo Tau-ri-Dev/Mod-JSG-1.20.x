@@ -1,0 +1,42 @@
+{
+  "name": "jsg:abydos/ambient/boulders/small_mine",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/ambient/boulder/boulder_1",
+        "processors": "jsg:add_naquadah_25",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/ambient/boulder/boulder_2",
+        "processors": "jsg:add_naquadah_25",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "jsg:abydos/ambient/boulder/boulder_3",
+        "processors": "jsg:add_naquadah_10",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "jsg:abydos/ambient/boulder/boulder_4",
+        "processors": "jsg:add_naquadah_10",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

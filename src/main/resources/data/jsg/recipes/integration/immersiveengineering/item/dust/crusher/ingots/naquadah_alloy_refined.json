@@ -1,0 +1,17 @@
+{
+  "type": "immersiveengineering:crusher",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "energy": 3000,
+  "input": {
+    "tag": "forge:ingots/naquadah_refined"
+  },
+  "result": {
+    "item": "jsg:naquadah_refined_dust"
+  },
+  "secondaries": []
+}

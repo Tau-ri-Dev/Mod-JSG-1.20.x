@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:raw_materials/trinium"
+    }
+  },
+  "result": {
+    "item": "jsg:raw_trinium_ore_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "parent": "jsg:address_crystal_branch/abydos_travel",
+  "display": {
+    "announce_to_chat": false,
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "jsg:chocolate_bar"
+    },
+    "title": {
+      "translate": "advancement.jsg.mastadge.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.mastadge.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "tame_event": {
+      "trigger": "minecraft:started_riding",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "vehicle": {
+                "type": "jsg:mastadge"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "tame_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#jsg:has_budding_pegasus",
+  "features": [
+    "jsg:budding_pegasus_crystal"
+  ],
+  "step": "underground_ores"
+}

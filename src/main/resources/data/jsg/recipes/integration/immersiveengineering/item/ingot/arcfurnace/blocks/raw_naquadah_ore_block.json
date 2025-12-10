@@ -1,0 +1,31 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "additives": [],
+  "energy": 230400,
+  "input": {
+    "tag": "forge:storage_blocks/raw_naquadah"
+  },
+  "results": [
+    {
+      "base_ingredient": {
+        "item": "jsg:naquadah_alloy_raw"
+      },
+      "count": 13
+    }
+  ],
+  "secondaries": [
+    {
+      "chance": 0.5,
+      "output": {
+        "item": "jsg:naquadah_alloy_raw"
+      }
+    }
+  ],
+  "time": 900
+}

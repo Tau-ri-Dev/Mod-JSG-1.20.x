@@ -1,0 +1,7 @@
+{
+  "name": "jsg:stargate/parts/pegasus/common/bases/desert",
+  "fallback": "minecraft:empty",
+
+  "__comment": "The elements are filled at runtime because of the stargate size configuration",
+  "elements": []
+}

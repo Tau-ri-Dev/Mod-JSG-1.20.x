@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:snow",
+    "#minecraft:rails",
+    "#minecraft:wool_carpets",
+    "#minecraft:pressure_plates"
+  ]
+}

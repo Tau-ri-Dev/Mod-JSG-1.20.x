@@ -1,0 +1,22 @@
+{
+  "type": "thermal:chiller",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredients": [
+    {
+      "fluid_tag": "forge:molten_titanium",
+      "amount": 810
+    }
+  ],
+  "result": [
+    {
+      "item": "jsg:titanium_block",
+      "count": 1
+    }
+  ],
+  "energy": 72900
+}

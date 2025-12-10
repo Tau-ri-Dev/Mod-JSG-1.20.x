@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/naquadah"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_naquadah"
+  },
+  "temperature": 1000,
+  "time": 194
+}

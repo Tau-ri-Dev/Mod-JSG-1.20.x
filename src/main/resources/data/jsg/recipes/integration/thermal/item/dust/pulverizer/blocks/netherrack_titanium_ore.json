@@ -1,0 +1,23 @@
+{
+  "type": "thermal:pulverizer",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "item": "jsg:netherrack_titanium_ore"
+  },
+  "result": [
+    {
+      "item": "jsg:titanium_dust",
+      "chance": 2.0
+    },
+    {
+      "item": "thermal:sulfur_dust",
+      "chance": 0.25
+    }
+  ],
+  "experience": 0.2
+}

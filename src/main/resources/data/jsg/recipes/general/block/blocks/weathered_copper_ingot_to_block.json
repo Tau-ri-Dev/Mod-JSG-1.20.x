@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper_weathered"
+    }
+  },
+  "result": {
+    "item": "minecraft:weathered_copper",
+    "count": 1
+  }
+}

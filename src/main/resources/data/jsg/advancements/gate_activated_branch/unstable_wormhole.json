@@ -1,0 +1,29 @@
+{
+  "parent": "jsg:gate_activated_branch/fixed_lock",
+  "display": {
+    "announce_to_chat": true,
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:skeleton_skull"
+    },
+    "title": {
+      "translate": "advancement.jsg.unstable_wormhole.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.unstable_wormhole.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "survival_event": {
+      "trigger": "jsg:unstable_eh_survive"
+    }
+  },
+  "requirements": [
+    [
+      "survival_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

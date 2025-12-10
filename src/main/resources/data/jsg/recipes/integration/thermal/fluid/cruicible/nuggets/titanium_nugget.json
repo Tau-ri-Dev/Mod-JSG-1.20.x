@@ -1,0 +1,19 @@
+{
+  "type": "thermal:crucible",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/titanium"
+  },
+  "result": [
+    {
+      "fluid": "jsg:titanium_molten_still",
+      "amount": 10
+    }
+  ],
+  "energy": 800
+}

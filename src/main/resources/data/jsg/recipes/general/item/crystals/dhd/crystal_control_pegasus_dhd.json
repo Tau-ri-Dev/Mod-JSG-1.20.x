@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    " PS",
+    "PCP",
+    "SP "
+  ],
+  "key": {
+    "P": {
+      "tag": "forge:gems/pegasus"
+    },
+    "S": {
+      "tag": "forge:gems/pegasus_small"
+    },
+    "C": {
+      "item": "jsg:circuit_control_base"
+    }
+  },
+  "result": {
+    "item": "jsg:crystal_control_pegasus_dhd",
+    "count": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "NBN",
+    "CMA",
+    "QQQ"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:plates/naquadah_alloy"
+    },
+    "B": {
+      "item": "jsg:dhd_brb"
+    },
+    "C": {
+      "item": "jsg:circuit_control_crystal"
+    },
+    "M": {
+      "item": "jsg:holder_crystal"
+    },
+    "A": {
+      "item": "jsg:circuit_control_naquadah"
+    },
+    "Q": {
+      "tag": "forge:ingots/naquadah_alloy"
+    }
+  },
+  "result": {
+    "item": "jsg:dhd_milkyway",
+    "count": 1
+  }
+}

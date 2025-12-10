@@ -1,17 +1,17 @@
 package dev.tauri.jsg.api.event;
 
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
-import dev.tauri.jsg.stargate.network.StargateAddress;
-import dev.tauri.jsg.stargate.network.SymbolTypeEnum;
+import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
+import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
 
 /**
  * Parent event for all stargate events with connected stargates
  */
 public abstract class StargateConnectedAbstractEvent extends StargateAbstractEvent {
-    private final StargateAbstractBaseBE targetTile;
+    private final Stargate<?> targetTile;
     private final boolean initiating;
 
-    public StargateConnectedAbstractEvent(StargateAbstractBaseBE tile, StargateAbstractBaseBE targetTile, boolean initiating) {
+    public StargateConnectedAbstractEvent(Stargate<?> tile, Stargate<?> targetTile, boolean initiating) {
         super(tile);
         this.targetTile = targetTile;
         this.initiating = initiating;
@@ -19,31 +19,35 @@ public abstract class StargateConnectedAbstractEvent extends StargateAbstractEve
 
     /**
      * Get target stargate
+     *
      * @return target stargate tileentity
      */
-    public StargateAbstractBaseBE getTargetTile() {
+    public Stargate<?> getTargetTile() {
         return targetTile;
     }
 
     /**
      * Get address of target stargate
+     *
      * @return stargate address by stargate type
      */
-    public StargateAddress getTargetAddress(){
+    public StargateAddress getTargetAddress() {
         return targetTile.getStargateAddress(targetTile.getSymbolType());
     }
 
     /**
      * Get address of target stargate
+     *
      * @param type address type
      * @return stargate address
      */
-    public StargateAddress getTargetAddress(SymbolTypeEnum type){
+    public StargateAddress getTargetAddress(AbstractSymbolType<?> type) {
         return targetTile.getStargateAddress(type);
     }
 
     /**
      * Is {@link #getTile()} initiating stargate or not
+     *
      * @return true if yes, false if no
      */
     public boolean isInitiating() {

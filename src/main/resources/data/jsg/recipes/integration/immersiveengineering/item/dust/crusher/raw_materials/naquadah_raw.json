@@ -1,0 +1,24 @@
+{
+  "type": "immersiveengineering:crusher",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "energy": 6000,
+  "input": {
+    "tag": "forge:raw_materials/naquadah"
+  },
+  "result": {
+      "item": "jsg:naquadah_raw_dust"
+  },
+  "secondaries": [
+    {
+      "chance": 0.33333334,
+      "output": {
+        "item": "jsg:naquadah_raw_dust"
+      }
+    }
+  ]
+}

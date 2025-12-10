@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:mortar_and_pestle"
+    },
+    {
+      "tag": "forge:ingots/titanium"
+    }
+  ],
+  "result": {
+    "item": "jsg:titanium_dust",
+    "count": 1
+  }
+}

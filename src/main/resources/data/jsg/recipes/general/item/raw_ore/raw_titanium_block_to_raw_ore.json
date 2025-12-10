@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:raw_titanium_ore_block"
+    }
+  ],
+  "result": {
+    "item": "jsg:titanium_raw",
+    "count": 9
+  }
+}

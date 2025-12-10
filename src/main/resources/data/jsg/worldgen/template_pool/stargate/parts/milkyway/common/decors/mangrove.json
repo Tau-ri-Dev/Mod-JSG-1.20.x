@@ -1,0 +1,78 @@
+{
+  "name": "jsg:stargate/parts/milkyway/common/decors/mangrove",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_1",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_2",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_3",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_4",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_5",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_6",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_7",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:stargate/parts/milkyway/common/decors/mangrove/decor_8",
+        "processors": "jsg:mosify_20_with_offset_1_down",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

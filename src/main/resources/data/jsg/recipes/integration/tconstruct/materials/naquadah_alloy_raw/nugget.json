@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/naquadah"
+  },
+  "material": "jsg:naquadah_alloy_raw",
+  "needed": 9,
+  "value": 1
+}

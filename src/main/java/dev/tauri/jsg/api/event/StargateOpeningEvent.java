@@ -1,6 +1,6 @@
 package dev.tauri.jsg.api.event;
 
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.api.stargate.Stargate;
 import net.minecraftforge.eventbus.api.Cancelable;
 
 /**
@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
 @Cancelable
 public final class StargateOpeningEvent extends StargateConnectedAbstractEvent {
 
-    public StargateOpeningEvent(StargateAbstractBaseBE tile, StargateAbstractBaseBE targetTile, boolean initiating) {
+    public StargateOpeningEvent(Stargate<?> tile, Stargate<?> targetTile, boolean initiating) {
         super(tile, targetTile, initiating);
     }
 

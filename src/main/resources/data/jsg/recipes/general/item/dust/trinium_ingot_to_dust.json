@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:mortar_and_pestle"
+    },
+    {
+      "tag": "forge:ingots/trinium"
+    }
+  ],
+  "result": {
+    "item": "jsg:trinium_dust",
+    "count": 1
+  }
+}

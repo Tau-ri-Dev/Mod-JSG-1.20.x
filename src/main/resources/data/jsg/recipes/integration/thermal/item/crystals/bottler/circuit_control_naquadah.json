@@ -1,0 +1,24 @@
+{
+  "type": "thermal:bottler",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "jsg:circuit_control_base"
+    },
+    {
+      "fluid_tag": "forge:molten_naquadah_alloy",
+      "amount": 40
+    }
+  ],
+  "result": [
+    {
+      "item": "jsg:circuit_control_naquadah"
+    }
+  ],
+  "energy": 500
+}

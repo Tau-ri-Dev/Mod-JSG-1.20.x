@@ -1,0 +1,24 @@
+{
+  "type": "thermal:pulverizer",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "item": "jsg:netherrack_trinium_ore"
+  },
+  "result": [
+    {
+      "item": "jsg:trinium_dust",
+      "chance": 2.0
+    },
+    {
+      "item": "thermal:sulfur_dust",
+      "chance": 0.25
+    }
+  ],
+  "experience": 0.5,
+  "energy_mod": 1.2
+}

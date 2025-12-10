@@ -1,0 +1,32 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:milkyway_outpost_compat",
+      "weight": 1
+    },
+    {
+      "structure": "jsg:pegasus_outpost_compat",
+      "weight": 1
+    },
+    {
+      "structure": "jsg:universe_outpost_compat",
+      "weight": 1
+    },
+    {
+      "structure": "jsg:tollan_outpost_compat",
+      "weight": 1
+    },
+    {
+      "structure": "jsg:movie_outpost_compat",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:concentric_rings",
+    "salt": 1762081904,
+    "count": 1,
+    "distance": 1,
+    "spread": 10,
+    "preferred_biomes": []
+  }
+}

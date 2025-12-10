@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/iris_blade_sand"
+  },
+  "cast_consumed": true,
+  "cooling_time": 220,
+  "fluid": {
+    "amount": 280,
+    "tag": "forge:molten_trinium"
+  },
+  "result": {
+    "item": "jsg:iris_blade_trinium"
+  }
+}

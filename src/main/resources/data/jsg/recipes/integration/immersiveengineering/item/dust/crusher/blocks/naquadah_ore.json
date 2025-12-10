@@ -1,0 +1,27 @@
+{
+  "type": "immersiveengineering:crusher",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "energy": 6000,
+  "input": {
+    "tag": "forge:ores/naquadah"
+  },
+  "result": {
+    "base_ingredient": {
+      "item": "jsg:naquadah_raw_dust"
+    },
+    "count": 2
+  },
+  "secondaries": [
+    {
+      "chance": 0.1,
+      "output": {
+        "item": "immersiveengineering:dust_copper"
+      }
+    }
+  ]
+}

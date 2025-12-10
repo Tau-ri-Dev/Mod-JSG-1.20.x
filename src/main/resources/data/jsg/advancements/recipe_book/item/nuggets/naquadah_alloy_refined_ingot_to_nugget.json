@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_naquadah_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:naquadah_alloy_refined"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/item/nuggets/naquadah_alloy_refined_ingot_to_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_naquadah_ingot",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/item/nuggets/naquadah_alloy_refined_ingot_to_nugget"
+    ]
+  },
+  "sends_telemetry_event": false
+}

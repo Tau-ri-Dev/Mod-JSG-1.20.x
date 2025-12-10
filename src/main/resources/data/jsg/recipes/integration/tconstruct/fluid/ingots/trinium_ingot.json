@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/trinium"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_trinium"
+  },
+  "temperature": 1400,
+  "time": 76
+}

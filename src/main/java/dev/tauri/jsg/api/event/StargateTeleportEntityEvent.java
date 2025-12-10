@@ -1,8 +1,8 @@
 package dev.tauri.jsg.api.event;
 
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
-import dev.tauri.jsg.stargate.EnumStargateState;
-import dev.tauri.jsg.stargate.network.StargatePos;
+import dev.tauri.jsg.api.stargate.EnumStargateState;
+import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.api.stargate.network.StargatePos;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.eventbus.api.Cancelable;
 
@@ -16,13 +16,14 @@ public final class StargateTeleportEntityEvent extends StargateConnectedAbstract
     private final Entity entity;
     private StargatePos redirectTarget = null;
 
-    public StargateTeleportEntityEvent(StargateAbstractBaseBE tile, StargateAbstractBaseBE targetTile, Entity entity) {
+    public StargateTeleportEntityEvent(Stargate<?> tile, Stargate<?> targetTile, Entity entity) {
         super(tile, targetTile, true);
         this.entity = entity;
     }
 
     /**
      * Get entity that will be teleported
+     *
      * @return entity that will be teleported
      */
     public Entity getEntity() {
@@ -31,14 +32,16 @@ public final class StargateTeleportEntityEvent extends StargateConnectedAbstract
 
     /**
      * Check if teleportation is redirected
+     *
      * @return true if redirected, false if not
      */
-    public boolean isRedirected(){
+    public boolean isRedirected() {
         return redirectTarget != null;
     }
 
     /**
      * Get current redirect target
+     *
      * @return redirect target
      */
     public StargatePos getRedirectTarget() {
@@ -51,11 +54,11 @@ public final class StargateTeleportEntityEvent extends StargateConnectedAbstract
 
     /**
      * Redirect entity to another dialed stargate
+     *
      * @param pos stargate position.
      */
     public void redirectTo(StargatePos pos) {
-        StargateAbstractBaseBE tile = pos.getBlockEntity();
-        if(tile.getStargateState().equals(EnumStargateState.ENGAGED))
+        if (pos.getStargate().getDialingManager().getStargateState().equals(EnumStargateState.ENGAGED))
             redirectTarget = pos;
     }
 }

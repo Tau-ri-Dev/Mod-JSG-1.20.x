@@ -1,0 +1,74 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:raw_gold_block",
+            "probability": 0.5
+          },
+          "output_state": {
+            "Name": "jsg:raw_naquadah_ore_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:raw_gold_block",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "jsg:naquadah_alloy_raw_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:raw_gold_block",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "jsg:naquadah_alloy_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:gold_block",
+            "probability": 0.5
+          },
+          "output_state": {
+            "Name": "jsg:naquadah_alloy_raw_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:gold_block",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "jsg:naquadah_alloy_block"
+          }
+        }
+      ]
+    }
+  ]
+}

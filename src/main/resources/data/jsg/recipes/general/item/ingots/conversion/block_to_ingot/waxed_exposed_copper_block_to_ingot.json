@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "building",
+  "ingredients" : [
+    {
+      "item": "minecraft:waxed_exposed_copper"
+    }
+  ],
+  "result": {
+    "item": "jsg:exposed_copper_ingot",
+    "count": 9
+  }
+}

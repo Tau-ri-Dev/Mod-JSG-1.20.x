@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "UUU",
+    "RWR",
+    "UUU"
+  ],
+  "key": {
+    "U": {
+      "item": "jsg:fragment_stargate_universe"
+    },
+    "R": {
+      "tag": "forge:plates/naquadah"
+    },
+    "W": {
+      "tag": "forge:gems/white"
+    }
+  },
+  "result": {
+    "item": "jsg:stargate_universe_ring_block",
+    "count": 1
+  }
+}

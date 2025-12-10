@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#forge:ores/trinium",
+    "#forge:storage_blocks/trinium",
+    "#forge:storage_blocks/raw_trinium",
+    "#forge:storage_blocks/naquadah_refined",
+    "#jsg:stargate/classic_stargate_part",
+    "#jsg:dhd/dhd_any"
+  ]
+}

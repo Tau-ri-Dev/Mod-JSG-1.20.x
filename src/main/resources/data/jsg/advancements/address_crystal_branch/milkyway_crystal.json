@@ -1,0 +1,45 @@
+{
+  "parent": "jsg:gate_activated_branch/entry_wormhole",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:crystal_glyph_milkyway"
+    },
+    "title": {
+      "translate": "advancement.jsg.milkyway_crystal.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.milkyway_crystal.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "crafting_event": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "jsg:general/item/crystal/address/crystal_glyph_milkyway"
+      }
+    },
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:crystal_glyph_milkyway"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafting_event",
+      "pickup_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

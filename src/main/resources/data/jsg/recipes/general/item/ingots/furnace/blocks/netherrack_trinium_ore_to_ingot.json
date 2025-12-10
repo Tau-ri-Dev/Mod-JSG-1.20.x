@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "JSG",
+  "ingredient": {
+    "item": "jsg:netherrack_trinium_ore"
+  },
+  "result": "jsg:trinium_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
+}

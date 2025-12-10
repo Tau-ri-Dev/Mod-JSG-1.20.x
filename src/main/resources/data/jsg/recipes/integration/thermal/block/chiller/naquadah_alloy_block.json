@@ -1,0 +1,22 @@
+{
+  "type": "thermal:chiller",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredients": [
+    {
+      "fluid_tag": "forge:molten_naquadah_alloy",
+      "amount": 810
+    }
+  ],
+  "result": [
+    {
+      "item": "jsg:naquadah_alloy_block",
+      "count": 1
+    }
+  ],
+  "energy": 72900
+}

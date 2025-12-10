@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "TYT",
+    "BSE",
+    "TRT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:plates/titanium"
+    },
+    "Y": {
+      "tag": "forge:gems/yellow"
+    },
+    "B": {
+      "tag": "forge:gems/blue"
+    },
+    "S": {
+      "tag": "forge:gems/white_small"
+    },
+    "E": {
+      "tag": "forge:gems/ender"
+    },
+    "R": {
+      "tag": "forge:gems/red"
+    }
+  },
+  "result": {
+    "item": "jsg:circuit_control_base",
+    "count": 1
+  }
+}

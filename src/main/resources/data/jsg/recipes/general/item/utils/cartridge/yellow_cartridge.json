@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "pattern": [
+    " D ",
+    "DGD",
+    "NRN"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:dyes/yellow"
+    },
+    "G": {
+      "item": "minecraft:glass_bottle"
+    },
+    "N": {
+      "tag": "forge:nuggets/gold"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result": {
+    "item": "jsg:yellow_cartridge",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "immersiveengineering:bottling_machine",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "fluid": {
+    "amount": 40,
+    "tag": "forge:molten_naquadah_alloy"
+  },
+  "input": {
+    "item": "jsg:circuit_control_base"
+  },
+  "results": [
+    {
+      "item": "jsg:circuit_control_naquadah"
+    }
+  ]
+}

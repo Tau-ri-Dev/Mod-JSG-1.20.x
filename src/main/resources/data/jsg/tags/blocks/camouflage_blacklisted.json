@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:barrier",
+    "minecraft:structure_block",
+    "minecraft:structure_void",
+    "minecraft:command_block",
+    "minecraft:chorus_plant",
+    "minecraft:chorus_flower"
+  ]
+}

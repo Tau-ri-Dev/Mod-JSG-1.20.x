@@ -1,0 +1,16 @@
+{
+  "values": [
+    "jsg:capacitor_block",
+    "jsg:sg_redstone_state_output_block",
+    "jsg:sg_redstone_dialer_input_block",
+    "jsg:toaster",
+    "jsg:printer",
+    "#jsg:crystal_buds",
+    "#jsg:stargate/stargate_part",
+    "#jsg:dhd/dhd_any",
+    "#forge:ores",
+    "#forge:storage_blocks",
+    "#forge:budding",
+    "#jsg:unstable_budding"
+  ]
+}

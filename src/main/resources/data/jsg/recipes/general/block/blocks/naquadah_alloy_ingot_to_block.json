@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:ingots/naquadah_alloy"
+    }
+  },
+  "result": {
+    "item": "jsg:naquadah_alloy_block",
+    "count": 1
+  }
+}

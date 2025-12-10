@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    "CC ",
+    "CC ",
+    "   "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:gems/pegasus"
+    }
+  },
+  "result": {
+    "item": "jsg:pegasus_crystal_block",
+    "count": 1
+  }
+}

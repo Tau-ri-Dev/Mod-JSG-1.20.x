@@ -1,0 +1,91 @@
+{
+  "parent": "jsg:root",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:emerald"
+    },
+    "title": {
+      "translate": "advancement.jsg.priest_trade.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.priest_trade.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "trade_plains": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_plains\"}}"
+        }
+      }
+    },
+    "trade_desert": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_desert\"}}"
+        }
+      }
+    },
+    "trade_savanna": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_savanna\"}}"
+        }
+      }
+    },
+    "trade_taiga": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_taiga\"}}"
+        }
+      }
+    },
+    "trade_snow": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_snow\"}}"
+        }
+      }
+    },
+    "trade_jungle": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_jungle\"}}"
+        }
+      }
+    },
+    "trade_swamp": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "nbt": "{VillagerData:{profession:\"jsg:priest_swamp\"}}"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trade_plains",
+      "trade_desert",
+      "trade_savanna",
+      "trade_taiga",
+      "trade_snow",
+      "trade_jungle",
+      "trade_swamp"
+    ]
+  ],
+  "rewards": {
+    "experience": 2
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "redstone",
+  "pattern": [
+    "   ",
+    " S ",
+    "MRA"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:gems/ender_small"
+    },
+    "M": {
+      "tag": "forge:gems/red_small"
+    },
+    "R": {
+      "item": "minecraft:comparator"
+    },
+    "A": {
+      "tag": "forge:gems/yellow_small"
+    }
+  },
+  "result": {
+    "item": "jsg:sg_redstone_state_output_block",
+    "count": 1
+  }
+}

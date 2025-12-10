@@ -1,0 +1,65 @@
+{
+  "type": "create:sequenced_assembly",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/naquadah"
+  },
+  "loops": 3,
+  "results": [
+    {
+      "chance": 145,
+      "item": "jsg:gear_naquadah_raw"
+    },
+    {
+      "chance": 10,
+      "item": "jsg:naquadah_alloy_raw"
+    },
+    {
+      "chance": 10,
+      "item": "jsg:naquadah_raw_nugget"
+    },
+    {
+      "chance": 5,
+      "item": "jsg:plate_naquadah_raw"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "tag": "jsg:ingots/naquadah"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_gear_naquadah_raw"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "jsg:incomplete_gear_naquadah_raw"
+        },
+        {
+          "tag": "forge:ingots/naquadah"
+        }
+      ],
+      "results": [
+        {
+          "item": "jsg:incomplete_gear_naquadah_raw"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "jsg:incomplete_gear_naquadah_raw"
+  }
+}

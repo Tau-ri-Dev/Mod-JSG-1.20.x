@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:abydos_main_pyramid",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:concentric_rings",
+    "salt": 1762097219,
+    "count": 1,
+    "distance": 0,
+    "spread": 10,
+    "preferred_biomes": []
+  }
+}

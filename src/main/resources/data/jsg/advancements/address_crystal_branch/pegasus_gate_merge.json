@@ -1,0 +1,32 @@
+{
+  "parent": "jsg:address_crystal_branch/pegasus_crystal",
+  "display": {
+    "announce_to_chat": true,
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "jsg:stargate_pegasus_base_block"
+    },
+    "title": {
+      "translate": "advancement.jsg.pegasus_gate_merge.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.pegasus_gate_merge.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "merge_event": {
+      "trigger": "jsg:merged_pegasus"
+    }
+  },
+  "rewards": {
+    "experience": 10
+  },
+  "requirements": [
+    [
+      "merge_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

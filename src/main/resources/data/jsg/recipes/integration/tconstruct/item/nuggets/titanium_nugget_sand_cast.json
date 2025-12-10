@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "cooling_time": 22,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_titanium"
+  },
+  "result": {
+    "item": "jsg:titanium_ingot"
+  }
+}

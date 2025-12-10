@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "jsg",
+  "ingredients": [
+    {
+      "item": "jsg:mortar_and_pestle"
+    },
+    [
+      {
+        "tag": "minecraft:coals"
+      }
+    ],
+    {
+      "item": "minecraft:diorite"
+    }
+  ],
+  "result": {
+    "item": "jsg:charcoal_stick_mixture",
+    "count": 1
+  }
+}

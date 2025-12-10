@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/city/walls/east_corner_to_north",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/city/wall_tower_east_north",
+        "processors": "jsg:abydos_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

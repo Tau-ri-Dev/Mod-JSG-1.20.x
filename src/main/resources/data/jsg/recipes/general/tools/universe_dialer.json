@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "equipment",
+  "pattern": [
+    "WES",
+    "OBS",
+    "WNS"
+  ],
+  "key": {
+    "W": {
+      "tag": "forge:ingots/copper_weathered"
+    },
+    "E": {
+      "tag": "forge:ingots/copper_exposed"
+    },
+    "S": {
+      "item": "minecraft:stone_button"
+    },
+    "O": {
+      "tag": "forge:ingots/copper_oxidized"
+    },
+    "B": {
+      "tag": "forge:glass_panes/black"
+    },
+    "N": {
+      "item": "jsg:circuit_control_naquadah"
+    }
+  },
+  "result": {
+    "item": "jsg:universe_dialer",
+    "count": 1
+  }
+}

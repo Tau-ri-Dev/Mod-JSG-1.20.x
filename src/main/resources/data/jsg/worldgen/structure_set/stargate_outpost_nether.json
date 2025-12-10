@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:milkyway_outpost_nether",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1762081935,
+    "spacing": 20,
+    "separation": 6,
+    "locate_offset": [
+      0,
+      2,
+      0
+    ],
+    "type": "minecraft:random_spread"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "building",
+  "pattern": [
+    "BTE",
+    "NCY",
+    "ITI"
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:gems/blue"
+    },
+    "T": {
+      "item": "jsg:fragment_stargate_tollan"
+    },
+    "E": {
+      "tag": "forge:gems/ender"
+    },
+    "N": {
+      "item": "jsg:circuit_control_naquadah"
+    },
+    "C": {
+      "item": "jsg:capacitor_block"
+    },
+    "Y": {
+      "item": "jsg:circuit_control_crystal"
+    },
+    "I": {
+      "tag": "forge:gears/titanium"
+    }
+  },
+  "result": {
+    "item": "jsg:stargate_tollan_base_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_naquadah_refined",
+    "amount": 90
+  },
+  "temperature": 1100,
+  "output": "jsg:naquadah_alloy_refined"
+}

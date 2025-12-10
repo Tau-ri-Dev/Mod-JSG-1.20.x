@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "JSG",
+  "category": "misc",
+  "pattern": [
+    " T ",
+    "TRT",
+    " T "
+  ],
+  "key": {
+    "T": {
+      "item": "jsg:iris_blade_trinium"
+    },
+    "R": {
+      "tag": "forge:gears/trinium"
+    }
+  },
+  "result": {
+    "item": "jsg:quad_iris_blade_trinium",
+    "count": 1
+  }
+}

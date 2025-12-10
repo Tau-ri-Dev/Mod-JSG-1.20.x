@@ -1,0 +1,18 @@
+{
+  "type": "immersiveengineering:crusher",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "energy": 3200,
+  "input": {
+    "tag": "forge:storage_blocks/ender_crystal"
+  },
+  "result": {
+      "count": 4,
+      "item": "jsg:ender_crystal"
+    },
+  "secondaries": []
+}

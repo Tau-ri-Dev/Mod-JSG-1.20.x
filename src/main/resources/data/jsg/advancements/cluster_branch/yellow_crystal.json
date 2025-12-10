@@ -1,0 +1,38 @@
+{
+  "parent": "jsg:cluster_branch/white_crystal",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:yellow_crystal_cluster"
+    },
+    "title": {
+      "translate": "advancement.jsg.yellow_cluster.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.yellow_cluster.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:yellow_crystal_cluster"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickup_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

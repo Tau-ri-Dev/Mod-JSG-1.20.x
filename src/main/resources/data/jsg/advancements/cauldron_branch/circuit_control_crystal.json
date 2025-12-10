@@ -1,0 +1,38 @@
+{
+  "parent": "jsg:cauldron_branch/circuit_control_naquadah",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:circuit_control_crystal"
+    },
+    "title": {
+      "translate": "advancement.jsg.crystal_circuit.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.crystal_circuit.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:circuit_control_crystal"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickup_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "jsg:cauldron_branch/cauldron",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:circuit_control_naquadah"
+    },
+    "title": {
+      "translate": "advancement.jsg.naquadah_circuit.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.naquadah_circuit.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:circuit_control_naquadah"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickup_event"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

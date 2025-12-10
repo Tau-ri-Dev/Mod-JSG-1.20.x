@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "has_circuit_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:yellow_crystal",
+              "jsg:ender_crystal",
+              "jsg:red_crystal",
+              "jsg:blue_crystal",
+              "jsg:small_white_crystal",
+              "jsg:plate_titanium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/item/utils/circuit_control_base"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_circuit_material",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/item/utils/circuit_control_base"
+    ]
+  },
+  "sends_telemetry_event": false
+}

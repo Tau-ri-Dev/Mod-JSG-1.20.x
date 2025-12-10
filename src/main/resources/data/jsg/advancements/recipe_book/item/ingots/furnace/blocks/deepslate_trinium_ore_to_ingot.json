@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_trinium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:deepslate_trinium_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/item/ingots/furnace/blocks/deepslate_trinium_ore_to_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_trinium_ore",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/item/ingots/furnace/blocks/deepslate_trinium_ore_to_ingot"
+    ]
+  },
+  "sends_telemetry_event": false
+}

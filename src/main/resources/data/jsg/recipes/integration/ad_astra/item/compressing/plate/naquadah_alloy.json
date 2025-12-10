@@ -1,0 +1,18 @@
+{
+  "type": "ad_astra:compressing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ad_astra"
+    }
+  ],
+  "cookingtime": 100,
+  "energy": 20,
+  "ingredient": {
+    "tag": "forge:ingots/naquadah_alloy"
+  },
+  "result": {
+    "count": 1,
+    "id": "jsg:plate_naquadah"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "ingredients" : [
+    {
+      "tag": "forge:ingots/naquadah_refined"
+    },
+    {
+      "item": "jsg:hammer"
+    }
+  ],
+  "result": {
+    "item": "jsg:plate_naquadah_refined",
+    "count": 1
+  }
+}

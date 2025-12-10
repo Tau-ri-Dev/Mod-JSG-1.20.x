@@ -1,0 +1,8 @@
+{
+  "values" : [
+    "#jsg:stargate/stargate_part",
+    "#jsg:dhd/dhd_any",
+    "jsg:invisible_block",
+    "jsg:iris_block"
+  ]
+}

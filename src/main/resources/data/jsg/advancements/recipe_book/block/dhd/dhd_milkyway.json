@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "has_dhd_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:dhd_brb",
+              "jsg:holder_crystal"
+            ],
+            "_comment": "Redo after DHD are finished!!!"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/block/dhd/dhd_milkyway"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_dhd_material",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/block/dhd/dhd_milkyway"
+    ]
+  },
+  "sends_telemetry_event": false
+}

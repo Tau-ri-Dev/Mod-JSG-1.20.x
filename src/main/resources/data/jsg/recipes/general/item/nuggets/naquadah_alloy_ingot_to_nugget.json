@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:naquadah_alloy"
+    }
+  ],
+  "result": {
+    "item": "jsg:naquadah_nugget",
+    "count": 9
+  }
+}

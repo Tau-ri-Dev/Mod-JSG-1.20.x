@@ -1,7 +1,7 @@
 package dev.tauri.jsg.api.event;
 
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
-import dev.tauri.jsg.stargate.network.SymbolInterface;
+import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
 import net.minecraftforge.eventbus.api.Cancelable;
 
 /**
@@ -13,7 +13,7 @@ public final class StargateChevronEngagedEvent extends StargateAbstractEvent {
     private final SymbolInterface symbol;
     private final boolean lastSymbol;
 
-    public StargateChevronEngagedEvent(StargateAbstractBaseBE tile, SymbolInterface symbol, boolean lastSymbol) {
+    public StargateChevronEngagedEvent(Stargate<?> tile, SymbolInterface symbol, boolean lastSymbol) {
         super(tile);
         this.symbol = symbol;
         this.lastSymbol = lastSymbol;

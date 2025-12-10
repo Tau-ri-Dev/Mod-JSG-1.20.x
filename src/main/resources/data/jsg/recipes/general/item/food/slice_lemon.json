@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "jsg:trap_lemon"
+    },
+    {
+      "item": "jsg:knife"
+    }
+  ],
+  "result": {
+    "item": "jsg:slice_lemon",
+    "count": 3
+  }
+}

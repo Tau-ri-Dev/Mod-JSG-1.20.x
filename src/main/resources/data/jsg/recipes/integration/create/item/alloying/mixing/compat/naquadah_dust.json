@@ -1,0 +1,40 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value" : {
+        "type" : "forge:tag_empty",
+        "tag" : "forge:dusts/iron"
+      }
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    [
+      {
+        "tag": "forge:dusts/naquadah"
+      },
+      {
+        "tag": "forge:ingots/naquadah"
+      }
+    ],
+    [
+      {
+        "tag": "forge:ingots/iron"
+      },
+      {
+        "tag": "forge:dusts/iron"
+      }
+    ]
+  ],
+  "results": [
+    {
+      "count": 2,
+      "item": "jsg:naquadah_dust"
+    }
+  ]
+}

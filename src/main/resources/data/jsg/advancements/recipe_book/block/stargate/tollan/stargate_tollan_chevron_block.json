@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "has_stargate_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:blue_crystal",
+              "jsg:plate_titanium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/block/stargate/tollan/stargate_tollan_chevron_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_stargate_material",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/block/stargate/tollan/stargate_tollan_chevron_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

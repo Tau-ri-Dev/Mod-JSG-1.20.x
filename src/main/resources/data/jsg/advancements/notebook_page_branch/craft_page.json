@@ -1,0 +1,48 @@
+{
+  "parent": "jsg:root",
+  "display": {
+    "frame": "task",
+    "announce_to_chat": false,
+    "hidden": false,
+    "icon": {
+      "item": "jsg:page_notebook_empty"
+    },
+    "title": {
+      "translate": "advancement.jsg.craft_page.title"
+    },
+    "description": {
+      "translate": "advancement.jsg.craft_page.description",
+      "italic": true
+    }
+  },
+  "criteria": {
+    "crafting_event": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "jsg:general/item/utils/page_notebook_empty"
+      }
+    },
+    "pickup_event": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:page_notebook_empty"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafting_event",
+      "pickup_event"
+    ]
+  ],
+  "rewards": {
+    "experience": 2
+  },
+  "sends_telemetry_event": false
+}

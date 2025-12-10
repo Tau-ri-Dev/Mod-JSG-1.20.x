@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "JSG",
+  "ingredient": {
+    "tag": "forge:raw_materials/naquadah"
+  },
+  "result": "jsg:naquadah_alloy_raw",
+  "experience": 0.4,
+  "cookingtime": 200
+}

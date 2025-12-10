@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_trinium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:trinium_raw"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/item/ingots/blastfurnace/ore/trinium_ore_raw_to_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_trinium_ore",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/item/ingots/blastfurnace/ore/trinium_ore_raw_to_ingot"
+    ]
+  },
+  "sends_telemetry_event": false
+}

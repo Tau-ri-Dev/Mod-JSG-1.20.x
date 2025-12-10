@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "JSG",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsg:lemon"
+    },
+    {
+      "item": "jsg:knife"
+    }
+  ],
+  "result": {
+    "item": "jsg:trap_lemon",
+    "count": 2
+  }
+}

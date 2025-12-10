@@ -1,0 +1,23 @@
+{
+  "type": "thermal:pulverizer",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "item": "minecraft:calcite"
+  },
+  "result": [
+    {
+      "item": "jsg:crushed_calcite",
+      "chance": 3.0
+    },
+    {
+      "item": "jsg:crushed_calcite",
+      "chance": 0.2
+    }
+  ],
+  "experience": 0.4
+}

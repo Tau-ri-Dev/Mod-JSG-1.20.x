@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "has_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "jsg:red_crystal",
+              "jsg:small_red_crystal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "jsg:general/item/crystals/dhd/crystal_control_dhd"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_crystal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "jsg:general/item/crystals/dhd/crystal_control_dhd"
+    ]
+  },
+  "sends_telemetry_event": false
+}
