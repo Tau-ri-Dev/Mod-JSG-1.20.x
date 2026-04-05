@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/pegasus/ground_backs/desert",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/pegasus/desert/backs/back_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/pegasus/desert/backs/back_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/pegasus/desert/backs/back_3",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/pegasus/desert/backs/back_4",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    }
+  ]
+}

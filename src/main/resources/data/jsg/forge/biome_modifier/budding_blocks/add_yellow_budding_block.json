@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#jsg:has_budding_yellow",
-  "features": [
-    "jsg:budding_yellow_crystal"
-  ],
-  "step": "underground_ores"
-}

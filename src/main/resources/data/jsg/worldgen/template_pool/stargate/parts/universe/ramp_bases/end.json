@@ -1,0 +1,33 @@
+{
+  "name": "jsg:stargate/parts/universe/ramp_bases/end",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/universe/end/bases/base_2",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/universe/end/bases/base_3",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/universe/end/bases/base_4",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

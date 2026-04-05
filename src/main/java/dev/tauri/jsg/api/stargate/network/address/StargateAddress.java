@@ -1,11 +1,23 @@
 package dev.tauri.jsg.api.stargate.network.address;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
+import dev.tauri.jsg.api.entity.StargateAddressData;
+import dev.tauri.jsg.api.registry.JSGNotebookPageTypes;
+import dev.tauri.jsg.core.common.entity.NotebookPageType;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
+import dev.tauri.jsg.core.common.symbol.address.IAddress;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
+import dev.tauri.jsg.core.mapping.JSGMapping;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -13,7 +25,7 @@ import java.util.Random;
 
 public class StargateAddress implements IAddress {
 
-    public StargateAddress(AbstractSymbolType<?> symbolType, SymbolInterface symbol1, SymbolInterface symbol2, SymbolInterface symbol3, SymbolInterface symbol4, SymbolInterface symbol5, SymbolInterface symbol6, SymbolInterface symbol7, SymbolInterface symbol8) {
+    public StargateAddress(SymbolType<?> symbolType, SymbolInterface symbol1, SymbolInterface symbol2, SymbolInterface symbol3, SymbolInterface symbol4, SymbolInterface symbol5, SymbolInterface symbol6, SymbolInterface symbol7, SymbolInterface symbol8) {
         this.symbolType = symbolType;
         address.addAll(List.of(
                 symbol1,
@@ -27,7 +39,7 @@ public class StargateAddress implements IAddress {
         ));
     }
 
-    public StargateAddress(AbstractSymbolType<?> symbolType) {
+    public StargateAddress(SymbolType<?> symbolType) {
         this.symbolType = symbolType;
     }
 
@@ -47,11 +59,30 @@ public class StargateAddress implements IAddress {
     // ---------------------------------------------------------------------------------
     // Address
 
-    protected AbstractSymbolType<?> symbolType;
+    protected SymbolType<?> symbolType;
     protected List<SymbolInterface> address = new ArrayList<>(8);
 
-    public AbstractSymbolType<?> getSymbolType() {
+    public SymbolType<?> getSymbolType() {
         return symbolType;
+    }
+
+    @Override
+    @ParametersAreNonnullByDefault
+    public CompoundTag getCompound(int[] symbolsToDisplay, ResourceKey<Biome> biome, @Nullable PointOfOrigin pointOfOrigin) {
+        return getNotebookPageType().createCompoundTag(new StargateAddressData(new StargateAddressDynamic(this), symbolsToDisplay, pointOfOrigin), biome);
+    }
+
+    @Override
+    public NotebookPageType<StargateAddressData> getNotebookPageType() {
+        return JSGNotebookPageTypes.STARGATE_ADDRESS.get();
+    }
+
+    @Override
+    public StargateAddressDynamic addOriginIfMissingAndImmutable() {
+        return Util.make(new StargateAddressDynamic(getSymbolType()), (a) -> {
+            a.addAll(this.address);
+            a.addOrigin();
+        });
     }
 
     /**
@@ -134,7 +165,7 @@ public class StargateAddress implements IAddress {
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
 
-        compound.putString("symbolType", symbolType.getId());
+        compound.putString("symbolType", symbolType.getId().toString());
 
         for (int i = 0; i < getSavedSymbols(); i++)
             compound.putInt("symbol" + i, address.get(i).getId());
@@ -150,33 +181,32 @@ public class StargateAddress implements IAddress {
                 JSGApi.logger.error(s.getEnglishName());
             return;
         }
-
-        if (compound.contains("symbolType", CompoundTag.TAG_INT)) {
-            // old format - used int as id
-            symbolType = AbstractSymbolType.byId(compound.getInt("symbolType"));
-        } else {
-            // new format use string as id
-            symbolType = AbstractSymbolType.byId(compound.getString("symbolType"));
+        if (symbolType == null) {
+            symbolType = SymbolType.byId(JSGMapping.fixRL(compound.getString("symbolType")));
         }
 
-        for (int i = 0; i < getSavedSymbols(); i++)
+        for (int i = 0; i < getSavedSymbols(); i++) {
+            if (!compound.contains("symbol" + i)) continue;
             address.add(symbolType.valueOf(compound.getInt("symbol" + i)));
+        }
     }
 
-    public void toBytes(ByteBuf buf) {
-        buf.writeByte(AbstractSymbolType.getId(symbolType));
+    public void toBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
+        buf.writeResourceLocation(symbolType.getId());
 
         for (int i = 0; i < getSavedSymbols(); i++)
             buf.writeByte(address.get(i).getId());
     }
 
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
         if (!address.isEmpty()) {
             JSGApi.logger.error("Tried to deserialize address already containing symbols");
             return;
         }
 
-        symbolType = AbstractSymbolType.byId(buf.readByte());
+        symbolType = SymbolType.byId(buf.readResourceLocation());
 
         for (int i = 0; i < getSavedSymbols(); i++)
             address.add(symbolType.valueOf(buf.readByte()));
@@ -232,21 +262,6 @@ public class StargateAddress implements IAddress {
         if (address.isEmpty()) return address;
         if (address.get(address.size() - 1).origin()) return address.subList(0, address.size() - 1);
         return address;
-    }
-
-    public boolean equalsV2(StargateAddressDynamic address) {
-        return equalsV2(address, address.getSize());
-    }
-
-    public boolean equalsV2(StargateAddressDynamic address, int checkLength) {
-        for (int i = 0; i < address.getSize(); i++) {
-            if (i + 1 > checkLength) break;
-            if (this.address.size() >= i + 1) {
-                if (this.address.get(i) != address.get(i))
-                    return false;
-            } else return false;
-        }
-        return true;
     }
 
     public boolean contains(SymbolInterface symbol) {

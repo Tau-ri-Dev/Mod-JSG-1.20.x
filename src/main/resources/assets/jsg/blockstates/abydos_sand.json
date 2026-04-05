@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "jsg:block/abydos_sand"
+      },
+      {
+        "model": "jsg:block/abydos_sand",
+        "y": 90
+      },
+      {
+        "model": "jsg:block/abydos_sand",
+        "y": 180
+      },
+      {
+        "model": "jsg:block/abydos_sand",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "jsg:block/stargate/stargate_milkyway_sides",
+    "north": "jsg:block/stargate/stargate_milkyway_base_front",
+    "south": "jsg:block/stargate/stargate_milkyway_sides",
+    "west": "jsg:block/stargate/stargate_milkyway_sides",
+    "east": "jsg:block/stargate/stargate_milkyway_sides",
+    "up": "jsg:block/stargate/stargate_milkyway_sides",
+    "down": "jsg:block/stargate/stargate_milkyway_sides"
+  }
+}

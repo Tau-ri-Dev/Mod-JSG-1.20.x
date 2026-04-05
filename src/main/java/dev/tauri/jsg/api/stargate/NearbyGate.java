@@ -16,7 +16,7 @@ public class NearbyGate {
 
     public int[] getSymbolsToDisplay() {
         var result = new int[symbolsNeeded];
-        for (var i = 1; i <= symbolsNeeded; i++) {
+        for (var i = 1; i < symbolsNeeded; i++) {
             result[i - 1] = i;
         }
         result[symbolsNeeded - 1] = 9;

@@ -34,7 +34,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "jsg:naquadah_raw_nugget",
+          "name": "jsg_core:naquadah_raw_nugget",
           "weight": 7,
           "functions": [
             {
@@ -50,7 +50,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "jsg:naquadah_raw",
+          "name": "jsg_core:naquadah_raw",
           "weight": 7,
           "functions": [
             {
@@ -66,7 +66,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "jsg:naquadah_nugget",
+          "name": "jsg_core:naquadah_nugget",
           "weight": 6,
           "functions": [
             {
@@ -82,12 +82,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "jsg:naquadah_refined_nugget",
+          "name": "jsg_core:naquadah_refined_nugget",
           "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "jsg:oxidized_copper_ingot",
+          "name": "jsg_core:oxidized_copper_ingot",
           "weight": 4,
           "functions": [
             {
@@ -103,7 +103,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "jsg:page_notebook_empty",
+          "name": "jsg_core:page_notebook_empty",
           "weight": 2,
           "functions": [
             {

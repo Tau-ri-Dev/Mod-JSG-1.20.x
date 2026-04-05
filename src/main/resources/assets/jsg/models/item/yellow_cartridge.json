@@ -1,0 +1,7 @@
+{
+	"parent": "jsg:item/cartridge",
+	"textures": {
+		"3": "block/yellow_wool",
+		"4": "block/yellow_concrete"
+	}
+}

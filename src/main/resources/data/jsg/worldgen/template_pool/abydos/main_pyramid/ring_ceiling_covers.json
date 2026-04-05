@@ -1,0 +1,12 @@
+{
+  "name": "jsg:abydos/main_pyramid/ring_ceiling_covers",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    }
+  ]
+}

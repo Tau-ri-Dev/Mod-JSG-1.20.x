@@ -1,0 +1,6 @@
+{
+	"parent": "item/generated",
+    	"textures": {
+		"layer0": "jsg:item/dhd_element/dhd_brb"
+	}
+}

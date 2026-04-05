@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "start_pool": "jsg:stargate/parts/movie/common/bases/compat",
+  "start_pool": "jsg:stargate/parts/movie/compat/with_ramp",
   "size": 2,
   "max_distance_from_center": 80,
   "biomes": "#jsg:has_structure/movie_outpost_compat",

@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#jsg:has_geodes_yellow",
-  "features": [
-    "jsg:yellow_crystal_geode"
-  ],
-  "step": "underground_ores"
-}

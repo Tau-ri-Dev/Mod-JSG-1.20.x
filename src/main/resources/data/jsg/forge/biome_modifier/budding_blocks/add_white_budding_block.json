@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#jsg:has_budding_white",
-  "features": [
-    "jsg:budding_white_crystal"
-  ],
-  "step": "underground_ores"
-}

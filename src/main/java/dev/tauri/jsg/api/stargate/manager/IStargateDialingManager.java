@@ -10,13 +10,13 @@ import dev.tauri.jsg.api.stargate.animation.ISpinHelper;
 import dev.tauri.jsg.api.stargate.network.IStargateConnection;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
 import dev.tauri.jsg.api.stargate.result.StargateAddressCheckResult;
 import dev.tauri.jsg.api.stargate.result.StargateChevronEngageResult;
 import dev.tauri.jsg.api.stargate.result.StargateCloseResult;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
-import dev.tauri.jsg.api.util.ITickable;
+import dev.tauri.jsg.core.common.blockentity.ITickable;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -46,9 +46,9 @@ public interface IStargateDialingManager extends INBTSerializable<CompoundTag>, 
 
     StargateAddressCheckResult checkAddressAndEnergyRequirements(StargateAddressDynamic address, boolean noEnergy);
 
-    boolean canDialAddress(StargateAddressDynamic address);
+    boolean canDialAddress(StargateAddressDynamic address, boolean checkTarget);
 
-    Pair<StargateAddressCheckResult, Stargate<?>> getTargetByAddress(StargateAddressDynamic address);
+    Pair<StargateAddressCheckResult, Stargate<?>> getTargetByAddress(StargateAddressDynamic address, boolean checkTarget);
 
     Optional<StargatePos> getDialableStargatePos(StargateAddressDynamic address);
 
@@ -56,7 +56,7 @@ public interface IStargateDialingManager extends INBTSerializable<CompoundTag>, 
 
     StargateChevronEngageResult canAddSymbol(SymbolInterface symbol, boolean ignoreMaxChevrons);
 
-    int getMinimalSymbolsToDial(AbstractSymbolType<?> symbolType, StargatePos targetGatePos);
+    int getMinimalSymbolsToDial(SymbolType<?> symbolType, StargatePos targetGatePos);
 
     boolean canAcceptConnectionFrom(@Nullable StargatePos targetGatePos);
 

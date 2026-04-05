@@ -1,7 +1,7 @@
 package dev.tauri.jsg.api.stargate.exception;
 
-import dev.tauri.jsg.api.helper.BlockHelper;
 import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.core.common.helper.BlockHelper;
 
 public class StargateException extends RuntimeException {
     protected final Stargate<?> stargate;
@@ -14,6 +14,6 @@ public class StargateException extends RuntimeException {
     @Override
     @SuppressWarnings("all")
     public String getMessage() {
-        return "[stargate at " + BlockHelper.blockPosToBetterString(stargate.getBlockPos()) + " in " + stargate.getStargatePos().dimension.location() + "]: " + super.getMessage();
+        return "[stargate at " + BlockHelper.blockPosToBetterString(stargate.blockPosition()) + " in " + stargate.getStargatePos().dimension.location() + "]: " + super.getMessage();
     }
 }

@@ -1,12 +1,8 @@
 package dev.tauri.jsg.api.stargate;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.multistructure.merging.IMergeHelper;
-import dev.tauri.jsg.api.power.JSGEnergyStorage;
-import dev.tauri.jsg.api.registry.BiomeOverlayRegistry;
-import dev.tauri.jsg.api.registry.ScheduledTaskType;
-import dev.tauri.jsg.api.sound.IPositionedSound;
-import dev.tauri.jsg.api.sound.ISoundEvent;
+import dev.tauri.jsg.api.registry.JSGScheduledTaskTypes;
+import dev.tauri.jsg.api.registry.JSGSymbolUsages;
 import dev.tauri.jsg.api.sound.StargateSoundEventEnum;
 import dev.tauri.jsg.api.sound.StargateSoundPositionedEnum;
 import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
@@ -15,60 +11,98 @@ import dev.tauri.jsg.api.stargate.manager.*;
 import dev.tauri.jsg.api.stargate.network.IStargateNetwork;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolUsage;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
 import dev.tauri.jsg.api.stargate.type.StargateType;
-import dev.tauri.jsg.api.state.IStateProvider;
-import dev.tauri.jsg.api.util.*;
+import dev.tauri.jsg.api.util.IStargateGenerator;
+import dev.tauri.jsg.core.common.blockentity.*;
+import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
+import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
+import dev.tauri.jsg.core.common.loader.PointOfOriginsLoader;
+import dev.tauri.jsg.core.common.multistructure.merging.IMergeHelper;
+import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
+import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
+import dev.tauri.jsg.core.common.sound.IPositionedSound;
+import dev.tauri.jsg.core.common.sound.ISoundEvent;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
+import dev.tauri.jsg.core.common.symbol.SymbolUtil;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
+import dev.tauri.jsg.core.common.util.JSGAxisAlignedBB;
+import dev.tauri.jsg.core.common.util.RotationUtil;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITickable, ScheduledTaskExecutorInterface, IStateProvider {
+public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITickable, ScheduledTaskExecutorInterface, IStateProvider, ComputerDeviceProvider {
+    static int[] getRandomSymbolsToDisplay(int maxSymbols, Predicate<Integer> shouldDisplaySymbol) {
+        var symbolsToDisplay = new ArrayList<Integer>();
+        if (maxSymbols < 1) return new int[0];
+        if (maxSymbols > 8) maxSymbols = 8;
+        for (var i = 1; i <= maxSymbols; i++) {
+            if (shouldDisplaySymbol.test(i))
+                symbolsToDisplay.add(i);
+        }
+        if (shouldDisplaySymbol.test(9))
+            symbolsToDisplay.add(9);
+        var symbolToDisplayArray = new int[symbolsToDisplay.size()];
+        for (var i = 0; i < symbolsToDisplay.size(); i++) {
+            symbolToDisplayArray[i] = symbolsToDisplay.get(i);
+        }
+        return symbolToDisplayArray;
+    }
+
+    @Nullable
+    @ParametersAreNonnullByDefault
+    static PointOfOrigin getOriginFor(IPointOfOriginType pointOfOriginType, ResourceKey<Level> dimension, BiomeOverlayInstance biomeOverlayInstance) {
+        return Optional.ofNullable(PointOfOriginsLoader.INSTANCE.getOriginFor(pointOfOriginType, dimension, biomeOverlayInstance)).orElse(pointOfOriginType.getDefaultPoO());
+    }
+
+    private BlockEntity self() {
+        return (BlockEntity) this;
+    }
+
     // stargate methods
     long getTime();
 
     void initStargatePos();
 
-    @Nullable
     StargatePos getStargatePos();
 
     default boolean is(@Nullable Stargate<?> stargate) {
         if (stargate == null) return false;
-        return stargate.getStargatePos() == getStargatePos();
+        return stargate.getStargatePos().equals(getStargatePos());
     }
 
     default boolean is(@Nullable StargatePos stargatePos) {
         if (stargatePos == null) return false;
-        return stargatePos == getStargatePos();
+        return stargatePos.equals(getStargatePos());
     }
 
     default BlockPos getGateCenterPos() {
         return relative(new BlockPos(0, 4, 0));
     }
 
-    AbstractSymbolType<?> getSymbolType();
+    SymbolType<?> getSymbolType();
 
-    StargateType getStargateType();
+    StargateType<?> getStargateType();
 
     default int getMaxChevrons() {
         return 7;
@@ -102,7 +136,11 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
     void onGateMerged();
 
     default int getOpenSoundDelay() {
-        return ScheduledTaskType.STARGATE_OPEN_SOUND.waitTicks;
+        return JSGScheduledTaskTypes.STARGATE_OPEN_SOUND.get().waitTicks();
+    }
+
+    default int getCloseSoundDelay() {
+        return JSGScheduledTaskTypes.STARGATE_CLOSE_SOUND.get().waitTicks();
     }
 
     default boolean sendIrisCode(CodeSender sender, String code) {
@@ -118,25 +156,25 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
 
     void tryRegenerateStargateIfNeeded();
 
-    Map<AbstractSymbolType<?>, StargateAddress> getAddressMap();
+    Map<SymbolType<?>, StargateAddress> getAddressMap();
 
     @Nullable
-    StargateAddress getStargateAddress(AbstractSymbolType<?> symbolType);
+    StargateAddress getStargateAddress(SymbolType<?> symbolType);
 
-    void setGateAddress(AbstractSymbolType<?> symbolType, StargateAddress stargateAddress);
+    void setGateAddress(SymbolType<?> symbolType, StargateAddress stargateAddress);
 
     default void generateAddresses(boolean reset) {
-        var level = getLevel();
+        var level = getStargateLevel();
         if (level == null) return;
         initStargatePos();
         var stargatePos = getStargatePos();
         if (reset)
             getNetwork().removeStargate(getStargatePos());
-        var seed = getBlockPos().hashCode() * 31L + level.dimension().location().hashCode();
+        var seed = blockPosition().hashCode() * 31L + level.dimension().location().hashCode();
         JSGApi.logger.debug("Seed for stargate {} address gen is {}", stargatePos.toString(), seed);
         Random random = new Random(seed);
 
-        for (AbstractSymbolType<?> symbolType : AbstractSymbolType.values(SymbolUsage.STARGATES)) {
+        for (SymbolType<?> symbolType : SymbolType.values(JSGSymbolUsages.STARGATES.get())) {
             var address = getStargateAddress(symbolType);
             if (address != null && !reset) continue;
             var sgn = getNetwork();
@@ -148,7 +186,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
                 sgnPos = sgn.getStargate(address);
                 JSGApi.logger.debug("Generating address for gate at {}, symbol type {}: {} ", stargatePos.toString(), symbolType.getId(), address.getNameList());
             } while (sgnPos != null && !sgnPos.equals(stargatePos));
-            // we can not check min symbols if dim group equal because you can have this situation:
+            // we can not check min symbols if dimension group equal because you can have this situation:
             // 1st gate will be in nether
             // 2nd gate will be in the end
             // 3rd gate will be in overworld
@@ -173,42 +211,32 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
      * @throws IllegalArgumentException When symbol/index is invalid.
      */
     default SymbolInterface getSymbolFromNameIndex(Object nameIndex) throws IllegalArgumentException {
-        SymbolInterface symbol = null;
-        if (nameIndex instanceof Integer)
-            symbol = getSymbolType().valueOf((Integer) nameIndex);
-        else if (nameIndex instanceof Double)
-            symbol = getSymbolType().valueOf(((Double) nameIndex).intValue());
-        else if (nameIndex instanceof String)
-            symbol = getSymbolType().fromEnglishName((String) nameIndex);
-        else if (nameIndex instanceof byte[])
-            symbol = getSymbolType().fromEnglishName(new String((byte[]) nameIndex));
-        if (symbol == null)
-            symbol = getSymbolType().fromEnglishName(nameIndex.toString());
-        if (symbol == null)
-            throw new IllegalArgumentException("bad argument (symbol name/index invalid) (tried: " + nameIndex + ")");
-        return symbol;
+        return SymbolUtil.getSymbolFromNameIndexOrThrow(getSymbolType(), nameIndex);
     }
 
-    ItemStack getAddressPage(AbstractSymbolType<?> symbolType, ItemStack defaultStack, int[] symbolsToDisplay);
+    ItemStack getAddressPage(SymbolType<?> symbolType, ItemStack defaultStack, int[] symbolsToDisplay);
 
-    int getOriginId();
+    @Nullable
+    PointOfOrigin getPointOfOrigin(SymbolType<?> symbolType);
 
-    default void setOriginId(CompoundTag compound) {
-        compound.putInt("originId", getOriginId());
+    @Nullable
+    PointOfOrigin getPointOfOrigin(IPointOfOriginType pointOfOriginType);
+
+    @Nullable
+    default PointOfOrigin getPointOfOrigin() {
+        return getPointOfOrigin(getPointOfOriginType());
     }
 
-    List<BiomeOverlayRegistry.BiomeOverlayInstance> getSupportedOverlays();
-
-    default BiomeOverlayRegistry.BiomeOverlayInstance getBiomeOverlayWithOverride(boolean override) {
-        var world = getLevel();
-        if (world == null) return BiomeOverlayRegistry.NORMAL;
-        return BiomeOverlayRegistry.getUpdatedBiomeOverlay(world, getMergeHelper().getTopBlock(), getSupportedOverlays());
+    default IPointOfOriginType getPointOfOriginType() {
+        return getStargateType();
     }
 
-    default void clearDHDSymbols() {
-    }
+    List<Supplier<BiomeOverlayInstance>> getSupportedOverlays();
 
-    default void activateDHDBRB() {
+    default BiomeOverlayInstance getBiomeOverlayWithOverride() {
+        var world = getStargateLevel();
+        if (world == null) return CoreBiomeOverlays.NORMAL.get();
+        return BiomeOverlayInstance.getUpdatedBiomeOverlay(world, getMergeHelper().getTopBlock(), getSupportedOverlays().stream().map(Supplier::get).toList());
     }
 
     boolean shouldAutoclose();
@@ -246,8 +274,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
 
     default void playPositionedSound(StargateSoundPositionedEnum soundEnum, boolean play) {
         IPositionedSound positionedSound = getPositionedSound(soundEnum);
-        if (positionedSound == null)
-            throw new IllegalArgumentException("Tried to play " + soundEnum + " on " + getClass().getCanonicalName() + " which apparently doesn't support it.");
+        if (positionedSound == null) return;
         playPositionedSound(positionedSound, play);
     }
 
@@ -255,8 +282,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
 
     default void playSoundEvent(StargateSoundEventEnum soundEnum) {
         var soundEvent = getSoundEvent(soundEnum);
-        if (soundEvent == null)
-            throw new IllegalArgumentException("Tried to play " + soundEnum + " on " + getClass().getCanonicalName() + " which apparently doesn't support it.");
+        if (soundEvent == null) return;
         playSoundEvent(soundEvent, getSoundEventPitch(soundEnum));
     }
 
@@ -296,30 +322,41 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
 
     IStargateEventHorizonManager getEventHorizonManager();
 
+    IBELogManager getLogManager();
+
 
     // BE methods
     @Nullable
-    Level getLevel();
+    default Level getStargateLevel() {
+        return self().getLevel();
+    }
 
-    void setChanged();
+    default RandomSource getRandom() {
+        return (getStargateLevel() == null ? RandomSource.create() : getStargateLevel().random);
+    }
 
-    BlockPos getBlockPos();
+    default BlockState getStargateBlockState() {
+        return self().getBlockState();
+    }
 
-    BlockState getBlockState();
+    default void setStargateChanged() {
+        self().setChanged();
+    }
 
-    default void onLoad() {
-        var level = getLevel();
+    default void onStargateLoaded() {
+        var level = getStargateLevel();
         if (level == null) return;
         if (!level.isClientSide()) {
             getStateManager().onLoad(level);
             tryRegenerateStargateIfNeeded();
             generateAddresses(false);
-            setChanged();
+            setStargateChanged();
             updateFacing();
             generateMergeHelper();
         } else
             getStateManager().onLoad(level);
         getDialingManager().onLoad(level);
+        getRIGManager().onLoad(level);
         getEventHorizonManager().onLoad(level);
         getSoundManager().onLoad(level);
     }
@@ -340,55 +377,17 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
         }
     }
 
+    default BlockPos blockPosition() {
+        return self().getBlockPos();
+    }
+
     default <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-        if (capability == ForgeCapabilities.ENERGY) {
-            return LazyOptional.of(() -> getEnergyManager().getStorage()).cast();
-        }
-        return LazyOptional.empty();
+        return self().getCapability(capability, facing);
     }
 
-    default void saveAdditional(CompoundTag compound) {
-        compound.put("soundManager", getSoundManager().serializeNBT());
-        compound.put("stargateEnergyManager", getEnergyManager().serializeNBT());
-        compound.put("stargateDialingManager", getDialingManager().serializeNBT());
-        compound.put("stateManager", getStateManager().serializeNBT());
-        compound.put("eventHorizon", getEventHorizonManager().serializeNBT());
-
-        compound.put("autoCloseManager", getAutoCloseManager().serializeNBT());
-        compound.putBoolean("isMerged", isMerged());
-        compound.put("listenerHandler", getListenerHandler().serializeNBT());
-    }
-
-    default void load(CompoundTag compound) {
-        if (compound.contains("soundManager")) {
-            getSoundManager().deserializeNBT(compound.getCompound("soundManager"));
-            getEnergyManager().deserializeNBT(compound.getCompound("stargateEnergyManager"));
-            getDialingManager().deserializeNBT(compound.getCompound("stargateDialingManager"));
-            getStateManager().deserializeNBT(compound.getCompound("stateManager"));
-            getEventHorizonManager().deserializeNBT(compound.getCompound("eventHorizon"));
-        }
-        getAutoCloseManager().deserializeNBT(compound.getCompound("autoCloseManager"));
-        setMerged(compound.getBoolean("isMerged"));
-        getListenerHandler().deserializeNBT(compound.getCompound("listenerHandler"));
-    }
+    <T> LazyOptional<T> getStargateCapability(Capability<T> capability, @Nullable Direction facing);
 
     // util
-    static int getOriginId(@javax.annotation.Nullable BiomeOverlayRegistry.BiomeOverlayInstance overlay, @javax.annotation.Nullable ResourceKey<Level> dim, int configOrigin) {
-        if (configOrigin >= 0) return configOrigin;
-
-        if (overlay == null) overlay = BiomeOverlayRegistry.NORMAL;
-
-        int override = -1; // todo fix this when rewriting origins loading //StargateDimensionConfig.INSTANCE.getOrigin(dim, overlay);
-        if (override >= 0)
-            return override;
-
-        if (overlay == BiomeOverlayRegistry.NORMAL) return (dim == Level.OVERWORLD ? 5 : 0);
-        if (overlay == BiomeOverlayRegistry.SOOTY) return 2;
-        if (overlay == BiomeOverlayRegistry.AGED) return 4;
-        if (overlay == BiomeOverlayRegistry.FROST) return 3;
-        return 0;
-    }
-
     default Direction getFacing() {
         return getMergeHelper().getHorizontalFacing();
     }
@@ -418,17 +417,17 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
     }
 
     default JSGAxisAlignedBB relative(JSGAxisAlignedBB box, Vec3 pivot) {
-        var p = getBlockPos();
+        var p = blockPosition();
         return rotated(box, pivot).offset(p.getX(), p.getY(), p.getZ());
     }
 
     default Vec3 relative(Vec3 pos, Vec3 pivot) {
-        var p = getBlockPos();
+        var p = blockPosition();
         return rotated(pos, pivot).add(p.getX(), p.getY(), p.getZ());
     }
 
     default Vec3 relative(Vec3 pos) {
-        var p = getBlockPos();
+        var p = blockPosition();
         return rotated(pos).add(p.getX(), p.getY(), p.getZ());
     }
 
@@ -438,12 +437,12 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
     }
 
     default BlockPos relative(BlockPos pos, BlockPos pivot) {
-        var p = getBlockPos();
+        var p = blockPosition();
         return rotated(pos, pivot).offset(p.getX(), p.getY(), p.getZ());
     }
 
     default Vec3 getRelative(Vec3 vector) {
-        var p = getBlockPos();
+        var p = blockPosition();
         return getRelativeRotated(vector.subtract(p.getX(), p.getY(), p.getZ()));
     }
 
@@ -464,6 +463,6 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
         var tag = stack.getOrCreateTag();
         if (!tag.contains("stargateEnergyManager")) return;
         getEnergyManager().deserializeNBT(tag.getCompound("stargateEnergyManager"));
-        setChanged();
+        setStargateChanged();
     }
 }

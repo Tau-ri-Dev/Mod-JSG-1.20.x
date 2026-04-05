@@ -1,0 +1,17 @@
+{
+	"parent": "minecraft:item/generated",
+	"override_transformations": true,
+	"custom_render_types": [
+		"FIRST_PERSON_LEFT_HAND",
+		"FIRST_PERSON_RIGHT_HAND",
+		"THIRD_PERSON_LEFT_HAND",
+		"THIRD_PERSON_RIGHT_HAND",
+		"FIXED",
+		"GROUND",
+		"GUI"
+	],
+	"loader": "jsg_core:handheld_item_model",
+	"textures": {
+		"layer0": "jsg_core:block/wip"
+	}
+}

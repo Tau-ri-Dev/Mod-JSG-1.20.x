@@ -1,7 +1,7 @@
 package dev.tauri.jsg.api.stargate.animation;
 
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.util.ITickable;
+import dev.tauri.jsg.core.common.blockentity.ITickable;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -26,12 +26,19 @@ public interface ISpinHelper extends INBTSerializable<CompoundTag>, ITickable {
     SymbolInterface getCurrentTopSymbol(float bounds);
 
     /**
+     * Returns current angle of the stargate ring
+     *
+     * @return angle in degrees
+     */
+    float getRingAngle();
+
+    /**
      * Calculates the current ring angle
      *
      * @param tick level tick + partial ticks if on client
      * @return angle if the ring
      */
-    float apply(double tick);
+    double apply(double tick, boolean clampAngle);
 
     /**
      * @return stop animation length in ticks relative to current ring speed

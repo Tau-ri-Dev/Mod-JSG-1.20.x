@@ -15,7 +15,7 @@
       "weight": 1,
       "element": {
         "location": "jsg:abydos/dungeon/loot_2",
-        "processors": "jsg:treasure_room",
+        "processors": "jsg:abydos/physical_treasure",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -62,7 +62,7 @@
       "weight": 2,
       "element": {
         "location": "jsg:abydos/dungeon/spawner_3",
-        "processors": "minecraft:empty",
+        "processors": "jsg_core:add_cobweb",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

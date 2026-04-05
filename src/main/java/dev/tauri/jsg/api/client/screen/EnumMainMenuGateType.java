@@ -12,11 +12,11 @@ public enum EnumMainMenuGateType {
     PEGASUS,
     BY_ACT;
 
-    public static EnumMainMenuGateType byGateType(StargateType type) {
-        if (type == StargateTypes.PEGASUS) {
+    public static EnumMainMenuGateType byGateType(StargateType<?> type) {
+        if (type == StargateTypes.PEGASUS.get()) {
             return PEGASUS;
         }
-        if (type == StargateTypes.UNIVERSE) {
+        if (type == StargateTypes.UNIVERSE.get()) {
             return UNIVERSE;
         }
         return MILKYWAY;

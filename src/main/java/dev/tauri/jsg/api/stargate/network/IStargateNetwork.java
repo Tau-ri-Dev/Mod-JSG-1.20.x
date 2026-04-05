@@ -1,8 +1,8 @@
 package dev.tauri.jsg.api.stargate.network;
 
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
 import dev.tauri.jsg.api.stargate.type.StargateType;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -17,17 +17,17 @@ import java.util.function.Predicate;
 
 public interface IStargateNetwork {
     @NotNull
-    Optional<Map.Entry<StargatePos, Map<AbstractSymbolType<?>, StargateAddress>>> getStargateByDimension(ResourceKey<Level> dimension);
+    Optional<Map.Entry<StargatePos, Map<SymbolType<?>, StargateAddress>>> getStargateByDimension(ResourceKey<Level> dimension);
 
     StargatePos getStargate(StargateAddress address);
 
-    Map<AbstractSymbolType<?>, StargateAddress> getAddresses(StargatePos pos);
+    Map<SymbolType<?>, StargateAddress> getAddresses(StargatePos pos);
 
-    Pair<StargatePos, StargateAddress> getRandomAddress(RandomSource random, AbstractSymbolType<?> symbolTypeEnum, @Nullable StargateType stargateType, @Nullable Predicate<StargatePos> customTest);
+    Pair<StargatePos, StargateAddress> getRandomAddress(RandomSource random, SymbolType<?> symbolTypeEnum, @Nullable StargateType<?> stargateType, @Nullable Predicate<StargatePos> customTest);
 
     void putStargate(StargateAddress address, StargatePos stargatePos);
 
-    void putStargate(Map<AbstractSymbolType<?>, StargateAddress> addressMap, StargatePos stargatePos);
+    void putStargate(Map<SymbolType<?>, StargateAddress> addressMap, StargatePos stargatePos);
 
     void removeStargate(StargatePos stargatePos);
 

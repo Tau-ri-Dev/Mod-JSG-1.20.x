@@ -1,0 +1,15 @@
+{
+  "name": "jsg:stargate/parts/movie/buried/for_abydos",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/movie/desert/bases/buried_for_abydos",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

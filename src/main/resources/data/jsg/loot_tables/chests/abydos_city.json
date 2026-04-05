@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "jsg:naquadah_raw"
+          "name": "jsg_core:naquadah_raw"
         },
         {
           "type": "minecraft:item",
@@ -25,7 +25,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "jsg:naquadah_raw_nugget",
+          "name": "jsg_core:naquadah_raw_nugget",
           "weight": 10
         },
         {
@@ -93,7 +93,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "jsg:titanium_ingot"
+          "name": "jsg_core:titanium_ingot"
         }
       ],
       "rolls": {

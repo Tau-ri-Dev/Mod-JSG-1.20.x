@@ -1,0 +1,22 @@
+{
+  "structures": [
+    {
+      "structure": "jsg:abydos_camp",
+      "weight": 1
+    },
+    {
+      "structure": "jsg:abydos_boulder",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1765125481,
+    "spacing": 35,
+    "separation": 16,
+    "exclusion_zone": {
+      "chunk_count": 16,
+      "other_set": "jsg:abydos_main_pyramid"
+    },
+    "type": "minecraft:random_spread"
+  }
+}

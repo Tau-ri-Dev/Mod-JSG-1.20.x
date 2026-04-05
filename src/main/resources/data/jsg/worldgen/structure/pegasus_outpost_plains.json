@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
-  "start_pool": "jsg:stargate/parts/pegasus/common/bases/plains",
-  "size": 2,
+  "start_pool": "jsg:stargate/parts/pegasus/ground_bases/plains",
+  "size": 3,
   "max_distance_from_center": 80,
   "biomes": "#jsg:has_structure/pegasus_outpost_plains",
   "terrain_adaptation": "beard_thin",

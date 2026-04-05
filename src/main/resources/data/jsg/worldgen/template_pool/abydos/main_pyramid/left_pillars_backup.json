@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/main_pyramid/left_pillars_backup",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/main_pyramid/left_pillar",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

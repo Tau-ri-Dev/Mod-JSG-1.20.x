@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 32,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "config": {
+          "features": [
+            {
+              "chance": 0.3,
+              "feature": {
+                "feature": {
+                  "config": {
+                    "to_place": {
+                      "type": "minecraft:simple_state_provider",
+                      "state": {
+                        "Name": "minecraft:tall_grass",
+                        "Properties": {
+                          "half": "lower"
+                        }
+                      }
+                    }
+                  },
+                  "type": "minecraft:simple_block"
+                },
+                "placement": []
+              }
+            }
+          ],
+          "default": {
+            "feature": {
+              "config": {
+                "to_place": {
+                  "type": "minecraft:simple_state_provider",
+                  "state": {
+                    "Name": "minecraft:grass"
+                  }
+                }
+              },
+              "type": "minecraft:simple_block"
+            },
+            "placement": []
+          }
+        },
+        "type": "minecraft:random_selector"
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}

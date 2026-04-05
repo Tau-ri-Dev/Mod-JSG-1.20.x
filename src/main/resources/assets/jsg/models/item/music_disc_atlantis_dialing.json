@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "jsg:item/record/music_disc_atlantis_dialing"
+  }
+}

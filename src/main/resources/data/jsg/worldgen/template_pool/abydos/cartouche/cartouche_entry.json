@@ -1,0 +1,15 @@
+{
+  "name": "jsg:abydos/cartouche/cartouche_entry",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "jsg:abydos/cartouche/big_cartouche_entry",
+        "processors": "jsg_core:add_fire",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

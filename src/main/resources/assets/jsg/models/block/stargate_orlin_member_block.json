@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "jsg:block/stargate/stargate_orlin_member_block_front",
+    "north": "jsg:block/stargate/stargate_orlin_member_block_front",
+    "south": "jsg:block/stargate/stargate_orlin_south",
+    "west": "jsg:block/stargate/stargate_orlin_west",
+    "east": "jsg:block/stargate/stargate_orlin_east",
+    "up": "jsg:block/stargate/stargate_orlin_top_bottom",
+    "down": "jsg:block/stargate/stargate_orlin_top_bottom"
+  }
+}

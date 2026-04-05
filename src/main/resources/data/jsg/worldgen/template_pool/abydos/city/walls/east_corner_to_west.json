@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "location": "jsg:abydos/city/wall_tower_east_west",
-        "processors": "jsg:abydos_degradation",
+        "processors": "jsg:abydos/city_degradation",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

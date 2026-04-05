@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "jsg:item/record/siren/music_disc_siren_sgc_dialing"
+  }
+}

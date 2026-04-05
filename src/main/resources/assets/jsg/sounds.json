@@ -1,0 +1,660 @@
+{
+  "block.dhd.milkyway.press": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.dhd_milkyway_press",
+    "sounds": [
+      "jsg:dhd/dhd_milkyway_press_1",
+      "jsg:dhd/dhd_milkyway_press_2",
+      "jsg:dhd/dhd_milkyway_press_3",
+      "jsg:dhd/dhd_milkyway_press_4",
+      "jsg:dhd/dhd_milkyway_press_5",
+      "jsg:dhd/dhd_milkyway_press_6",
+      "jsg:dhd/dhd_milkyway_press_7"
+    ]
+  },
+  "block.dhd.pegasus.press": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.dhd_pegasus_press",
+    "sounds": [
+      "jsg:dhd/dhd_pegasus_press_1",
+      "jsg:dhd/dhd_pegasus_press_2",
+      "jsg:dhd/dhd_pegasus_press_3",
+      "jsg:dhd/dhd_pegasus_press_4",
+      "jsg:dhd/dhd_pegasus_press_5"
+    ]
+  },
+  "block.dhd.milkyway.press.brb": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.dhd_milkyway_press_brb",
+    "sounds": [
+      "jsg:dhd/dhd_milkyway_press_brb"
+    ]
+  },
+  "block.dhd.pegasus.press.brb": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.dhd_pegasus_press_brb",
+    "sounds": [
+      "jsg:dhd/dhd_pegasus_press_brb"
+    ]
+  },
+  "block.stargate.milkyway.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_open",
+    "sounds": [
+      "jsg:gate/gate_milkyway_open"
+    ]
+  },
+  "block.stargate.pegasus.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_open",
+    "sounds": [
+      "jsg:gate/pegasus/gate_pegasus_open"
+    ]
+  },
+  "block.stargate.nox.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_open",
+    "sounds": [
+      "jsg:gate/gate_nox_open"
+    ]
+  },
+  "block.stargate.milkyway.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_close",
+    "sounds": [
+      "jsg:gate/gate_milkyway_close"
+    ]
+  },
+  "block.stargate.milkyway.ring_roll.start": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_ring_roll",
+    "sounds": [
+      "jsg:gate/gate_milkyway_ring_roll_start"
+    ]
+  },
+  "block.stargate.milkyway.ring_roll.loop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_ring_roll",
+    "sounds": [
+      "jsg:gate/gate_milkyway_ring_roll"
+    ]
+  },
+  "block.stargate.pegasus.ring_roll.loop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_ring_roll",
+    "sounds": [
+      "jsg:gate/pegasus/gate_pegasus_ring_roll"
+    ]
+  },
+  "block.stargate.pegasus.ring_roll.start": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_ring_roll",
+    "sounds": [
+      "jsg:gate/pegasus/gate_pegasus_ring_roll_start"
+    ]
+  },
+  "block.stargate.milkyway.fail": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_dial_fail",
+    "sounds": [
+      "jsg:gate/gate_milkyway_dial_fail"
+    ]
+  },
+  "block.stargate.milkyway.fail_computer": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_dial_fail_computer",
+    "sounds": [
+      "jsg:gate/gate_milkyway_dial_fail_computer"
+    ]
+  },
+  "block.stargate.pegasus.fail": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_dial_fail",
+    "sounds": [
+      "jsg:gate/pegasus/gate_pegasus_dial_fail"
+    ]
+  },
+  "block.stargate.milkyway.chevron.incoming": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_incoming",
+    "sounds": [
+      "jsg:gate/gate_milkyway_incoming"
+    ]
+  },
+  "block.stargate.pegasus.chevron.incoming": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_incoming",
+    "sounds": [
+      "jsg:gate/pegasus/gate_pegasus_incoming"
+    ]
+  },
+  "misc.stargate.wormhole.travel": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.wormhole_travel",
+    "sounds": [
+      "jsg:gate/gate_travel"
+    ]
+  },
+  "misc.stargate.wormhole.loop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.wormhole_loop",
+    "sounds": [
+      "jsg:eh/wormhole_loop"
+    ]
+  },
+  "misc.stargate.wormhole.go": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.wormhole_go",
+    "sounds": [
+      "jsg:eh/eh_go_1",
+      "jsg:eh/eh_go_2",
+      "jsg:eh/eh_go_3",
+      "jsg:eh/eh_go_4",
+      "jsg:eh/eh_go_5",
+      "jsg:eh/eh_go_6",
+      "jsg:eh/eh_go_7",
+      "jsg:eh/eh_go_8"
+    ]
+  },
+  "misc.stargate.wormhole.flicker": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.wormhole_flicker",
+    "sounds": [
+      "jsg:eh/wormhole_flicker_1",
+      "jsg:eh/wormhole_flicker_2",
+      "jsg:eh/wormhole_flicker_3"
+    ]
+  },
+  "misc.stargate.iris.hit": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.iris_hit",
+    "sounds": [
+      "jsg:iris/iris_hit_1",
+      "jsg:iris/iris_hit_2",
+      "jsg:iris/iris_hit_3"
+    ]
+  },
+  "misc.stargate.iris.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.iris_opening",
+    "sounds": [
+      "jsg:iris/iris_opening"
+    ]
+  },
+  "misc.stargate.iris.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.iris_closing",
+    "sounds": [
+      "jsg:iris/iris_closing"
+    ]
+  },
+  "misc.stargate.shield.humming": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.shield_humming",
+    "sounds": [
+      "jsg:shield/shield_humming"
+    ]
+  },
+  "misc.stargate.shield.hit": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.shield_hit",
+    "sounds": [
+      "jsg:shield/shield_hit_1",
+      "jsg:shield/shield_hit_2",
+      "jsg:shield/shield_hit_3"
+    ]
+  },
+  "misc.stargate.shield.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.shield_opening",
+    "sounds": [
+      "jsg:shield/shield_opening"
+    ]
+  },
+  "misc.stargate.shield.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.shield_closing",
+    "sounds": [
+      "jsg:shield/shield_closing"
+    ]
+  },
+  "block.stargate.milkyway.chevron.shut": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_chevron_shut",
+    "sounds": [
+      "jsg:gate/chevron/gate_milkyway_chevron_shut_1",
+      "jsg:gate/chevron/gate_milkyway_chevron_shut_2",
+      "jsg:gate/chevron/gate_milkyway_chevron_shut_3"
+    ]
+  },
+  "block.stargate.milkyway.chevron.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_milkyway_chevron_open",
+    "sounds": [
+      "jsg:gate/chevron/gate_milkyway_chevron_open_1",
+      "jsg:gate/chevron/gate_milkyway_chevron_open_2",
+      "jsg:gate/chevron/gate_milkyway_chevron_open_3"
+    ]
+  },
+  "block.stargate.movie.chevron.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_chevron_close",
+    "sounds": [
+      "jsg:gate/movie/chevron_movie_closing_1",
+      "jsg:gate/movie/chevron_movie_closing_2"
+    ]
+  },
+  "block.stargate.movie.chevron.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_chevron_open",
+    "sounds": [
+      "jsg:gate/movie/chevron_movie_opening_1",
+      "jsg:gate/movie/chevron_movie_opening_2"
+    ]
+  },
+  "block.stargate.movie.ring_roll.start": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_ring_roll_start",
+    "sounds": [
+      "jsg:gate/movie/gate_movie_ring_roll_start"
+    ]
+  },
+  "block.stargate.movie.ring_roll.loop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_ring_roll_loop",
+    "sounds": [
+      "jsg:gate/movie/gate_movie_ring_roll_loop"
+    ]
+  },
+  "block.stargate.movie.ring_roll.stop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_ring_roll_stop",
+    "sounds": [
+      "jsg:gate/movie/gate_movie_ring_roll_stop"
+    ]
+  },
+  "block.stargate.movie.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_open",
+    "sounds": [
+      "jsg:gate/movie/gate_movie_open"
+    ]
+  },
+  "block.stargate.movie.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_movie_close",
+    "sounds": [
+      "jsg:gate/movie/gate_movie_close"
+    ]
+  },
+  "block.stargate.pegasus.chevron.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_pegasus_chevron_open",
+    "sounds": [
+      "jsg:gate/chevron/gate_pegasus_chevron_open_1",
+      "jsg:gate/chevron/gate_pegasus_chevron_open_2",
+      "jsg:gate/chevron/gate_pegasus_chevron_open_3"
+    ]
+  },
+  "block.stargate.orlin.dial": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_orlin_dial",
+    "sounds": [
+      "jsg:gate/orlin/gate_orlin_dial"
+    ]
+  },
+  "block.stargate.orlin.fail": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_orlin_dial_fail",
+    "sounds": [
+      "jsg:gate/orlin/gate_orlin_dial_fail"
+    ]
+  },
+  "block.stargate.orlin.broke": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_orlin_broke",
+    "sounds": [
+      "jsg:gate/orlin/gate_orlin_broke"
+    ]
+  },
+  "block.stargate.universe.dial": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_dial_start",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_dial_start"
+    ]
+  },
+  "block.stargate.universe.ring_roll.loop": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_roll",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_roll"
+    ]
+  },
+  "block.stargate.universe.ring_roll.start": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_roll",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_roll_start"
+    ]
+  },
+  "block.stargate.universe.chevron.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_chevron_lock",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_chevron_lock"
+    ]
+  },
+  "block.stargate.universe.fail": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_fail",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_fail"
+    ]
+  },
+  "block.stargate.universe.chevron.lock": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_chevron_top_lock",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_chevron_top_lock"
+    ]
+  },
+  "block.stargate.universe.open": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_open",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_open"
+    ]
+  },
+  "block.stargate.universe.close": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gate_universe_close",
+    "sounds": [
+      "jsg:gate/universe/gate_universe_close"
+    ]
+  },
+  "misc.printer.printing": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.printer.print",
+    "sounds": [
+      "jsg:misc/printer"
+    ]
+  },
+  "music.menu.intro": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.music.menu.intro",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/intro",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "music.menu.act1": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/stargate_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "music.menu.act2": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/entering_stargate",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "music.menu.act3": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/dialing_atlantis",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/pegasus_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "music.menu.act6": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/gountlet",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/gas_giant",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/solar_power",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "music.menu": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/pegasus_theme",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/destiny_theme",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/origin_theme",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/stargate_theme",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/dialing_atlantis",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/dialing_earth",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/entering_stargate",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/gountlet",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/gas_giant",
+        "stream": true,
+        "preload": true
+      },
+      {
+        "name": "jsg:gui/mainmenu/solar_power",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "misc.gui.gdo.button": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.gdo_button_beep",
+    "sounds": [
+      "jsg:misc/button_press"
+    ]
+  },
+  "item.dialer.error": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.universe_dialer_error",
+    "sounds": [
+      "jsg:misc/dialer/button_error_universe"
+    ]
+  },
+  "item.dialer.dial.start": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.universe_dialer_beep",
+    "sounds": [
+      "jsg:misc/dialer/button_startdial_universe"
+    ]
+  },
+  "item.dialer.mode.change": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.universe_dialer_change_mode",
+    "sounds": [
+      "jsg:misc/dialer/button_changemode_universe"
+    ]
+  },
+  "item.dialer.connect": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.universe_dialer_connect",
+    "sounds": [
+      "jsg:misc/dialer/button_connect_universe"
+    ]
+  },
+  "misc.kino.flyby": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.kino_fly",
+    "sounds": [
+      "jsg:misc/kino/kino_fly"
+    ]
+  },
+  "record.destiny.opening": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/destiny_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.destiny.dialing": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/dialing_earth",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.destiny.gauntlet": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/gountlet",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.atlantis.theme": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/pegasus_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.atlantis.dialing": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/dialing_atlantis",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.origins.theme": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/origin_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.continuum.opening": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/stargate_theme",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "record.sgc.theme": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jsg:gui/mainmenu/entering_stargate",
+        "stream": true,
+        "preload": true
+      }
+    ]
+  },
+  "ambient.abydos.wind": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.abydos_wind",
+    "sounds": [
+      "jsg:ambient/abydos_wind"
+    ]
+  },
+  "record.siren.sgc.offworld": {
+    "category": "record",
+    "sounds": [
+      "jsg:siren/sgc_offworld"
+    ]
+  },
+  "record.siren.sgc.dialing": {
+    "category": "record",
+    "sounds": [
+      "jsg:siren/sgc_dialing"
+    ]
+  },
+  "misc.jub.device.connected": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.jub_device_connected",
+    "sounds": [
+      "jsg:misc/jub/connected"
+    ]
+  },
+  "misc.jub.device.disconnected": {
+    "category": "ambient",
+    "subtitle": "jsg.subtitle.jub_device_disconnected",
+    "sounds": [
+      "jsg:misc/jub/disconnected"
+    ]
+  }
+}
+

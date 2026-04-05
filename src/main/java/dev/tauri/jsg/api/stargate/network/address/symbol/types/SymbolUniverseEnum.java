@@ -1,16 +1,20 @@
 package dev.tauri.jsg.api.stargate.network.address.symbol.types;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.client.LoadersHolder;
-import dev.tauri.jsg.api.registry.BiomeOverlayRegistry;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.util.I18n;
-import net.minecraft.resources.ResourceKey;
+import dev.tauri.jsg.api.registry.JSGSymbolTypes;
+import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
+import dev.tauri.jsg.api.stargate.type.StargateTypes;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
+import dev.tauri.jsg.core.common.util.I18n;
+import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import static dev.tauri.jsg.api.stargate.network.address.symbol.SymbolTypeRegistry.UNIVERSE;
+import java.util.Objects;
 
 public enum SymbolUniverseEnum implements SymbolInterface {
     TOP_CHEVRON(0, null),
@@ -55,18 +59,20 @@ public enum SymbolUniverseEnum implements SymbolInterface {
     public static final int ANGLE_PER_SECTION = 8;
 
     public final int id;
-    public ResourceLocation modelResource;
     public final int angle;
     public final int angleIndex;
     public final String englishName;
     public final String translationKey;
-    public final ResourceLocation iconResource;
+    private final ResourceLocation iconResource;
+    private final ResourceLocation modelResource;
 
     SymbolUniverseEnum(int id, String model) {
         this.id = id;
 
         if (model != null)
-            this.modelResource = LoadersHolder.JSG_HOLDER.model().getModelResource("universe/" + model);
+            this.modelResource = JSGApi.JSG_LOADERS_HOLDER.model().getModelResource("universe/" + model);
+        else
+            this.modelResource = JSGMapping.rl("null");
 
         int id0 = id - 1;
         this.angleIndex = id0 + id0 / 4 + 1; // skip one each 4
@@ -107,8 +113,20 @@ public enum SymbolUniverseEnum implements SymbolInterface {
     }
 
     @Override
-    public ResourceLocation getIconResource(BiomeOverlayRegistry.BiomeOverlayInstance overlay, ResourceKey<Level> dimensionId, int configOrigin) {
+    public ResourceLocation getIconResource(@Nullable PointOfOrigin origin) {
+        if (origin()) {
+            return Objects.requireNonNullElseGet(origin, () -> Objects.requireNonNull(StargateTypes.UNIVERSE.get().getDefaultPoO())).getPath(StargatePointOfOriginsDefaults.VARIANT_ICON, false);
+        }
         return iconResource;
+    }
+
+    @Override
+    public ResourceLocation getModelResource(IPointOfOriginType type, @Nullable PointOfOrigin origin, String variant) {
+        if (origin()) {
+            return Objects.requireNonNullElseGet(origin, () -> Objects.requireNonNull(type.getDefaultPoO())).getPath(variant, true);
+        }
+
+        return this.modelResource;
     }
 
     @Override
@@ -117,8 +135,8 @@ public enum SymbolUniverseEnum implements SymbolInterface {
     }
 
     @Override
-    public AbstractSymbolType<SymbolUniverseEnum> getSymbolType() {
-        return UNIVERSE;
+    public SymbolType<SymbolUniverseEnum> getSymbolType() {
+        return JSGSymbolTypes.UNIVERSE.get();
     }
 
     @Override
@@ -133,16 +151,16 @@ public enum SymbolUniverseEnum implements SymbolInterface {
             id += (previous ? -1 : 1);
             if (id < 0) id = 36;
             id = id % 37;
-            var symbol = UNIVERSE.valueOf(id);
+            var symbol = JSGSymbolTypes.UNIVERSE.get().valueOf(id);
             if (symbol != null && symbol.isValidForAddress()) return symbol;
         }
     }
 
     @SuppressWarnings("all")
     @NotNull
-    public static AbstractSymbolType<SymbolUniverseEnum> getProvider() {
+    public static SymbolType<SymbolUniverseEnum> getProvider() {
         try {
-            return (AbstractSymbolType<SymbolUniverseEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolUniverseProvider").getConstructor().newInstance();
+            return (SymbolType<SymbolUniverseEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolUniverseProvider").getConstructor().newInstance();
         } catch (Exception e) {
             JSGApi.logger.error("Error while getting symbol provider: ", e);
         }

@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.event;
 
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 
 /**
  * Parent event for all stargate events with connected stargates
@@ -41,7 +41,7 @@ public abstract class StargateConnectedAbstractEvent extends StargateAbstractEve
      * @param type address type
      * @return stargate address
      */
-    public StargateAddress getTargetAddress(AbstractSymbolType<?> type) {
+    public StargateAddress getTargetAddress(SymbolType<?> type) {
         return targetTile.getStargateAddress(type);
     }
 

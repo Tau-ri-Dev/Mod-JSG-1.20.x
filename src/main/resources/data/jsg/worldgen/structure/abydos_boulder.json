@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "start_pool": "jsg:abydos/ambient/boulders/small_mine",
+  "start_pool": "jsg:abydos/ambient/boulders/naquadah_boulders",
   "size": 4,
   "max_distance_from_center": 80,
   "biomes": "#jsg:has_naquadah_deposits",

@@ -41,6 +41,10 @@ public enum EnumStargateState {
         return this == FAILING;
     }
 
+    public boolean resetting() {
+        return this == RESETTING;
+    }
+
     public boolean dialing() {
         return this == DIALING || this == DIALING_COMPUTER || this == DIALING_REMOTE;
     }

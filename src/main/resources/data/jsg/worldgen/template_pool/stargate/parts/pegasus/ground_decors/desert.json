@@ -1,0 +1,147 @@
+{
+  "name": "jsg:stargate/parts/pegasus/ground_decors/desert",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_3",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_4",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_5",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_6",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/sand_biomes/decor_7",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_3",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_4",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_5",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_6",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_7",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/desert/decor_8",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    }
+  ]
+}

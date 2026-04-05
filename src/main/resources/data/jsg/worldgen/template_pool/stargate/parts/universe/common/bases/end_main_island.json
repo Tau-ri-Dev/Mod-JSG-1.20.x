@@ -1,7 +1,0 @@
-{
-  "name": "jsg:stargate/parts/universe/common/bases/end_main_island",
-  "fallback": "minecraft:empty",
-
-  "__comment": "The elements are filled at runtime because of the stargate size configuration",
-  "elements": []
-}

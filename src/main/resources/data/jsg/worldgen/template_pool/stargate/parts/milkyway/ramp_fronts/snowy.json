@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_fronts/snowy",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/plains_and_snowy_biomes/fronts/front_1",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/plains_and_snowy_biomes/fronts/front_2",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/plains_and_snowy_biomes/fronts/front_3",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/plains_and_snowy_biomes/fronts/front_4",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 package dev.tauri.jsg.api.stargate.animation;
 
 import dev.tauri.jsg.api.stargate.ChevronEnum;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -28,4 +28,20 @@ public interface IChevronsState {
     void scheduleChevronsDimAll(int waitTicks, boolean setIdle);
 
     void scheduleChevronsLockAll(int waitTicks, boolean setIdle);
+
+    IChevronState get(ChevronEnum chevron);
+
+    interface IChevronState {
+        void open();
+
+        void close();
+
+        void lock();
+
+        void dim();
+
+        boolean isOpen();
+
+        boolean isLocked();
+    }
 }

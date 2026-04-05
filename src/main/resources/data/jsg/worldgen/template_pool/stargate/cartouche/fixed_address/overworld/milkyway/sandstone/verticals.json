@@ -1,0 +1,12 @@
+{
+  "name": "jsg:stargate/cartouche/fixed_address/overworld/milkyway/sandstone/verticals",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    }
+  ]
+}

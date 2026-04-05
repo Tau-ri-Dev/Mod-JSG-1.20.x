@@ -1,6 +1,6 @@
 package dev.tauri.jsg.api.stargate.animation;
 
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;

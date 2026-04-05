@@ -1,0 +1,15 @@
+{
+  "name": "jsg:stargate/parts/universe/ramp_bases/end_main_island",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/universe/end/bases/base_1",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

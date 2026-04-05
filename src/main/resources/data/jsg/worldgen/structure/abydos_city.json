@@ -1,5 +1,5 @@
 {
-  "type": "jsg:jigsaw_extra",
+  "type": "jsg_core:jigsaw_extra",
   "start_pool": "jsg:abydos/city/starting_pieces",
   "size": 16,
   "max_distance_from_center": 1000,

@@ -1,0 +1,156 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_decors/mangrove",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_1",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_2",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_3",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_4",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_5",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_6",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_7",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/generic/temperate_biomes/decor_8",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_1",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_2",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_3",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_4",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_5",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_6",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_7",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/decors/mangrove/decor_8",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    }
+  ]
+}

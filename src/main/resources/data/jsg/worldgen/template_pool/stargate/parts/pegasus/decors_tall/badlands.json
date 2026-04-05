@@ -1,0 +1,48 @@
+{
+  "name": "jsg:stargate/parts/pegasus/decors_tall/badlands",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/generic/badlands_and_desert/decor_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/generic/badlands_and_desert/decor_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/badlands/decor_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/badlands/decor_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    }
+  ]
+}

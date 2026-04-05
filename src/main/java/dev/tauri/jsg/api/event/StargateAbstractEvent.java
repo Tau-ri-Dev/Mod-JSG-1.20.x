@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.event;
 
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -40,7 +40,7 @@ public abstract class StargateAbstractEvent extends Event {
      * @param type address type
      * @return stargate address
      */
-    public StargateAddress getAddress(AbstractSymbolType<?> type) {
+    public StargateAddress getAddress(SymbolType<?> type) {
         return tile.getStargateAddress(type);
     }
 

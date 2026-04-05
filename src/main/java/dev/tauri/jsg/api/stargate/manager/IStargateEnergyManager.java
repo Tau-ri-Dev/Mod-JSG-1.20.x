@@ -1,11 +1,11 @@
 package dev.tauri.jsg.api.stargate.manager;
 
-import dev.tauri.jsg.api.power.JSGEnergyStorage;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
-import dev.tauri.jsg.api.util.ITickable;
-import dev.tauri.jsg.api.power.general.EnergyRequiredToOperate;
+import dev.tauri.jsg.core.common.blockentity.ITickable;
+import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
+import dev.tauri.jsg.core.common.power.general.EnergyRequiredToOperate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public interface IStargateEnergyManager<E extends JSGEnergyStorage> extends INBTSerializable<CompoundTag>, ITickable {
     E getStorage();
 
-    long getSecondsToClose();
+    double getSecondsToClose();
 
     int getTransferredLastTick();
 

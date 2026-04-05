@@ -8,15 +8,57 @@
     "fog_color": 13484441,
     "water_color": 30719,
     "water_fog_color": 276853,
+    "grass_color": 13485178,
+    "foliage_color": 13485178,
+    "grass_color_modifier": "none",
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.overworld.badlands"
     }
   },
-  "spawners": {},
   "spawn_costs": {},
+  "spawners": {
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 19
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:husk",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
+      }
+    ]
+  },
   "carvers": {
     "air": [
       "minecraft:cave",
@@ -58,9 +100,9 @@
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel",
+      "minecraft:disk_gravel"
       
-      "jsg:naquadah_ore"
+
     ],
     [],
     [],

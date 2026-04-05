@@ -24,7 +24,7 @@
       "weight": 2,
       "element": {
         "location": "jsg:abydos/city/entrance",
-        "processors": "jsg:abydos_degradation",
+        "processors": "jsg:abydos/city_degradation",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

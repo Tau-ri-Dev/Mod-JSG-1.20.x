@@ -31,7 +31,7 @@
           }
         },
         {
-          "biome": "jsg:abydos_plain",
+          "biome": "jsg:abydos_plains",
           "parameters": {
             "temperature": 1.5,
             "humidity": 0,

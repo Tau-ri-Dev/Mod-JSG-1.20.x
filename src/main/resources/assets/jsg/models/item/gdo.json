@@ -1,0 +1,15 @@
+{
+    "loader": "jsg_core:handheld_item_model",
+    "override_transformations": true,
+    "custom_render_types": [
+        "FIRST_PERSON_LEFT_HAND",
+        "FIRST_PERSON_RIGHT_HAND",
+        "THIRD_PERSON_LEFT_HAND",
+        "THIRD_PERSON_RIGHT_HAND",
+        "FIXED"
+    ],
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "jsg:item/tools/gdo"
+    }
+}

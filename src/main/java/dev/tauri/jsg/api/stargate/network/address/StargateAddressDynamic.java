@@ -1,17 +1,23 @@
 package dev.tauri.jsg.api.stargate.network.address;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
+import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.api.stargate.network.StargatePos;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundTag;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class StargateAddressDynamic extends StargateAddress {
+public class StargateAddressDynamic extends StargateAddress implements Iterable<SymbolInterface> {
 
-    public StargateAddressDynamic(AbstractSymbolType<?> symbolType) {
+    public StargateAddressDynamic(SymbolType<?> symbolType) {
         super(symbolType);
     }
 
@@ -30,10 +36,17 @@ public class StargateAddressDynamic extends StargateAddress {
         addAll(address);
     }
 
-    public StargateAddressDynamic(AbstractSymbolType<?> symbolType, List<SymbolInterface> symbols) {
+    public StargateAddressDynamic(SymbolType<?> symbolType, List<SymbolInterface> symbols) {
         super(symbolType);
         clear();
         addAll(symbols);
+    }
+
+    @ParametersAreNonnullByDefault
+    public static StargateAddressDynamic getMinimalDialable(StargateAddress address, Stargate<?> sourceGate, @Nullable StargatePos targetGate) {
+        if (targetGate == null) return new StargateAddressDynamic(address).addOriginIfMissingAndImmutable();
+        var minSymbols = sourceGate.getDialingManager().getMinimalSymbolsToDial(targetGate.getGateSymbolType(), targetGate) - 1;
+        return new StargateAddressDynamic(address.getSymbolType(), address.subList(0, minSymbols)).addOriginIfMissingAndImmutable();
     }
 
     @Override
@@ -89,6 +102,16 @@ public class StargateAddressDynamic extends StargateAddress {
         return symbol;
     }
 
+    @Nullable
+    public SymbolInterface popLast() {
+        if (address.isEmpty()) return null;
+        var symbol = getLast();
+        address.remove(address.size() - 1);
+        addressSize = address.size();
+        return symbol;
+    }
+
+    @Override
     public StargateAddressDynamic addOriginIfMissingAndImmutable() {
         var newAddress = new StargateAddressDynamic(this);
         if (newAddress.getSymbolType().hasOrigin() && !newAddress.contains(newAddress.getSymbolType().getOrigin())) {
@@ -154,5 +177,15 @@ public class StargateAddressDynamic extends StargateAddress {
         addressSize = buf.readInt();
 
         super.fromBytes(buf);
+    }
+
+    @Override
+    public @NotNull Iterator<SymbolInterface> iterator() {
+        return address.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super SymbolInterface> action) {
+        address.forEach(action);
     }
 }

@@ -1,0 +1,403 @@
+[
+  {
+    "processor_type": "minecraft:rule",
+    "rules": [
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.3
+        },
+        "output_state": {
+          "Name": "minecraft:lantern",
+          "Properties": {
+            "hanging": "false"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "0"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "1"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "2"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "3"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "4"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "5"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "6"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "7"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "8"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "9"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "10"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "11"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "12"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "13"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "14"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:white_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:skeleton_skull",
+          "Properties": {
+            "rotation": "15"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:white_stained_glass"
+        },
+        "output_state": {
+          "Name": "minecraft:air"
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:decorated_pot",
+          "Properties": {
+            "cracked": "true"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.1
+        },
+        "output_state": {
+          "Name": "minecraft:decorated_pot",
+          "Properties": {
+            "cracked": "false"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.2
+        },
+        "output_state": {
+          "Name": "minecraft:flower_pot"
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.2
+        },
+        "output_state": {
+          "Name": "minecraft:potted_cactus"
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.2
+        },
+        "output_state": {
+          "Name": "minecraft:potted_dead_bush"
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.2
+        },
+        "output_state": {
+          "Name": "minecraft:torch"
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:light_gray_stained_glass",
+          "probability": 0.3
+        },
+        "output_state": {
+          "Name": "minecraft:lantern",
+          "Properties": {
+            "hanging": "false"
+          }
+        }
+      },
+      {
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "input_predicate": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:light_gray_stained_glass"
+        },
+        "output_state": {
+          "Name": "minecraft:air"
+        }
+      }
+    ]
+  }
+]

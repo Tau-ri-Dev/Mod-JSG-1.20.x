@@ -3,29 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
-        "location": "jsg:abydos/villagers/nitwit",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:legacy_single_pool_element",
-        "location": "jsg:abydos/villagers/baby",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:legacy_single_pool_element",
-        "location": "jsg:abydos/villagers/unemployed",
+        "location": "jsg:abydos/villagers/slave_miner",
         "processors": {
           "processors": []
         },

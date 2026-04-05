@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
-  "start_pool": "jsg:stargate/parts/milkyway/common/bases/mangrove",
-  "size": 2,
+  "start_pool": "jsg:stargate/parts/milkyway/ramp_bases/mangrove",
+  "size": 3,
   "max_distance_from_center": 80,
   "biomes": "#jsg:has_structure/milkyway_outpost_mangrove",
   "terrain_adaptation": "beard_thin",

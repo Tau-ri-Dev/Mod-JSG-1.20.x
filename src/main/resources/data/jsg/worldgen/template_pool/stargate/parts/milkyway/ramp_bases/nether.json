@@ -1,0 +1,42 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_bases/nether",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/nether/bases/base_1",
+        "processors": "jsg:stargate_outpost/nether"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/nether/bases/base_2",
+        "processors": "jsg:stargate_outpost/nether"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/nether/bases/base_3",
+        "processors": "jsg:stargate_outpost/nether"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/nether/bases/base_4",
+        "processors": "jsg:stargate_outpost/nether"
+      }
+    }
+  ]
+}

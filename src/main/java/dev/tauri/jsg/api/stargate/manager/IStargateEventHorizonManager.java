@@ -1,11 +1,12 @@
 package dev.tauri.jsg.api.stargate.manager;
 
 import dev.tauri.jsg.api.stargate.Stargate;
-import dev.tauri.jsg.api.stargate.traveller.IStargateTeleporter;
-import dev.tauri.jsg.api.stargate.traveller.IStargateTraveller;
-import dev.tauri.jsg.api.stargate.traveller.TravellerSendResult;
-import dev.tauri.jsg.api.util.ITickable;
+import dev.tauri.jsg.api.stargate.traveler.IStargateTeleporter;
+import dev.tauri.jsg.api.stargate.traveler.IStargateTraveler;
+import dev.tauri.jsg.api.stargate.traveler.TravelerSendResult;
+import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -13,27 +14,29 @@ import net.minecraftforge.common.util.INBTSerializable;
 import java.util.function.Consumer;
 
 public interface IStargateEventHorizonManager extends INBTSerializable<CompoundTag>, ITickable {
-    TravellerSendResult send(IStargateTraveller<?> traveller);
+    TravelerSendResult send(IStargateTraveler<?> traveler);
 
-    void receive(IStargateTraveller<?> traveller);
+    void receive(IStargateTraveler<?> traveler);
 
-    IStargateTraveller<?> getTraveller(Entity entity);
+    IStargateTraveler<?> getTraveler(Entity entity);
 
-    IStargateTraveller<?> getTraveller(Entity entity, Vec3 originalMotion);
+    IStargateTraveler<?> getRIGTraveler(ServerLevel level, Entity entity, Vec3 originalMotion);
 
-    IStargateTraveller<?> getStaticTraveller(Stargate<?> targetGate, Entity entity);
+    IStargateTraveler<?> getTraveler(Entity entity, Vec3 originalMotion);
+
+    IStargateTraveler<?> getStaticTraveler(Stargate<?> targetGate, Entity entity);
 
     boolean isMovingTowardsGate(Vec3 motionVec);
 
-    IStargateTeleporter getTeleporter(IStargateTraveller<?> traveller, Consumer<IStargateTraveller<?>> afterPlace);
+    IStargateTeleporter getTeleporter(IStargateTraveler<?> traveler, Consumer<IStargateTraveler<?>> afterPlace);
 
-    boolean canBeSend(IStargateTraveller<?> traveller);
+    boolean canBeSend(IStargateTraveler<?> traveler);
 
-    IStargateTraveller<?> getTraveller(Entity entity, IStargateTraveller<?> traveller);
+    IStargateTraveler<?> getTraveler(Entity entity, IStargateTraveler<?> traveler);
 
-    IStargateTraveller<?> getTraveller(Entity entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> targetGate, boolean isStatic);
+    IStargateTraveler<?> getTraveler(Entity entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> targetGate, boolean isStatic);
 
-    default IStargateTraveller<?> getTraveller(Entity entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> targetGate) {
-        return getTraveller(entity, destinationPos, originalMotion, destinationMotion, destinationYaw, sourceGate, targetGate, false);
+    default IStargateTraveler<?> getTraveler(Entity entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> targetGate) {
+        return getTraveler(entity, destinationPos, originalMotion, destinationMotion, destinationYaw, sourceGate, targetGate, false);
     }
 }

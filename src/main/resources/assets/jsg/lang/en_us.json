@@ -11,7 +11,9 @@
 
   "createWorld.stargates_generating": "Generating stargates in dimensions... %s%%",
   "createWorld.stargates_generating.trying": "Trying generation in %s",
-  "createWorld.stargates_generating.generating": "Generating in %s",
+  "createWorld.stargates_generating.searching": "Searching for structure in %s",
+  "createWorld.stargates_generating.generating": "Generating stargate in %s",
+  "createWorld.stargates_generating.searching_stargate": "Searching for stargate in %s (%s) attempt %s",
   "createWorld.stargates_generating.running_sg_regen": "Running stargate regeneration...",
   "createWorld.stargate_disassemble.milkyway.title": "Milky Way Stargate",
   "createWorld.stargate_disassemble.milkyway.chevron_frame": "Chevron Frame",
@@ -34,47 +36,63 @@
   "createWorld.stargates_generating.dim_status.error": "Error",
 
   "joinWorld.jsg.abydos_update.title": "New JSG version detected!",
-  "joinWorld.jsg.abydos_update.desc": "In this version, the Abydos dimension got massive update and unfortunately can not load the old Abydos dimension.\nBy continuing loading the world, old Abydos will be PERMANENTLY DELETED and replaced with newly generated one!",
+  "joinWorld.jsg.abydos_update.desc": "In this version, the Abydos dimension got a massive update, and unfortunately, can not load the old Abydos dimension.\nBy continuing to load the world, the old Abydos dimension will be PERMANENTLY DELETED, and replaced with newly generated one!",
   "joinWorld.jsg.abydos_update.btn.proceed": "Delete old Abydos dimension",
   "joinWorld.jsg.abydos_update.btn.cancel": "Cancel",
   "joinWorld.jsg.abydos_update.deleting_world": "Deleting old Abydos dimension...",
 
   "_comment2": ">>> Tips <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "menu.tip.still_beta": "WARNING: You are using BETA version - lot of things are missing!",
+  "menu.tip.kawoosh": "TIP: Try to avoid standing in front of a Stargate as it activates.",
+  "menu.tip.unstable_eh": "TIP: Travelling through an unstable wormhole can result in death.",
+  "menu.tip.abydos_cartouche": "TIP: Explore Abydos to find cartouches with stargate addresses.",
 
   "_comment5": "------------------- CONFIG GUI --------------------",
 
   "gui.jsg.config": "Just Stargate Mod Configuration",
-  "gui.jsg.true": "Enabled",
-  "gui.jsg.false": "Disabled",
   "gui.jsg.config_child.debug": "Debug Settings",
   "gui.jsg.config_child.general": "General Configuration",
   "gui.jsg.config_child.dialhomedevice": "DHD Configuration",
   "gui.jsg.config_child.stargate": "Stargates Configuration",
   "gui.jsg.config_child.computersintegration": "Computers Integration Configuration",
 
+  "gui.jsg.ingame_config.default_value": "Default: %s",
+  "gui.jsg.ingame_config.time_limit_mode.title": "Stargate Time Limit Mode",
+  "gui.jsg.ingame_config.time_limit_mode.comment": "Specifies what should the stargate do when the gate opened for more than Stargate Time Limit Time",
+  "gui.jsg.ingame_config.time_limit_time.title": "Stargate Time Limit Time",
+  "gui.jsg.ingame_config.time_limit_time.comment": "How many seconds can be opened before closing/drawing more power (set up by Stargate Time Limit Mode)",
+  "gui.jsg.ingame_config.time_limit_power.title": "Stargate Time Limit Power Draw Multiplier",
+  "gui.jsg.ingame_config.time_limit_power.comment": "Specifies multiplier of stargate's power draw when the gate opened for more than Stargate Time Limit Time and Stargate Time Limit Mode is set to DRAW_MORE_POWER",
+  "gui.jsg.ingame_config.spin_speed.title": "Stargate's Ring Rotation Speed",
+  "gui.jsg.ingame_config.spin_speed.comment": "Ring rotation speed in %",
+  "gui.jsg.ingame_config.force_unstable.title": "Force Unstable Event Horizon",
+  "gui.jsg.ingame_config.force_unstable.comment": "If set to Enabled, stargate's event horizon will be unstable permanently (this also effects connected gate on the other side)",
+  "gui.jsg.ingame_config.enable_bury_state.title": "Enable Bury State",
+  "gui.jsg.ingame_config.enable_bury_state.comment": "When the inner space of the stargate is filled with blocks, should the gate become undialable?",
+  "gui.jsg.ingame_config.allow_rig.title": "Random Incoming Generator",
+  "gui.jsg.ingame_config.allow_rig.comment": "Allow spawning random incoming wormholes with mobs waves",
+  "gui.jsg.ingame_config.max_capacitors.title": "Enabled Capacitor Slots",
+  "gui.jsg.ingame_config.max_capacitors.comment": "Number of enabled capacitor slots",
+  "gui.jsg.ingame_config.dhd_oc_press_sound.title": "DHD Button Sound when dialing",
+  "gui.jsg.ingame_config.dhd_oc_press_sound.comment": "Play DHD button press sound when dialing via other method than DHD itself",
+  "gui.jsg.ingame_config.allow_incoming_animation.title": "Incoming Animations",
+  "gui.jsg.ingame_config.allow_incoming_animation.comment": "Allow incoming animations to play on this gate",
+  "gui.jsg.ingame_config.dhd_last_lock.title": "DHD Last Chevron Lock",
+  "gui.jsg.ingame_config.dhd_last_lock.comment": "Play chevron locking animation on the final chevron when dialing by DHD",
+  "gui.jsg.ingame_config.spin_ring_incoming.title": "Spin Ring by Incoming Animation",
+  "gui.jsg.ingame_config.spin_ring_incoming.comment": "Start spinning the ring when incoming wormhole occurs. This require the Incoming Animations option to be set to Enabled.",
+  "gui.jsg.ingame_config.point_of_origin.title": "Point of Origin Variant",
+  "gui.jsg.ingame_config.point_of_origin.comment": "Variant of the PoO to be used on this gate. This will not change any gate's behaviour - it's only a visual",
+  "gui.jsg.ingame_config.fast_dialing.title": "Fast Dialing",
+  "gui.jsg.ingame_config.fast_dialing.comment": "Switch to fast dialing on this gate when dialing by a Remote",
+  "gui.jsg.ingame_config.orange_shield.title": "Orange Shield",
+  "gui.jsg.ingame_config.orange_shield.comment": "Switch shield to orange color on this gate",
+
   "_comment10": "----------------- CREATIVE TABS ------------------",
 
-  "itemGroup.jsg_transportation": "JSG: Transportation",
-  "itemGroup.jsg_resources": "JSG: Resources",
-  "itemGroup.jsg_building_blocks": "JSG: Building Blocks",
-  "itemGroup.jsg_tools": "JSG: Tools",
-  "itemGroup.jsg_upgrades": "JSG: Upgrades",
-  "itemGroup.jsg_energy": "JSG: Energy",
-  "itemGroup.jsg_fluids": "JSG: Fluids",
-  "itemGroup.jsg_machines": "JSG: Machines",
-  "itemGroup.jsg_integrations": "JSG: Integrations",
+  "itemGroup.jsg.machines": "JSG: Machines",
 
   "_comment100": "--------------------- ITEMS ----------------------",
-
-  "_comment101": ">>> Buckets <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.naquadah_molten_raw_bucket": "Molten Raw Naquadah Bucket",
-  "item.jsg.naquadah_molten_refined_bucket": "Molten Refined Naquadah Bucket",
-  "item.jsg.naquadah_molten_alloy_bucket": "Molten Naquadah Alloy Bucket",
-  "item.jsg.titanium_molten_bucket": "Molten Titanium Bucket",
-  "item.jsg.trinium_molten_bucket": "Molten Trinium Bucket",
 
   "_comment102": ">>> Records - Music Discs / Siren Discs <<<<<<<<<<",
 
@@ -89,57 +107,6 @@
 
   "item.jsg.music_disc_siren_sgc_offworld": "§3Siren Disc",
   "item.jsg.music_disc_siren_sgc_dialing": "§3Siren Disc",
-
-  "_comment103": ">>> Raw ores <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.titanium_raw": "Raw Titanium Ore",
-  "item.jsg.trinium_raw": "Raw Trinium Ore",
-  "item.jsg.naquadah_raw": "Raw Naquadah Ore",
-
-  "_comment104": ">>> Ingots <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" ,
-
-  "item.jsg.titanium_ingot": "Titanium Ingot",
-  "item.jsg.trinium_ingot": "Trinium Ingot",
-  "item.jsg.naquadah_alloy_raw": "Raw Naquadah Alloy Ingot",
-  "item.jsg.naquadah_alloy": "Naquadah Alloy Ingot",
-  "item.jsg.naquadah_alloy_refined": "Refined Naquadah Ingot",
-
-  "item.jsg.exposed_copper_ingot": "Exposed Copper Ingot",
-  "item.jsg.weathered_copper_ingot": "Weathered Copper Ingot",
-  "item.jsg.oxidized_copper_ingot": "Oxidized Copper Ingot",
-
-  "_comment105": ">>> Nuggets <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.titanium_nugget": "Titanium Nugget",
-  "item.jsg.trinium_nugget": "Trinium Nugget",
-  "item.jsg.naquadah_raw_nugget": "Raw Naquadah Nugget",
-  "item.jsg.naquadah_nugget": "Naquadah Nugget",
-  "item.jsg.naquadah_refined_nugget": "Refined Naquadah Nugget",
-
-  "_comment106": ">>> Dusts <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.titanium_dust": "Titanium Dust",
-  "item.jsg.trinium_dust": "Trinium Dust",
-  "item.jsg.naquadah_raw_dust": "Raw Naquadah Dust",
-  "item.jsg.naquadah_dust": "Naquadah Dust",
-  "item.jsg.naquadah_refined_dust": "Refined Naquadah Dust",
-  "item.jsg.charcoal_stick_mixture": "Charcoal Mixture",
-
-  "_comment107": ">>> Gears <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.gear_titanium": "Titanium Gear",
-  "item.jsg.gear_trinium": "Trinium Gear",
-  "item.jsg.gear_naquadah_raw": "Raw Naquadah Gear",
-  "item.jsg.gear_naquadah": "Naquadah Gear",
-  "item.jsg.gear_naquadah_refined": "Refined Naquadah Gear",
-
-  "_comment108": ">>> Plates <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.plate_titanium": "Titanium Plate",
-  "item.jsg.plate_trinium": "Trinium Plate",
-  "item.jsg.plate_naquadah_raw": "Raw Naquadah Plate",
-  "item.jsg.plate_naquadah": "Naquadah Plate",
-  "item.jsg.plate_naquadah_refined": "Refined Naquadah Plate",
 
   "_comment109": ">>> Iris Upgrades and Iris Crafting Elements <<<<<",
 
@@ -156,34 +123,6 @@
 
   "item.jsg.upgrade_iris_creative": "Creative Iris",
 
-  "_comment110": ">>> Natural Crystals and Crystal Seeds <<<<<<<<<<<",
-
-  "item.jsg.tokra_crystal": "Tok'ra Crystal",
-
-  "item.jsg.seed_blue_crystal": "Blue Crystal Seed",
-  "item.jsg.small_blue_crystal": "Small Blue Crystal",
-  "item.jsg.blue_crystal": "Blue Crystal",
-
-  "item.jsg.seed_red_crystal": "Red Crystal Seed",
-  "item.jsg.small_red_crystal": "Small Red Crystal",
-  "item.jsg.red_crystal": "Red Crystal",
-
-  "item.jsg.seed_ender_crystal": "Ender Crystal Seed",
-  "item.jsg.small_ender_crystal": "Small Ender Crystal",
-  "item.jsg.ender_crystal": "Ender Crystal",
-
-  "item.jsg.seed_yellow_crystal": "Yellow Crystal Seed",
-  "item.jsg.small_yellow_crystal": "Small Yellow Crystal",
-  "item.jsg.yellow_crystal": "Yellow Crystal",
-
-  "item.jsg.seed_white_crystal": "White Crystal Seed",
-  "item.jsg.small_white_crystal": "Small White Crystal",
-  "item.jsg.white_crystal": "White Crystal",
-
-  "item.jsg.seed_pegasus_crystal": "Pegasus Crystal Seed",
-  "item.jsg.small_pegasus_crystal": "Small Pegasus Crystal",
-  "item.jsg.pegasus_crystal": "Pegasus Crystal",
-
   "_comment111": ">>> Upgrade Crystals <<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.crystal_glyph_dhd": "DHD Glyph Crystal",
@@ -191,14 +130,6 @@
   "item.jsg.crystal_glyph_milkyway": "Milky Way Glyphs Crystal",
   "item.jsg.crystal_glyph_pegasus": "Pegasus Glyphs Crystal",
   "item.jsg.crystal_glyph_universe": "Universe Glyphs Crystal",
-  "item.jsg.crystal_upgrade_capacity": "Capacity Upgrade Crystal",
-  "item.jsg.crystal_upgrade_efficiency": "Efficiency Upgrade Crystal",
-
-  "_comment112": ">>> Control Circuits <<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.circuit_control_base": "Control Circuit Base",
-  "item.jsg.circuit_control_naquadah": "Naquadah Control Circuit",
-  "item.jsg.circuit_control_crystal": "Crystal Control Circuit",
 
   "_comment113": ">>> DHD Components <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -215,33 +146,14 @@
   "item.jsg.gdo": "Garage Door Opener (GDO)",
   "item.jsg.universe_dialer": "Universe Dialer",
 
-  "_comment115": ">>> Tools <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.tauri_ancient_adapter": "Tau'ri - Ancient Adapter",
-  "item.jsg.hammer": "JSG Hammer",
-  "item.jsg.screwdriver": "JSG Screwdriver",
-  "item.jsg.wrench": "JSG Wrench",
-  "item.jsg.mortar_and_pestle": "Mortar and Pestle",
-  "item.jsg.black_chalk": "Black Chalk",
-  "item.jsg.knife": "JSG Knife",
-  "item.jsg.trap_lemon": "Lemon half",
-  "item.jsg.crushed_calcite": "Crushed Calcite",
-
   "_comment116": ">>> Food <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.chocolate_bar": "5th Avenue Chocolate Bar",
-  "item.jsg.slice_lemon": "Lemon slices",
+  "item.jsg.jibbaran_enhancer": "Jibbaran Enhancer",
 
   "_comment117": ">>> Spawn Eggs <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.mastadge_spawn_egg": "Mastadge Spawn Egg",
-
-  "_comment118": ">>> Notebook Pages + Notebook <<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.page_notebook_empty": "Notebook Page",
-  "item.jsg.page_notebook_filled": "Notebook Page",
-  "item.jsg.page_notebook_filled.hold_shift": "Hold %key% to show symbol's ids",
-  "item.jsg.notebook": "Notebook",
 
   "_comment119": ">>> Schematics >>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<",
 
@@ -267,17 +179,20 @@
   "item.jsg.fragment_stargate_pegasus": "Pegasus Ring Fragment",
   "item.jsg.fragment_stargate_universe": "Universe Ring Fragment",
   "item.jsg.fragment_stargate_tollan": "Tollan Ring Fragment",
-  "item.jsg.pestle": "Pestle",
 
-  "_comment122": ">>> Weapons <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "_comment122": ">>> TREASURE MAPS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "filled_map.burried_stargate": "Chappa'ai Location Map",
+  "filled_map.abydos_treasure": "Old Abydos Map",
 
-  "_comment123": ">>> Advancements Icons <<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "_comment123": ">>> Weapons <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+
+  "_comment124": ">>> Advancements Icons <<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.icon_jsg": "Main JSG Icon",
 
-  "_comment124": ">>> Integrations Items <<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "_comment125": ">>> Integrations Items <<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "_comment125": "===>>> Tinkers Construct <<<<<<<<<<<<<<<<<<<<<<<<<",
+  "_comment126": "===>>> Tinkers Construct <<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.iris_blade_golden_cast": "Iris Blade Gold Cast",
   "item.jsg.iris_blade_sand_cast": "Iris Blade Sand Cast",
@@ -285,187 +200,12 @@
   "item.jsg.iris_blade_stone": "Stone Iris Blade",
 
   "pattern.jsg.iris_blade": "Iris Blade",
-  "material.jsg.trinium": "Trinium",
-  "material.jsg.titanium": "Titanium",
-  "material.jsg.naquadah_alloy_raw": "Raw Naquadah",
-  "material.jsg.naquadah_alloy": "Naquadah Alloy",
-  "material.jsg.naquadah_alloy_refined": "Refined Naquadah",
-
-  "_comment126": "===>>> Create <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.incomplete_gear_titanium": "Incomplete Titanium Gear",
-  "item.jsg.incomplete_gear_trinium": "Incomplete Trinium Gear",
-  "item.jsg.incomplete_gear_naquadah_raw": "Incomplete Raw Naquadah Gear",
-  "item.jsg.incomplete_gear_naquadah": "Incomplete Naquadah Gear",
-  "item.jsg.incomplete_gear_naquadah_refined": "Incomplete Refined Naquadah Gear",
-  "item.jsg.incomplete_chocolate_bar": "Incomplete Chocolate Bar",
 
   "_comment200": "----------- BLOCKS / BLOCK ENTITIES --------------",
 
   "_comment201": ">>> Special Blocks <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "block.jsg.invisible_block": "You Can't See Me!",
   "block.jsg.iris_block": "Iris / Shield block",
-  "block.jsg.lemon": "Lemon",
-
-  "_comment202": ">>> Ores <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.titanium_ore": "Titanium Ore",
-  "block.jsg.deepslate_titanium_ore": "Deepslate Titanium Ore",
-  "block.jsg.sand_titanium_ore": "Sandstone Titanium Ore",
-  "block.jsg.netherrack_titanium_ore": "Netherrack Titanium Ore",
-  "block.jsg.endstone_titanium_ore": "End Stone Titanium Ore",
-
-  "block.jsg.trinium_ore": "Trinium Ore",
-  "block.jsg.deepslate_trinium_ore": "Deepslate Trinium Ore",
-  "block.jsg.sand_trinium_ore": "Sandstone Trinium Ore",
-  "block.jsg.netherrack_trinium_ore": "Netherrack Trinium Ore",
-  "block.jsg.endstone_trinium_ore": "End Stone Trinium Ore",
-
-  "block.jsg.naquadah_ore": "Naquadah Ore",
-  "block.jsg.deepslate_naquadah_ore": "Deepslate Naquadah Ore",
-  "block.jsg.sand_naquadah_ore": "Sandstone Naquadah Ore",
-  "block.jsg.netherrack_naquadah_ore": "Netherrack Naquadah Ore",
-  "block.jsg.endstone_naquadah_ore": "End Stone Naquadah Ore",
-
-  "_comment203": ">>> Raw Materials Blocks <<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.raw_titanium_ore_block": "Block of Raw Titanium",
-  "block.jsg.raw_trinium_ore_block": "Block of Raw Trinium",
-  "block.jsg.raw_naquadah_ore_block": "Block of Raw Naquadah",
-
-  "_comment204": ">>> Materials Blocks <<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.titanium_block": "Titanium Block",
-  "block.jsg.trinium_block": "Trinium Block",
-  "block.jsg.naquadah_alloy_raw_block": "Raw Naquadah Block",
-  "block.jsg.naquadah_alloy_block": "Naquadah Block",
-  "block.jsg.naquadah_alloy_refined_block": "Refined Naquadah Block",
-
-  "block.jsg.blue_crystal_block": "Block of Blue Crystal",
-  "block.jsg.red_crystal_block": "Block of Red Crystal",
-  "block.jsg.ender_crystal_block": "Block of Ender Crystal",
-  "block.jsg.yellow_crystal_block": "Block of Yellow Crystal",
-  "block.jsg.white_crystal_block": "Block of White Crystal",
-  "block.jsg.pegasus_crystal_block": "Block of Pegasus Crystal",
-
-  "_comment205": ">>> Budding Blocks <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.self_budding_blue_crystal": "Budding Blue Crystal",
-  "block.jsg.budding_blue_crystal": "Stone Budding Blue Crystal",
-  "block.jsg.deepslate_budding_blue_crystal": "Deepslate Budding Blue Crystal",
-  "block.jsg.sand_budding_blue_crystal": "Sandstone Budding Blue Crystal",
-  "block.jsg.endstone_budding_blue_crystal": "End Stone Budding Blue Crystal",
-  "block.jsg.netherrack_budding_blue_crystal": "Netherrack Budding Blue Crystal",
-
-  "block.jsg.self_budding_red_crystal": "Budding Red Crystal",
-  "block.jsg.budding_red_crystal": "Stone Budding Red Crystal",
-  "block.jsg.deepslate_budding_red_crystal": "Deepslate Budding Red Crystal",
-  "block.jsg.sand_budding_red_crystal": "Sandstone Budding Red Crystal",
-  "block.jsg.endstone_budding_red_crystal": "End Stone Budding Red Crystal",
-  "block.jsg.netherrack_budding_red_crystal": "Netherrack Budding Red Crystal",
-
-  "block.jsg.self_budding_ender_crystal": "Budding Ender Crystal",
-  "block.jsg.budding_ender_crystal": "Stone Budding Ender Crystal",
-  "block.jsg.deepslate_budding_ender_crystal": "Deepslate Budding Ender Crystal",
-  "block.jsg.sand_budding_ender_crystal": "Sandstone Budding Ender Crystal",
-  "block.jsg.endstone_budding_ender_crystal": "End Stone Budding Ender Crystal",
-  "block.jsg.netherrack_budding_ender_crystal": "Netherrack Budding Ender Crystal",
-
-  "block.jsg.self_budding_yellow_crystal": "Budding Yellow Crystal",
-  "block.jsg.budding_yellow_crystal": "Stone Budding Yellow Crystal",
-  "block.jsg.deepslate_budding_yellow_crystal": "Deepslate Budding Yellow Crystal",
-  "block.jsg.sand_budding_yellow_crystal": "Sandstone Budding Yellow Crystal",
-  "block.jsg.endstone_budding_yellow_crystal": "End Stone Budding Yellow Crystal",
-  "block.jsg.netherrack_budding_yellow_crystal": "Netherrack Budding Yellow Crystal",
-
-  "block.jsg.self_budding_white_crystal": "Budding White Crystal",
-  "block.jsg.budding_white_crystal": "Stone Budding White Crystal",
-  "block.jsg.deepslate_budding_white_crystal": "Deepslate Budding White Crystal",
-  "block.jsg.sand_budding_white_crystal": "Sandstone Budding White Crystal",
-  "block.jsg.endstone_budding_white_crystal": "End Stone Budding White Crystal",
-  "block.jsg.netherrack_budding_white_crystal": "Netherrack Budding White Crystal",
-
-  "block.jsg.self_budding_pegasus_crystal": "Budding Pegasus Crystal",
-  "block.jsg.budding_pegasus_crystal": "Stone Budding Pegasus Crystal",
-  "block.jsg.deepslate_budding_pegasus_crystal": "Deepslate Budding Pegasus Crystal",
-  "block.jsg.sand_budding_pegasus_crystal": "Sandstone Budding Pegasus Crystal",
-  "block.jsg.endstone_budding_pegasus_crystal": "End Stone Budding Pegasus Crystal",
-  "block.jsg.netherrack_budding_pegasus_crystal": "Netherrack Budding Pegasus Crystal",
-
-  "block.jsg.self_unstable_budding_blue_crystal": "Unstable Budding Blue Crystal",
-  "block.jsg.unstable_budding_blue_crystal": "Unstable Stone Budding Blue Crystal",
-  "block.jsg.deepslate_unstable_budding_blue_crystal": "Unstable Deepslate Budding Blue Crystal",
-  "block.jsg.sand_unstable_budding_blue_crystal": "Unstable Sandstone Budding Blue Crystal",
-  "block.jsg.endstone_unstable_budding_blue_crystal": "Unstable End Stone Budding Blue Crystal",
-  "block.jsg.netherrack_unstable_budding_blue_crystal": "Unstable Netherrack Budding Blue Crystal",
-
-  "block.jsg.self_unstable_budding_red_crystal": "Unstable Budding Red Crystal",
-  "block.jsg.unstable_budding_red_crystal": "Unstable Stone Budding Red Crystal",
-  "block.jsg.deepslate_unstable_budding_red_crystal": "Unstable Deepslate Budding Red Crystal",
-  "block.jsg.sand_unstable_budding_red_crystal": "Unstable Sandstone Budding Red Crystal",
-  "block.jsg.endstone_unstable_budding_red_crystal": "Unstable End Stone Budding Red Crystal",
-  "block.jsg.netherrack_unstable_budding_red_crystal": "Unstable Netherrack Budding Red Crystal",
-
-  "block.jsg.self_unstable_budding_ender_crystal": "Unstable Budding Ender Crystal",
-  "block.jsg.unstable_budding_ender_crystal": "Unstable Stone Budding Ender Crystal",
-  "block.jsg.deepslate_unstable_budding_ender_crystal": "Unstable Deepslate Budding Ender Crystal",
-  "block.jsg.sand_unstable_budding_ender_crystal": "Unstable Sandstone Budding Ender Crystal",
-  "block.jsg.endstone_unstable_budding_ender_crystal": "Unstable End Stone Budding Ender Crystal",
-  "block.jsg.netherrack_unstable_budding_ender_crystal": "Unstable Netherrack Budding Ender Crystal",
-
-  "block.jsg.self_unstable_budding_yellow_crystal": "Unstable Budding Yellow Crystal",
-  "block.jsg.unstable_budding_yellow_crystal": "Unstable Stone Budding Yellow Crystal",
-  "block.jsg.deepslate_unstable_budding_yellow_crystal": "Unstable Deepslate Budding Yellow Crystal",
-  "block.jsg.sand_unstable_budding_yellow_crystal": "Unstable Sandstone Budding Yellow Crystal",
-  "block.jsg.endstone_unstable_budding_yellow_crystal": "Unstable End Stone Budding Yellow Crystal",
-  "block.jsg.netherrack_unstable_budding_yellow_crystal": "Unstable Netherrack Budding Yellow Crystal",
-
-  "block.jsg.self_unstable_budding_white_crystal": "Unstable Budding White Crystal",
-  "block.jsg.unstable_budding_white_crystal": "Unstable Stone Budding White Crystal",
-  "block.jsg.deepslate_unstable_budding_white_crystal": "Unstable Deepslate Budding White Crystal",
-  "block.jsg.sand_unstable_budding_white_crystal": "Unstable Sandstone Budding White Crystal",
-  "block.jsg.endstone_unstable_budding_white_crystal": "Unstable End Stone Budding White Crystal",
-  "block.jsg.netherrack_unstable_budding_white_crystal": "Unstable Netherrack Budding White Crystal",
-
-  "block.jsg.self_unstable_budding_pegasus_crystal": "Unstable Budding Pegasus Crystal",
-  "block.jsg.unstable_budding_pegasus_crystal": "Unstable Stone Budding Pegasus Crystal",
-  "block.jsg.deepslate_unstable_budding_pegasus_crystal": "Unstable Deepslate Budding Pegasus Crystal",
-  "block.jsg.sand_unstable_budding_pegasus_crystal": "Unstable Sandstone Budding Pegasus Crystal",
-  "block.jsg.endstone_unstable_budding_pegasus_crystal": "Unstable End Stone Budding Pegasus Crystal",
-  "block.jsg.netherrack_unstable_budding_pegasus_crystal": "Unstable Netherrack Budding Pegasus Crystal",
-
-  "_comment206": ">>> Crystals buds and Crystals Clusters <<<<<<<<<<",
-
-  "block.jsg.small_blue_crystal_bud": "Small Blue Crystal Bud",
-  "block.jsg.medium_blue_crystal_bud": "Medium Blue Crystal Bud",
-  "block.jsg.large_blue_crystal_bud": "Large Blue Crystal Bud",
-  "block.jsg.blue_crystal_cluster": "Blue Crystal Cluster",
-
-  "block.jsg.small_red_crystal_bud": "Small Red Crystal Bud",
-  "block.jsg.medium_red_crystal_bud": "Medium Red Crystal Bud",
-  "block.jsg.large_red_crystal_bud": "Large Red Crystal Bud",
-  "block.jsg.red_crystal_cluster": "Red Crystal Cluster",
-
-  "block.jsg.small_ender_crystal_bud": "Small Ender Crystal Bud",
-  "block.jsg.medium_ender_crystal_bud": "Medium Ender Crystal Bud",
-  "block.jsg.large_ender_crystal_bud": "Large Ender Crystal Bud",
-  "block.jsg.ender_crystal_cluster": "Ender Crystal Cluster",
-
-  "block.jsg.small_yellow_crystal_bud": "Small Yellow Crystal Bud",
-  "block.jsg.medium_yellow_crystal_bud": "Medium Yellow Crystal Bud",
-  "block.jsg.large_yellow_crystal_bud": "Large Yellow Crystal Bud",
-  "block.jsg.yellow_crystal_cluster": "Yellow Crystal Cluster",
-
-  "block.jsg.small_white_crystal_bud": "Small White Crystal Bud",
-  "block.jsg.medium_white_crystal_bud": "Medium White Crystal Bud",
-  "block.jsg.large_white_crystal_bud": "Large White Crystal Bud",
-  "block.jsg.white_crystal_cluster": "White Crystal Cluster",
-
-  "block.jsg.small_pegasus_crystal_bud": "Small Pegasus Crystal Bud",
-  "block.jsg.medium_pegasus_crystal_bud": "Medium Pegasus Crystal Bud",
-  "block.jsg.large_pegasus_crystal_bud": "Large Pegasus Crystal Bud",
-  "block.jsg.pegasus_crystal_cluster": "Pegasus Crystal Cluster",
 
   "_comment207": ">>> Natural Blocks<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -506,33 +246,10 @@
   "block.jsg.sg_redstone_dialer_input_block": "Stargate Redstone Dialer",
   "block.jsg.sg_redstone_state_output_block": "Stargate Redstone State Output",
 
-  "_comment211": ">>> Energy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.capacitor_block": "Capacitor Bank",
-  "block.jsg.capacitor_block_creative": "Creative Capacitor Bank",
-
   "_comment212": ">>> Machines <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "block.jsg.toaster": "Toaster",
   "block.jsg.printer": "Printer",
-
-  "_comment300": "--------------------- FLUIDS ---------------------",
-
-  "_comment301": ">>> eg. in GUI, JEI... <<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "fluid.jsg.naquadah_molten_raw": "Molten Raw Naquadah",
-  "fluid.jsg.naquadah_molten_refined": "Molten Refined Naquadah",
-  "fluid.jsg.naquadah_molten_alloy": "Molten Naquadah Alloy",
-  "fluid.jsg.titanium_molten": "Molten Titanium",
-  "fluid.jsg.trinium_molten": "Molten Trinium",
-
-  "_comment302": ">>> placed in world <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "block.jsg.naquadah_molten_raw": "Molten Raw Naquadah",
-  "block.jsg.naquadah_molten_refined": "Molten Refined Naquadah",
-  "block.jsg.naquadah_molten_alloy": "Molten Naquadah Alloy",
-  "block.jsg.titanium_molten": "Molten Titanium",
-  "block.jsg.trinium_molten": "Molten Trinium",
 
   "_comment400": "-------------------- ENTITIES --------------------",
 
@@ -543,6 +260,7 @@
   "entity.minecraft.villager.jsg.priest_snow": "Priest",
   "entity.minecraft.villager.jsg.priest_swamp": "Priest",
   "entity.minecraft.villager.jsg.priest_taiga": "Priest",
+  "entity.minecraft.villager.jsg.slave_miner": "Slave Miner",
 
   "entity.jsg.mastadge": "Mastadge",
 
@@ -561,8 +279,8 @@
   "item.jsg.music_disc_destiny_gauntlet.desc": "Joel Goldsmith - Stargate Universe Gauntlet",
   "item.jsg.music_disc_destiny_opening.desc": "Joel Goldsmith - Stargate Universe Intro",
 
-  "item.jsg.music_disc_siren_sgc_offworld.desc": "Siren used when incoming wormhole occurs",
-  "item.jsg.music_disc_siren_sgc_dialing.desc": "Siren used when dialing gate out",
+  "item.jsg.music_disc_siren_sgc_offworld.desc": "SGC Offworld Alarm",
+  "item.jsg.music_disc_siren_sgc_dialing.desc": "SGC Gate Active Alarm",
 
   "_comment503": "===>>> Iris <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -573,37 +291,17 @@
   "item.jsg.upgrade_iris_trinium.tooltip.extended": "Iris works as in lore.%nl%Just install this into any gate.",
 
   "item.jsg.upgrade_shield.tooltip": "Iris upgrade tier III",
-  "item.jsg.upgrade_shield.tooltip.extended": "This upgrade is for STARGATES and has%nl%no durability. Instead of durability%nl%it consumes energy from the gate buffer.",
+  "item.jsg.upgrade_shield.tooltip.extended": "Shield blocks incoming travellers.%nl%Just install this into any gate.%nl%Instead of durability%nl%it consumes energy from the gate buffer.",
 
   "item.jsg.upgrade_iris_creative.tooltip": "Iris with infinite durability",
 
   "item.jsg.iris.tooltip.integrity": "Integrity:",
   "item.jsg.iris.tooltip.durability": "Durability:",
 
-  "_comment504": "===>>> Natural Crystals and Crystal Seeds <<<<<<<<",
-
-  "item.jsg.seed_blue_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_blue_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of Blue Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
-  "item.jsg.seed_red_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_red_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of Red Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
-  "item.jsg.seed_ender_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_ender_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of Ender Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
-  "item.jsg.seed_yellow_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_yellow_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of Yellow Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
-  "item.jsg.seed_white_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_white_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of White Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
-  "item.jsg.seed_pegasus_crystal.tooltip": "Use this seed to create budding block",
-  "item.jsg.seed_pegasus_crystal.tooltip.extended": "Right click with seed to supported blocks:%nl%Block of Pegasus Crystal, Stone, Deepslate,%nl%Smooth Sandstone, Netherrack, End Stone",
-
   "_comment505": "===>>> Upgrade Crystals <<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.crystal_glyph_dhd.tooltip": "Upgrade for DHDs",
-  "item.jsg.crystal_glyph_dhd.tooltip.extended": "This crystal allows you to §lDIAL%nl%8 and 9 symbols addresses when%nl%placed into a DHD.%nl%%nl%§oThis upgrade can be combined%nl%§owith other DHD upgrades!",
+  "item.jsg.crystal_glyph_dhd.tooltip.extended": "This crystal allows you to §lDIAL%nl%8 and 9 symbol addresses when%nl%placed into a DHD.%nl%%nl%§oThis upgrade can be combined%nl%§owith other DHD upgrades!",
 
   "item.jsg.crystal_glyph_stargate.tooltip": "Upgrade for Stargates",
   "item.jsg.crystal_glyph_stargate.tooltip.extended": "This crystal allows you to §lONLY DISPLAY%nl%8th and 9th symbols of the gate's address when%nl%placed into a stargate.%nl%%nl%§oThis upgrade can be combined%nl%§owith other stargate upgrades!",
@@ -617,22 +315,12 @@
   "item.jsg.crystal_glyph_universe.tooltip": "Upgrade for Stargates",
   "item.jsg.crystal_glyph_universe.tooltip.extended": "This crystal allows you to §lONLY DISPLAY%nl%gate's Universe address when%nl%placed into a stargate.%nl%%nl%§oThis upgrade can be combined%nl%§owith other stargate upgrades!",
 
-  "item.jsg.crystal_upgrade_capacity.tooltip": "Upgrade for DHDs and Rings",
-  "item.jsg.crystal_upgrade_capacity.tooltip.extended": "This crystal will increase capacity%nl%of DHD or enable one more slot for%nl%capacitor when placed in transport rings.%nl%%nl%§oThis upgrade can be combined%nl%§owith other DHD and rings upgrades!",
-
-  "item.jsg.crystal_upgrade_efficiency.tooltip": "Upgrade for DHDs",
-  "item.jsg.crystal_upgrade_efficiency.tooltip.extended": "This crystal will increase efficiency%nl%of DHD's Cold Fusion Reactor.%nl%This reactor will produce%nl%more power per 1mB of Naquadah.%nl%%nl%§oThis upgrade can be combined%nl%§owith other DHD upgrades!",
-
-  "_comment506": "===>>> Control Circuit <<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.circuit_control_base.tooltip": "Circuit core used as crafting resource",
-
   "_comment507": "===>>> DHD Components <<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "item.jsg.crystal_control_dhd.tooltip": "Main control crystal of DHD",
   "item.jsg.crystal_control_dhd.tooltip.extended": "Insert this crystal into DHD (Dial Home Device)%nl%to make the DHD functional and be able%nl%to link with the nearest gate.",
 
-  "item.jsg.crystal_control_pegasus_dhd.tooltip": "Main control crystal of DHD",
+  "item.jsg.crystal_control_pegasus_dhd.tooltip": "Main control crystal for a DHD",
   "item.jsg.crystal_control_pegasus_dhd.tooltip.extended": "Insert this crystal into DHD (Dial Home Device)%nl%to make the DHD functional and be able%nl%to link with the nearest gate.",
 
   "_comment508": "===>>> Handheld Devices <<<<<<<<<<<<<<<<<<<<<<<<<<",
@@ -640,32 +328,8 @@
   "admin_controller.tooltip": "Stargate controller and debugger",
   "admin_controller.tooltip.extended": "This item shows you whole SG network when linked to a gate.%nl%It's capable of dialing the linked gate%nl%by spinning the ring, locking symbols like DHD%nl%and dialing all symbols at once like Nox did in series.",
 
-  "item.jsg.gdo.tooltip": "GDO is capable of sending IDC code trough open wormhole to open iris",
-  "item.jsg.universe_dialer.tooltip": "Controller for Universe gates capable of doing much more!",
-
-  "_comment509": "===>>> Tools <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.tauri_ancient_adapter.tooltip": "Plug 'n' Play Adapter",
-  "item.jsg.tauri_ancient_adapter.tooltip.extended": "No drivers needed to run this device",
-
-  "item.jsg.hammer.tooltip": "It's not an ordinary Hammer",
-  "item.jsg.hammer.tooltip.extended": "It's the JSG Hammer!",
-
-  "item.jsg.screwdriver.tooltip": "It's not an ordinary Screwdriver",
-  "item.jsg.screwdriver.tooltip.extended": "It's the JSG Screwdriver!",
-
-  "item.jsg.wrench.tooltip": "It's not an ordinary Wrench",
-  "item.jsg.wrench.tooltip.extended": "It's the JSG Wrench!",
-
-  "item.jsg.knife.tooltip": "It's not dull, because...",
-  "item.jsg.knife.tooltip.extended": "It's too sharp!",
-
-  "item.jsg.crushed_calcite.tooltip": "Can be used for boosting up crystallization process",
-  "item.jsg.crushed_calcite.tooltip.extended": "Boosting can reduce the likelihood of disruption of%nl%crystallization process",
-
-  "_comment510": "===>>> Notebook Pages + Notebook <<<<<<<<<<<<<<<<<",
-
-  "item.jsg.page_notebook.empty": "Empty",
+  "item.jsg.gdo.tooltip": "GDO is capable of sending an IDC code through an open wormhole to open the iris.",
+  "item.jsg.universe_dialer.tooltip": "A controller that works with Universe gates, along with much more!",
 
   "_comment511": "===>>> Tinkers Construct Compat <<<<<<<<<<<<<<<<<<",
 
@@ -686,26 +350,26 @@
 
   "block.jsg.stargate_orlin_base_block.open_count": "Open count: %s / %s",
   "block.jsg.stargate_orlin_base_block.tooltip": "The main block of Orlin's gate",
-  "block.jsg.stargate_orlin_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.",
+  "block.jsg.stargate_orlin_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.",
   "block.jsg.stargate_orlin_member_block.tooltip": "The construction block of Orlin's gate",
   "block.jsg.stargate_orlin_member_block.tooltip.extended": "You need this block to complete building a new stargate.",
 
   "block.jsg.stargate_milkyway_base_block.tooltip": "The main block of Milky Way gate",
-  "block.jsg.stargate_milkyway_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.",
+  "block.jsg.stargate_milkyway_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.",
   "block.jsg.stargate_milkyway_chevron_block.tooltip": "The locking mechanism of Milky Way gate",
   "block.jsg.stargate_milkyway_chevron_block.tooltip.extended": "You need this block to complete building a new stargate.",
   "block.jsg.stargate_milkyway_ring_block.tooltip": "The construction block of Milky Way gate",
   "block.jsg.stargate_milkyway_ring_block.tooltip.extended": "You need this block to complete building a new stargate.",
 
   "block.jsg.stargate_movie_base_block.tooltip": "The main block of Movie gate",
-  "block.jsg.stargate_movie_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.",
+  "block.jsg.stargate_movie_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.",
   "block.jsg.stargate_movie_chevron_block.tooltip": "The locking mechanism of Movie gate",
   "block.jsg.stargate_movie_chevron_block.tooltip.extended": "You need this block to complete building a new stargate.",
   "block.jsg.stargate_movie_ring_block.tooltip": "The construction block of Movie gate",
   "block.jsg.stargate_movie_ring_block.tooltip.extended": "You need this block to complete building a new stargate.",
 
   "block.jsg.stargate_tollan_base_block.tooltip": "The main block of Tollan gate",
-  "block.jsg.stargate_tollan_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.",
+  "block.jsg.stargate_tollan_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.",
   "block.jsg.stargate_tollan_chevron_block.tooltip": "The locking mechanism of Tollan gate",
   "block.jsg.stargate_tollan_chevron_block.tooltip.extended": "You need this block to complete building a new stargate.",
   "block.jsg.stargate_tollan_ring_block.tooltip": "The construction block of Tollan gate",
@@ -719,7 +383,7 @@
   "block.jsg.stargate_pegasus_ring_block.tooltip.extended": "You need this block to complete building a new stargate.",
 
   "block.jsg.stargate_universe_base_block.tooltip": "The main block of Universe gate",
-  "block.jsg.stargate_universe_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.",
+  "block.jsg.stargate_universe_base_block.tooltip.extended": "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.",
   "block.jsg.stargate_universe_chevron_block.tooltip": "The locking mechanism of Universe gate",
   "block.jsg.stargate_universe_chevron_block.tooltip.extended": "You need this block to complete building a new stargate.",
   "block.jsg.stargate_universe_ring_block.tooltip": "The construction block of Universe gate",
@@ -735,49 +399,23 @@
 
   "_comment516": "===>>> Machines <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "block.jsg.toaster.tooltip": "Orlin still hasn't buy her new one!",
+  "block.jsg.toaster.tooltip": "Orlin still owes Carter a new one.",
   "block.jsg.printer.tooltip": "Useful to print notebook pages",
 
 
   "_comment600": "---------------------- GUI -----------------------",
 
-  "tooltip.general.hold_shift": "Hold %key% to show advanced tooltip!",
-
   "_comment601": ">>> Options -> Key Binds <<<<<<<<<<<<<<<<<<<<<<<<<",
 
   "key.categories.jsg": "Just Stargate Mod",
-  "config.jsg.address_down": "Universe dialer/Notebook address down",
+  "config.jsg.address_down": "Universe dialer address down",
   "config.jsg.address_edit": "Open address edit menu",
-  "config.jsg.address_scroll": "Universe dialer/Notebook address scroll",
-  "config.jsg.address_up": "Universe dialer/Notebook address up",
+  "config.jsg.address_scroll": "Universe dialer address scroll",
+  "config.jsg.address_up": "Universe dialer address up",
   "config.jsg.mode_down": "Universe dialer mode down",
   "config.jsg.mode_scroll": "Universe dialer mode scroll",
   "config.jsg.mode_up": "Universe dialer mode up",
-
-  "_comment602": ">>> Universal GUI text <<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "gui.upgrades": "Upgrades",
-  "gui.stargate.energyBuffer": "Energy buffer",
-
-  "_comment603": ">>> Notebook page / Notebook <<<<<<<<<<<<<<<<<<<<<",
-
-  "item.jsg.notebook.unnamed": "<unnamed>",
-
-  "_comment604": "===>>> Biome Overlay Tab <<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "gui.biome_overlay": "Biome overlay",
-  "gui.biome_overlay.normal": "Normal",
-  "gui.biome_overlay.frost": "Frosty",
-  "gui.biome_overlay.mossy": "Mossy",
-  "gui.biome_overlay.aged": "Aged",
-  "gui.biome_overlay.sooty": "Sooty",
-  "gui.biome_overlay.help": "Insert blocks to override",
-
-  "_comment605": ">>> Energy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "_comment606": "===>>> Capacitor <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "gui.capacitor.name": "Capacitor Bank",
+  "config.jsg.rename_entry": "Universe dialer rename entry",
 
   "_comment607": ">>> Stargate <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -908,15 +546,11 @@
 
   "gui.stargate.capacitors": "Capacitors",
 
-  "_comment612": "===>>> Config Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "gui.configuration": "Configuration",
-
   "_comment613": "===>>> Address Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "gui.stargate.milkyway_address": "Milky Way address",
-  "gui.stargate.pegasus_address": "Pegasus address",
-  "gui.stargate.universe_address": "Universe address",
+  "gui.stargate.jsg.milkyway_address": "Milky Way address",
+  "gui.stargate.jsg.pegasus_address": "Pegasus address",
+  "gui.stargate.jsg.universe_address": "Universe address",
 
   "_comment614": "===>>> Iris Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -965,54 +599,76 @@
   "item.jsg.gdo.code_rejected": "CODE INVALID",
   "item.jsg.gdo.code_accepted": "Code accepted! Opening iris...",
   "item.jsg.gdo.iris_busy": "Iris is busy!",
-  "item.jsg.gdo.iris_opened": "Iris is opened!",
+  "item.jsg.gdo.iris_opened": "Iris is open!",
   "item.jsg.gdo.operator": "T-Mobile 5G",
   "item.jsg.gdo.code": "Code:",
 
   "_comment619": ">>> Universe Dialer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
+  "item.jsg.universe_dialer.in_menu.alert": "Edit entry name or press ESC",
   "item.jsg.universe_dialer.saved_gates": "Saved gates: %s",
   "item.jsg.universe_dialer.mode_scan": "Nearby",
   "item.jsg.universe_dialer.mode_saved": "Memory",
   "item.jsg.universe_dialer.mode_info": "Status",
+  "item.jsg.universe_dialer.manual_dialing": "Dialing",
+  "item.jsg.universe_dialer.manual_dialing.delete": "Delete",
 
-  "_comment620": ">>> Compatibility <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "_comment619.5": ">>> Admin Controller <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "_comment621": "===>>> JEI, JADE etc. - Recipes <<<<<<<<<<<<<<<<<<",
+  "gui.admincontroller.name": "Admin Controller",
 
-  "gui.jei.category.cauldron.casting": "Cauldron casting",
-  "gui.jei.category.cauldron.smelting": "Cauldron smelting",
+  "gui.admincontroller.tab.dialing.name": "Dialling",
+  "gui.admincontroller.tab.diagnostics.name": "Diagnostics",
+  "gui.admincontroller.tab.network.name": "Network",
 
-  "_comment622": "===>>> Tinkers Construct <<<<<<<<<<<<<<<<<<<<<<<<<",
+  "gui.admincontroller.tab.dialing.gate.not_linked": "OFFLINE",
+  "gui.admincontroller.tab.dialing.abort.name": "Abort dialing",
+  "gui.admincontroller.tab.dialing.close.name": "Close stargate",
+  "gui.admincontroller.tab.dialing.iris.name": "Toggle the gate's iris",
 
-  "material.jsg.titanium.encyclopedia": "Causes the tool to mine faster by half of the square root of the trait level times lost durability",
-  "material.jsg.titanium.flavor": "Material better than iron with better properties!",
-  "material.jsg.titanium.ranged": "Grants -25% durability and +20% projectile power per level",
-  "material.jsg.titanium.armor": "Reduce damage from fire immune mobs by 5% per level and reduces fire burn time",
+  "gui.admincontroller.tab.diagnostics.state": "Stargate status:",
+  "gui.admincontroller.tab.diagnostics.subspace": "Subspace status:",
+  "gui.admincontroller.tab.diagnostics.energy": "Energy (FE):",
+  "gui.admincontroller.tab.diagnostics.energy_consumption": "Energy consumption (FE/tick):",
+  "gui.admincontroller.tab.diagnostics.seconds_open": "Open time:",
+  "gui.admincontroller.tab.diagnostics.seconds_to_close": "Seconds until closure:",
 
-  "material.jsg.trinium.encyclopedia": "Grants +15% durability and melee damage per level",
-  "material.jsg.trinium.flavor": "Truly durable and lightweight material. Extraction requires a blessing from the Tonane tribe",
-  "material.jsg.trinium.ranged": "Grants +0.5% accuracy when not on the ground or ladder",
-  "material.jsg.trinium.armor": "Reduces damage from melee attacks by 10% per level and boosts movement speed, when using items by 5% per max level",
+  "gui.admincontroller.tab.network.address_list.name": "Addresses",
+  "gui.admincontroller.tab.network.map.name": "Network map",
+  "gui.admincontroller.tab.network.map.you_are_here": "You are here",
+  "gui.admincontroller.tab.network.map.stargate.name": "Name:",
+  "gui.admincontroller.tab.network.map.stargate.pos": "Position:",
+  "gui.admincontroller.tab.network.map.stargate.type": "Type:",
+  "gui.admincontroller.tab.network.map.stargate.dimension": "Dimension:",
+  "gui.admincontroller.tab.network.dimension_select.all.name": "All dimensions",
+  "gui.admincontroller.tab.network.address_list.slow_dail.name": "Slow dialing",
+  "gui.admincontroller.tab.network.address_list.fast_dial.name": "Fast dialing",
+  "gui.admincontroller.tab.network.address_list.nox_dialing.name": "Nox dialing",
+  "gui.admincontroller.tab.network.address_list.address.name": "Get address",
+  "gui.admincontroller.tab.network.address_list.teleport.name": "Teleport to gate",
 
-  "material.jsg.naquadah_alloy_raw.encyclopedia": "Grants bonus mining speed at lower depth",
-  "material.jsg.naquadah_alloy_raw.flavor": "The raw version of naquadah is suitable not only for offerings to your gods.",
-  "material.jsg.naquadah_alloy_raw.ranged": "Grants -10% durability and +10% projectile power per level",
-  "material.jsg.naquadah_alloy_raw.armor": "Grants -10% movement speed per level",
-
-  "material.jsg.naquadah_alloy.encyclopedia": "Prevents 33% of damage at the cost of an extra 25% repair cost at first level",
-  "material.jsg.naquadah_alloy.flavor": "Probably the best conductor so far!",
-  "material.jsg.naquadah_alloy.ranged": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
-  "material.jsg.naquadah_alloy.armor": "Grants +10% protection per level against explosions and reduces explosion knockback",
-
-  "material.jsg.naquadah_alloy_refined.encyclopedia": "Grants -16% durability per level",
-  "material.jsg.naquadah_alloy_refined.flavor": "Highly reactive isotope of naquadah. Suitable as a fuel source for generators!",
-  "material.jsg.naquadah_alloy_refined.ranged": "Increases drop chances from mobs killed by arrows",
-  "material.jsg.naquadah_alloy_refined.armor": "Temporarily boosts melee damage by 1 after taking damage, capping at the total level across all armor",
+  "gui.admincontroller.response.error": "✘",
+  "gui.admincontroller.response.success": "✔",
+  "gui.admincontroller.response.stargate.not_linked.error": "Controller not linked to a gate",
+  "gui.admincontroller.response.stargate.not_merged.error": "Stargate must be merged",
+  "gui.admincontroller.response.stargate.dial_address.error.busy": "Stargate is busy",
+  "gui.admincontroller.response.stargate.dial_address.error.already_engaged": "One or more symbols have already been engaged",
+  "gui.admincontroller.response.stargate.dial_address.error.blocked_by_event": "Dialling blocked by an error (Check logs)",
+  "gui.admincontroller.response.stargate.dial_address.success": "Begun dialling...",
+  "gui.admincontroller.response.stargate.give_address.success": "Giving address book...",
+  "gui.admincontroller.response.stargate.abort.error": "Stargate is not dialing",
+  "gui.admincontroller.response.stargate.abort.success": "Dialing aborted",
+  "gui.admincontroller.response.stargate.iris.empty": "Stargate doesn't have an iris",
+  "gui.admincontroller.response.stargate.iris.busy": "Stargate's iris is busy",
+  "gui.admincontroller.response.stargate.iris.close": "Closing the iris...",
+  "gui.admincontroller.response.stargate.iris.open": "Opening the iris...",
+  "gui.admincontroller.response.stargate.close.success": "Closing gate...",
+  "gui.admincontroller.response.stargate.close.error.not_open": "Stargate is not open",
+  "gui.admincontroller.response.stargate.close.error.blocked_by_event": "Closing blocked by an error (Check logs)",
 
   "_comment700": "----------------- CHAT MESSAGES ------------------",
 
-  "chat.orlins.energyStored": "Energy stored: %s RF (Required: %s RF, %s s)",
+  "chat.orlins.energyStored": "Energy stored: %s FE (Required: %s FE, %s s)",
 
   "_comment800": "-------------- ACTION BAR MESSAGES ---------------",
 
@@ -1080,9 +736,9 @@
   "advancement.jsg.printer.description": "Works like regular printer, but it's more advanced",
 
   "advancement.jsg.toaster.title": "Carter's Toaster",
-  "advancement.jsg.toaster.description": "You wouldn't believe the things that you can make from the common items",
+  "advancement.jsg.toaster.description": "You wouldn't believe the things that you can make from common items.",
 
-  "advancement.jsg.orlin_gate_merge.title": "So you build your own",
+  "advancement.jsg.orlin_gate_merge.title": "So you built one?",
   "advancement.jsg.orlin_gate_merge.description": "Ohh... and you're going to need a new toaster!",
 
   "advancement.jsg.titanium_ingot.title": "Better then Iron",
@@ -1099,7 +755,7 @@
   "advancement.jsg.pegasus_cluster.title": "Cold ice crystal",
   "advancement.jsg.pegasus_cluster.description": "Obtain pegasus crystal cluster",
 
-  "advancement.jsg.red_cluster.title": "Its red not hot!",
+  "advancement.jsg.red_cluster.title": "Its red, not hot!",
   "advancement.jsg.red_cluster.description": "Obtain red crystal cluster",
 
   "advancement.jsg.white_cluster.title": "Don't touch it!",
@@ -1110,7 +766,7 @@
 
   "_comment1005": ">>> Gate Activated Branch <<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "advancement.jsg.fixed_lock.title": "It Will Only Create Wormhole Once",
+  "advancement.jsg.fixed_lock.title": "It'll only create a wormhole Once.",
   "advancement.jsg.fixed_lock.description": "Activate Orlin Gate",
 
   "advancement.jsg.kawoosh_death.title": "Escaping Hadante",
@@ -1119,7 +775,7 @@
   "advancement.jsg.unstable_wormhole.title": "Unstable Wormhole?!",
   "advancement.jsg.unstable_wormhole.description": "For a moment i thought we were in trouble",
 
-  "advancement.jsg.wormhole_travel.title": "What's wormhole? And why worm?",
+  "advancement.jsg.wormhole_travel.title": "What's a wormhole? And why a worm?",
   "advancement.jsg.wormhole_travel.description": "Enter the Event Horizon of a Stargate",
 
   "_comment1006": ">>> Cauldron Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
@@ -1197,7 +853,7 @@
   "advancement.jsg.dhd_milkyway.title": "This is how they control it",
   "advancement.jsg.dhd_milkyway.description": "Obtain Milkyway DHD",
 
-  "advancement.jsg.dhd_pegasus.title": "Look how small it is",
+  "advancement.jsg.dhd_pegasus.title": "Look how small it is!",
   "advancement.jsg.dhd_pegasus.description": "Obtain Pegasus DHD",
 
   "advancement.jsg.glyph_crystal_dhd.title": "Additional Control Crystal",
@@ -1281,7 +937,7 @@
   "_comment1206": "===>>> Wormhole / Event Horizon <<<<<<<<<<<<<<<<<",
 
   "jsg.subtitle.wormhole_loop": "Stargate wormhole ripples",
-  "jsg.subtitle.wormhole_go": "Stargate wormhole receives traveller",
+  "jsg.subtitle.wormhole_go": "Stargate wormhole receives traveler",
   "jsg.subtitle.wormhole_flicker": "Stargate wormhole flickers",
 
   "_comment1207": "===>>> Iris / Shield <<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
@@ -1293,6 +949,7 @@
   "jsg.subtitle.shield_opening": "Shield opening",
   "jsg.subtitle.shield_closing": "Shield closing",
   "jsg.subtitle.shield_hit": "Thud against the shield",
+  "jsg.subtitle.shield_humming": "Shield hums",
 
   "_comment1208": ">>> DHDs <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
@@ -1306,15 +963,12 @@
   "jsg.subtitle.dhd_pegasus_press": "DHD symbol pressed",
   "jsg.subtitle.dhd_pegasus_press_brb": "DHD bright blue button pressed",
 
-  "_comment1211": ">>> Notebook pages / Notebook <<<<<<<<<<<<<<<<<<<<",
-
-  "jsg.subtitle.page_flip": "Page flips",
-
   "_comment1212": ">>> Universe Dialer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 
-  "jsg.subtitle.universe_dialer_connect": "Universe Dialer connected",
-  "jsg.subtitle.universe_dialer_change_mode": "Changed Universe Dialer mode",
-  "jsg.subtitle.universe_dialer_beep": "Universe Dialer started dialing",
+  "jsg.subtitle.universe_dialer_connect": "Dialer connected",
+  "jsg.subtitle.universe_dialer_change_mode": "Changed Dialer mode",
+  "jsg.subtitle.universe_dialer_beep": "Dialer started dialing",
+  "jsg.subtitle.universe_dialer_error": "Dialer Error",
 
   "_comment1213": ">>> GDO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
 

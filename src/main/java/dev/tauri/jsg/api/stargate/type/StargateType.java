@@ -1,8 +1,13 @@
 package dev.tauri.jsg.api.stargate.type;
 
 
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolTypeRegistry;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
+import dev.tauri.jsg.api.registry.JSGRegistries;
+import dev.tauri.jsg.api.registry.JSGSymbolTypes;
+import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
+import dev.tauri.jsg.core.common.config.ingame.option.ConfigOptionsHolder;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -12,47 +17,40 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
  * Since Tollan gate has same set of symbols as MW gate, use this to identify which gate is which...
  */
-public class StargateType {
-    private static final Map<Integer, StargateType> REGISTRY = new HashMap<>();
-    private static final Map<String, StargateType> REGISTRY_STRING = new HashMap<>();
-
-    private static int nextId = 0;
-    public final int id;
-    public final String textId;
+public class StargateType<T extends SymbolType<?>> implements IPointOfOriginType {
     public final String name;
-    public final AbstractSymbolType<?> symbolType;
+    public final Supplier<T> symbolType;
     public final Supplier<Block> baseBlockSupplier;
     @Nullable
     public final Supplier<Block> dhdBlockSupplier;
     public final Class<? extends BlockEntity> baseBlockEntityClass;
-    public final ResourceLocation configType;
+    public final Supplier<ConfigOptionsHolder> configOptionsHolder;
     public final boolean isClassic;
+    public final List<String> pooModelsTypes;
+    public final List<String> pooTexturesTypes;
+    public final List<ResourceLocation> defaultPointOfOrigins;
 
-    public StargateType(String textId, String name, AbstractSymbolType<?> symbolType, Class<? extends BlockEntity> baseBlockEntityClass, Supplier<Block> baseBlockSupplier, @Nullable Supplier<Block> dhdBlockSupplier, @Nonnull ResourceLocation configType, boolean isClassic) {
-        this.id = nextId++;
-        this.textId = textId.toLowerCase();
+    public StargateType(String name, Supplier<T> symbolType, Class<? extends BlockEntity> baseBlockEntityClass, Supplier<Block> baseBlockSupplier, @Nullable Supplier<Block> dhdBlockSupplier, @Nonnull Supplier<ConfigOptionsHolder> configOptionsHolder, boolean isClassic, List<String> pooModelsTypes, List<String> pooTexturesTypes, List<ResourceLocation> defaultPointOfOrigins) {
         this.name = name;
         this.symbolType = symbolType;
         this.baseBlockEntityClass = baseBlockEntityClass;
         this.baseBlockSupplier = baseBlockSupplier;
         this.dhdBlockSupplier = dhdBlockSupplier;
-        this.configType = configType;
+        this.configOptionsHolder = configOptionsHolder;
         this.isClassic = isClassic;
-
-        REGISTRY.put(id, this);
-        REGISTRY_STRING.put(this.textId, this);
-        REGISTRY_STRING.put(this.name.toLowerCase(), this);
+        this.defaultPointOfOrigins = defaultPointOfOrigins;
+        this.pooModelsTypes = pooModelsTypes;
+        this.pooTexturesTypes = pooTexturesTypes;
     }
 
-    public String getId() {
-        return textId;
+    public ResourceLocation getId() {
+        return JSGRegistries.R_STARGATE_TYPE.get().getKey(this);
     }
 
     @Override
@@ -73,26 +71,21 @@ public class StargateType {
     // ------------------------------------------------------------
     // Static
 
-    public static StargateType valueOf(int id) {
-        return REGISTRY.get(id);
+    public static StargateType<?> valueOf(ResourceLocation id) {
+        return JSGRegistries.R_STARGATE_TYPE.get().getValue(id);
     }
 
-    public static StargateType valueOf(String id) {
-        return REGISTRY_STRING.get(id.toLowerCase());
-    }
-
-    public static Collection<StargateType> values() {
-        return REGISTRY.values();
+    public static Collection<StargateType<?>> values() {
+        return JSGRegistries.R_STARGATE_TYPE.get().getValues();
     }
 
     @Nullable
-    public static StargateType getRandom(RandomSource random) {
-        if (REGISTRY.isEmpty()) return null;
-        return new ArrayList<>(REGISTRY.values()).get(random.nextInt(REGISTRY.size()));
+    public static StargateType<?> getRandom(RandomSource random) {
+        return new ArrayList<>(values()).get(random.nextInt(values().size()));
     }
 
     @Nullable
-    public static StargateType getRandomClassic(RandomSource random) {
+    public static StargateType<?> getRandomClassic(RandomSource random) {
         int i = 0;
         while (i < 100) {
             i++;
@@ -104,10 +97,31 @@ public class StargateType {
         return null;
     }
 
-    public static StargateType parse(AbstractSymbolType<?> type) {
-        if (type == SymbolTypeRegistry.MILKYWAY) return StargateTypes.MILKYWAY;
-        if (type == SymbolTypeRegistry.PEGASUS) return StargateTypes.PEGASUS;
-        if (type == SymbolTypeRegistry.UNIVERSE) return StargateTypes.UNIVERSE;
-        return StargateTypes.MILKYWAY;
+    public static StargateType<?> parse(SymbolType<?> type) {
+        if (type == JSGSymbolTypes.MILKYWAY.get()) return StargateTypes.MILKYWAY.get();
+        if (type == JSGSymbolTypes.PEGASUS.get()) return StargateTypes.PEGASUS.get();
+        if (type == JSGSymbolTypes.UNIVERSE.get()) return StargateTypes.UNIVERSE.get();
+        return StargateTypes.MILKYWAY.get();
+    }
+
+    @Override
+    public List<String> getPoOModelsTypes() {
+        return pooModelsTypes;
+    }
+
+    @Override
+    public List<String> getPoOTexturesTypes() {
+        return pooTexturesTypes;
+    }
+
+    @Override
+    public List<ResourceLocation> getPoODefaults() {
+        return defaultPointOfOrigins;
+    }
+
+    @Override
+    public @Nullable PointOfOrigin getDefaultPoO() {
+        if (getPoODefaults().isEmpty()) return null;
+        return StargatePointOfOriginsDefaults.get(this, getPoODefaults().get(0));
     }
 }

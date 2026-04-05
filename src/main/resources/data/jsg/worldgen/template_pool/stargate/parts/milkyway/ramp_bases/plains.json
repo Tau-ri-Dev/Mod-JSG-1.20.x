@@ -1,0 +1,60 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_bases/plains",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/plains/bases/base_1",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/plains/bases/base_2",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/plains/bases/base_3",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/plains/bases/base_4",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/plains_and_snowy_biomes/bases/fallen",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/plains/bases/buried",
+        "processors": "jsg:stargate_outpost/plains"
+      }
+    }
+  ]
+}

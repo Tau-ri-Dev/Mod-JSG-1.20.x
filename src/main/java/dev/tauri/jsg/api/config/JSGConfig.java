@@ -1,26 +1,22 @@
 package dev.tauri.jsg.api.config;
 
+import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.stargate.StargateSizeEnum;
-import dev.tauri.jsg.api.config.util.StargateTimeLimitModeEnum;
-import dev.tauri.jsg.api.config.values.JSGConfigValue;
-import dev.tauri.jsg.api.helper.TemperatureHelper;
 import dev.tauri.jsg.api.client.screen.EnumMainMenuGateType;
-import net.minecraft.network.chat.Component;
+import dev.tauri.jsg.api.config.util.StargateTimeLimitModeEnum;
+import dev.tauri.jsg.core.common.config.JSGConfigChild;
+import dev.tauri.jsg.core.common.config.JSGCoreConfig;
+import dev.tauri.jsg.core.common.config.values.JSGConfigValue;
+import dev.tauri.jsg.core.common.helper.TemperatureHelper;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
 
 public class JSGConfig {
-    private static final JSGConfigChild C_GENERAL = new JSGConfigChild(() -> General.BUILDER, "General", JSGApi.MOD_ID);
-    private static final JSGConfigChild C_DEBUG = new JSGConfigChild(() -> Debug.BUILDER, "Debug", JSGApi.MOD_ID);
-    private static final JSGConfigChild C_DHD = new JSGConfigChild(() -> DialHomeDevice.BUILDER, "DialHomeDevice", JSGApi.MOD_ID);
-    private static final JSGConfigChild C_SG = new JSGConfigChild(() -> Stargate.BUILDER, "Stargate", JSGApi.MOD_ID);
-    private static final JSGConfigChild C_CC = new JSGConfigChild(() -> ComputersIntegration.BUILDER, "ComputersIntegration", JSGApi.MOD_ID);
+    public static final JSGConfigChild C_GENERAL = new JSGConfigChild(() -> General.BUILDER, "General", JSGApi.MOD_ID);
+    public static final JSGConfigChild C_DEBUG = new JSGConfigChild(() -> Debug.BUILDER, "Debug", JSGApi.MOD_ID);
+    public static final JSGConfigChild C_DHD = new JSGConfigChild(() -> DialHomeDevice.BUILDER, "DialHomeDevice", JSGApi.MOD_ID);
+    public static final JSGConfigChild C_SG = new JSGConfigChild(() -> Stargate.BUILDER, "Stargate", JSGApi.MOD_ID);
 
     public static class General {
         private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -33,12 +29,6 @@ public class JSGConfig {
         public static final JSGConfigValue.DoubleValue volume = C_GENERAL.add(new JSGConfigValue.DoubleValue(BUILDER,
                 "JSG sounds volume", 1.0, 0, 3, true,
                 "SIDE: SERVER/CLIENT"
-        ));
-
-        public static final JSGConfigValue.DoubleValue visualGlyphTransparency = C_GENERAL.add(new JSGConfigValue.DoubleValue(BUILDER,
-                "Notebook page Glyph transparency", 0.75, 0, 1, true,
-                "Specifies transparency of glyphs on notebook page",
-                "SIDE: CLIENT"
         ));
 
         public static final JSGConfigValue.EnumValue<TemperatureHelper.EnumTemperatureUnit> temperatureUnit = C_GENERAL.add(new JSGConfigValue.EnumValue<>(BUILDER,
@@ -82,23 +72,11 @@ public class JSGConfig {
         ));
     }
 
-    public static class ComputersIntegration {
-        private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-
-        public static final JSGConfigValue.IntValue stargateWirelessRange = C_CC.add(new JSGConfigValue.IntValue(BUILDER,
-                "Stargate wireless range", 20, 0, 150,
-                "Defines wireless range of stargate for OC/CC",
-                "SIDE: SERVER"
-        ));
-
-    }
-
     public static class Debug {
         private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
         public static final JSGConfigValue.BooleanValue renderInvisibleBlocks = C_DEBUG.add(new JSGConfigValue.BooleanValue(BUILDER, "Render invisible blocks", false));
         public static final JSGConfigValue.BooleanValue renderBoundingBoxes = C_DEBUG.add(new JSGConfigValue.BooleanValue(BUILDER, "Render bounding boxes", false));
-        public static final JSGConfigValue.BooleanValue logLoadingTextures = C_DEBUG.add(new JSGConfigValue.BooleanValue(BUILDER, "Log loading textures and models", false));
     }
 
     public static class DialHomeDevice {
@@ -195,14 +173,6 @@ public class JSGConfig {
 
     public static class Stargate {
         public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-
-        public static final JSGConfigValue.EnumValue<StargateSizeEnum> stargateSize = C_SG.add(new JSGConfigValue.EnumValue<>(BUILDER,
-                "Stargate size", StargateSizeEnum.MEDIUM,
-                "Defines size of stargate's model",
-                "SIDE: SERVER/CLIENT"
-        ));
-
-
         // --------------------------------------
         //      MECHANICS
         // --------------------------------------
@@ -365,32 +335,8 @@ public class JSGConfig {
                 "SIDE: SERVER"
         ));
 
-        public static final JSGConfigValue.BooleanValue enableFastDialing = C_SG.add(new JSGConfigValue.BooleanValue(BUILDER, "Visual.Enable fast dialing of gates", false,
-                "Enable fast dialing on gates by default",
-                "THIS OPTION CAN BE OVERRIDE BY SETTING IT IN STARGATE GUI",
-                "SIDE: SERVER/CLIENT"
-        ));
-
         public static final JSGConfigValue.BooleanValue enableTravelAnimation = C_SG.add(new JSGConfigValue.BooleanValue(BUILDER, "Enable travel animation", true,
                 "SIDE: SERVER!!!"
-        ));
-
-        // --------------------------------------
-        //      POINT OF ORIGINS
-        // --------------------------------------
-
-        public static final JSGConfigValue.BooleanValue enableDiffOrigins = C_SG.add(new JSGConfigValue.BooleanValue(BUILDER, "PointOfOrigins.Enable different Point Of Origins for MW gate", true,
-                "SIDE: CLIENT"
-        ));
-
-        public static final JSGConfigValue.ListStringValue additionalOrigins = C_SG.add(new JSGConfigValue.ListStringValue(BUILDER, "PointOfOrigins.Custom added points of origin", new ArrayList<>(),
-                "Specifies Point Of Origins that were added by any resource pack.",
-                "This options is required to load all models of added origins!",
-                "Format: \"id:name\", for example: ",
-                "\"6:Tollan\"",
-                "\"7:P4X-256\"",
-                "!DO NOT CHANGE ANYTHING IF YOU DON'T KNOW WHAT ARE YOU DOING!",
-                "SIDE: CLIENT/SERVER"
         ));
 
         // --------------------------------------
@@ -419,6 +365,14 @@ public class JSGConfig {
                 "Defines how many quads should be used to render EH circle",
                 "DO NOT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING!",
                 "SIDE: CLIENT"
+        ));
+
+        public static final JSGConfigValue.BooleanValue blackHoleCanDestroyBlocks = C_SG.add(new JSGConfigValue.BooleanValue(BUILDER, "EventHorizon.Blackhole vortex can destroy blocks", true,
+                "SIDE: SERVER"
+        ));
+
+        public static final JSGConfigValue.BooleanValue blackHoleCanSuckBlocks = C_SG.add(new JSGConfigValue.BooleanValue(BUILDER, "EventHorizon.Blackhole field can suck blocks", true,
+                "SIDE: SERVER"
         ));
 
         // --------------------------------------
@@ -479,28 +433,6 @@ public class JSGConfig {
     public static final String CONFIG_GENERAL_VERSION = "2.0";
     private static final String CONFIG_FILE_NAME = "jsg/jsgConfig_" + CONFIG_GENERAL_VERSION + "/";
 
-    public static class JSGConfigChild {
-        public Supplier<ForgeConfigSpec.Builder> builder;
-        public String name;
-        public String modId;
-        public final List<JSGConfigValue> entries = new ArrayList<>();
-
-        public JSGConfigChild(Supplier<ForgeConfigSpec.Builder> builder, String name, String modId) {
-            this.builder = builder;
-            this.name = name;
-            this.modId = modId;
-        }
-
-        public Component getTitle() {
-            return Component.translatable("gui." + modId + ".config_child." + name.toLowerCase().replaceAll(" ", "_"));
-        }
-
-        public <T extends JSGConfigValue> T add(T configValue) {
-            entries.add(configValue);
-            return configValue;
-        }
-    }
-
     public static final ArrayList<JSGConfigChild> LIST = new ArrayList<>();
 
     public static void register() {
@@ -509,11 +441,8 @@ public class JSGConfig {
         LIST.add(C_DEBUG);
         LIST.add(C_DHD);
         LIST.add(C_SG);
-        LIST.add(C_CC);
 
-        for (JSGConfigChild child : LIST) {
-            ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, child.builder.get().build(), CONFIG_FILE_NAME + child.name + ".toml");
-        }
+        JSGCoreConfig.register(JSG.MOD_ID, CONFIG_FILE_NAME, LIST);
     }
 
     public static void load() {

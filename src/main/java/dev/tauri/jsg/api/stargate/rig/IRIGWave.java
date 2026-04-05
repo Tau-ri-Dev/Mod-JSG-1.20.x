@@ -1,6 +1,6 @@
 package dev.tauri.jsg.api.stargate.rig;
 
-import dev.tauri.jsg.api.config.IJSONConfigEntry;
+import dev.tauri.jsg.core.common.config.IJSONConfigEntry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;

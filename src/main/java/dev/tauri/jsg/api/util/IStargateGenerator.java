@@ -1,12 +1,13 @@
 package dev.tauri.jsg.api.util;
 
-import dev.tauri.jsg.api.config.ingame.JSGTileEntityConfig;
-import dev.tauri.jsg.api.registry.BiomeOverlayRegistry;
+import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisMode;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolTypeRegistry;
-import dev.tauri.jsg.api.stargate.network.address.symbol.types.AbstractSymbolType;
 import dev.tauri.jsg.api.stargate.type.StargateType;
 import dev.tauri.jsg.api.stargate.type.StargateTypes;
+import dev.tauri.jsg.core.common.config.ingame.BEConfig;
+import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
+import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,9 +50,9 @@ public interface IStargateGenerator {
         @Nonnull
         public List<StargateUpgradesEnum> upgrades = new ArrayList<>();
         @Nonnull
-        public BiomeOverlayRegistry.BiomeOverlayInstance overlay = BiomeOverlayRegistry.NORMAL;
+        public BiomeOverlayInstance overlay = CoreBiomeOverlays.NORMAL.get();
         @Nonnull
-        public AbstractSymbolType<?> addressSymbolTypeToReturn = SymbolTypeRegistry.MILKYWAY;
+        public SymbolType<?> addressSymbolTypeToReturn = JSGSymbolTypes.MILKYWAY.get();
 
         // Gate
         public BlockPos gateBasePos;
@@ -60,11 +61,11 @@ public interface IStargateGenerator {
         @Nonnull
         public Direction gateVerticalFacing = Direction.SOUTH;
         @Nonnull
-        public StargateType gateType = StargateTypes.MILKYWAY;
+        public StargateType<?> gateType = StargateTypes.MILKYWAY.get();
         @Nonnull
         public List<Pair<Integer, Boolean>> capacitors = new ArrayList<>(); // List<Pair<[capacity], [isCreative]>>
         public int stargateEnergyInternal = -1;
-        public Function<JSGTileEntityConfig, JSGTileEntityConfig> stargateConfig = null;
+        public Function<BEConfig, BEConfig> stargateConfig = null;
         @Nonnull
         public EnumIrisMode irisMode = EnumIrisMode.OPENED;
         @Nonnull

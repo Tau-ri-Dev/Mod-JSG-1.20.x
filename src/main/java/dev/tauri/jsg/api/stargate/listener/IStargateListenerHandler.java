@@ -3,13 +3,14 @@ package dev.tauri.jsg.api.stargate.listener;
 import dev.tauri.jsg.api.stargate.EnumStargateState;
 import dev.tauri.jsg.api.stargate.StargateClosedReasonEnum;
 import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IStargateListenerHandler extends INBTSerializable<CompoundTag> {
     void addListener(IStargateListener listener);
+
     void removeListener(IStargateListener listener);
 
 
@@ -19,13 +20,13 @@ public interface IStargateListenerHandler extends INBTSerializable<CompoundTag> 
     default void gateClose(StargateClosedReasonEnum reason) {
     }
 
-    default void gateDisconnect(){
+    default void gateDisconnect() {
     }
 
-    default void gateReset(){
+    default void gateReset() {
     }
 
-    default void gateStateChanged(EnumStargateState oldState, EnumStargateState newState){
+    default void gateStateChanged(EnumStargateState oldState, EnumStargateState newState) {
     }
 
     default void gateSymbolEngage(SymbolInterface symbol) {

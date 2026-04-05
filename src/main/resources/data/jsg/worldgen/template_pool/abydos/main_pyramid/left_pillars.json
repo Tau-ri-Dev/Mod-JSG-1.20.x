@@ -1,6 +1,6 @@
 {
   "name": "jsg:abydos/main_pyramid/left_pillars",
-  "fallback": "minecraft:empty",
+  "fallback": "jsg:abydos/main_pyramid/left_pillars_backup",
   "elements": [
     {
       "weight": 1,

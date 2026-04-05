@@ -24,7 +24,6 @@
       "structure": "jsg:milkyway_outpost_snowy",
       "weight": 1
     },
-
     {
       "structure": "jsg:pegasus_outpost_badlands",
       "weight": 1
@@ -42,29 +41,29 @@
       "weight": 1
     },
     {
-      "structure": "jsg:pegasus_outpost_ocean",
-      "weight": 1
-    },
-    {
       "structure": "jsg:pegasus_outpost_plains",
       "weight": 1
     },
     {
       "structure": "jsg:pegasus_outpost_snowy",
       "weight": 1
+    },
+    {
+      "structure": "jsg:pegasus_outpost_ocean",
+      "weight": 1
     }
   ],
   "placement": {
     "salt": 1762081954,
-    "spacing": 20,
-    "separation": 18,
+    "spacing": 188,
+    "separation": 100,
     "locate_offset": [
       0,
       2,
       0
     ],
     "exclusion_zone": {
-      "chunk_count": 9,
+      "chunk_count": 16,
       "other_set": "minecraft:villages"
     },
     "type": "minecraft:random_spread"

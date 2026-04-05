@@ -1,13 +1,13 @@
 package dev.tauri.jsg.api.stargate.animation;
 
 import dev.tauri.jsg.api.stargate.Stargate;
-import dev.tauri.jsg.api.state.State;
-import dev.tauri.jsg.api.util.ITickable;
+import dev.tauri.jsg.core.common.blockentity.ITickable;
+import dev.tauri.jsg.core.common.entity.State;
 
 public abstract class AbstractBlackHoleAnimationState extends State implements ITickable {
     public final Stargate<?> stargate;
     public boolean isConnectedToBlackHole = false;
-    public boolean isIncoming = false;
+    public boolean isSource = false;
     public long isConnectedToBlackHoleFrom = -1;
 
     public AbstractBlackHoleAnimationState(Stargate<?> stargate) {

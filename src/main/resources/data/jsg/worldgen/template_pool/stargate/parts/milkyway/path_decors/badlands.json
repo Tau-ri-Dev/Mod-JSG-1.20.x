@@ -1,0 +1,15 @@
+{
+  "name": "jsg:stargate/parts/milkyway/path_decors/badlands",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/path_decors/badlands/decor_1",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

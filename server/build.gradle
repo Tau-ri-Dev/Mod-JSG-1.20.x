@@ -1,0 +1,18 @@
+base {
+    archivesName = "../" + build_extrapath + "-server-" + minecraft_version
+
+}
+sourceSets {
+    main {
+        java {
+            srcDir('../src/main/java')
+        }
+        resources {
+            srcDir('../src/main/resources')
+            srcDir('../src/generated/resources')
+            exclude("assets/jsg/textures/**")
+            exclude("assets/jsg/models/**")
+            exclude("assets/jsg/sounds/**")
+        }
+    }
+}

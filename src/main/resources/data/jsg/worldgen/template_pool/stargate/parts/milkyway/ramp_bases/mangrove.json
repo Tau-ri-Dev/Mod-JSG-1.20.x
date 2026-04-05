@@ -1,0 +1,60 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_bases/mangrove",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/mangrove/bases/base_1",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/mangrove/bases/base_2",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/mangrove/bases/base_3",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/mangrove/bases/base_4",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/generic/wet_biomes/bases/fallen",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/mangrove/bases/buried",
+        "processors": "jsg:stargate_outpost/mangrove"
+      }
+    }
+  ]
+}

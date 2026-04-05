@@ -1,0 +1,48 @@
+{
+  "name": "jsg:stargate/parts/pegasus/decors_short/snowy",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/generic/all_biomes/decor_1",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/generic/grass_biomes/decor_3",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/generic/grass_biomes/decor_4",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/snowy/decor_3",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    }
+  ]
+}

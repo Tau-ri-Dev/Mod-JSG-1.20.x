@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "location": "jsg:abydos/main_pyramid/left",
-        "processors": "minecraft:empty",
+        "processors": "jsg:abydos/physical_treasure",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

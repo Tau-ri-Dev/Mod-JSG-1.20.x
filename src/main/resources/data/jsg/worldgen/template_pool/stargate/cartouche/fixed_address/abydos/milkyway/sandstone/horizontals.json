@@ -1,0 +1,66 @@
+{
+  "name": "jsg:stargate/cartouche/fixed_address/abydos/milkyway/sandstone/horizontals",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/six_without_poo",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/six_with_poo",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/seven_without_poo",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/seven_with_poo",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/eight_without_poo",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:cartouche/dynamic_address/random/milkyway/sandstone/horizontal/eight_with_poo",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

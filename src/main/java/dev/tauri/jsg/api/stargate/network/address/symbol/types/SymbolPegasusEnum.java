@@ -1,16 +1,20 @@
 package dev.tauri.jsg.api.stargate.network.address.symbol.types;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.client.LoadersHolder;
-import dev.tauri.jsg.api.registry.BiomeOverlayRegistry;
-import dev.tauri.jsg.api.stargate.network.address.symbol.SymbolInterface;
-import dev.tauri.jsg.api.util.I18n;
-import net.minecraft.resources.ResourceKey;
+import dev.tauri.jsg.api.registry.JSGSymbolTypes;
+import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
+import dev.tauri.jsg.api.stargate.type.StargateTypes;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.SymbolType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
+import dev.tauri.jsg.core.common.util.I18n;
+import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import static dev.tauri.jsg.api.stargate.network.address.symbol.SymbolTypeRegistry.PEGASUS;
+import java.util.Objects;
 
 public enum SymbolPegasusEnum implements SymbolInterface {
     ROEHI(37, "Roehi", "37.obj", 11),
@@ -60,19 +64,24 @@ public enum SymbolPegasusEnum implements SymbolInterface {
     public final int textureSlot;
     public final String englishName;
     public final String translationKey;
-    public final ResourceLocation iconResource;
-    public final ResourceLocation modelResource;
-    public final ResourceLocation modelResourceLight;
+    private final ResourceLocation iconResource;
+    private final ResourceLocation gateSymbolResource;
+    private final ResourceLocation gateSymbolOffResource;
+    private final ResourceLocation modelResource;
+    private final ResourceLocation modelResourceLight;
 
     SymbolPegasusEnum(int id, String englishName, String model, int textureSlot) {
         this.id = id;
         this.textureSlot = textureSlot;
         this.englishName = englishName;
         this.translationKey = "glyph.jsg.pegasus." + englishName.toLowerCase().replace(" ", "_");
-        this.iconResource = new ResourceLocation(JSGApi.MOD_ID, "textures/gui/symbol/pegasus/" + englishName.toLowerCase().replace(" ", "_") + ".png");
+        this.iconResource = JSGMapping.rl(JSGApi.MOD_ID, "textures/gui/symbol/pegasus/" + englishName.toLowerCase().replace(" ", "_") + ".png");
 
-        this.modelResource = LoadersHolder.JSG_HOLDER.model().getModelResource("pegasus/dhd/buttons/" + model.split("\\.")[0] + "_base.obj");
-        this.modelResourceLight = LoadersHolder.JSG_HOLDER.model().getModelResource("pegasus/dhd/buttons/" + model);
+        this.gateSymbolResource = JSGApi.JSG_LOADERS_HOLDER.texture().getTextureResource("pegasus/glyphs.png");
+        this.gateSymbolOffResource = JSGApi.JSG_LOADERS_HOLDER.texture().getTextureResource("pegasus/glyphs_off.png");
+
+        this.modelResource = JSGApi.JSG_LOADERS_HOLDER.model().getModelResource("pegasus/dhd/buttons/" + model.split("\\.")[0] + "_base.obj");
+        this.modelResourceLight = JSGApi.JSG_LOADERS_HOLDER.model().getModelResource("pegasus/dhd/buttons/" + model);
     }
 
     @Override
@@ -110,8 +119,36 @@ public enum SymbolPegasusEnum implements SymbolInterface {
     }
 
     @Override
-    public ResourceLocation getIconResource(BiomeOverlayRegistry.BiomeOverlayInstance overlay, ResourceKey<Level> dimensionId, int configOrigin) {
-        return iconResource;
+    public ResourceLocation getIconResource(@Nullable PointOfOrigin origin) {
+        return getIconResource(origin, StargatePointOfOriginsDefaults.VARIANT_ICON);
+    }
+
+    public ResourceLocation getIconResource(@Nullable PointOfOrigin origin, @NotNull String variant) {
+        if (origin()) {
+            return Objects.requireNonNullElseGet(origin, () -> Objects.requireNonNull(StargateTypes.PEGASUS.get().getDefaultPoO())).getPath(variant, false);
+        }
+        return (variant.equalsIgnoreCase(StargatePointOfOriginsDefaults.VARIANT_GATE_OFF_PNG) ? gateSymbolOffResource : (variant.equalsIgnoreCase(StargatePointOfOriginsDefaults.VARIANT_GATE_PNG) ? gateSymbolResource : iconResource));
+    }
+
+    public void bindIconTexture(@Nullable PointOfOrigin origin, @NotNull String variant) {
+        if (variant.equalsIgnoreCase(StargatePointOfOriginsDefaults.VARIANT_ICON)) {
+            bindIconTexture(origin);
+            return;
+        }
+        var location = getIconResource(origin, variant);
+        var loader = getSymbolType().getTextureLoader();
+        if (origin() && JSGApi.JSG_LOADERS_HOLDER.texture().isTextureLoaded(location)) // origins are loaded and saved inside JSG texture loader by Origins Loader
+            loader = JSGApi.JSG_LOADERS_HOLDER.texture();
+        loader.getTexture(location).bindTexture();
+    }
+
+    @Override
+    public ResourceLocation getModelResource(IPointOfOriginType type, @Nullable PointOfOrigin origin, String variant) {
+        if (origin()) {
+            return Objects.requireNonNullElseGet(origin, () -> Objects.requireNonNull(type.getDefaultPoO())).getPath(variant, true);
+        }
+
+        return variant.equalsIgnoreCase(StargatePointOfOriginsDefaults.VARIANT_DHD_LIGHT) ? this.modelResourceLight : this.modelResource;
     }
 
     @Override
@@ -120,14 +157,15 @@ public enum SymbolPegasusEnum implements SymbolInterface {
     }
 
     @Override
-    public AbstractSymbolType<SymbolPegasusEnum> getSymbolType() {
-        return PEGASUS;
+    public SymbolType<SymbolPegasusEnum> getSymbolType() {
+        return JSGSymbolTypes.PEGASUS.get();
     }
 
     @Override
     public boolean isValidForAddress() {
         return !brb() && !origin() && this != UNKNOW1 && this != UNKNOW2;
     }
+
 
     @Override
     public SymbolInterface getNext(boolean previous) {
@@ -136,16 +174,21 @@ public enum SymbolPegasusEnum implements SymbolInterface {
             id += (previous ? -1 : 1);
             if (id < 0) id = 37;
             id = id % 38;
-            var symbol = PEGASUS.valueOf(id);
+            var symbol = JSGSymbolTypes.PEGASUS.get().valueOf(id);
             if (symbol != null && symbol.isValidForAddress()) return symbol;
         }
     }
 
+    @Override
+    public boolean canBePressed() {
+        return !(this == UNKNOW1 || this == UNKNOW2);
+    }
+
     @SuppressWarnings("all")
     @NotNull
-    public static AbstractSymbolType<SymbolPegasusEnum> getProvider() {
+    public static SymbolType<SymbolPegasusEnum> getProvider() {
         try {
-            return (AbstractSymbolType<SymbolPegasusEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolPegasusProvider").getConstructor().newInstance();
+            return (SymbolType<SymbolPegasusEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolPegasusProvider").getConstructor().newInstance();
         } catch (Exception e) {
             JSGApi.logger.error("Error while getting symbol provider: ", e);
         }

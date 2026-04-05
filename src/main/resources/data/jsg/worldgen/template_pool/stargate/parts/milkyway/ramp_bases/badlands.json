@@ -1,0 +1,51 @@
+{
+  "name": "jsg:stargate/parts/milkyway/ramp_bases/badlands",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/badlands/bases/base_1",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/badlands/bases/base_2",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/badlands/bases/base_3",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/badlands/bases/fallen",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/parts/milkyway/badlands/bases/buried",
+        "processors": "jsg:stargate_outpost/desert_and_badlands"
+      }
+    }
+  ]
+}

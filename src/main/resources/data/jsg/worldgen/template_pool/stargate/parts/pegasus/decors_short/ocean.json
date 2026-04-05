@@ -1,0 +1,48 @@
+{
+  "name": "jsg:stargate/parts/pegasus/decors_short/ocean",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/ocean/decor_5",
+        "processors": "jsg:stargate_outpost/ocean"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/ocean/decor_6",
+        "processors": "jsg:stargate_outpost/ocean"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/ocean/decor_7",
+        "processors": "jsg:stargate_outpost/ocean"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/front_decors/ocean/decor_8",
+        "processors": "jsg:stargate_outpost/ocean"
+      }
+    }
+  ]
+}
