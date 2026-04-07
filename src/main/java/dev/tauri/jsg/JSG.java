@@ -155,7 +155,7 @@ public class JSG {
 
         Integrations.CCT.addOnLoad(CCDevices::load);
         Integrations.OC2.addOnLoad(OCDevices::load);
-        Integrations.CREATE.addOnLoad(PonderScenes::new);
+        Integrations.CREATE.addOnLoad(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PonderScenes::new));
 
         displayWelcomeMessage();
     }
