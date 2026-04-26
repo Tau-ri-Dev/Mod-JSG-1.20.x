@@ -1,10 +1,32 @@
 package dev.tauri.jsg;
 
-import dev.tauri.jsg.advancements.JSGAdvancements;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.registry.JSGRegistries;
-import dev.tauri.jsg.command.JSGCommands;
+import dev.tauri.jsg.client.screen.gui.admincontroller.AdminControllerTabsRegistry;
+import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.DiagnosticsTab;
+import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.DialingTab;
+import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.NetworkTab;
+import dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu;
+import dev.tauri.jsg.common.advancements.JSGAdvancements;
+import dev.tauri.jsg.common.command.JSGCommands;
+import dev.tauri.jsg.common.item.linkable.dialer.modes.UniverseDialerModes;
+import dev.tauri.jsg.common.listener.EventTickClient;
+import dev.tauri.jsg.common.packet.JSGPacketHandler;
+import dev.tauri.jsg.common.recipes.PageAndUniverseDialerRecipe;
+import dev.tauri.jsg.common.recipes.StargateOrlinBaseBlockRecipe;
+import dev.tauri.jsg.common.recipes.UniverseDialerCloneRecipe;
+import dev.tauri.jsg.common.recipes.notebook.NotebookCloneRecipe;
+import dev.tauri.jsg.common.recipes.notebook.NotebookCreationRecipe;
+import dev.tauri.jsg.common.recipes.notebook.NotebookMergePageRecipe;
+import dev.tauri.jsg.common.recipes.notebook.NotebookMergeRecipe;
+import dev.tauri.jsg.common.registry.JSGRegistriesInit;
+import dev.tauri.jsg.common.stargate.StargateTypesLoader;
+import dev.tauri.jsg.common.stargate.network.StargateNetwork;
+import dev.tauri.jsg.common.stargate.network.StargateReservedAddresses;
+import dev.tauri.jsg.common.util.updater.GetUpdate;
+import dev.tauri.jsg.common.worldgen.poolinject.injectors.StargateTemplatePoolsAdditions;
+import dev.tauri.jsg.common.worldgen.poolinject.injectors.VillageTemplatePoolsAdditions;
 import dev.tauri.jsg.core.JSGCore;
 import dev.tauri.jsg.core.LoggerWrapper;
 import dev.tauri.jsg.core.common.integration.Integrations;
@@ -12,27 +34,6 @@ import dev.tauri.jsg.core.mapping.JSGMapping;
 import dev.tauri.jsg.integration.cctweaked.CCDevices;
 import dev.tauri.jsg.integration.create.PonderScenes;
 import dev.tauri.jsg.integration.oc2.OCDevices;
-import dev.tauri.jsg.item.linkable.dialer.modes.UniverseDialerModes;
-import dev.tauri.jsg.packet.JSGPacketHandler;
-import dev.tauri.jsg.recipes.PageAndUniverseDialerRecipe;
-import dev.tauri.jsg.recipes.StargateOrlinBaseBlockRecipe;
-import dev.tauri.jsg.recipes.UniverseDialerCloneRecipe;
-import dev.tauri.jsg.recipes.notebook.NotebookCloneRecipe;
-import dev.tauri.jsg.recipes.notebook.NotebookCreationRecipe;
-import dev.tauri.jsg.recipes.notebook.NotebookMergePageRecipe;
-import dev.tauri.jsg.recipes.notebook.NotebookMergeRecipe;
-import dev.tauri.jsg.registry.JSGRegistriesInit;
-import dev.tauri.jsg.screen.gui.admincontroller.AdminControllerTabsRegistry;
-import dev.tauri.jsg.screen.gui.admincontroller.tabs.DiagnosticsTab;
-import dev.tauri.jsg.screen.gui.admincontroller.tabs.DialingTab;
-import dev.tauri.jsg.screen.gui.admincontroller.tabs.NetworkTab;
-import dev.tauri.jsg.screen.gui.mainmenu.GuiCustomMainMenu;
-import dev.tauri.jsg.stargate.StargateTypesLoader;
-import dev.tauri.jsg.stargate.network.StargateNetwork;
-import dev.tauri.jsg.stargate.network.StargateReservedAddresses;
-import dev.tauri.jsg.util.updater.GetUpdate;
-import dev.tauri.jsg.worldgen.poolinject.injectors.StargateTemplatePoolsAdditions;
-import dev.tauri.jsg.worldgen.poolinject.injectors.VillageTemplatePoolsAdditions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -56,6 +57,8 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+
+// TODO(Mine): Move all client stuff into client package and server stuff into common
 
 @Mod(JSG.MOD_ID)
 public class JSG {
@@ -225,7 +228,7 @@ public class JSG {
     /**
      * Contains las pos of player (client side) - helps to debug sound in main menu.
      * <p>
-     * Updated in {@link dev.tauri.jsg.listener.EventTickClient}
+     * Updated in {@link EventTickClient}
      */
     public static BlockPos lastPlayerPosInWorld = new BlockPos(0, 0, 0);
 }

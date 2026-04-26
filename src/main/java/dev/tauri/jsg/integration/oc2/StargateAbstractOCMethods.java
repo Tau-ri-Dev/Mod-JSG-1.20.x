@@ -4,12 +4,12 @@ import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.registry.JSGSymbolUsages;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
 import dev.tauri.jsg.core.common.integration.oc2.methods.AbstractOCMethods;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
-import dev.tauri.jsg.stargate.network.StargateNetwork;
 import li.cil.oc2.api.bus.device.object.Callback;
 
 import java.util.*;

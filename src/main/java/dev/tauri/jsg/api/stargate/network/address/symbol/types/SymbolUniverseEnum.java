@@ -160,7 +160,7 @@ public enum SymbolUniverseEnum implements SymbolInterface {
     @NotNull
     public static SymbolType<SymbolUniverseEnum> getProvider() {
         try {
-            return (SymbolType<SymbolUniverseEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolUniverseProvider").getConstructor().newInstance();
+            return (SymbolType<SymbolUniverseEnum>) Class.forName("dev.tauri.jsg.common.stargate.network.symbol.SymbolUniverseProvider").getConstructor().newInstance();
         } catch (Exception e) {
             JSGApi.logger.error("Error while getting symbol provider: ", e);
         }

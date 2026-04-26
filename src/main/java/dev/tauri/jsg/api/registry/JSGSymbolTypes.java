@@ -4,10 +4,10 @@ import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnum;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolPegasusEnum;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolUniverseEnum;
+import dev.tauri.jsg.common.stargate.network.symbol.SymbolMilkyWayProvider;
+import dev.tauri.jsg.common.stargate.network.symbol.SymbolPegasusProvider;
+import dev.tauri.jsg.common.stargate.network.symbol.SymbolUniverseProvider;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
-import dev.tauri.jsg.stargate.network.symbol.SymbolMilkyWayProvider;
-import dev.tauri.jsg.stargate.network.symbol.SymbolPegasusProvider;
-import dev.tauri.jsg.stargate.network.symbol.SymbolUniverseProvider;
 import net.minecraftforge.registries.RegistryObject;
 
 public class JSGSymbolTypes {

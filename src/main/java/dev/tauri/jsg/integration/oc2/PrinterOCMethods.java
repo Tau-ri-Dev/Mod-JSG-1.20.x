@@ -1,7 +1,7 @@
 package dev.tauri.jsg.integration.oc2;
 
 import dev.tauri.jsg.JSG;
-import dev.tauri.jsg.blockentity.PrinterBE;
+import dev.tauri.jsg.common.blockentity.PrinterBE;
 import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
 import dev.tauri.jsg.core.common.integration.oc2.methods.AbstractOCMethods;
 import li.cil.oc2.api.bus.device.object.Callback;

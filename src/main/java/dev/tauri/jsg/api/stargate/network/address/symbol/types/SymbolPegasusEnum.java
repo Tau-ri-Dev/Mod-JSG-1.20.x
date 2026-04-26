@@ -188,7 +188,7 @@ public enum SymbolPegasusEnum implements SymbolInterface {
     @NotNull
     public static SymbolType<SymbolPegasusEnum> getProvider() {
         try {
-            return (SymbolType<SymbolPegasusEnum>) Class.forName("dev.tauri.jsg.stargate.network.symbol.SymbolPegasusProvider").getConstructor().newInstance();
+            return (SymbolType<SymbolPegasusEnum>) Class.forName("dev.tauri.jsg.common.stargate.network.symbol.SymbolPegasusProvider").getConstructor().newInstance();
         } catch (Exception e) {
             JSGApi.logger.error("Error while getting symbol provider: ", e);
         }

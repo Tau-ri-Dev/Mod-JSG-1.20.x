@@ -1,10 +1,10 @@
 package dev.tauri.jsg.integration.jei;
 
 import dev.tauri.jsg.JSG;
+import dev.tauri.jsg.client.screen.inventory.dialhomedevice.DHDContainerGui;
+import dev.tauri.jsg.client.screen.inventory.stargate.StargateContainerGui;
 import dev.tauri.jsg.core.common.integration.jei.JEIAdvancedGuiHandler;
 import dev.tauri.jsg.core.mapping.JSGMapping;
-import dev.tauri.jsg.screen.inventory.dialhomedevice.DHDContainerGui;
-import dev.tauri.jsg.screen.inventory.stargate.StargateContainerGui;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IGuiHandlerRegistration;

@@ -1,7 +1,7 @@
 package dev.tauri.jsg.integration.create;
 
 import dev.tauri.jsg.JSG;
-import dev.tauri.jsg.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.createmod.ponder.api.registration.PonderPlugin;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;

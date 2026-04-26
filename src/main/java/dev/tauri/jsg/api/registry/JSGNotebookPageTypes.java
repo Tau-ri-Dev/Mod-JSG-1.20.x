@@ -4,13 +4,13 @@ import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.entity.StargateAddressData;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
+import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.client.entity.AddressPageRenderable;
 import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
 import dev.tauri.jsg.core.common.entity.NotebookPageType;
 import dev.tauri.jsg.core.common.helper.DimensionsHelper;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.mapping.JSGMapping;
-import dev.tauri.jsg.stargate.network.StargateNetwork;
 import net.minecraftforge.registries.RegistryObject;
 
 public class JSGNotebookPageTypes {
