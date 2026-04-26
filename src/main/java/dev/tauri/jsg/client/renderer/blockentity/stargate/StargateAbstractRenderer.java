@@ -176,6 +176,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
             StargateRendererStatic.currentStack = this.stack;
             StargateRendererStatic.packedLight = combinedLight;
             var gateRedColor = getGateColor();
+            stack.scale(1, (float) (Math.sin(((double) level.getGameTime() + partialTicks) * Math.PI / 5.2) / 4f + 0.75f), 1);
             renderWholeGate();
             this.stack.popPose();
             this.stack.popPose();
