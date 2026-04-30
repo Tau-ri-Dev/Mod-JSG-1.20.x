@@ -13,8 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.nio.charset.StandardCharsets;
-
 public class SaveIrisCodeToServer extends PositionedPacket {
     String code;
     EnumIrisMode mode;
@@ -34,8 +32,7 @@ public class SaveIrisCodeToServer extends PositionedPacket {
     public void toBytes(FriendlyByteBuf buf) {
         super.toBytes(buf);
 
-        buf.writeInt(code.length());
-        buf.writeCharSequence(code, StandardCharsets.UTF_8);
+        buf.writeUtf(code);
         buf.writeByte(mode.id);
     }
 
@@ -43,8 +40,7 @@ public class SaveIrisCodeToServer extends PositionedPacket {
     public void fromBytes(FriendlyByteBuf buf) {
         super.fromBytes(buf);
 
-        int codeSize = buf.readInt();
-        code = buf.readCharSequence(codeSize, StandardCharsets.UTF_8).toString();
+        code = buf.readUtf();
         mode = EnumIrisMode.getValue(buf.readByte());
     }
 

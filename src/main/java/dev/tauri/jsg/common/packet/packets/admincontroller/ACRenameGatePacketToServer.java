@@ -7,7 +7,6 @@ import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.nio.charset.StandardCharsets;
 
 public class ACRenameGatePacketToServer extends ACPacketToServer {
     @Nullable
@@ -27,8 +26,7 @@ public class ACRenameGatePacketToServer extends ACPacketToServer {
         super.toBytes(buf);
         if (name != null) {
             buf.writeBoolean(true);
-            buf.writeInt(name.length());
-            buf.writeCharSequence(name, StandardCharsets.UTF_8);
+            buf.writeUtf(name);
         } else buf.writeBoolean(false);
     }
 
@@ -36,8 +34,7 @@ public class ACRenameGatePacketToServer extends ACPacketToServer {
     public void fromBytes(FriendlyByteBuf buf) {
         super.fromBytes(buf);
         if (buf.readBoolean()) {
-            var size = buf.readInt();
-            name = buf.readCharSequence(size, StandardCharsets.UTF_8).toString();
+            name = buf.readUtf();
         }
     }
 

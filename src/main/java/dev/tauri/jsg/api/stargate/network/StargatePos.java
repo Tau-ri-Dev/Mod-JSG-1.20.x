@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.INBTSerializable;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -168,8 +167,7 @@ public class StargatePos implements INBTSerializable<CompoundTag> {
         buf.writeLong(fakeGatePos.asLong());
         if (name != null) {
             buf.writeBoolean(true);
-            buf.writeInt(name.length());
-            buf.writeCharSequence(name, StandardCharsets.UTF_8);
+            buf.writeUtf(name);
         } else
             buf.writeBoolean(false);
         if (gateSymbolType != null) {
@@ -191,8 +189,7 @@ public class StargatePos implements INBTSerializable<CompoundTag> {
         gatePos = BlockPos.of(buf.readLong());
         fakeGatePos = BlockPos.of(buf.readLong());
         if (buf.readBoolean()) {
-            int nameSize = buf.readInt();
-            name = buf.readCharSequence(nameSize, StandardCharsets.UTF_8).toString();
+            name = buf.readUtf();
         }
         if (buf.readBoolean()) {
             gateSymbolType = SymbolType.byId(buf.readResourceLocation());

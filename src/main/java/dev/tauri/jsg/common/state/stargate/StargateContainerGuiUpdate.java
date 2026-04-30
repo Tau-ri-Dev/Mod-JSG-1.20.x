@@ -6,8 +6,6 @@ import dev.tauri.jsg.core.common.entity.State;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 
-import java.nio.charset.StandardCharsets;
-
 public class StargateContainerGuiUpdate extends State {
     public StargateContainerGuiUpdate(StargateConnection stargateConnection) {
         this.stargateConnection = stargateConnection;
@@ -36,13 +34,13 @@ public class StargateContainerGuiUpdate extends State {
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
         buf.writeInt(energyStored);
         buf.writeInt(transferredLastTick);
         buf.writeDouble(secondsToClose);
         buf.writeByte(irisMode.id);
-        buf.writeInt(irisCode.length());
-        buf.writeCharSequence(irisCode, StandardCharsets.UTF_8);
+        buf.writeUtf(irisCode);
         stargateConnection.toBytes(new FriendlyByteBuf(buf));
         buf.writeDouble(gateTemp);
         buf.writeDouble(irisTemp);
@@ -50,13 +48,13 @@ public class StargateContainerGuiUpdate extends State {
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
         energyStored = buf.readInt();
         transferredLastTick = buf.readInt();
         secondsToClose = buf.readDouble();
         irisMode = EnumIrisMode.getValue(buf.readByte());
-        int codeSize = buf.readInt();
-        irisCode = buf.readCharSequence(codeSize, StandardCharsets.UTF_8).toString();
+        irisCode = buf.readUtf();
         stargateConnection.fromBytes(new FriendlyByteBuf(buf));
         gateTemp = buf.readDouble();
         irisTemp = buf.readDouble();
