@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.listener;
+package dev.tauri.jsg.client.listener;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.effect.StargateWormholeEffect;
@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static dev.tauri.jsg.common.listener.InputHandlerClient.KEY_BINDINGS;
+import static dev.tauri.jsg.client.listener.InputHandlerClient.KEY_BINDINGS;
 
 @Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModListener {

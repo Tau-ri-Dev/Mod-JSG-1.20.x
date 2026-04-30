@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.block.PrinterBlock;
 import dev.tauri.jsg.common.blockentity.PrinterBE;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterPrinter;
+import dev.tauri.jsg.common.raycaster.RaycasterPrinter;
 import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
 import dev.tauri.jsg.core.client.renderer.IRaycasterButtonsRenderer;

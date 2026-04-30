@@ -1,4 +1,4 @@
-package dev.tauri.jsg.client.screen.inventory.stargate;
+package dev.tauri.jsg.common.state.stargate;
 
 import dev.tauri.jsg.api.stargate.iris.EnumIrisMode;
 import dev.tauri.jsg.common.stargate.manager.StargateConnection;

@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.listener;
+package dev.tauri.jsg.client.listener;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;

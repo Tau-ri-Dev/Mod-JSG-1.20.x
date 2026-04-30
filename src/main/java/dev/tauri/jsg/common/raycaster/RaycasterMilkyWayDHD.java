@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.raycaster.instances;
+package dev.tauri.jsg.common.raycaster;
 
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.common.registry.JSGBlocks;

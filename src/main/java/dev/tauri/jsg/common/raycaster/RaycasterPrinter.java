@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.raycaster.instances;
+package dev.tauri.jsg.common.raycaster;
 
 import dev.tauri.jsg.common.blockentity.PrinterBE;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;

@@ -7,7 +7,7 @@ import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnum;
 import dev.tauri.jsg.common.loader.ElementEnum;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterMilkyWayDHD;
+import dev.tauri.jsg.common.raycaster.RaycasterMilkyWayDHD;
 import dev.tauri.jsg.common.registry.JSGBlocks;
 import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
 import dev.tauri.jsg.core.client.renderer.BlockRenderer;

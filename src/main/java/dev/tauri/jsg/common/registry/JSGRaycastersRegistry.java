@@ -1,9 +1,9 @@
 package dev.tauri.jsg.common.registry;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterMilkyWayDHD;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterPegasusDHD;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterPrinter;
+import dev.tauri.jsg.common.raycaster.RaycasterMilkyWayDHD;
+import dev.tauri.jsg.common.raycaster.RaycasterPegasusDHD;
+import dev.tauri.jsg.common.raycaster.RaycasterPrinter;
 import net.minecraftforge.registries.RegistryObject;
 
 public class JSGRaycastersRegistry {

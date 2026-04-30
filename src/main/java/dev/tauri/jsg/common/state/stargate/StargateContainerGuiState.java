@@ -1,4 +1,4 @@
-package dev.tauri.jsg.client.screen.inventory.stargate;
+package dev.tauri.jsg.common.state.stargate;
 
 import dev.tauri.jsg.api.registry.JSGSymbolUsages;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;

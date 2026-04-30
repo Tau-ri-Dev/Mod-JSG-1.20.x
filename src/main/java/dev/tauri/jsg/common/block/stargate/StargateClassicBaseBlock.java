@@ -1,7 +1,7 @@
 package dev.tauri.jsg.common.block.stargate;
 
-import dev.tauri.jsg.client.screen.inventory.stargate.StargateContainer;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.common.container.StargateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

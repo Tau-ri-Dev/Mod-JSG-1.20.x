@@ -1,4 +1,4 @@
-package dev.tauri.jsg.client.screen.inventory.dialhomedevice;
+package dev.tauri.jsg.common.state.dialhomedevice;
 
 import dev.tauri.jsg.api.stargate.dialhomedevice.DHDReactorStateEnum;
 import dev.tauri.jsg.core.common.entity.State;

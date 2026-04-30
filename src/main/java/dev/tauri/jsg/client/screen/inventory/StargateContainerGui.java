@@ -1,4 +1,4 @@
-package dev.tauri.jsg.client.screen.inventory.stargate;
+package dev.tauri.jsg.client.screen.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tauri.jsg.JSG;
@@ -9,6 +9,7 @@ import dev.tauri.jsg.api.registry.JSGSymbolUsages;
 import dev.tauri.jsg.api.stargate.StargateUpgrade;
 import dev.tauri.jsg.client.screen.element.TabIris;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
+import dev.tauri.jsg.common.container.StargateContainer;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.packet.packets.stargate.SaveIrisCodeToServer;
 import dev.tauri.jsg.common.registry.JSGItems;

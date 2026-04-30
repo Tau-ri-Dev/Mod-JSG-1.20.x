@@ -1,7 +1,7 @@
 package dev.tauri.jsg.common.block.dialhomedevice;
 
-import dev.tauri.jsg.client.screen.inventory.dialhomedevice.DHDContainer;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
+import dev.tauri.jsg.common.container.DHDContainer;
 import dev.tauri.jsg.core.common.block.TickableBEBlock;
 import dev.tauri.jsg.core.common.block.util.IHighlightBlock;
 import dev.tauri.jsg.core.common.block.util.IItemBlock;

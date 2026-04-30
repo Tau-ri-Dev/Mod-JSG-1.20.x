@@ -1,4 +1,4 @@
-package dev.tauri.jsg.client.screen.inventory.dialhomedevice;
+package dev.tauri.jsg.client.screen.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tauri.jsg.JSG;
@@ -6,6 +6,7 @@ import dev.tauri.jsg.api.client.screen.util.DHDScreenHelper;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.stargate.dialhomedevice.DHDReactorStateEnum;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
+import dev.tauri.jsg.common.container.DHDContainer;
 import dev.tauri.jsg.core.client.renderer.BlockRenderer;
 import dev.tauri.jsg.core.client.screen.tab.tabs.Tab;
 import dev.tauri.jsg.core.client.screen.tab.tabs.TabBiomeOverlay;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static dev.tauri.jsg.client.screen.inventory.stargate.StargateContainerGui.createOverlayTab;
+import static dev.tauri.jsg.client.screen.inventory.StargateContainerGui.createOverlayTab;
 import static dev.tauri.jsg.core.client.screen.util.GuiHelper.drawTexturedModalRect;
 
 public class DHDContainerGui extends AbstractContainerScreen<DHDContainer> implements TabbedContainerInterface {

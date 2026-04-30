@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.listener;
+package dev.tauri.jsg.client.listener;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.tauri.jsg.client.screen.gui.DialerVirtualGui;

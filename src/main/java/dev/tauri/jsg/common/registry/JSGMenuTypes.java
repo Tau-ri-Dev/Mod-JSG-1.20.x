@@ -1,10 +1,10 @@
 package dev.tauri.jsg.common.registry;
 
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.client.screen.inventory.dialhomedevice.DHDContainer;
-import dev.tauri.jsg.client.screen.inventory.dialhomedevice.DHDContainerGui;
-import dev.tauri.jsg.client.screen.inventory.stargate.StargateContainer;
-import dev.tauri.jsg.client.screen.inventory.stargate.StargateContainerGui;
+import dev.tauri.jsg.client.screen.inventory.DHDContainerGui;
+import dev.tauri.jsg.client.screen.inventory.StargateContainerGui;
+import dev.tauri.jsg.common.container.DHDContainer;
+import dev.tauri.jsg.common.container.StargateContainer;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.RegistryObject;

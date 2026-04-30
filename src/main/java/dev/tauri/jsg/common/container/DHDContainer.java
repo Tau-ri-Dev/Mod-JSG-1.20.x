@@ -1,8 +1,9 @@
-package dev.tauri.jsg.client.screen.inventory.dialhomedevice;
+package dev.tauri.jsg.common.container;
 
 import dev.tauri.jsg.api.stargate.dialhomedevice.DHDReactorStateEnum;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
 import dev.tauri.jsg.common.registry.JSGMenuTypes;
+import dev.tauri.jsg.common.state.dialhomedevice.DHDContainerGuiUpdate;
 import dev.tauri.jsg.core.client.screen.tab.OpenTabHolderInterface;
 import dev.tauri.jsg.core.client.screen.util.ContainerHelper;
 import dev.tauri.jsg.core.common.forgeutil.SlotHandler;

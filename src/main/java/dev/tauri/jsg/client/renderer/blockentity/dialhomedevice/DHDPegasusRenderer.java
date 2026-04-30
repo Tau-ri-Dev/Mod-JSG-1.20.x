@@ -7,7 +7,7 @@ import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolPegasusEnum;
 import dev.tauri.jsg.common.loader.ElementEnum;
-import dev.tauri.jsg.common.raycaster.instances.RaycasterPegasusDHD;
+import dev.tauri.jsg.common.raycaster.RaycasterPegasusDHD;
 import dev.tauri.jsg.common.registry.JSGBlocks;
 import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
 import dev.tauri.jsg.core.client.renderer.BlockRenderer;
