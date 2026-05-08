@@ -8,12 +8,12 @@ import dev.tauri.jsg.common.packet.packets.AdminControllerGuiOpenToClient;
 import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.common.registry.tags.JSGBlockTags;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
+import dev.tauri.jsg.core.client.renderer.AbstractItemBEWLR;
 import dev.tauri.jsg.core.common.helper.ItemHelper;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.helper.RayTraceHelper;
 import dev.tauri.jsg.core.common.item.JSGItem;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,14 +40,7 @@ public class AdminControllerItem extends JSGItem {
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private static final AdminControllerBEWLR instance = new AdminControllerBEWLR();
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return instance;
-            }
-        });
+        consumer.accept(AbstractItemBEWLR.create(AdminControllerBEWLR::new));
     }
 
     @Override
