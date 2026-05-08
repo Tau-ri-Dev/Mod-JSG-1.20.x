@@ -1,0 +1,15 @@
+{
+  "name": "jsg:village/parts/milkyway/verticals_in_ground",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/base_blocks/milkyway/vertical_in_ground",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}
