@@ -12,7 +12,6 @@ import dev.tauri.jsg.core.client.texture.ITexture;
 import dev.tauri.jsg.core.common.util.I18n;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,27 +27,31 @@ public class GarageDoorOpenerBEWLR extends AbstractItemBEWLR {
         stack.pushPose();
         RenderSystem.enableDepthTest();
 
-        if(itemDisplayContext == ItemDisplayContext.GUI){
+        if (itemDisplayContext == ItemDisplayContext.GUI) {
             stack.scale(0.2f, 0.2f, 0.2f);
             stack.mulPose(Axis.XP.rotationDegrees(-90));
             stack.mulPose(Axis.YP.rotationDegrees(180 + 45));
             stack.translate(1.4, 0, -1.25);
             stack.mulPose(Axis.YP.rotationDegrees(45));
-        }
-        else if(itemDisplayContext == ItemDisplayContext.GROUND){
+        } else if (itemDisplayContext == ItemDisplayContext.GROUND) {
             stack.scale(0.15f, 0.15f, 0.15f);
 
-        }
-        else if(itemDisplayContext == ItemDisplayContext.FIXED){
+        } else if (itemDisplayContext == ItemDisplayContext.FIXED) {
             stack.scale(0.2f, 0.2f, 0.2f);
             stack.mulPose(Axis.XP.rotationDegrees(90));
             stack.translate(2.5, 2.8, -2.5);
-        }
-        else {
-            stack.translate(0, -0.3, 0.6);
-            stack.scale(0.1f, 0.1f, 0.1f);
-            stack.mulPose(Axis.YP.rotationDegrees(180));
-            stack.mulPose(Axis.XP.rotationDegrees(50));
+        } else {
+            if (itemDisplayContext.firstPerson()) {
+                stack.translate(0, -0.3, 0.6);
+                stack.scale(0.1f, 0.1f, 0.1f);
+                stack.mulPose(Axis.YP.rotationDegrees(180));
+                stack.mulPose(Axis.XP.rotationDegrees(50));
+            } else {
+                float f = (itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND ? 1 : -1);
+                stack.translate(0, -0.8, 0.3);
+                stack.scale(0.1f, 0.1f, 0.1f);
+                stack.mulPose(Axis.YP.rotationDegrees(90 * f));
+            }
         }
 
         ElementEnum.GDO.bindTexture().render(stack, bufferSource, light);
@@ -127,20 +130,6 @@ public class GarageDoorOpenerBEWLR extends AbstractItemBEWLR {
 
     @Override
     public HandPosition getHandPosition(ItemDisplayContext itemDisplayContext) {
-        return HandPosition.NORMAL;
-    }
-
-    @Override
-    public void renderHands(HumanoidArm handSide, ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack stack, MultiBufferSource bufferSource, int light, int overlay, float partialTick) {
-        float f = (itemDisplayContext == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND ? 1 : -1);
-
-        stack.mulPose(Axis.XP.rotationDegrees(-80));
-        stack.mulPose(Axis.ZP.rotationDegrees(-35 * f));
-        stack.mulPose(Axis.YP.rotationDegrees(-20 * f));
-        stack.translate(0.15 * f, -0.7, 0.63);
-        stack.pushPose();
-        stack.scale(1, 1.8f, 1);
-        super.renderHands(handSide, itemStack, itemDisplayContext, stack, bufferSource, light, overlay, partialTick);
-        stack.popPose();
+        return HandPosition.LOOK_AT_DISPLAY;
     }
 }

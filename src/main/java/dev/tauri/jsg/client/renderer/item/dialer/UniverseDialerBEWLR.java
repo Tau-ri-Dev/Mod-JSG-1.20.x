@@ -45,11 +45,20 @@ public class UniverseDialerBEWLR extends AbstractItemBEWLR {
             stack.scale(0.2f, 0.2f, 0.2f);
         }
         else {
-            stack.translate(0, -0.1, 1);
-            stack.scale(0.2f, 0.2f, 0.2f);
-            stack.mulPose(Axis.YP.rotationDegrees(190));
-            stack.mulPose(Axis.XP.rotationDegrees(50));
-            stack.mulPose(Axis.ZN.rotationDegrees(-10 * f));
+            if(itemDisplayContext.firstPerson()) {
+                stack.translate(0, -0.1, 1);
+                stack.scale(0.2f, 0.2f, 0.2f);
+                stack.mulPose(Axis.YP.rotationDegrees(190));
+                stack.mulPose(Axis.XP.rotationDegrees(50));
+                stack.mulPose(Axis.ZN.rotationDegrees(-10 * f));
+            }
+            else {
+                stack.translate(0, -0.7, 1);
+                stack.scale(0.2f, 0.2f, 0.2f);
+                stack.mulPose(Axis.YP.rotationDegrees(190));
+                stack.mulPose(Axis.XP.rotationDegrees(70));
+                stack.mulPose(Axis.ZN.rotationDegrees(-10));
+            }
         }
 
         var compound = itemStack.getTag();
