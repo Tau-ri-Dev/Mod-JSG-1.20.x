@@ -5,14 +5,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.loader.ElementEnum;
+import dev.tauri.jsg.core.client.renderer.AbstractItemBEWLR;
 import dev.tauri.jsg.core.client.renderer.HandHeldDeviceRenderer;
 import dev.tauri.jsg.core.client.renderer.HandPosition;
 import dev.tauri.jsg.core.client.texture.ITexture;
-import dev.tauri.jsg.core.common.helper.ItemRenderingHelper;
 import dev.tauri.jsg.core.common.util.I18n;
 import dev.tauri.jsg.core.mapping.JSGMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -20,55 +18,37 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import static dev.tauri.jsg.core.client.renderer.HandHeldDeviceRenderer.drawModalRectWithCustomSizedTexture;
 
 @OnlyIn(Dist.CLIENT)
-public class GarageDoorOpenerBEWLR extends BlockEntityWithoutLevelRenderer {
-    public GarageDoorOpenerBEWLR() {
-        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-    }
+public class GarageDoorOpenerBEWLR extends AbstractItemBEWLR {
 
     @Override
-    @ParametersAreNonnullByDefault
-    public void renderByItem(ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack stack, MultiBufferSource bufferSource, int light, int overlay) {
+    public void renderItem(ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack stack, MultiBufferSource bufferSource, int light, int overlay, float partialTick) {
         stack.pushPose();
         RenderSystem.enableDepthTest();
-        // Item frame
-        if (itemDisplayContext == ItemDisplayContext.FIXED) {
-            stack.pushPose();
 
-            stack.translate(0.5, 0.5, 0.5);
-            stack.scale(1, 1, 1);
-            stack.mulPose(Axis.XP.rotationDegrees(90));
-
+        if(itemDisplayContext == ItemDisplayContext.GUI){
             stack.scale(0.2f, 0.2f, 0.2f);
-            stack.pushPose();
-            stack.pushPose();
-        } else {
-            boolean mainHand = (itemDisplayContext == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
-            boolean thirdPerson = (itemDisplayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
-            if (mainHand)
-                translateForRightHand(stack, bufferSource, light, !thirdPerson);
-            else
-                translateForLeftHand(stack, bufferSource, light, !thirdPerson);
+            stack.mulPose(Axis.XP.rotationDegrees(-90));
+            stack.mulPose(Axis.YP.rotationDegrees(180 + 45));
+            stack.translate(1.4, 0, -1.25);
+            stack.mulPose(Axis.YP.rotationDegrees(45));
+        }
+        else if(itemDisplayContext == ItemDisplayContext.GROUND){
+            stack.scale(0.15f, 0.15f, 0.15f);
 
-            if (thirdPerson) {
-                if (mainHand) {
-                    stack.mulPose(Axis.XP.rotationDegrees(-100));
-                    stack.mulPose(Axis.YP.rotationDegrees(194));
-                    stack.mulPose(Axis.ZP.rotationDegrees(-36));
-                    stack.translate(1, -3, -1.2);
-                    stack.scale(0.7f, 0.7f, 0.7f);
-                } else {
-                    stack.mulPose(Axis.XP.rotationDegrees(-100));
-                    stack.mulPose(Axis.YP.rotationDegrees(163));
-                    stack.mulPose(Axis.ZP.rotationDegrees(33));
-                    stack.translate(-2.5, -3, -1.2);
-                    stack.scale(0.75f, 0.75f, 0.75f);
-                }
-            }
+        }
+        else if(itemDisplayContext == ItemDisplayContext.FIXED){
+            stack.scale(0.2f, 0.2f, 0.2f);
+            stack.mulPose(Axis.XP.rotationDegrees(90));
+            stack.translate(2.5, 2.8, -2.5);
+        }
+        else {
+            stack.translate(0, -0.3, 0.6);
+            stack.scale(0.1f, 0.1f, 0.1f);
+            stack.mulPose(Axis.YP.rotationDegrees(180));
+            stack.mulPose(Axis.XP.rotationDegrees(50));
         }
 
         ElementEnum.GDO.bindTexture().render(stack, bufferSource, light);
@@ -136,79 +116,31 @@ public class GarageDoorOpenerBEWLR extends BlockEntityWithoutLevelRenderer {
             code = compound.getString("entered_code");
 
         HandHeldDeviceRenderer.drawStringWithShadow(stack, bufferSource, 0, 0, I18n.format("item.jsg.gdo.operator"), 0, true);
-        HandHeldDeviceRenderer.drawStringWithShadow(stack, bufferSource, 0, -0.4f, I18n.format("item.jsg.gdo.code") + " " + code, 0xffffff, true);
+        HandHeldDeviceRenderer.drawStringWithShadow(stack, bufferSource, 0, -0.4f, I18n.format("item.jsg.gdo.code") + " " + code, 0, false);
 
         stack.popPose();
         stack.popPose();
 
-        stack.popPose();
-        stack.popPose();
-
-        stack.popPose();
         stack.popPose();
         RenderSystem.disableDepthTest();
     }
 
-    private void translateForRightHand(PoseStack stack, MultiBufferSource source, int light, boolean renderHand) {
-        stack.mulPose(Axis.YP.rotationDegrees(-25));
-        stack.mulPose(Axis.ZP.rotationDegrees(-30));
-        stack.translate(-0.5, 0.25, -0.8);
-
-        var partialTicks = Minecraft.getInstance().getPartialTick();
-
-        stack.pushPose();
-        stack.translate(0, 0.2, 0.5);
-        stack.mulPose(Axis.ZP.rotationDegrees(10));
-
-        if (renderHand)
-            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.RIGHT, partialTicks, HandPosition.LOOK_AT_DISPLAY);
-
-        stack.pushPose();
-        if (renderHand)
-            ItemRenderingHelper.applyBobbing(stack, partialTicks);
-
-        stack.mulPose(Axis.ZP.rotationDegrees(-60));
-        stack.translate(0, 0.75, 1);
-        stack.scale(0.15f, 0.15f, 0.15f);
-        stack.pushPose();
-
-        stack.mulPose(Axis.YP.rotationDegrees(57));
-        stack.mulPose(Axis.ZP.rotationDegrees(-11));
-        stack.translate(2, 0, -0.2);
+    @Override
+    public HandPosition getHandPosition(ItemDisplayContext itemDisplayContext) {
+        return HandPosition.NORMAL;
     }
 
-    private void translateForLeftHand(PoseStack stack, MultiBufferSource source, int light, boolean renderHand) {
-        stack.mulPose(Axis.XP.rotationDegrees(-50));
-        stack.mulPose(Axis.YP.rotationDegrees(50));
-        stack.mulPose(Axis.ZP.rotationDegrees(130));
-        stack.translate(-0.65, -0.4, -0.3);
+    @Override
+    public void renderHands(HumanoidArm handSide, ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack stack, MultiBufferSource bufferSource, int light, int overlay, float partialTick) {
+        float f = (itemDisplayContext == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND ? 1 : -1);
 
-        var partialTicks = Minecraft.getInstance().getPartialTick();
-
+        stack.mulPose(Axis.XP.rotationDegrees(-80));
+        stack.mulPose(Axis.ZP.rotationDegrees(-35 * f));
+        stack.mulPose(Axis.YP.rotationDegrees(-20 * f));
+        stack.translate(0.15 * f, -0.7, 0.63);
         stack.pushPose();
-        stack.translate(0, 0.2, 0.5);
-        stack.mulPose(Axis.ZP.rotationDegrees(10));
-
-        if (renderHand)
-            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.LEFT, partialTicks, HandPosition.LOOK_AT_DISPLAY);
-
-        stack.pushPose();
-        if (renderHand)
-            ItemRenderingHelper.applyBobbing(stack, partialTicks);
-
-        stack.mulPose(Axis.ZP.rotationDegrees(-60));
-        stack.translate(0, 0.75, 1);
-        stack.scale(0.15f, 0.15f, 0.15f);
-        stack.pushPose();
-
-        stack.mulPose(Axis.YP.rotationDegrees(57));
-        stack.mulPose(Axis.ZP.rotationDegrees(-11));
-        stack.translate(2, 0, -0.2);
-
-        stack.mulPose(Axis.XP.rotationDegrees(-35));
-        stack.mulPose(Axis.YP.rotationDegrees(195));
-        stack.mulPose(Axis.ZP.rotationDegrees(6));
-        stack.translate(0, -0.5, -1.2);
-        stack.scale(0.9f, 0.9f, 0.9f);
+        stack.scale(1, 1.8f, 1);
+        super.renderHands(handSide, itemStack, itemDisplayContext, stack, bufferSource, light, overlay, partialTick);
+        stack.popPose();
     }
 }
