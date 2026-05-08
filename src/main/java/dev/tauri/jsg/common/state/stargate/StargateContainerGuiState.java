@@ -6,6 +6,7 @@ import dev.tauri.jsg.core.common.config.ingame.BEConfig;
 import dev.tauri.jsg.core.common.entity.State;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,8 @@ public class StargateContainerGuiState extends State {
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
         for (SymbolType<?> symbolType : SymbolType.values(JSGSymbolUsages.STARGATES.get())) {
             gateAdddressMap.get(symbolType).toBytes(buf);
         }
@@ -33,7 +35,8 @@ public class StargateContainerGuiState extends State {
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buff) {
+        var buf = new FriendlyByteBuf(buff);
         gateAdddressMap = new HashMap<>(3);
 
         for (SymbolType<?> symbolType : SymbolType.values(JSGSymbolUsages.STARGATES.get())) {

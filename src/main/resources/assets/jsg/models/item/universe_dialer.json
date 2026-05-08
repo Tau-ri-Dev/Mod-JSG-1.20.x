@@ -6,6 +6,8 @@
 		"FIRST_PERSON_RIGHT_HAND",
 		"THIRD_PERSON_LEFT_HAND",
 		"THIRD_PERSON_RIGHT_HAND",
+		"GUI",
+		"GROUND",
 		"FIXED"
 	],
 	"credit": "Made with Blockbench",

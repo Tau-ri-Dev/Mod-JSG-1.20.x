@@ -2,9 +2,7 @@ package dev.tauri.jsg.common.item.stargate.dialhomedevice;
 
 import dev.tauri.jsg.core.common.helper.ItemHelper;
 import dev.tauri.jsg.core.common.item.JSGBlockItem;
-import dev.tauri.jsg.core.common.item.JSGModelOBJInGUIRenderer;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -28,22 +26,15 @@ public abstract class DHDAbstractItem extends JSGBlockItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private static final JSGModelOBJInGUIRenderer instance = new JSGModelOBJInGUIRenderer();
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                instance.renderPartInterface = getRenderPartInterface();
-                return instance;
-            }
-        });
+        consumer.accept(createBEWLR());
     }
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract IClientItemExtensions createBEWLR();
 
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
-
-    public abstract JSGModelOBJInGUIRenderer.RenderPartInterface getRenderPartInterface();
 }

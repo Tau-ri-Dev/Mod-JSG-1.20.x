@@ -72,6 +72,7 @@ public class LevelGenerationScreen extends AbstractStargateGeneratorScreen {
         map.put(ChunkStatus.FULL, 16777215);
     });
 
+    @SuppressWarnings("deprecation")
     public void renderChunks(GuiGraphics graphics, StoringChunkProgressListener pProgressListener, int pX, int pY, int tileSize, int offset, int mouseX, int mouseY, boolean renderTooltip) {
         int i = tileSize + offset;
         int j = pProgressListener.getFullDiameter();

@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.loader.ElementEnum;
 import dev.tauri.jsg.core.client.renderer.HandHeldDeviceRenderer;
+import dev.tauri.jsg.core.client.renderer.HandPosition;
 import dev.tauri.jsg.core.client.texture.ITexture;
 import dev.tauri.jsg.core.common.helper.ItemRenderingHelper;
 import dev.tauri.jsg.core.common.util.I18n;
@@ -160,7 +161,7 @@ public class GarageDoorOpenerBEWLR extends BlockEntityWithoutLevelRenderer {
         stack.mulPose(Axis.ZP.rotationDegrees(10));
 
         if (renderHand)
-            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.RIGHT, partialTicks);
+            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.RIGHT, partialTicks, HandPosition.LOOK_AT_DISPLAY);
 
         stack.pushPose();
         if (renderHand)
@@ -189,7 +190,7 @@ public class GarageDoorOpenerBEWLR extends BlockEntityWithoutLevelRenderer {
         stack.mulPose(Axis.ZP.rotationDegrees(10));
 
         if (renderHand)
-            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.LEFT, partialTicks);
+            HandHeldDeviceRenderer.renderArms(stack, source, light, HumanoidArm.LEFT, partialTicks, HandPosition.LOOK_AT_DISPLAY);
 
         stack.pushPose();
         if (renderHand)
