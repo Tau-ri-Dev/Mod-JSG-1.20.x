@@ -32,9 +32,9 @@ public class ChevronTextureList {
 
     public ChevronTextureList(ITextureLoader textureLoader, String chevronTextureBase) {
         for (BiomeOverlayInstance biomeOverlay : BiomeOverlayInstance.values()) {
-            CHEVRON_LIGHT_RESOURCE_MAP.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + "_light" + biomeOverlay.suffix() + ".png"));
-            CHEVRON_LIGHT_RESOURCE_MAP_OFF.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + "_light_off" + biomeOverlay.suffix() + ".png"));
-            CHEVRON_RESOURCE_MAP.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + biomeOverlay.suffix() + ".png"));
+            CHEVRON_LIGHT_RESOURCE_MAP.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + "_light" + biomeOverlay.suffix() + ".webp"));
+            CHEVRON_LIGHT_RESOURCE_MAP_OFF.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + "_light_off" + biomeOverlay.suffix() + ".webp"));
+            CHEVRON_RESOURCE_MAP.put(biomeOverlay, textureLoader.getTextureResource(chevronTextureBase + biomeOverlay.suffix() + ".webp"));
         }
     }
 

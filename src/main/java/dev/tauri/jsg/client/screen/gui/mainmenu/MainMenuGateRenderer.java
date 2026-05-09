@@ -232,9 +232,9 @@ public class MainMenuGateRenderer {
 
     private static ResourceLocation getMWDHDButtonTexture(SymbolMilkyWayEnum symbol) {
         if (symbol.brb())
-            return JSGMapping.rl(JSG.MOD_ID, "textures/tesr/milkyway/dhd/dhd_brb_0.jpg");
+            return JSGMapping.rl(JSG.MOD_ID, "textures/tesr/milkyway/dhd/dhd_brb_0.webp");
 
-        return JSGMapping.rl(JSG.MOD_ID, "textures/tesr/milkyway/dhd/dhd_button_light_0.jpg");
+        return JSGMapping.rl(JSG.MOD_ID, "textures/tesr/milkyway/dhd/dhd_button_light_0.webp");
     }
 
     private static void renderUNIGate(double tick) {

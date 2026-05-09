@@ -24,8 +24,8 @@ import java.util.Map;
 public class DHDMilkyWayRendererState extends DHDAbstractRendererState {
     private static final String SYMBOL_TEXTURE_BASE = "textures/tesr/milkyway/dhd/dhd_button_light_";
     private static final String BRB_TEXTURE_BASE = "textures/tesr/milkyway/dhd/dhd_brb_";
-    private static final String SYMBOL_TEXTURE_END = "jpg";
-    private static final String BRB_TEXTURE_END = "jpg";
+    private static final String SYMBOL_TEXTURE_END = "webp";
+    private static final String BRB_TEXTURE_END = "webp";
     private static final Map<BiomeOverlayInstance, TextureContainer> BIOME_TEXTURE_MAP = new HashMap<>();
 
     static {
