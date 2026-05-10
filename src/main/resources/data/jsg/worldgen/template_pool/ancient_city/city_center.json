@@ -1,0 +1,24 @@
+{
+  "name": "jsg:ancient_city/city_center",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "jsg:stargate/ancient_cities/city_center/city_center_1",
+        "processors": "minecraft:ancient_city_start_degradation",
+        "projection": "rigid"
+      },
+      "weight": 100
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "jsg:stargate/ancient_cities/city_center/city_center_3",
+        "processors": "minecraft:ancient_city_start_degradation",
+        "projection": "rigid"
+      },
+      "weight": 100
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

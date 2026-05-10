@@ -1,0 +1,39 @@
+{
+  "name": "jsg:stargate/parts/milkyway/dhds/dhd_ancient_city",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/dhds/milkyway/working_4",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/dhds/milkyway/working_5",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/common/dhds/milkyway/working_6",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}
