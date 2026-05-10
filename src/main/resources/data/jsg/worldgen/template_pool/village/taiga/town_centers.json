@@ -1,0 +1,60 @@
+{
+  "name": "jsg:village/taiga/town_centers",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 25,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/milkyway/buried",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/milkyway/town_center_1",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/milkyway/town_center_2",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/pegasus/town_center_1",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/pegasus/town_center_2",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    },
+    {
+      "weight": 12,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/taiga/tollan/town_center_1",
+        "processors": "jsg:stargate_outpost/mossy"
+      }
+    }
+  ]
+}

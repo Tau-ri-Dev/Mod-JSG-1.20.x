@@ -1,0 +1,69 @@
+{
+  "name": "jsg:village/snow/town_centers",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 70,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/milkyway/buried",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/milkyway/town_center_1",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 50,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/milkyway/town_center_2",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/milkyway/town_center_3",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/pegasus/town_center_1",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/pegasus/town_center_2",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    },
+    {
+      "weight": 25,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "jsg:stargate/villages/snow/tollan/town_center_1",
+        "processors": "jsg:stargate_outpost/snowy"
+      }
+    }
+  ]
+}
