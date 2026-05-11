@@ -25,8 +25,7 @@ import dev.tauri.jsg.common.stargate.StargateTypesLoader;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.common.stargate.network.StargateReservedAddresses;
 import dev.tauri.jsg.common.util.updater.GetUpdate;
-import dev.tauri.jsg.common.worldgen.poolinject.injectors.StargateTemplatePoolsAdditions;
-import dev.tauri.jsg.common.worldgen.poolinject.injectors.TemplatePoolsAdditions;
+import dev.tauri.jsg.common.worldgen.poolinject.injectors.JSGTemplatePoolInjectors;
 import dev.tauri.jsg.core.JSGCore;
 import dev.tauri.jsg.core.LoggerWrapper;
 import dev.tauri.jsg.core.common.integration.Integrations;
@@ -36,7 +35,6 @@ import dev.tauri.jsg.integration.create.PonderScenes;
 import dev.tauri.jsg.integration.oc2.OCDevices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -58,8 +56,6 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-
-// TODO(Mine): Move all client stuff into client package and server stuff into common
 
 @Mod(JSG.MOD_ID)
 public class JSG {
@@ -147,9 +143,7 @@ public class JSG {
         JSGPacketHandler.init();
         UniverseDialerModes.init();
 
-
-        StargateTemplatePoolsAdditions.register();
-
+        JSGTemplatePoolInjectors.register();
 
         JSGRegistriesInit.register(eventBus);
 
@@ -181,47 +175,6 @@ public class JSG {
             if (!FMLEnvironment.production) return;
             JSGConfig.General.mainMenuMusicVolume.set(GuiCustomMainMenu.musicVolume.doubleValue());
         });
-    }
-
-    @SubscribeEvent
-    public void onServerAboutToStart(net.minecraftforge.event.server.ServerAboutToStartEvent event) {
-        var poolRegistry = event.getServer().registryAccess().registryOrThrow(Registries.TEMPLATE_POOL);
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:ancient_city/city_center"),
-                new ResourceLocation("jsg:ancient_city/city_center")
-        );
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:village/desert/town_centers"),
-                new ResourceLocation("jsg:village/desert/town_centers")
-        );
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:village/plains/town_centers"),
-                new ResourceLocation("jsg:village/plains/town_centers")
-        );
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:village/savanna/town_centers"),
-                new ResourceLocation("jsg:village/savanna/town_centers")
-        );
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:village/snow/town_centers"),
-                new ResourceLocation("jsg:village/snow/town_centers")
-        );
-
-        TemplatePoolsAdditions.injectPoolToPool(
-                poolRegistry,
-                new ResourceLocation("minecraft:village/taiga/town_centers"),
-                new ResourceLocation("jsg:village/taiga/town_centers")
-        );
     }
 
     @SubscribeEvent
