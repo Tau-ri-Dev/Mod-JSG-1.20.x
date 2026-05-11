@@ -129,7 +129,7 @@ public abstract class StargateClassicRenderer<S extends StargateClassicRendererS
                 var tiltCoef = (float) MathHelper.clampedLerp(0, 1f, (irisAnimationStage - 0.2f) / 0.8f);
                 rotateAround(stack, Axis.YP.rotationDegrees(-0.6f + ((irisImpactOffset / 3f) + getIrisBladeTilt()) * tiltCoef), irisPivot);
                 rotateAround(stack, Axis.ZP.rotationDegrees(irisAnimationStage * (getIrisCloseAngle() - irisImpactOffset * 1.5f * (level.random.nextFloat() * 0.7f + 0.3f))), irisPivot);
-                getIrisModel().bindTexture().render(stack, source, combinedLight, OverlayTexture.NO_OVERLAY, false, irisColor.x, irisColor.y, irisColor.z, 1f, false);
+                getIrisModel().bindTexture(rendererState.getBiomeOverlay()).render(stack, source, combinedLight, OverlayTexture.NO_OVERLAY, false, irisColor.x, irisColor.y, irisColor.z, 1f, false);
                 stack.popPose();
             }
         }

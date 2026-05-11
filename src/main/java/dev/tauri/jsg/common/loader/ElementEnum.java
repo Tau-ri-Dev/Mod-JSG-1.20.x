@@ -22,25 +22,25 @@ public enum ElementEnum implements IModelsHolder {
     MILKYWAY_GATE("milkyway/gate.obj", "milkyway/gatering", true),
     MILKYWAY_RING("milkyway/ring.obj", "milkyway/gatering", true),
 
-    MILKYWAY_DHD_BASE("milkyway/dhd/dhd_base.obj", "milkyway/dhd/dhd_base", false),
-    MILKYWAY_DHD_BUTTON_CONSOLE("milkyway/dhd/button_console.obj", "milkyway/dhd/dhd_base", false),
-    MILKYWAY_DHD_CRYSTAL_HOLDER("milkyway/dhd/crystal_holder.obj", "milkyway/dhd/dhd_base", false),
-    MILKYWAY_DHD_UPGRADE_CRYSTAL("milkyway/dhd/dhd_upgrade_crystal.obj", "milkyway/dhd/upgrade_crystal_base", false),
-    MILKYWAY_DHD_UPGRADE_COVER("milkyway/dhd/upgrade_cover.obj", "milkyway/dhd/dhd_base", false),
-    MILKYWAY_DHD_CRYSTALS("milkyway/dhd/crystals.obj", "milkyway/dhd/dhd_crystals", false),
-    MILKYWAY_DHD_CONTROL_CRYSTAL("milkyway/dhd/control_crystal.obj", "milkyway/dhd/dhd_crystals", false),
-    MILKYWAY_DHD_FLUID_TANK_BASE("milkyway/dhd/tank_base.obj", "milkyway/dhd/tank_base", false),
-    MILKYWAY_DHD_FLUID_TANK_GLASS("milkyway/dhd/tank_glass.obj", "milkyway/dhd/tank_glass", false),
-    MILKYWAY_DHD_FLUID_TANK_FLUID("milkyway/dhd/tank_inside.obj", "milkyway/dhd/tank_base", false),
+    MILKYWAY_DHD_BASE("milkyway/dhd/dhd_base.obj", "milkyway/dhd/dhd_base", true),
+    MILKYWAY_DHD_BUTTON_CONSOLE("milkyway/dhd/button_console.obj", "milkyway/dhd/dhd_base", true),
+    MILKYWAY_DHD_CRYSTAL_HOLDER("milkyway/dhd/crystal_holder.obj", "milkyway/dhd/dhd_base", true),
+    MILKYWAY_DHD_UPGRADE_CRYSTAL("milkyway/dhd/dhd_upgrade_crystal.obj", "milkyway/dhd/upgrade_crystal_base", true),
+    MILKYWAY_DHD_UPGRADE_COVER("milkyway/dhd/upgrade_cover.obj", "milkyway/dhd/dhd_base", true),
+    MILKYWAY_DHD_CRYSTALS("milkyway/dhd/crystals.obj", "milkyway/dhd/dhd_crystals", true),
+    MILKYWAY_DHD_CONTROL_CRYSTAL("milkyway/dhd/control_crystal.obj", "milkyway/dhd/dhd_crystals", true),
+    MILKYWAY_DHD_FLUID_TANK_BASE("milkyway/dhd/tank_base.obj", "milkyway/dhd/tank_base", true),
+    MILKYWAY_DHD_FLUID_TANK_GLASS("milkyway/dhd/tank_glass.obj", "milkyway/dhd/tank_glass", true),
+    MILKYWAY_DHD_FLUID_TANK_FLUID("milkyway/dhd/tank_inside.obj", "milkyway/dhd/tank_base", true),
 
     MILKYWAY_CHEVRON_LIGHT("milkyway/chevron_light.obj", "milkyway/chevron", true),
     MILKYWAY_CHEVRON_FRAME("milkyway/chevron_frame.obj", "milkyway/gatering", true),
     MILKYWAY_CHEVRON_MOVING("milkyway/chevron_moving.obj", "milkyway/chevron", true),
     MILKYWAY_CHEVRON_BACK("milkyway/chevron_back.obj", "milkyway/gatering", true),
 
-    ORLIN_GATE("orlin/orlin_gate.obj", "orlin/orlin_gate_base", false),
-    ORLIN_GATE_BURNT("orlin/orlin_gate_burnt.obj", "orlin/orlin_gate_burnt", false),
-    ORLIN_STAND("orlin/orlin_stand.obj", "orlin/orlin_stand_base", false),
+    ORLIN_GATE("orlin/orlin_gate.obj", "orlin/orlin_gate_base", true),
+    ORLIN_GATE_BURNT("orlin/orlin_gate_burnt.obj", "orlin/orlin_gate_burnt", true),
+    ORLIN_STAND("orlin/orlin_stand.obj", "orlin/orlin_stand_base", true),
 
     // --------------------------------------------------------------------------------------------
     // Universe
@@ -57,16 +57,16 @@ public enum ElementEnum implements IModelsHolder {
     PEGASUS_GATE("pegasus/gate.obj", "pegasus/gatering", true),
     PEGASUS_RING("pegasus/ring_atlantis.obj", "pegasus/gatering", true),
 
-    PEGASUS_DHD_BASE("milkyway/dhd/dhd_base.obj", "pegasus/dhd/dhd_base", false),
-    PEGASUS_DHD_BUTTON_CONSOLE("pegasus/dhd/button_console.obj", "pegasus/dhd/dhd_base", false),
-    PEGASUS_DHD_CRYSTAL_HOLDER("milkyway/dhd/crystal_holder.obj", "pegasus/dhd/dhd_base", false),
-    PEGASUS_DHD_UPGRADE_CRYSTAL("milkyway/dhd/dhd_upgrade_crystal.obj", "milkyway/dhd/upgrade_crystal_base", false),
-    PEGASUS_DHD_UPGRADE_COVER("milkyway/dhd/upgrade_cover.obj", "pegasus/dhd/dhd_base", false),
-    PEGASUS_DHD_CRYSTALS("milkyway/dhd/crystals.obj", "pegasus/dhd/dhd_crystals", false),
-    PEGASUS_DHD_CONTROL_CRYSTAL("milkyway/dhd/control_crystal.obj", "pegasus/dhd/dhd_crystals", false),
-    PEGASUS_DHD_FLUID_TANK_BASE("milkyway/dhd/tank_base.obj", "milkyway/dhd/tank_base", false),
-    PEGASUS_DHD_FLUID_TANK_GLASS("milkyway/dhd/tank_glass.obj", "milkyway/dhd/tank_glass", false),
-    PEGASUS_DHD_FLUID_TANK_FLUID("milkyway/dhd/tank_inside.obj", "milkyway/dhd/tank_base", false),
+    PEGASUS_DHD_BASE("milkyway/dhd/dhd_base.obj", "pegasus/dhd/dhd_base", true),
+    PEGASUS_DHD_BUTTON_CONSOLE("pegasus/dhd/button_console.obj", "pegasus/dhd/dhd_base", true),
+    PEGASUS_DHD_CRYSTAL_HOLDER("milkyway/dhd/crystal_holder.obj", "pegasus/dhd/dhd_base", true),
+    PEGASUS_DHD_UPGRADE_CRYSTAL("milkyway/dhd/dhd_upgrade_crystal.obj", "milkyway/dhd/upgrade_crystal_base", true),
+    PEGASUS_DHD_UPGRADE_COVER("milkyway/dhd/upgrade_cover.obj", "pegasus/dhd/dhd_base", true),
+    PEGASUS_DHD_CRYSTALS("milkyway/dhd/crystals.obj", "pegasus/dhd/dhd_crystals", true),
+    PEGASUS_DHD_CONTROL_CRYSTAL("milkyway/dhd/control_crystal.obj", "pegasus/dhd/dhd_crystals", true),
+    PEGASUS_DHD_FLUID_TANK_BASE("milkyway/dhd/tank_base.obj", "milkyway/dhd/tank_base", true),
+    PEGASUS_DHD_FLUID_TANK_GLASS("milkyway/dhd/tank_glass.obj", "milkyway/dhd/tank_glass", true),
+    PEGASUS_DHD_FLUID_TANK_FLUID("milkyway/dhd/tank_inside.obj", "milkyway/dhd/tank_base", true),
 
     PEGASUS_CHEVRON_LIGHT("pegasus/chevron_light.obj", "pegasus/chevron", true),
     PEGASUS_CHEVRON_FRAME("pegasus/chevron_frame.obj", "pegasus/gatering", true),
@@ -76,17 +76,17 @@ public enum ElementEnum implements IModelsHolder {
     // --------------------------------------------------------------------------------------------
     // Tollan
 
-    TOLLAN_GATE("tollan/gate.obj", "tollan/gate", false),
-    TOLLAN_CHEVRON("tollan/chevron.obj", "tollan/gate", false),
-    TOLLAN_CHEVRON_LIGHT("tollan/chevron_light.obj", "tollan/chevron", false),
+    TOLLAN_GATE("tollan/gate.obj", "tollan/gate", true),
+    TOLLAN_CHEVRON("tollan/chevron.obj", "tollan/gate", true),
+    TOLLAN_CHEVRON_LIGHT("tollan/chevron_light.obj", "tollan/chevron", true),
 
 
     // --------------------------------------------------------------------------------------------
     // Irises/Shields
 
     SHIELD("iris/shield.obj", "iris/shield", false),
-    IRIS("iris/iris_blade.obj", "iris/iris_blade", false),
-    IRIS_TOLLAN("iris/iris_blade_tollan.obj", "iris/iris_blade", false),
+    IRIS("iris/iris_blade.obj", "iris/iris_blade", true),
+    IRIS_TOLLAN("iris/iris_blade_tollan.obj", "iris/iris_blade", true),
 
     GDO("iris/gdo.obj", "iris/gdo", false),
 

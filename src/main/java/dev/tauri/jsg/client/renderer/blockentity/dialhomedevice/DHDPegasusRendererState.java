@@ -8,7 +8,6 @@ import dev.tauri.jsg.client.renderer.activation.DHDActivation;
 import dev.tauri.jsg.core.client.renderer.Activation;
 import dev.tauri.jsg.core.common.config.ingame.BEConfig;
 import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
-import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.mapping.JSGMapping;
@@ -39,13 +38,11 @@ public class DHDPegasusRendererState extends DHDAbstractRendererState {
 
     static {
         for (BiomeOverlayInstance bo : BiomeOverlayInstance.values()) {
-            // todo: do biome overlays
-            var biomeOverlay = CoreBiomeOverlays.NORMAL.get();
             TextureContainer container = new TextureContainer();
 
             for (int i = 0; i <= 5; i++) {
-                container.SYMBOL_RESOURCE_MAP.put(i, JSGMapping.rl(JSG.MOD_ID, SYMBOL_TEXTURE_BASE + i + biomeOverlay.suffix() + "." + SYMBOL_TEXTURE_END));
-                container.BRB_RESOURCE_MAP.put(i, JSGMapping.rl(JSG.MOD_ID, BRB_TEXTURE_BASE + i + biomeOverlay.suffix() + "." + BRB_TEXTURE_END));
+                container.SYMBOL_RESOURCE_MAP.put(i, JSGMapping.rl(JSG.MOD_ID, SYMBOL_TEXTURE_BASE + i + bo.suffix() + "." + SYMBOL_TEXTURE_END));
+                container.BRB_RESOURCE_MAP.put(i, JSGMapping.rl(JSG.MOD_ID, BRB_TEXTURE_BASE + i + bo.suffix() + "." + BRB_TEXTURE_END));
             }
 
             BIOME_TEXTURE_MAP.put(bo, container);
