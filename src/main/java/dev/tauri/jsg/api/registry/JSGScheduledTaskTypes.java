@@ -20,7 +20,6 @@ public class JSGScheduledTaskTypes {
     public static final RegistryObject<ScheduledTaskType> STARGATE_CHEVRON_LIGHT_UP = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_chevron_light_up", () -> new ScheduledTaskType("stargate_chevron_light_up"));
     public static final RegistryObject<ScheduledTaskType> STARGATE_CHEVRON_DIM = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_chevron_dim", () -> new ScheduledTaskType("stargate_chevron_dim"));
     public static final RegistryObject<ScheduledTaskType> STARGATE_FAIL = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_fail", () -> new ScheduledTaskType("stargate_fail"));
-    public static final RegistryObject<ScheduledTaskType> STARGATE_GIVE_PAGE = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_give_page", () -> new ScheduledTaskType("stargate_give_page"));
     public static final RegistryObject<ScheduledTaskType> STARGATE_DIAL_NEXT = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_dial_next", () -> new ScheduledTaskType("stargate_dial_next"));
     public static final RegistryObject<ScheduledTaskType> GATE_RING_ROLL = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_ring_roll", () -> new ScheduledTaskType("stargate_ring_roll"));
     public static final RegistryObject<ScheduledTaskType> LIGHT_UP_CHEVRONS = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_light_up_chevrons", () -> new ScheduledTaskType("stargate_light_up_chevrons"));

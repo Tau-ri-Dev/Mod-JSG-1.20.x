@@ -20,7 +20,6 @@ import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.common.registry.JSGSoundEvents;
 import dev.tauri.jsg.common.registry.tags.JSGBlockTags;
 import dev.tauri.jsg.common.state.dialhomedevice.DHDActivateButtonState;
-import dev.tauri.jsg.common.state.stargate.StargateBiomeOverrideState;
 import dev.tauri.jsg.core.common.blockentity.ILinkable;
 import dev.tauri.jsg.core.common.config.ingame.BEConfig;
 import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
@@ -30,6 +29,7 @@ import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
+import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import net.minecraft.core.BlockPos;
@@ -261,7 +261,7 @@ public class DHDMilkyWayBE extends DHDAbstractBE {
                     }
                 })
                 .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), () -> {
-                    StargateBiomeOverrideState overrideState = (StargateBiomeOverrideState) state;
+                    BiomeOverrideState overrideState = (BiomeOverrideState) state;
 
                     if (rendererStateClient != null) {
                         getRendererStateClient().biomeOverride = overrideState.biomeOverride;

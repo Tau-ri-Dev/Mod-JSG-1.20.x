@@ -12,7 +12,6 @@ import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.common.state.dialhomedevice.DHDActivateButtonState;
 import dev.tauri.jsg.common.state.dialhomedevice.DHDContainerGuiUpdate;
-import dev.tauri.jsg.common.state.stargate.StargateBiomeOverrideState;
 import dev.tauri.jsg.core.common.blockentity.ILinkable;
 import dev.tauri.jsg.core.common.blockentity.StateProviderInterface;
 import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
@@ -25,6 +24,7 @@ import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
 import dev.tauri.jsg.core.common.registry.CoreItems;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
+import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.util.FluidTank;
 import dev.tauri.jsg.core.common.util.JSGItemStackHandler;
@@ -168,7 +168,7 @@ public abstract class DHDAbstractBE extends BlockEntity implements StargateDHD, 
         protected void onContentsChanged(int slot) {
             switch (slot) {
                 case BIOME_OVERRIDE_SLOT:
-                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
                     break;
 
                 case 4:
@@ -247,7 +247,7 @@ public abstract class DHDAbstractBE extends BlockEntity implements StargateDHD, 
         if (level != null && !level.isClientSide) {
             targetPoint = new PacketDistributor.TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
             hadControlCrystal = hasControlCrystal();
-            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
         } else {
             JSGCorePacketHandler.sendToServer(new StateUpdateRequestToServer(getBlockPos(), CoreStateTypes.RENDERER_STATE.get()));
             requestLinkedDeviceFromServer(getBlockPos());
@@ -402,7 +402,7 @@ public abstract class DHDAbstractBE extends BlockEntity implements StargateDHD, 
         return stateType.stateSupplier()
                 .tryType(JSGStateTypes.DHD_ACTIVATE_BUTTON.get(), DHDActivateButtonState::new)
                 .tryType(CoreStateTypes.GUI_UPDATE.get(), DHDContainerGuiUpdate::new)
-                .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), StargateBiomeOverrideState::new)
+                .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), BiomeOverrideState::new)
                 .orElseThrow(this);
     }
 

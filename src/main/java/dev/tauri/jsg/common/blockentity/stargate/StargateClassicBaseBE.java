@@ -31,7 +31,6 @@ import dev.tauri.jsg.common.stargate.manager.StargateEnergyManager;
 import dev.tauri.jsg.common.stargate.manager.StargateEventHorizonManager;
 import dev.tauri.jsg.common.stargate.manager.StargateIrisManager;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
-import dev.tauri.jsg.common.state.stargate.StargateBiomeOverrideState;
 import dev.tauri.jsg.common.state.stargate.StargateRendererActionState;
 import dev.tauri.jsg.common.worldgen.generator.StargateGenerator;
 import dev.tauri.jsg.core.common.blockentity.IAddressProvider;
@@ -52,9 +51,11 @@ import dev.tauri.jsg.core.common.packet.packets.StateUpdateRequestToServer;
 import dev.tauri.jsg.core.common.power.general.LargeEnergyStorage;
 import dev.tauri.jsg.core.common.registry.CoreBlocks;
 import dev.tauri.jsg.core.common.registry.CoreItems;
+import dev.tauri.jsg.core.common.registry.CoreScheduledTasks;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.registry.helper.FluidHelper;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
+import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.common.symbol.address.IAddress;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
@@ -274,6 +275,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     public void tryHeatUp(boolean heatUpIris, boolean heatUpGate, double gateHeatUpCoefficient, double irisHeatUpCoefficient, double coolDownCoefficient, double maxHeatByAround, double minHeatByAround) {
         final double heatUpCoefficientConst = 0.7;
         final double coolDownCoefficientConst = 0.3;
+        if (level == null) return;
 
         if ((heatUpGate || Math.abs(gateHeat - irisHeat) >= 50) && (maxHeatByAround == -1 || (gateHeat + (heatUpCoefficientConst * gateHeatUpCoefficient)) <= maxHeatByAround))
             gateHeat += (heatUpCoefficientConst * gateHeatUpCoefficient);
@@ -305,7 +307,6 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
 
         // gate explosion
         if (gateHeat >= GATE_MAX_HEAT) {
-            if (level == null) return;
             if (JSGConfig.Stargate.enableGateOverHeatExplosion.get())
                 level.explode(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 60, false, Level.ExplosionInteraction.BLOCK);
             //gateHeat = GATE_MAX_HEAT;
@@ -436,7 +437,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             updatePowerTier();
 
             getIrisManager().onLoad();
-            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
 
             this.lastFakeWorld = getFakeWorld();
             this.lastFakePos = getFakePos();
@@ -579,7 +580,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
                             lockPage = true;
                             pageSlotId = i;
                             pageSymboltype = symbolType;
-                            givePageTask = new ScheduledTask(JSGScheduledTaskTypes.STARGATE_GIVE_PAGE, 36);
+                            givePageTask = new ScheduledTask(CoreScheduledTasks.GIVE_PAGE, 36);
                             givePageTask.setTaskCreated(getTime());
                             givePageTask.setExecutor(this);
                             break;
@@ -710,7 +711,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             if (iris.getIrisType() == EnumIrisType.NULL || iris.getIrisType() == EnumIrisType.SHIELD || !iris.isIrisClosed()) {
                 super.executeTask(scheduledTask, customData);
             }
-        } else if (scheduledTask == JSGScheduledTaskTypes.STARGATE_GIVE_PAGE.get()) {
+        } else if (scheduledTask == CoreScheduledTasks.GIVE_PAGE.get()) {
             if (pageSlotId < 9 || pageSymboltype == null) return;
             ItemStack stack = itemStackHandler.getStackInSlot(pageSlotId);
             stack = getAddressPage(pageSymboltype, stack, (hasUpgrade(StargateUpgrade.CHEVRON_UPGRADE) ? new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9} : new int[]{1, 2, 3, 4, 5, 6, 9}));
@@ -761,7 +762,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         itemStackHandler.deserializeNBT(tag.getCompound("itemHandler"));
         updatePowerTier();
         getIrisManager().updateIrisType();
-        sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+        sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
         setChanged();
     }
 
@@ -850,7 +851,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
                     break;
 
                 case 7:
-                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
                     break;
                 // iris update state
                 case 8:
@@ -867,7 +868,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         protected void onLoad() {
             super.onLoad();
             if (getStargateLevel() == null || getStargateLevel().isClientSide()) return;
-            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new StargateBiomeOverrideState(determineBiomeOverride()));
+            sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
             getIrisManager().updateIrisType();
             updatePowerTier();
         }

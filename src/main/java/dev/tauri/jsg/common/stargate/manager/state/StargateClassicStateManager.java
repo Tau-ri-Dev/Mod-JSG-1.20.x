@@ -6,13 +6,13 @@ import dev.tauri.jsg.client.renderer.blockentity.stargate.StargateClassicRendere
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
 import dev.tauri.jsg.common.stargate.animation.IrisAnimationState;
 import dev.tauri.jsg.common.stargate.animation.spinning.ClassicSpinHelper;
-import dev.tauri.jsg.common.state.stargate.StargateBiomeOverrideState;
 import dev.tauri.jsg.common.state.stargate.StargateContainerGuiState;
 import dev.tauri.jsg.common.state.stargate.StargateContainerGuiUpdate;
 import dev.tauri.jsg.common.state.stargate.StargateRendererActionState;
 import dev.tauri.jsg.core.common.entity.State;
 import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
+import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,7 +89,7 @@ public abstract class StargateClassicStateManager<SG extends StargateClassicBase
                 })
                 .tryType(JSGStateTypes.SPIN_STATE, () -> stargate.getDialingManager().getSpinHelper().from((ClassicSpinHelper) state))
                 .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE, () -> {
-                    StargateBiomeOverrideState overrideState = (StargateBiomeOverrideState) state;
+                    BiomeOverrideState overrideState = (BiomeOverrideState) state;
 
                     if (rendererStateClient != null) {
                         getRendererStateClient().biomeOverride = overrideState.biomeOverride;
@@ -125,7 +125,7 @@ public abstract class StargateClassicStateManager<SG extends StargateClassicBase
                 .tryType(CoreStateTypes.GUI_STATE, () -> new StargateContainerGuiState(stargate.getConfig()))
                 .tryType(CoreStateTypes.GUI_UPDATE, () -> new StargateContainerGuiUpdate(stargate.getDialingManager().getConnection()))
                 .tryType(JSGStateTypes.SPIN_STATE, () -> stargate.getDialingManager().generateSpinHelper())
-                .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE, StargateBiomeOverrideState::new)
+                .tryType(CoreStateTypes.BIOME_OVERRIDE_STATE, BiomeOverrideState::new)
                 .tryType(JSGStateTypes.IRIS_ANIMATION, IrisAnimationState::new)
                 .orElseGet(() -> super.createState(stateType));
     }
