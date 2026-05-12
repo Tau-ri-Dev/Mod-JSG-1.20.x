@@ -4,6 +4,7 @@ import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
 import dev.tauri.jsg.api.stargate.type.StargateTypes;
+import dev.tauri.jsg.core.client.CoreLoadersHolder;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
@@ -137,8 +138,8 @@ public enum SymbolPegasusEnum implements SymbolInterface {
         }
         var location = getIconResource(origin, variant);
         var loader = getSymbolType().getTextureLoader();
-        if (origin() && JSGApi.JSG_LOADERS_HOLDER.texture().isTextureLoaded(location)) // origins are loaded and saved inside JSG texture loader by Origins Loader
-            loader = JSGApi.JSG_LOADERS_HOLDER.texture();
+        if (origin() && CoreLoadersHolder.INSTANCE.texture().isTextureLoaded(location)) // origins are loaded and saved inside JSG texture loader by Origins Loader
+            loader = CoreLoadersHolder.INSTANCE.texture();
         loader.getTexture(location).bindTexture();
     }
 
