@@ -26,6 +26,8 @@ import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.common.stargate.network.StargateReservedAddresses;
 import dev.tauri.jsg.common.util.updater.GetUpdate;
 import dev.tauri.jsg.common.worldgen.poolinject.injectors.JSGTemplatePoolInjectors;
+import dev.tauri.jsg.core.JSGAddon;
+import dev.tauri.jsg.core.JSGAddons;
 import dev.tauri.jsg.core.JSGCore;
 import dev.tauri.jsg.core.LoggerWrapper;
 import dev.tauri.jsg.core.common.integration.Integrations;
@@ -58,7 +60,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 @Mod(JSG.MOD_ID)
-public class JSG {
+public class JSG implements JSGAddon {
     public static final String MOD_ID = "jsg";
     public static final String MOD_NAME = "Just Stargate Mod";
     public static LoggerWrapper logger;
@@ -156,6 +158,8 @@ public class JSG {
         Integrations.CREATE.addOnLoad(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PonderScenes::new));
 
         displayWelcomeMessage();
+
+        JSGAddons.registerAddon(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -206,6 +210,21 @@ public class JSG {
 
     @SubscribeEvent
     public void addCreative(BuildCreativeModeTabContentsEvent event) {
+    }
+
+    @Override
+    public String getName() {
+        return MOD_NAME;
+    }
+
+    @Override
+    public String getId() {
+        return MOD_ID;
+    }
+
+    @Override
+    public String getVersion() {
+        return MOD_VERSION;
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

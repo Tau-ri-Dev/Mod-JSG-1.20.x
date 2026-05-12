@@ -8,7 +8,7 @@ import dev.tauri.jsg.common.block.PrinterBlock;
 import dev.tauri.jsg.common.blockentity.PrinterBE;
 import dev.tauri.jsg.common.raycaster.RaycasterPrinter;
 import dev.tauri.jsg.common.registry.JSGItems;
-import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
+import dev.tauri.jsg.common.registry.JSGRaycasters;
 import dev.tauri.jsg.core.client.renderer.IRaycasterButtonsRenderer;
 import dev.tauri.jsg.core.client.renderer.item.PageRenderer;
 import dev.tauri.jsg.core.client.screen.util.GuiHelper;
@@ -40,7 +40,7 @@ public class PrinterRenderer implements BlockEntityRenderer<PrinterBE>, IRaycast
 
     @Override
     public Raycaster getRaycaster() {
-        return JSGRaycastersRegistry.PRINTER_RAYCASTER.get();
+        return JSGRaycasters.PRINTER_RAYCASTER.get();
     }
 
 

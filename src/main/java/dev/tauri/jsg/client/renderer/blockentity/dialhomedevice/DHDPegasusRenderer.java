@@ -9,7 +9,7 @@ import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolPegasusEnum
 import dev.tauri.jsg.common.loader.ElementEnum;
 import dev.tauri.jsg.common.raycaster.RaycasterPegasusDHD;
 import dev.tauri.jsg.common.registry.JSGBlocks;
-import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
+import dev.tauri.jsg.common.registry.JSGRaycasters;
 import dev.tauri.jsg.core.client.renderer.BlockRenderer;
 import dev.tauri.jsg.core.client.texture.ITexture;
 import dev.tauri.jsg.core.common.raycaster.Raycaster;
@@ -36,7 +36,7 @@ public class DHDPegasusRenderer extends DHDAbstractRenderer<DHDPegasusRendererSt
 
     @Override
     public Raycaster getRaycaster() {
-        return JSGRaycastersRegistry.PEGASUS_DHD_RAYCASTER.get();
+        return JSGRaycasters.PEGASUS_DHD_RAYCASTER.get();
     }
 
     @Override

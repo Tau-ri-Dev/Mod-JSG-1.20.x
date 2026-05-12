@@ -19,7 +19,7 @@ public class JSGRegistriesInit {
         JSGNotebookPageTypes.init();
         JSGSoundEvents.init();
         JSGPositionedSounds.init();
-        JSGRaycastersRegistry.init();
+        JSGRaycasters.init();
         JSGBlocks.init();
         JSGItems.init();
         JSGTabs.init();

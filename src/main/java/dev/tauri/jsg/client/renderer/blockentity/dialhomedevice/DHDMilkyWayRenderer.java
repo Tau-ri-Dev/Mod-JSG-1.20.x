@@ -9,7 +9,7 @@ import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnu
 import dev.tauri.jsg.common.loader.ElementEnum;
 import dev.tauri.jsg.common.raycaster.RaycasterMilkyWayDHD;
 import dev.tauri.jsg.common.registry.JSGBlocks;
-import dev.tauri.jsg.common.registry.JSGRaycastersRegistry;
+import dev.tauri.jsg.common.registry.JSGRaycasters;
 import dev.tauri.jsg.core.client.renderer.BlockRenderer;
 import dev.tauri.jsg.core.client.texture.ITexture;
 import dev.tauri.jsg.core.common.raycaster.Raycaster;
@@ -37,7 +37,7 @@ public class DHDMilkyWayRenderer extends DHDAbstractRenderer<DHDMilkyWayRenderer
 
     @Override
     public Raycaster getRaycaster() {
-        return JSGRaycastersRegistry.MILKYWAY_DHD_RAYCASTER.get();
+        return JSGRaycasters.MILKYWAY_DHD_RAYCASTER.get();
     }
 
     @Override
