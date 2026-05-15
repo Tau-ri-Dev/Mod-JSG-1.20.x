@@ -1,21 +1,22 @@
 package dev.tauri.jsg.datagen;
 
 import dev.tauri.jsg.JSG;
+import dev.tauri.jsg.common.registry.JSGBlocks;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public class JSGRecipeProvider extends RecipeProvider implements IConditionBuilder {
     public JSGRecipeProvider(PackOutput pOutput) {
         super(pOutput);
@@ -24,6 +25,21 @@ public class JSGRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     @ParametersAreNonnullByDefault
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, JSGBlocks.TOASTER.get())
+                .group("jsg:toaster")
+                .pattern("###")
+                .pattern("SCS")
+                .pattern("III")
+                .define('#', Blocks.SMOOTH_STONE_SLAB)
+                .define('S', Tags.Items.STONE)
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_stone_slab", has(Blocks.SMOOTH_STONE_SLAB))
+                .unlockedBy("has_stone", has(Tags.Items.STONE))
+                .unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER))
+                .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
+                .save(pWriter);
     }
 
 
