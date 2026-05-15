@@ -1,7 +1,7 @@
 package dev.tauri.jsg.common.util;
 
 import dev.tauri.jsg.api.stargate.Stargate;
-import dev.tauri.jsg.common.advancements.JSGAdvancements;
+import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.blockentity.stargate.*;
 import dev.tauri.jsg.core.common.util.JSGAxisAlignedBB;
 import net.minecraft.core.BlockPos;
@@ -46,39 +46,39 @@ public class JSGAdvancementsUtil {
             switch (advancementType) {
                 case GATE_OPEN:
                     if (tile instanceof StargateOrlinBaseBE) {
-                        JSGAdvancements.STATIC_ADDRESS_LOCKED.trigger(player);
+                        JSGCriterions.STATIC_ADDRESS_LOCKED.trigger(player);
                         break;
                     }
                     if (!(tile instanceof StargateClassicBaseBE<?> classicTile)) break;
                     int dialedSize = classicTile.getDialingManager().getDialedAddressSize();
                     if (dialedSize == 7)
-                        JSGAdvancements.CHEVRON_SEVEN_LOCKED.trigger(player);
+                        JSGCriterions.CHEVRON_SEVEN_LOCKED.trigger(player);
                     if (dialedSize == 8)
-                        JSGAdvancements.CHEVRON_EIGHT_LOCKED.trigger(player);
+                        JSGCriterions.CHEVRON_EIGHT_LOCKED.trigger(player);
                     if (dialedSize == 9)
-                        JSGAdvancements.CHEVRON_NINE_LOCKED.trigger(player);
+                        JSGCriterions.CHEVRON_NINE_LOCKED.trigger(player);
                     break;
                 case GATE_MERGE:
                     if (!(tile instanceof StargateAbstractBaseBE)) break;
                     if (tile instanceof StargateTollanBaseBE) {
-                        JSGAdvancements.MERGED_TOLLAN.trigger(player);
+                        JSGCriterions.MERGED_TOLLAN.trigger(player);
                         break;
                     }
                     if (tile instanceof StargateMovieBaseBE) {
-                        JSGAdvancements.MERGED_MOVIE.trigger(player);
+                        JSGCriterions.MERGED_MOVIE.trigger(player);
                         break;
                     }
                     if (tile instanceof StargateOrlinBaseBE)
-                        JSGAdvancements.MERGED_ORLIN.trigger(player);
+                        JSGCriterions.MERGED_ORLIN.trigger(player);
                     if (tile instanceof StargateMilkyWayBaseBE)
-                        JSGAdvancements.MERGED_MILKYWAY.trigger(player);
+                        JSGCriterions.MERGED_MILKYWAY.trigger(player);
                     if (tile instanceof StargatePegasusBaseBE)
-                        JSGAdvancements.MERGED_PEGASUS.trigger(player);
+                        JSGCriterions.MERGED_PEGASUS.trigger(player);
                     if (tile instanceof StargateUniverseBaseBE)
-                        JSGAdvancements.MERGED_UNIVERSE.trigger(player);
+                        JSGCriterions.MERGED_UNIVERSE.trigger(player);
                     break;
                 case IRIS_IMPACT:
-                    JSGAdvancements.IRIS_IMPACT.trigger(player);
+                    JSGCriterions.IRIS_IMPACT.trigger(player);
                     break;
                 default:
                     break;

@@ -12,7 +12,7 @@ import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnu
 import dev.tauri.jsg.api.stargate.result.StargateCloseResult;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
 import dev.tauri.jsg.client.renderer.blockentity.dialhomedevice.DHDMilkyWayRendererState;
-import dev.tauri.jsg.common.advancements.JSGAdvancements;
+import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
 import dev.tauri.jsg.common.helpers.StargateLinkingHelper;
 import dev.tauri.jsg.common.registry.JSGBlockEntities;
@@ -143,7 +143,7 @@ public class DHDMilkyWayBE extends DHDAbstractBE {
                 StargateOpenResult openResult = gateTile.getDialingManager().attemptOpenDialed();
 
                 if (openResult.ok())
-                    JSGAdvancements.CHEVRON_SEVEN_LOCKED.trigger(player);
+                    JSGCriterions.CHEVRON_SEVEN_LOCKED.trigger(player);
 
                 if (openResult == StargateOpenResult.NOT_ENOUGH_POWER && player != null) {
                     player.sendSystemMessage(Component.translatable("block.jsg.dhd_milkyway.not_enough_power"), true);

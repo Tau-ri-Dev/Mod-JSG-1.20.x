@@ -9,7 +9,6 @@ import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.DiagnosticsTab;
 import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.DialingTab;
 import dev.tauri.jsg.client.screen.gui.admincontroller.tabs.NetworkTab;
 import dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu;
-import dev.tauri.jsg.common.advancements.JSGAdvancements;
 import dev.tauri.jsg.common.command.JSGCommands;
 import dev.tauri.jsg.common.integration.cctweaked.CCDevices;
 import dev.tauri.jsg.common.integration.create.PonderScenes;
@@ -164,7 +163,6 @@ public class JSG implements JSGAddon {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         //ProgressJSON.INSTANCE.load(JSGCore.modConfigDir);
-        JSGAdvancements.register();
     }
 
     @SubscribeEvent

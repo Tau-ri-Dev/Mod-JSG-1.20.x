@@ -1,6 +1,6 @@
 package dev.tauri.jsg.common.stargate.teleportation;
 
-import dev.tauri.jsg.common.advancements.JSGAdvancements;
+import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.registry.JSGDamageTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -13,7 +13,7 @@ public class StargateKillingHelper {
             return;
         }
         if (e instanceof ServerPlayer sp)
-            JSGAdvancements.KAWOOSH_CREMATION.trigger(sp);
+            JSGCriterions.KAWOOSH_CREMATION.trigger(sp);
         JSGDamageTypes.killEntity(e, JSGDamageTypes.KAWOOSH);
     }
 

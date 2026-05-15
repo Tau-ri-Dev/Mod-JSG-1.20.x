@@ -2,7 +2,7 @@ package dev.tauri.jsg.common.packet.packets.linkable;
 
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.stargate.iris.codesender.PlayerCodeSender;
-import dev.tauri.jsg.common.advancements.JSGAdvancements;
+import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.item.linkable.gdo.GDOItem;
 import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.common.registry.JSGSoundEvents;
@@ -59,7 +59,7 @@ public class GDOCodeKeyPressedToServer extends JSGPacket {
             if (number == -1 && !code.isEmpty()) {
                 JSGSoundHelper.playSoundToPlayer(player, JSGSoundEvents.GDO_BUTTON_CLICK, player.blockPosition());
                 if (((GDOItem) JSGItems.GDO.get()).sendCode(stack, new PlayerCodeSender(player)))
-                    JSGAdvancements.GDO_USED.trigger(player);
+                    JSGCriterions.GDO_USED.trigger(player);
                 compound.putString("entered_code", "");
                 stack.setTag(compound);
             }
