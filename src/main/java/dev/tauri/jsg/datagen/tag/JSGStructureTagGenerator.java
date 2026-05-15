@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.datagen.tag;
+package dev.tauri.jsg.datagen.tag;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.registry.JSGStructures;

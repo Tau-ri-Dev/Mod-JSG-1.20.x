@@ -1,4 +1,4 @@
-package dev.tauri.jsg.integration.cctweaked;
+package dev.tauri.jsg.common.integration.cctweaked;
 
 import dan200.computercraft.api.lua.IArguments;
 import dan200.computercraft.api.lua.ILuaContext;

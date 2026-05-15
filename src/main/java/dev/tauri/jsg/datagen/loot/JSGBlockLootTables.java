@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.datagen.loot;
+package dev.tauri.jsg.datagen.loot;
 
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.common.registry.JSGBlocks;

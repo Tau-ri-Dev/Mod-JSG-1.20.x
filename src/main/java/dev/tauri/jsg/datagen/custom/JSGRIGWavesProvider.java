@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.datagen.custom;
+package dev.tauri.jsg.datagen.custom;
 
 import com.mojang.serialization.JsonOps;
 import dev.tauri.jsg.JSG;

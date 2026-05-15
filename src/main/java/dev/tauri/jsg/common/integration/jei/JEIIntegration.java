@@ -1,4 +1,4 @@
-package dev.tauri.jsg.integration.jei;
+package dev.tauri.jsg.common.integration.jei;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.client.screen.inventory.DHDContainerGui;

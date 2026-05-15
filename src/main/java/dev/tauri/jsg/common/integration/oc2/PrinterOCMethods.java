@@ -1,4 +1,4 @@
-package dev.tauri.jsg.integration.oc2;
+package dev.tauri.jsg.common.integration.oc2;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.blockentity.PrinterBE;

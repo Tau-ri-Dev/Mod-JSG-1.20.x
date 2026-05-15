@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.datagen.loot;
+package dev.tauri.jsg.datagen.loot;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;

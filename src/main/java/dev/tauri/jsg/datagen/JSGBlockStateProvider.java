@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.datagen;
+package dev.tauri.jsg.datagen;
 
 import dev.tauri.jsg.JSG;
 import net.minecraft.data.PackOutput;

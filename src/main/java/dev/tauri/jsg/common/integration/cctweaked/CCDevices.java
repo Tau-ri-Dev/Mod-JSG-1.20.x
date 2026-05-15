@@ -1,4 +1,4 @@
-package dev.tauri.jsg.integration.cctweaked;
+package dev.tauri.jsg.common.integration.cctweaked;
 
 import dev.tauri.jsg.core.common.integration.cctweaked.CCDevice;
 

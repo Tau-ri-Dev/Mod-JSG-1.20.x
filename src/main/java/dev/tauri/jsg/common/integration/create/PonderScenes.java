@@ -1,4 +1,4 @@
-package dev.tauri.jsg.integration.create;
+package dev.tauri.jsg.common.integration.create;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;

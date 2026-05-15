@@ -1,9 +1,9 @@
-package dev.tauri.jsg.common.datagen;
+package dev.tauri.jsg.datagen;
 
 import dev.tauri.jsg.JSG;
-import dev.tauri.jsg.common.datagen.custom.JSGRIGWavesProvider;
-import dev.tauri.jsg.common.datagen.loot.JSGLootTableProvider;
-import dev.tauri.jsg.common.datagen.tag.*;
+import dev.tauri.jsg.datagen.custom.JSGRIGWavesProvider;
+import dev.tauri.jsg.datagen.loot.JSGLootTableProvider;
+import dev.tauri.jsg.datagen.tag.*;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
