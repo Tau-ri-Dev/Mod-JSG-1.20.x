@@ -40,7 +40,8 @@ public class JSGItems {
      * Icons used in advancements
      */
 
-    public static final RegistryObject<JSGItem> ICON_JSG_LOGO = Constants.JSG_ITEM_HELPER.builder("icon_jsg").clearTooltip().buildGeneric();
+    public static final RegistryObject<JSGItem> ICON_KAWOOSH_DEATH = Constants.JSG_ITEM_HELPER.builder("icon_kawoosh_death").clearTooltip().buildGeneric();
+    public static final RegistryObject<JSGItem> ICON_WORMHOLE = Constants.JSG_ITEM_HELPER.builder("icon_wormhole").clearTooltip().buildGeneric();
 
     /**
      * DHD power/control crystal
