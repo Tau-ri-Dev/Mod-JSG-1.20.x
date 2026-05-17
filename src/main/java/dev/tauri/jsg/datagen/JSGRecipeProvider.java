@@ -36,15 +36,17 @@ public class JSGRecipeProvider extends RecipeProvider implements IConditionBuild
                 .group("jsg:toaster")
                 .pattern("###")
                 .pattern("SCS")
-                .pattern("III")
+                .pattern("ITI")
                 .define('#', Blocks.SMOOTH_STONE_SLAB)
                 .define('S', Tags.Items.STONE)
                 .define('C', Tags.Items.INGOTS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)
+                .define('T', CoreItemTags.INGOT_TITANIUM)
                 .unlockedBy("has_stone_slab", has(Blocks.SMOOTH_STONE_SLAB))
                 .unlockedBy("has_stone", has(Tags.Items.STONE))
                 .unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER))
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
+                .unlockedBy("has_titanium_ingot", has(CoreItemTags.INGOT_TITANIUM))
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, JSGBlocks.PRINTER.get())
