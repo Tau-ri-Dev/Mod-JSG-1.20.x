@@ -711,176 +711,74 @@
 
   "_comment1000": "------------------ ADVANCEMENTS ------------------",
 
-  "advancement.jsg.root.title": "Welcome to JSG",
-  "advancement.jsg.root.description": "Gaters Gonna Gate!",
-
-  "_comment1001": ">>> Villager Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "advancement.jsg.craft_printer.title": "Not enough Magenta!",
+  "advancement.jsg.craft_printer.description": "Works like regular printer, but it's more advanced",
 
   "advancement.jsg.priest_trade.title": "Sacrifices to their gods",
   "advancement.jsg.priest_trade.description": "Trade with Priest Villager",
 
-  "_comment1002": ">>> Lemon Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "advancement.jsg.visit_abydos.title": "Welcome to Ra's realm",
+  "advancement.jsg.visit_abydos.description": "Visit Abydos",
 
-  "advancement.jsg.lemon_pickup.title": "Keep one with me all times",
-  "advancement.jsg.lemon_pickup.description": "Obtain Lemon",
+  "advancement.jsg.use_gdo.title": "Code accepted!",
+  "advancement.jsg.use_gdo.description": "Use a GDO to open the iris",
 
-  "_comment1003": ">>> Notebook Page Branch <<<<<<<<<<<<<<<<<<<<<<<<<",
+  "advancement.jsg.obtain_toaster.title": "Carter's Toaster",
+  "advancement.jsg.obtain_toaster.description": "You wouldn't believe the things that you can make from common items.",
 
-  "advancement.jsg.craft_page.title": "Better then papyrus",
-  "advancement.jsg.craft_page.description": "Craft Notebook Page to obtain addresses",
+  "advancement.jsg.activate_orlin_gate.title": "So you built one?",
+  "advancement.jsg.activate_orlin_gate.description": "Ohh... and you're going to need a new toaster!",
 
-  "advancement.jsg.erase_page.title": "Lets try it again...",
-  "advancement.jsg.erase_page.description": "Delete address from filled notebook page",
+  "advancement.jsg.obtain_milkyway_glyph_crystal.title": "We Need Six Points...",
+  "advancement.jsg.obtain_milkyway_glyph_crystal.description": "Obtain Milky Way Glyph Crystal",
 
-  "advancement.jsg.printer.title": "Not enough Magenta!",
-  "advancement.jsg.printer.description": "Works like regular printer, but it's more advanced",
+  "advancement.jsg.obtain_pegasus_glyph_crystal.title": "We Determined 7th Symbol",
+  "advancement.jsg.obtain_pegasus_glyph_crystal.description": "Obtain Pegasus Glyph Crystal",
 
-  "advancement.jsg.toaster.title": "Carter's Toaster",
-  "advancement.jsg.toaster.description": "You wouldn't believe the things that you can make from common items.",
+  "advancement.jsg.obtain_universe_glyph_crystal.title": "Not Incorrect, Incomplete",
+  "advancement.jsg.obtain_universe_glyph_crystal.description": "Obtain Universe Glyph Crystal",
 
-  "advancement.jsg.orlin_gate_merge.title": "So you built one?",
-  "advancement.jsg.orlin_gate_merge.description": "Ohh... and you're going to need a new toaster!",
+  "advancement.jsg.obtain_stargate_glyph_crystal.title": "Extra Symbols",
+  "advancement.jsg.obtain_stargate_glyph_crystal.description": "Obtain Stargate Glyph Crystal",
 
-  "advancement.jsg.titanium_ingot.title": "Better then Iron",
-  "advancement.jsg.titanium_ingot.description": "Smelt a Titanium ingot",
+  "advancement.jsg.activate_movie_gate.title": "Giza, 1928",
+  "advancement.jsg.activate_movie_gate.description": "Activate Movie Stargate",
 
-  "_comment1004": ">>> Cluster Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "advancement.jsg.activate_mw_gate.title": "Pyramid with Sun above it",
+  "advancement.jsg.activate_mw_gate.description": "Build Milkyway Stargate",
 
-  "advancement.jsg.blue_cluster.title": "Here's a whole one",
-  "advancement.jsg.blue_cluster.description": "Obtain blue crystal cluster",
+  "advancement.jsg.activate_tollan_gate.title": "Ours is bigger",
+  "advancement.jsg.activate_tollan_gate.description": "Build a Tollan stargate",
 
-  "advancement.jsg.ender_cluster.title": "Enderman loves it",
-  "advancement.jsg.ender_cluster.description": "Obtain ender crystal cluster",
+  "advancement.jsg.activate_pg_gate.title": "Bon Voyage!",
+  "advancement.jsg.activate_pg_gate.description": "Build Pegasus Stargate",
 
-  "advancement.jsg.pegasus_cluster.title": "Cold ice crystal",
-  "advancement.jsg.pegasus_cluster.description": "Obtain pegasus crystal cluster",
+  "advancement.jsg.activate_uni_gate.title": "Its Not Address, Its a Code",
+  "advancement.jsg.activate_uni_gate.description": "Build Universe Stargate",
 
-  "advancement.jsg.red_cluster.title": "Its red, not hot!",
-  "advancement.jsg.red_cluster.description": "Obtain red crystal cluster",
-
-  "advancement.jsg.white_cluster.title": "Don't touch it!",
-  "advancement.jsg.white_cluster.description": "Obtain white crystal cluster",
-
-  "advancement.jsg.yellow_cluster.title": "Shining in the dark",
-  "advancement.jsg.yellow_cluster.description": "Obtain yellow crystal cluster",
-
-  "_comment1005": ">>> Gate Activated Branch <<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "advancement.jsg.fixed_lock.title": "It'll only create a wormhole Once.",
-  "advancement.jsg.fixed_lock.description": "Activate Orlin Gate",
+  "advancement.jsg.craft_shield.title": "Using power, using power...",
+  "advancement.jsg.craft_shield.description": "Obtain stargate shield",
 
   "advancement.jsg.kawoosh_death.title": "Escaping Hadante",
   "advancement.jsg.kawoosh_death.description": "Get cremated by the Unstable Vortex",
 
-  "advancement.jsg.unstable_wormhole.title": "Unstable Wormhole?!",
-  "advancement.jsg.unstable_wormhole.description": "For a moment i thought we were in trouble",
-
-  "advancement.jsg.wormhole_travel.title": "What's a wormhole? And why a worm?",
-  "advancement.jsg.wormhole_travel.description": "Enter the Event Horizon of a Stargate",
-
-  "_comment1006": ">>> Cauldron Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "advancement.jsg.cauldron.title": "Liquid Crafting",
-  "advancement.jsg.cauldron.description": "Use Cauldron for Crafting Advanced Alloys",
-
-  "advancement.jsg.naquadah_circuit.title": "Crystal based technology",
-  "advancement.jsg.naquadah_circuit.description": "Dip control circuit base in cauldron with molten naquadah alloy",
-
-  "advancement.jsg.crystal_circuit.title": "Advanced Circuits!",
-  "advancement.jsg.crystal_circuit.description": "Dip control circuit base in cauldron with molten trinium",
-
-  "advancement.jsg.molten_raw_naquadah.title": "Ka'da!",
-  "advancement.jsg.molten_raw_naquadah.description": "Melt Raw Naquadah Ingot in cauldron",
-
-  "advancement.jsg.molten_naquadah.title": "Naqua... What?",
-  "advancement.jsg.molten_naquadah.description": "Craft Naquadah alloy",
-
-  "advancement.jsg.molten_refined_naquadah.title": "Now that's HOT stuff",
-  "advancement.jsg.molten_refined_naquadah.description": "Craft Refined Naquadah Ingot",
-
-  "_comment1007": ">>> Address Crystal Branch <<<<<<<<<<<<<<<<<<<<<<<",
-
-  "advancement.jsg.milkyway_crystal.title": "We Need Six Points...",
-  "advancement.jsg.milkyway_crystal.description": "Obtain Milky Way Glyph Crystal",
-
-  "advancement.jsg.milkyway_gate_merge.title": "Pyramid with Sun above it",
-  "advancement.jsg.milkyway_gate_merge.description": "Build Milkyway Stargate",
-
-  "advancement.jsg.chevron_7_lock.title": "Chevron 7 locked!",
-  "advancement.jsg.chevron_7_lock.description": "Dial a valid 7-symbol address",
-
-  "advancement.jsg.tollan_gate_merge.title": "Ours is bigger",
-  "advancement.jsg.tollan_gate_merge.description": "Build a Tollan stargate",
-
-  "advancement.jsg.movie_gate_merge.title": "Giza, 1928",
-  "advancement.jsg.movie_gate_merge.description": "Build Movie Stargate",
-
-  "advancement.jsg.abydos_travel.title": "Welcome to Ra's realm",
-  "advancement.jsg.abydos_travel.description": "Visit Abydos",
-
-  "advancement.jsg.mastadge.title": "Weird Looking Camel",
-  "advancement.jsg.mastadge.description": "Ride on Mastadge",
-
-  "advancement.jsg.stargate_crystal.title": "Extra Symbols",
-  "advancement.jsg.stargate_crystal.description": "Obtain Stargate Glyph Crystal",
-
-  "advancement.jsg.pegasus_crystal.title": "We Determined 7th Symbol",
-  "advancement.jsg.pegasus_crystal.description": "Obtain Pegasus Glyph Crystal",
-
-  "advancement.jsg.pegasus_gate_merge.title": "Bon Voyage!",
-  "advancement.jsg.pegasus_gate_merge.description": "Build Pegasus Stargate",
-
-  "advancement.jsg.chevron_8_lock.title": "Whole new realm to explore",
-  "advancement.jsg.chevron_8_lock.description": "Dial a valid 8-symbol address",
-
-  "advancement.jsg.universe_crystal.title": "Not Incorrect, Incomplete",
-  "advancement.jsg.universe_crystal.description": "Obtain Universe Glyph Crystal",
-
-  "advancement.jsg.universe_gate_merge.title": "Its Not Address, Its a Code",
-  "advancement.jsg.universe_gate_merge.description": "Build Universe Stargate",
-
-  "advancement.jsg.chevron_9_lock.title": "Several billion light years from home",
-  "advancement.jsg.chevron_9_lock.description": "Dial a valid 9-symbol address",
-
-  "_comment1008": ">>> DHD Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "advancement.jsg.oxidized_copper.title": "Ancient Copper?",
-  "advancement.jsg.oxidized_copper.description": "Obtain Oxidized Copper Ingot",
-
-  "advancement.jsg.universe_dialer.title": "Wireless Controller",
-  "advancement.jsg.universe_dialer.description": "Obtain Universe Dialer",
-
-  "advancement.jsg.dhd_milkyway.title": "This is how they control it",
-  "advancement.jsg.dhd_milkyway.description": "Obtain Milkyway DHD",
-
-  "advancement.jsg.dhd_pegasus.title": "Look how small it is!",
-  "advancement.jsg.dhd_pegasus.description": "Obtain Pegasus DHD",
-
-  "advancement.jsg.glyph_crystal_dhd.title": "Additional Control Crystal",
-  "advancement.jsg.glyph_crystal_dhd.description": "Obtain DHD Glyph Crystal",
-
-  "advancement.jsg.rs_input.title": "You MacGyver it!",
-  "advancement.jsg.rs_input.description": "Obtain Stargate Redstone Dialer",
-
-  "advancement.jsg.rs_output.title": "Stargate Monitoring",
-  "advancement.jsg.rs_output.description": "Obtain Stargate Redstone State Output",
-
-  "_comment1009": ">>> Iris Branch <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
-
-  "advancement.jsg.iris_t1.title": "Impenetrable Barrier",
-  "advancement.jsg.iris_t1.description": "Obtain Titanium Iris",
-
-  "advancement.jsg.iris_t2.title": "Did you ask Xe'ls and T'akaya?!",
-  "advancement.jsg.iris_t2.description": "Obtain Trinium Iris",
-
-  "advancement.jsg.iris_shield.title": "Using power, using power...",
-  "advancement.jsg.iris_shield.description": "Obtain stargate shield",
-
   "advancement.jsg.iris_impact.title": "Like bugs on a windshield",
   "advancement.jsg.iris_impact.description": "Witness an object hit the iris",
 
-  "advancement.jsg.gdo_used.title": "Code accepted!",
-  "advancement.jsg.gdo_used.description": "Use a GDO to open the iris",
+  "advancement.jsg.wormhole_go.title": "What's a wormhole? And why a worm?",
+  "advancement.jsg.wormhole_go.description": "Enter the Event Horizon of a Stargate",
+
+  "advancement.jsg.unstable_wormhole.title": "Unstable Wormhole?!",
+  "advancement.jsg.unstable_wormhole.description": "For a moment i thought we were in trouble",
+
+  "advancement.jsg.obtain_mw_dhd.title": "This is how they control it",
+  "advancement.jsg.obtain_mw_dhd.description": "Obtain Milkyway DHD",
+
+  "advancement.jsg.obtain_pg_dhd.title": "Look how small it is!",
+  "advancement.jsg.obtain_pg_dhd.description": "Obtain Pegasus DHD",
+
+  "advancement.jsg.obtain_dhd_glyph_crystal.title": "Additional Control Crystal",
+  "advancement.jsg.obtain_dhd_glyph_crystal.description": "Obtain DHD Glyph Crystal",
 
   "_comment1100": "-------------------- COMMANDS --------------------",
 
