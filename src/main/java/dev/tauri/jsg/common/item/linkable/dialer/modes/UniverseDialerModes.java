@@ -6,6 +6,7 @@ public class UniverseDialerModes {
     public static final UDMemoryMode MEMORY = new UDMemoryMode();
     public static final UDStatusMode STATUS = new UDStatusMode();
     public static final UDManualDialMode MANUAL_DIALING = new UDManualDialMode();
+    public static final UDKinoMode KINO = new UDKinoMode();
 
     public static void init() {
     }

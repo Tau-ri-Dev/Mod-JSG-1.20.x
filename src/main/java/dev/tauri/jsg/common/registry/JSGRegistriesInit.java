@@ -2,11 +2,9 @@ package dev.tauri.jsg.common.registry;
 
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.registry.*;
-import dev.tauri.jsg.client.renderer.entity.MastadgeRenderer;
 import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
-import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class JSGRegistriesInit {
@@ -28,14 +26,12 @@ public class JSGRegistriesInit {
         JSGBlockEntities.init();
         JSGMenuTypes.init();
         JSGVillagers.init();
+        JSGEntities.init();
 
         JSGCriterions.init();
     }
 
     public static void register(IEventBus bus) {
-        JSGApi.REGISTRY_HELPER.entityRendererRegister(() -> {
-            RegistryHelper.registerEntityRenderer(JSGEntities.MASTADGE.get(), MastadgeRenderer::new);
-        });
         JSGApi.REGISTRY_HELPER.register(bus);
         StargateTypesLoader.register(bus);
     }
