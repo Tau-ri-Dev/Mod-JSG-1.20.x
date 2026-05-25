@@ -133,6 +133,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
         renderLink(baseBE.getBlockPos(), baseBE, stack, bufferSource);
         tileEntity = baseBE;
         rendererState = (S) baseBE.getStateManager().getRendererStateClient();
+        if (rendererState == null) return;
         this.stack = stack;
         this.partialTicks = partialTicks;
         this.source = bufferSource;
