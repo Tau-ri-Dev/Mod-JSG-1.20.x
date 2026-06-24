@@ -17,11 +17,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public enum SymbolMilkyWayEnum implements SymbolInterface {
+    BRB(39, -1, "Bright Red Button", "brb.obj"),
+
     SCULPTOR(0, 19, "Sculptor", "0.obj"),
     SCORPIUS(1, 8, "Scorpius", "1.obj"),
     CENTAURUS(2, 4, "Centaurus", "2.obj"),
     MONOCEROS(3, 31, "Monoceros", "3.obj"),
-    ORIGIN(4, 0, "Point of Origin", "4.obj"),
+    POINT_OF_ORIGIN(4, 0, "Point of Origin", "4.obj"),
     PEGASUS(5, 18, "Pegasus", "5.obj"),
     ANDROMEDA(6, 21, "Andromeda", "6.obj"),
     SERPENS_CAPUT(7, 6, "Serpens Caput", "7.obj"),
@@ -55,8 +57,7 @@ public enum SymbolMilkyWayEnum implements SymbolInterface {
     LYNX(35, 34, "Lynx", "35.obj"),
     ORION(36, 29, "Orion", "36.obj"),
     PISCIS_AUSTRINUS(37, 15, "Piscis Austrinus", "37.obj"),
-    AQUILA(38, 12, "Aquila", null),
-    BRB(39, -1, "Bright Red Button", "brb.obj");
+    AQUILA(38, 12, "Aquila", null);
 
     public static final float ANGLE_PER_GLYPH = 9.2307692f;
 
@@ -95,7 +96,7 @@ public enum SymbolMilkyWayEnum implements SymbolInterface {
 
     @Override
     public boolean origin() {
-        return this == ORIGIN;
+        return this == POINT_OF_ORIGIN;
     }
 
     @Override

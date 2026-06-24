@@ -48,7 +48,7 @@ public class RaycasterMilkyWayDHD extends RaycasterDHD {
             )),
 
             //Point of Origin
-            new RayCastedButton(ORIGIN.id, JSGSymbolTypes.MILKYWAY, List.of(
+            new RayCastedButton(POINT_OF_ORIGIN.id, JSGSymbolTypes.MILKYWAY, List.of(
                     new Vector3f(0.509807f, -0.203366f, 1.12732f),
                     new Vector3f(0.359138f, -0.121008f, 1.13607f),
                     new Vector3f(0.38779f, -0.024044f, 1.07776f),

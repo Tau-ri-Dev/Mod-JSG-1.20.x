@@ -18,6 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public enum SymbolPegasusEnum implements SymbolInterface {
+
+    BBB(38, "Bright Blue Button", "brb.obj", -39),
+
     ROEHI(37, "Roehi", "37.obj", 11),
     ONCE_EL(36, "Once El", "36.obj", 35),
     BASELAI(35, "Baselai", "35.obj", 33),
@@ -57,9 +60,7 @@ public enum SymbolPegasusEnum implements SymbolInterface {
     ALDENI(3, "Aldeni", "3.obj", 5),
     SETAS(2, "Setas", "2.obj", 31),
     ARAMI(1, "Arami", "1.obj", 27),
-    DANAMI(0, "Danami", "0.obj", 18),
-
-    BBB(38, "Bright Blue Button", "brb.obj", -39);
+    DANAMI(0, "Danami", "0.obj", 18);
 
     public final int id;
     public final int textureSlot;

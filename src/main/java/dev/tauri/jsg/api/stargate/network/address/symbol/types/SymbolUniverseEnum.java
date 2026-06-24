@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public enum SymbolUniverseEnum implements SymbolInterface {
     TOP_CHEVRON(0, null),
+
     G1(1, "01.obj"),
     G2(2, "02.obj"),
     G3(3, "03.obj"),

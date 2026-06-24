@@ -178,7 +178,7 @@ public class SymbolMilkyWayProvider extends SymbolType<SymbolMilkyWayEnum> {
         int id;
         do {
             id = random.nextInt(38);
-        } while (valueOf(id) == null || !valueOf(id).isValidForAddress() || id == ORIGIN.id);
+        } while (valueOf(id) == null || !valueOf(id).isValidForAddress() || id == POINT_OF_ORIGIN.id);
 
         return valueOf(id);
     }
@@ -209,7 +209,7 @@ public class SymbolMilkyWayProvider extends SymbolType<SymbolMilkyWayEnum> {
 
     @Override
     public SymbolMilkyWayEnum getOrigin() {
-        return ORIGIN;
+        return POINT_OF_ORIGIN;
     }
 
     @Override
@@ -224,7 +224,7 @@ public class SymbolMilkyWayProvider extends SymbolType<SymbolMilkyWayEnum> {
 
     @Override
     public SymbolMilkyWayEnum getTopSymbol() {
-        return ORIGIN;
+        return POINT_OF_ORIGIN;
     }
 
     private static final Map<Integer, SymbolMilkyWayEnum> ID_MAP = new HashMap<>();
