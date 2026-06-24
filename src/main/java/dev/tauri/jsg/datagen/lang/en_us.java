@@ -77,11 +77,11 @@ public class en_us extends InheritableLang {
 
         add("gui.jsg.ingame_config.default_value", "Default: %s");
         add("gui.jsg.ingame_config.time_limit_mode.title", "Stargate Time Limit Mode");
-        add("gui.jsg.ingame_config.time_limit_mode.comment", "Specifies what should the stargate do when the gate opened for more than Stargate Time Limit Time");
+        add("gui.jsg.ingame_config.time_limit_mode.comment", "Specifies what the stargate should do when the gate is open longer than Stargate Time Limit Time");
         add("gui.jsg.ingame_config.time_limit_time.title", "Stargate Time Limit Time");
         add("gui.jsg.ingame_config.time_limit_time.comment", "How many seconds can be opened before closing/drawing more power (set up by Stargate Time Limit Mode)");
         add("gui.jsg.ingame_config.time_limit_power.title", "Stargate Time Limit Power Draw Multiplier");
-        add("gui.jsg.ingame_config.time_limit_power.comment", "Specifies multiplier of stargate's power draw when the gate opened for more than Stargate Time Limit Time and Stargate Time Limit Mode is set to DRAW_MORE_POWER");
+        add("gui.jsg.ingame_config.time_limit_power.comment", "Specifies multiplier of stargate's power draw when the gate is open longer than Stargate Time Limit Time and Stargate Time Limit Mode is set to DRAW_MORE_POWER");
         add("gui.jsg.ingame_config.spin_speed.title", "Stargate's Ring Rotation Speed");
         add("gui.jsg.ingame_config.spin_speed.comment", "Ring rotation speed in %");
         add("gui.jsg.ingame_config.force_unstable.title", "Force Unstable Event Horizon");
@@ -89,23 +89,23 @@ public class en_us extends InheritableLang {
         add("gui.jsg.ingame_config.enable_bury_state.title", "Enable Bury State");
         add("gui.jsg.ingame_config.enable_bury_state.comment", "When the inner space of the stargate is filled with blocks, should the gate become undialable?");
         add("gui.jsg.ingame_config.allow_rig.title", "Random Incoming Generator");
-        add("gui.jsg.ingame_config.allow_rig.comment", "Allow spawning random incoming wormholes with mobs waves");
+        add("gui.jsg.ingame_config.allow_rig.comment", "Allow spawning random incoming wormholes with waves of mobs");
         add("gui.jsg.ingame_config.max_energy_crystals.title", "Enabled Energy Crystals Slots");
         add("gui.jsg.ingame_config.max_energy_crystals.comment", "Number of enabled energy crystals slots");
         add("gui.jsg.ingame_config.dhd_oc_press_sound.title", "DHD Button Sound when dialing");
-        add("gui.jsg.ingame_config.dhd_oc_press_sound.comment", "Play DHD button press sound when dialing via other method than DHD itself");
+        add("gui.jsg.ingame_config.dhd_oc_press_sound.comment", "Play DHD button press sound when dialing via methods other than the DHD itself");
         add("gui.jsg.ingame_config.allow_incoming_animation.title", "Incoming Animations");
         add("gui.jsg.ingame_config.allow_incoming_animation.comment", "Allow incoming animations to play on this gate");
         add("gui.jsg.ingame_config.dhd_last_lock.title", "DHD Last Chevron Lock");
         add("gui.jsg.ingame_config.dhd_last_lock.comment", "Play chevron locking animation on the final chevron when dialing by DHD");
         add("gui.jsg.ingame_config.spin_ring_incoming.title", "Spin Ring by Incoming Animation");
-        add("gui.jsg.ingame_config.spin_ring_incoming.comment", "Start spinning the ring when incoming wormhole occurs. This require the Incoming Animations option to be set to Enabled.");
+        add("gui.jsg.ingame_config.spin_ring_incoming.comment", "Start spinning the ring when incoming wormhole occurs. This requires the Incoming Animations option to be set to Enabled.");
         add("gui.jsg.ingame_config.point_of_origin.title", "Point of Origin Variant");
-        add("gui.jsg.ingame_config.point_of_origin.comment", "Variant of the PoO to be used on this gate. This will not change any gate's behaviour - it's only a visual");
+        add("gui.jsg.ingame_config.point_of_origin.comment", "Variant of the PoO to be used on this gate. This will not change any gate behaviour - it's only a visual");
         add("gui.jsg.ingame_config.fast_dialing.title", "Fast Dialing");
-        add("gui.jsg.ingame_config.fast_dialing.comment", "Switch to fast dialing on this gate when dialing by a Remote");
+        add("gui.jsg.ingame_config.fast_dialing.comment", "Switch to fast dialing on this gate when dialing using a Remote");
         add("gui.jsg.ingame_config.orange_shield.title", "Orange Shield");
-        add("gui.jsg.ingame_config.orange_shield.comment", "Switch shield to orange color on this gate");
+        add("gui.jsg.ingame_config.orange_shield.comment", "Change shield color to orange on this gate");
 
         // ----------------- CREATIVE TABS ------------------
 
