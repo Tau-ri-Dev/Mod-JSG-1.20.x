@@ -12,7 +12,12 @@ public class en_gb extends LanguageProvider {
         "dialing", "dialling",
         "Dialing", "Dialling",
         "color", "colour",
-        "Color", "Colour"
+        "Color", "Colour",
+        "behavior", "behaviour",
+        "Behavior", "Behaviour",
+        "center", "centre",
+        "Center", "Centre",
+        "ize", "ise"
     );
 
 

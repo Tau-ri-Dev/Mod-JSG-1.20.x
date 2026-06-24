@@ -101,7 +101,7 @@ public class en_us extends InheritableLang {
         add("gui.jsg.ingame_config.spin_ring_incoming.title", "Spin Ring by Incoming Animation");
         add("gui.jsg.ingame_config.spin_ring_incoming.comment", "Start spinning the ring when incoming wormhole occurs. This requires the Incoming Animations option to be set to Enabled.");
         add("gui.jsg.ingame_config.point_of_origin.title", "Point of Origin Variant");
-        add("gui.jsg.ingame_config.point_of_origin.comment", "Variant of the PoO to be used on this gate. This will not change any gate behaviour - it's only a visual");
+        add("gui.jsg.ingame_config.point_of_origin.comment", "Variant of the PoO to be used on this gate. This will not change any gate behavior - it's only a visual");
         add("gui.jsg.ingame_config.fast_dialing.title", "Fast Dialing");
         add("gui.jsg.ingame_config.fast_dialing.comment", "Switch to fast dialing on this gate when dialing using a Remote");
         add("gui.jsg.ingame_config.orange_shield.title", "Orange Shield");
