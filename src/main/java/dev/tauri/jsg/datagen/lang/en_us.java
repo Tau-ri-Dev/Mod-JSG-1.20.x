@@ -322,7 +322,7 @@ public class en_us extends InheritableLang {
         add("item.jsg.upgrade_iris_trinium.tooltip.extended", "Iris works as in lore.%nl%Just install this into any gate.");
 
         add("item.jsg.upgrade_shield.tooltip", "Iris upgrade tier III");
-        add("item.jsg.upgrade_shield.tooltip.extended", "Shield blocks incoming travellers.%nl%Just install this into any gate.%nl%Instead of durability%nl%it consumes energy from the gate buffer.");
+        add("item.jsg.upgrade_shield.tooltip.extended", "Shield blocks incoming travellers.%nl%Just install this into any gate.%nl%Instead of durability%nl%it consumes energy from the gate's buffer.");
 
         add("item.jsg.upgrade_iris_creative.tooltip", "Iris with infinite durability");
 
@@ -348,23 +348,24 @@ public class en_us extends InheritableLang {
 
         // ===>>> DHD Components <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        add("item.jsg.crystal_control_dhd.tooltip", "Main control crystal of DHD");
-        add("item.jsg.crystal_control_dhd.tooltip.extended", "Insert this crystal into DHD (Dial Home Device)%nl%to make the DHD functional and be able%nl%to link with the nearest gate.");
-
-        add("item.jsg.crystal_control_pegasus_dhd.tooltip", "Main control crystal for a DHD");
-        add("item.jsg.crystal_control_pegasus_dhd.tooltip.extended", "Insert this crystal into DHD (Dial Home Device)%nl%to make the DHD functional and be able%nl%to link with the nearest gate.");
+        Stream.of(JSGItems.MILKYWAY_DHD_MAIN_CRYSTAL, JSGItems.PEGASUS_DHD_MAIN_CRYSTAL)
+        .map(i -> i.get().getDescriptionId() + ".tooltip")
+        .forEach(key -> {
+            add(key, "Main control crystal of DHD");
+            add(key+".extended", "Insert this crystal into a DHD (Dial Home Device)%nl%to make the DHD functional and be able%nl%to link with the nearest gate.");
+        });
 
         // ===>>> Handheld Devices <<<<<<<<<<<<<<<<<<<<<<<<<<
 
         add("admin_controller.tooltip", "Stargate controller and debugger");
-        add("admin_controller.tooltip.extended", "This item shows you whole SG network when linked to a gate.%nl%It's capable of dialing the linked gate%nl%by spinning the ring, locking symbols like DHD%nl%and dialing all symbols at once like Nox did in series.");
+        add("admin_controller.tooltip.extended", "This item shows you the whole SG network when linked to a gate.%nl%It's capable of dialing the linked gate%nl%by spinning the ring, locking symbols like a DHD%nl%and dialing all symbols at once like the Nox did in the series.");
 
-        add("item.jsg.gdo.tooltip", "GDO is capable of sending an IDC code through an open wormhole to open the iris.");
+        add("item.jsg.gdo.tooltip", "GDO is capable of sending an IDC code through an open wormhole to open an iris.");
         add("item.jsg.universe_dialer.tooltip", "A controller that works with Universe gates, along with much more!");
 
         // ===>>> Tinkers Construct Compat <<<<<<<<<<<<<<<<<<
 
-        add("item.jsg.iris_blade_stone.tooltip", "Use this blade to craft cast");
+        add("item.jsg.iris_blade_stone.tooltip", "Use this blade to craft a cast");
 
         // ===>>> Food <<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -374,55 +375,54 @@ public class en_us extends InheritableLang {
 
         // ===>>> DHDs <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        add("block.jsg.dhd_milkyway.tooltip", "Control panel for Milky Way, Tollan and Movie gates");
+        add("block.jsg.dhd_milkyway.tooltip", "Control panel for Milky Way, Tollan, and Movie gates");
         add("block.jsg.dhd_pegasus.tooltip", "Control panel for Pegasus gates");
 
         // ===>>> Stargates <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+        Stream.of(
+            JSGBlocks.STARGATE_ORLIN_BASE_BLOCK, JSGBlocks.STARGATE_MILKYWAY_BASE_BLOCK,
+            JSGBlocks.STARGATE_MOVIE_BASE_BLOCK, JSGBlocks.STARGATE_TOLLAN_BASE_BLOCK,
+            JSGBlocks.STARGATE_PEGASUS_BASE_BLOCK, JSGBlocks.STARGATE_UNIVERSE_BASE_BLOCK
+        ).map(b -> b.get().getDescriptionId()+".tooltip.extended")
+        .forEach(key -> add(key, "Place this block first when building a stargate.%nl%When placed, it will show you a projection%nl%of how the stargate should be built."));
+
+        Stream.of(
+            JSGBlocks.STARGATE_ORLIN_MEMBER_BLOCK, JSGBlocks.STARGATE_MILKYWAY_CHEVRON_BLOCK, JSGBlocks.STARGATE_MILKYWAY_RING_BLOCK,
+            JSGBlocks.STARGATE_MOVIE_CHEVRON_BLOCK, JSGBlocks.STARGATE_MOVIE_RING_BLOCK,
+            JSGBlocks.STARGATE_TOLLAN_CHEVRON_BLOCK, JSGBlocks.STARGATE_TOLLAN_RING_BLOCK,
+            JSGBlocks.STARGATE_PEGASUS_CHEVRON_BLOCK, JSGBlocks.STARGATE_PEGASUS_RING_BLOCK,
+            JSGBlocks.STARGATE_UNIVERSE_CHEVRON_BLOCK, JSGBlocks.STARGATE_UNIVERSE_RING_BLOCK
+        ).map(b -> b.get().getDescriptionId()+".tooltip.extended")
+        .forEach(key -> add(key, "You need this block to complete building a new stargate."));
+
         add("block.jsg.stargate_orlin_base_block.open_count", "Open count: %s / %s");
-        add("block.jsg.stargate_orlin_base_block.tooltip", "The main block of Orlin's gate");
-        add("block.jsg.stargate_orlin_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.");
-        add("block.jsg.stargate_orlin_member_block.tooltip", "The construction block of Orlin's gate");
-        add("block.jsg.stargate_orlin_member_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_orlin_base_block.tooltip", "The main block of Orlin gates");
+        add("block.jsg.stargate_orlin_member_block.tooltip", "The construction block of Orlin gates");
 
-        add("block.jsg.stargate_milkyway_base_block.tooltip", "The main block of Milky Way gate");
-        add("block.jsg.stargate_milkyway_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.");
-        add("block.jsg.stargate_milkyway_chevron_block.tooltip", "The locking mechanism of Milky Way gate");
-        add("block.jsg.stargate_milkyway_chevron_block.tooltip.extended", "You need this block to complete building a new stargate.");
-        add("block.jsg.stargate_milkyway_ring_block.tooltip", "The construction block of Milky Way gate");
-        add("block.jsg.stargate_milkyway_ring_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_milkyway_base_block.tooltip", "The main block of Milky Way gates");
+        add("block.jsg.stargate_milkyway_chevron_block.tooltip", "The locking mechanism of Milky Way gates");
+        add("block.jsg.stargate_milkyway_ring_block.tooltip", "The construction block of Milky Way gates");
 
-        add("block.jsg.stargate_movie_base_block.tooltip", "The main block of Movie gate");
-        add("block.jsg.stargate_movie_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.");
-        add("block.jsg.stargate_movie_chevron_block.tooltip", "The locking mechanism of Movie gate");
-        add("block.jsg.stargate_movie_chevron_block.tooltip.extended", "You need this block to complete building a new stargate.");
-        add("block.jsg.stargate_movie_ring_block.tooltip", "The construction block of Movie gate");
-        add("block.jsg.stargate_movie_ring_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_movie_base_block.tooltip", "The main block of Movie gates");
+        add("block.jsg.stargate_movie_chevron_block.tooltip", "The locking mechanism of Movie gates");
+        add("block.jsg.stargate_movie_ring_block.tooltip", "The construction block of Movie gates");
 
-        add("block.jsg.stargate_tollan_base_block.tooltip", "The main block of Tollan gate");
-        add("block.jsg.stargate_tollan_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.");
-        add("block.jsg.stargate_tollan_chevron_block.tooltip", "The locking mechanism of Tollan gate");
-        add("block.jsg.stargate_tollan_chevron_block.tooltip.extended", "You need this block to complete building a new stargate.");
-        add("block.jsg.stargate_tollan_ring_block.tooltip", "The construction block of Tollan gate");
-        add("block.jsg.stargate_tollan_ring_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_tollan_base_block.tooltip", "The main block of Tollan gates");
+        add("block.jsg.stargate_tollan_chevron_block.tooltip", "The locking mechanism of Tollan gates");
+        add("block.jsg.stargate_tollan_ring_block.tooltip", "The construction block of Tollan gates");
 
-        add("block.jsg.stargate_pegasus_base_block.tooltip", "The main block of Pegasus gate");
-        add("block.jsg.stargate_pegasus_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you diagram%nl%how the stargate should be build.");
-        add("block.jsg.stargate_pegasus_chevron_block.tooltip", "The locking mechanism of Pegasus gate");
-        add("block.jsg.stargate_pegasus_chevron_block.tooltip.extended", "You need this block to complete building a new stargate.");
-        add("block.jsg.stargate_pegasus_ring_block.tooltip", "The construction block of Pegasus gate");
-        add("block.jsg.stargate_pegasus_ring_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_pegasus_base_block.tooltip", "The main block of Pegasus gates");
+        add("block.jsg.stargate_pegasus_chevron_block.tooltip", "The locking mechanism of Pegasus gates");
+        add("block.jsg.stargate_pegasus_ring_block.tooltip", "The construction block of Pegasus gates");
 
-        add("block.jsg.stargate_universe_base_block.tooltip", "The main block of Universe gate");
-        add("block.jsg.stargate_universe_base_block.tooltip.extended", "Place this block first when building a stargate.%nl%When placed, it will show you a diagram%nl%of how the stargate should be built.");
-        add("block.jsg.stargate_universe_chevron_block.tooltip", "The locking mechanism of Universe gate");
-        add("block.jsg.stargate_universe_chevron_block.tooltip.extended", "You need this block to complete building a new stargate.");
-        add("block.jsg.stargate_universe_ring_block.tooltip", "The construction block of Universe gate");
-        add("block.jsg.stargate_universe_ring_block.tooltip.extended", "You need this block to complete building a new stargate.");
+        add("block.jsg.stargate_universe_base_block.tooltip", "The main block of Universe gates");
+        add("block.jsg.stargate_universe_chevron_block.tooltip", "The locking mechanism of Universe gates");
+        add("block.jsg.stargate_universe_ring_block.tooltip", "The construction block of Universe gates");
 
         // ===>>> Redstone IO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        add("block.jsg.sg_redstone_dialer_input_block.tooltip", "Dial a stargate using redstone signal");
+        add("block.jsg.sg_redstone_dialer_input_block.tooltip", "Dial a stargate using redstone signals");
         add("block.jsg.sg_redstone_dialer_input_block.tooltip.extended", "To dial a symbol you need to set symbol ID%nl%using listed inputs then engage it.%nl%Selected symbol id = ((Right * 16) + Front)%nl%%nl%§lInputs:%nl%Top: Engage gate%nl%Bottom: Enable DHD Dialing animation%nl%Left: Engage symbol%nl%Right: 2nd bit of symbol ID%nl%Front: 1st bit of symbol ID");
 
         add("block.jsg.sg_redstone_state_output_block.tooltip", "Get redstone output by current stargate state");
