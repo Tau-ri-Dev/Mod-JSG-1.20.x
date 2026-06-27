@@ -596,11 +596,11 @@ public class en_us extends InheritableLang {
 
         // >>> DHDs <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        add("block.jsg.dhd_milkyway.no_crystal_warn", "DHD has no control crystal");
-        add("block.jsg.dhd_milkyway.not_linked_warn", "DHD is not linked to the gate");
-        add("block.jsg.dhd_milkyway.not_enough_power", "Insufficient power");
-        add("block.jsg.dhd_milkyway.incoming_wormhole_warn", "Unable to close an incoming wormhole");
-        add("block.jsg.dhd_milkyway.computer_dial", "Computer dial is in progress");
+        add("block.jsg.dhd.no_crystal_warn", "DHD has no control crystal");
+        add("block.jsg.dhd.not_linked_warn", "DHD is not linked to the gate");
+        add("block.jsg.dhd.not_enough_power", "Insufficient power");
+        add("block.jsg.dhd.incoming_wormhole_warn", "Unable to close an incoming wormhole");
+        add("block.jsg.dhd.computer_dial", "Computer dial is in progress");
 
         add("block.jsg.dhd_pegasus.unknown_buttons", "This button isn't working");
 
