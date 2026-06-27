@@ -10,7 +10,6 @@ import net.minecraftforge.common.data.LanguageProvider;
 public abstract class InheritableLang extends LanguageProvider {
     public InheritableLang(PackOutput output, String modid, String locale) {
         super(output, modid, locale);
-        //TODO Auto-generated constructor stub
     }
 
     protected final Map<String, String> translations = new TreeMap<>();
