@@ -56,6 +56,15 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
         stack.popPose();
         renderRing();
         renderChevrons();
+    }
+
+    // ----------------------------------------------------------------------------------------
+    // Ring
+
+    private void renderRing() {
+        stack.pushPose();
+        if (ElementEnum.PEGASUS_RING.model != null && ElementEnum.PEGASUS_RING.biomeTextureResourceMap.get(rendererState.getBiomeOverlay()) != null)
+            ElementEnum.PEGASUS_RING.bindTexture(rendererState.getBiomeOverlay()).render(stack, source, combinedLight);
 
         stack.pushPose();
         var spinHelper = tileEntity.getDialingManager().getSpinHelper();
@@ -83,16 +92,6 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
             renderGlyph(chevronsState.getSymbolAtSlot(i).orElse(JSGSymbolTypes.PEGASUS.get().getOrigin()), i, false);
         }
         stack.popPose();
-
-    }
-
-    // ----------------------------------------------------------------------------------------
-    // Ring
-
-    private void renderRing() {
-        stack.pushPose();
-        if (ElementEnum.PEGASUS_RING.model != null && ElementEnum.PEGASUS_RING.biomeTextureResourceMap.get(rendererState.getBiomeOverlay()) != null)
-            ElementEnum.PEGASUS_RING.bindTexture(rendererState.getBiomeOverlay()).render(stack, source, combinedLight);
 
         stack.popPose();
     }
