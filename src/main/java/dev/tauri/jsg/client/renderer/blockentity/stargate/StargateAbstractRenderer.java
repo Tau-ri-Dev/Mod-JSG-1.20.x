@@ -225,6 +225,14 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
             stack.pushPose();
             renderKawoosh();
             stack.popPose();
+
+            // Shader path: the volumetric plume replaces the texture kawoosh cone (gated off above).
+            // Nox dialing forms the horizon gently — disc only, no plume.
+            if (JSGConfig.Stargate.shaderEventHorizon.get() && !rendererState.noxDialing) {
+                stack.pushPose();
+                renderKawooshVolume();
+                stack.popPose();
+            }
         } else if (JSGConfig.Stargate.renderEHifTheyNot.get()) {
             stack.pushPose();
             preRenderKawoosh();
@@ -255,6 +263,22 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
 
     protected void renderKawoosh() {
         renderKawoosh(rendererState, true);
+    }
+
+    /** Volumetric (raymarched) kawoosh burst, driven off the same open tick as the disc establish. */
+    protected void renderKawooshVolume() {
+        EnumVortexState vs = rendererState.vortexState;
+        float t = (float) (level.getGameTime() - (rendererState.gateWaitStart + 20)) + partialTicks;
+        float progress;
+        if (vs == EnumVortexState.CLOSING || vs == EnumVortexState.SHRINKING) progress = 0.0f;
+        else if (t < 8.0f) progress = 0.0f;                                  // wait for the disc to start filling
+        else if (t < 22.0f) { float u = (t - 8.0f) / 14.0f; progress = 1.0f - (1.0f - u) * (1.0f - u) * (1.0f - u); } // burst
+        else if (t < 30.0f) progress = 1.0f;                                 // hold
+        else if (t < 40.0f) { float u = (t - 30.0f) / 10.0f; progress = 1.0f - u * u; }  // retract
+        else progress = 0.0f;
+        if (progress <= 0.01f) return;
+        // fixed plume length; sync to the gate's killing box if the burst depth should match destruction.
+        StargateRendererStatic.renderKawooshVolume(stack, progress, getEventHorizonColor().first(), StargateRendererStatic.KAWOOSH_VOLUME_LENGTH);
     }
 
     protected void preRenderKawoosh() {
@@ -422,7 +446,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
                                 if (currentZ >= 0 && mul <= 0) continue;
                                 float mulAbs = Math.abs(mul);
                                 var currentRad = e.getValue() == 0 ? 0 : e.getValue() + StargateRendererStatic.getOffset(index, tick, 7, 1);
-                                if (index != 0) {
+                                if (index != 0 && !JSGConfig.Stargate.shaderEventHorizon.get()) {
                                     new StargateRendererStatic.QuadStrip(9, currentRad, prevRad, tick, 1 / 5f * 7).render(tick, currentZ * mulAbs, prevZ * mulAbs, false, 1.0f - rendererState.whiteOverlayAlpha, 5, false, getEventHorizonColor().first(), getEventHorizonColor().second());
                                 }
                                 prevZ = currentZ;
@@ -479,7 +503,9 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
 
         // Rendering stable wormhole EH
         if (rendererState.vortexState != null) {
-            if (rendererState.vortexState == EnumVortexState.STILL || rendererState.vortexState == EnumVortexState.CLOSING) {
+            // Shader mode draws the procedural disc for EVERY open state (so the fill animates through
+            // FORMING); the funnel strips below are the texture path and stay skipped.
+            if (rendererState.vortexState == EnumVortexState.STILL || rendererState.vortexState == EnumVortexState.CLOSING || JSGConfig.Stargate.shaderEventHorizon.get()) {
                 if (rendererState.vortexState == EnumVortexState.CLOSING)
                     renderEventHorizon(true, rendererState.whiteOverlayAlpha, false, 1.7f);
                 else
@@ -495,7 +521,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
         // Render kawoosh and animations (opening, closing going to/from center)
         if (rendererState.whiteOverlayAlpha != null) {
 
-            if (rendererState.backStrip != null)
+            if (rendererState.backStrip != null && !JSGConfig.Stargate.shaderEventHorizon.get())
                 rendererState.backStrip.render(tick, 0f, 0f, false, Math.max(0, 1.0f - rendererState.whiteOverlayAlpha - noxAlpha), 1, getEventHorizonColor().first(), getEventHorizonColor().second());
 
             if (rendererState.frontStrip != null) {
@@ -516,7 +542,8 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
 
                     Float alpha = Math.max(0, 1.0f - rendererState.whiteOverlayAlpha - 0.3f - noxAlpha);
 
-                    rendererState.frontStrip.render(tick, 0f, 0f, false, alpha, 1, getEventHorizonColor().first(), getEventHorizonColor().second());
+                    if (!JSGConfig.Stargate.shaderEventHorizon.get())
+                        rendererState.frontStrip.render(tick, 0f, 0f, false, alpha, 1, getEventHorizonColor().first(), getEventHorizonColor().second());
                     RenderSystem.disableBlend();
                     stack.popPose();
                 }
@@ -545,6 +572,40 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
             renderBackVortex(closingAnimation, false, getBlackHoleVortexDepth(), tileEntity.getStateManager().getBlackHoleAnimationState().getBackVortexAngle(), getBlackHoleVortexRedMul());
             return;
         }
+        if (JSGConfig.Stargate.shaderEventHorizon.get() && !closingAnimation) {
+            RenderSystem.enableBlend();
+            int gateColor = getEventHorizonColor().first();
+
+            // fillProgress 0..1 = how far the puddle has grown in from the rim; whiteAmount 0..1 = splash flash.
+            // Driven off the same open/close ticks as the texture path (gateWaitStart / gateWaitClose).
+            float fillProgress, whiteAmount;
+            EnumVortexState vs = rendererState.vortexState;
+            if (vs == EnumVortexState.CLOSING || vs == EnumVortexState.SHRINKING) {
+                float ct = (float) (level.getGameTime() - (rendererState.gateWaitClose + 24)) + partialTicks;
+                float cp = Math.max(0.0f, Math.min(1.0f, ct / 24.0f));
+                fillProgress = 1.0f - cp * 1.6f;
+                whiteAmount = 0.0f;
+            } else {
+                float t = (float) (level.getGameTime() - (rendererState.gateWaitStart + 20)) + partialTicks;
+                float f = Math.max(0.0f, Math.min(1.0f, t / 18.0f));
+                fillProgress = 1.0f - (1.0f - f) * (1.0f - f);          // ease-out fill (~18 ticks)
+                if (t < 18.0f) whiteAmount = 0.6f + 0.4f * f;           // brighten to white
+                else if (t < 26.0f) whiteAmount = 1.0f;                 // peak flash
+                else whiteAmount = Math.max(0.0f, 1.0f - (t - 26.0f) / 20.0f);  // settle to water
+            }
+
+            for (int k = (backOnly ? 1 : 0); k < 2; k++) {
+                stack.pushPose();
+                if (k == 1) stack.mulPose(Axis.YN.rotationDegrees(180));
+                StargateRendererStatic.innerCircle.renderProcedural(stack, 0f, mul, gateColor, fillProgress, whiteAmount);
+                for (StargateRendererStatic.QuadStrip strip : StargateRendererStatic.quadStrips)
+                    strip.renderProcedural(stack, 0f, mul, gateColor, fillProgress, whiteAmount);
+                stack.popPose();
+            }
+            RenderSystem.disableBlend();
+            return;
+        }
+
         float tick = (float) JSGMinecraftHelper.getClientTick();
 
         if (!closingAnimation) {
