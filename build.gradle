@@ -165,7 +165,8 @@ allprojects {
         compileOnly "com.github.SlimeKnights:TinkersConstruct:v3.9.2.37"
 
 
-        compileOnly "com.github.Asek3:oculus:1.8.0"
+        implementation fg.deobf("maven.modrinth:embeddium:UTbfe5d1")
+        implementation fg.deobf("maven.modrinth:oculus:iQ1SwGc3")
 
         compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-core-api:${cct_version}")
         compileOnly(fg.deobf("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cct_version}"))
