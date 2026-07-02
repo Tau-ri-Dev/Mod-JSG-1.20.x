@@ -5,6 +5,8 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.core.client.renderer.EmissiveRenderer;
+import dev.tauri.jsg.core.client.renderer.shader.KawooshShaderInstance;
+import dev.tauri.jsg.core.client.renderer.shader.Shaders;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +52,78 @@ public class StargateRendererStatic {
 
     private static float toUV(float coord) {
         return (coord + 1) / 2f;
+    }
+
+    /** Push the disc's facing direction into the event-horizon shader (the vertex stage displaces the waves). */
+    private static void setEventHorizonUniforms(Matrix4f pose, float fillProgress, float whiteAmount) {
+        var shader = Shaders.getEventHorizonShaderInstance();
+        if (shader != null) {
+            Vector3f n = new Vector3f(0f, 0f, 1f);
+            pose.transformDirection(n);
+            shader.setSurfaceNormal(n.normalize());
+            shader.setFormation(fillProgress, whiteAmount);
+        }
+    }
+
+    public static final float KAWOOSH_VOLUME_LENGTH = 12.0f;
+    public static final float KAWOOSH_VOLUME_RADIUS = 3.3f;
+    private static long kawooshStartNanos = 0L;
+
+    /**
+     * Volumetric (raymarched) kawoosh: a gate-local proxy box; the fragment shader marches the plume inside
+     * it, keeping only back faces so each pixel launches one ray. {@code progress} is the 0..1 burst extension.
+     */
+    public static void renderKawooshVolume(PoseStack stack, float progress, int color, float length) {
+        KawooshShaderInstance shader = Shaders.getKawooshShader();
+        if (shader == null || progress <= 0.01f) return;
+
+        Matrix4f pose = new Matrix4f(stack.last().pose());
+        Vector3f camLocal = new Matrix4f(pose).invert().transformPosition(new Vector3f(0f, 0f, 0f));
+
+        if (kawooshStartNanos == 0L) kawooshStartNanos = System.nanoTime();
+        float time = (System.nanoTime() - kawooshStartNanos) / 1.0e9f;
+
+        Color c = new Color(color, true);
+        float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();     // the fsh writes gl_FragDepth so the clouds occlude correctly
+        RenderSystem.depthMask(true);
+        RenderSystem.disableCull();         // both faces rasterize; the fsh keeps only back faces
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+        shader.setModelMat(pose);
+        shader.setCameraLocal(camLocal);
+        shader.setTime(time);
+        shader.setProgress(progress);
+        shader.setPlume(length, KAWOOSH_VOLUME_RADIUS);
+        RenderSystem.setShader(() -> shader);
+
+        float rb = KAWOOSH_VOLUME_RADIUS * 1.3f;
+        float lb = length;
+        float[][] corner = {
+                {-rb, -rb, 0f}, {rb, -rb, 0f}, {rb, rb, 0f}, {-rb, rb, 0f},
+                {-rb, -rb, lb}, {rb, -rb, lb}, {rb, rb, lb}, {-rb, rb, lb}
+        };
+        int[][] faceQuads = {  // outward CCW winding
+                {0, 3, 2, 1}, {4, 5, 6, 7}, {0, 4, 7, 3}, {1, 2, 6, 5}, {0, 1, 5, 4}, {3, 7, 6, 2}
+        };
+        Tesselator t = Tesselator.getInstance();
+        BufferBuilder b = t.getBuilder();
+        b.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
+        for (int[] q : faceQuads) {
+            int[] tri = {q[0], q[1], q[2], q[0], q[2], q[3]};
+            for (int vi : tri) {
+                b.vertex(corner[vi][0], corner[vi][1], corner[vi][2]).color(r, g, bl, a).endVertex();
+            }
+        }
+        BufferUploader.drawWithShader(b.end());
+
+        RenderSystem.depthMask(true);
+        RenderSystem.disableBlend();
+        RenderSystem.enableCull();
+        RenderSystem.enableDepthTest();
     }
 
     static {
@@ -126,6 +200,30 @@ public class StargateRendererStatic {
         }
 
         private final Vector3f cache = new Vector3f();
+
+        /** Procedural-shader draw of the central disc: one pass into the event-horizon shader, disc coords via UV0. */
+        public void renderProcedural(PoseStack stack, float tick, float mul, int color, float fillProgress, float whiteAmount) {
+            Color c = new Color(color, true);
+            final float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
+            EmissiveRenderer.renderWithLightOverlay(stack, LightTexture.FULL_BRIGHT, false, () -> {
+            }, () -> {
+                Tesselator t = Tesselator.getInstance();
+                Matrix4f matrix = stack.last().pose();
+                setEventHorizonUniforms(matrix, fillProgress, whiteAmount);
+                BufferBuilder b = t.getBuilder();
+                b.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_TEX_COLOR);
+                b.vertex(matrix, 0, 0, 0).uv(0.5f, 0.5f).color(r, g, bl, a).endVertex();
+                for (int i = SECTIONS; i >= 0; i--) {
+                    int index = (i == SECTIONS) ? 0 : i;
+                    float vx = x.get(index);
+                    float vy = y.get(index);
+                    b.vertex(matrix, vx, vy, 0.0f)
+                            .uv(vx / EVENT_HORIZON_RADIUS * 0.5f + 0.5f, vy / EVENT_HORIZON_RADIUS * 0.5f + 0.5f)
+                            .color(r, g, bl, a).endVertex();
+                }
+                BufferUploader.drawWithShader(b.end());
+            }, Shaders.getEventHorizonShader());
+        }
 
         public void render(float tick, boolean white, Float alpha, float mul, byte animationOverride, int color, int innerColor) {
             RenderSystem.enableDepthTest();
@@ -295,6 +393,36 @@ public class StargateRendererStatic {
                     ty.add(toUV(COS.get(i) * texMul.get(k)));
                 }
             }
+        }
+
+        /** Procedural-shader draw of one horizon ring strip into the event-horizon shader (disc coords via UV0). */
+        public void renderProcedural(PoseStack stack, double tick, float mul, int color, float fillProgress, float whiteAmount) {
+            Color c = new Color(color, true);
+            final float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
+            EmissiveRenderer.renderWithLightOverlay(stack, LightTexture.FULL_BRIGHT, false, () -> {
+            }, () -> {
+                Tesselator t = Tesselator.getInstance();
+                Matrix4f matrix = stack.last().pose();
+                setEventHorizonUniforms(matrix, fillProgress, whiteAmount);
+                BufferBuilder b = t.getBuilder();
+                b.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_TEX_COLOR);
+                int index;
+                for (int i = SECTIONS; i >= 0; i--) {
+                    index = (i == SECTIONS) ? 0 : i;
+                    float ox = x.get(index);
+                    float oy = y.get(index);
+                    b.vertex(matrix, ox, oy, 0.0f)
+                            .uv(ox / EVENT_HORIZON_RADIUS * 0.5f + 0.5f, oy / EVENT_HORIZON_RADIUS * 0.5f + 0.5f)
+                            .color(r, g, bl, a).endVertex();
+                    int index2 = index + SECTIONS;
+                    float ix = x.get(index2);
+                    float iy = y.get(index2);
+                    b.vertex(matrix, ix, iy, 0.0f)
+                            .uv(ix / EVENT_HORIZON_RADIUS * 0.5f + 0.5f, iy / EVENT_HORIZON_RADIUS * 0.5f + 0.5f)
+                            .color(r, g, bl, a).endVertex();
+                }
+                BufferUploader.drawWithShader(b.end());
+            }, Shaders.getEventHorizonShader());
         }
 
         public void render(double tick, boolean white, Float alpha, float mul, byte animationOverride, int color, int innerColor) {
