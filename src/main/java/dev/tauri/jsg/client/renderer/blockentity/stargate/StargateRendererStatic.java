@@ -66,8 +66,8 @@ public class StargateRendererStatic {
         }
     }
 
-    public static final float KAWOOSH_VOLUME_LENGTH = 12.0f;
-    public static final float KAWOOSH_VOLUME_RADIUS = 3.3f;
+    public static final float KAWOOSH_VOLUME_LENGTH = 9.0f;
+    public static final float KAWOOSH_VOLUME_RADIUS = 5f;
     private static long kawooshStartNanos = 0L;
 
     /**

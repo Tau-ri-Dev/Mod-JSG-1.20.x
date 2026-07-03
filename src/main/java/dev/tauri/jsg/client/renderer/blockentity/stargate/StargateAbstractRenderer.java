@@ -265,20 +265,36 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
         renderKawoosh(rendererState, true);
     }
 
-    /** Volumetric (raymarched) kawoosh burst, driven off the same open tick as the disc establish. */
+    /**
+     * Volumetric (raymarched) kawoosh burst, driven off the same open tick as the disc establish.
+     */
     protected void renderKawooshVolume() {
         EnumVortexState vs = rendererState.vortexState;
         float t = (float) (level.getGameTime() - (rendererState.gateWaitStart + 20)) + partialTicks;
         float progress;
         if (vs == EnumVortexState.CLOSING || vs == EnumVortexState.SHRINKING) progress = 0.0f;
         else if (t < 8.0f) progress = 0.0f;                                  // wait for the disc to start filling
-        else if (t < 22.0f) { float u = (t - 8.0f) / 14.0f; progress = 1.0f - (1.0f - u) * (1.0f - u) * (1.0f - u); } // burst
+        else if (t < 22.0f) {
+            float u = (t - 8.0f) / 14.0f;
+            progress = 1.0f - (1.0f - u) * (1.0f - u) * (1.0f - u);
+        } // burst
         else if (t < 30.0f) progress = 1.0f;                                 // hold
-        else if (t < 40.0f) { float u = (t - 30.0f) / 10.0f; progress = 1.0f - u * u; }  // retract
+        else if (t < 40.0f) {
+            float u = (t - 30.0f) / 10.0f;
+            progress = 1.0f - u * u;
+        }  // retract
         else progress = 0.0f;
         if (progress <= 0.01f) return;
         // fixed plume length; sync to the gate's killing box if the burst depth should match destruction.
-        StargateRendererStatic.renderKawooshVolume(stack, progress, getEventHorizonColor().first(), StargateRendererStatic.KAWOOSH_VOLUME_LENGTH);
+        float maxLength = StargateRendererStatic.KAWOOSH_VOLUME_LENGTH;
+        if (rendererState instanceof StargateClassicRendererState casted) {
+            if (casted.irisState == EnumIrisState.CLOSED && casted.irisType != EnumIrisType.NULL) {
+                maxLength = 0.01f;
+                if(progress > 0)
+                    progress = 1f;
+            }
+        }
+        StargateRendererStatic.renderKawooshVolume(stack, progress, getEventHorizonColor().first(), maxLength);
     }
 
     protected void preRenderKawoosh() {

@@ -2,7 +2,6 @@ package dev.tauri.jsg.client.renderer.shader;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import dev.tauri.jsg.JSG;
-import dev.tauri.jsg.core.JSGCore;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.io.IOException;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = JSGCore.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class JSGShaders {
     private static EventHorizonShaderInstance eventHorizonShader;
     private static KawooshShaderInstance kawooshShader;

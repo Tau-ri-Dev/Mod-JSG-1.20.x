@@ -89,7 +89,7 @@ float hash21(vec2 p) {
 void main() {
     if (gl_FrontFacing) discard;   // box proxy: keep only back faces -> one ray per pixel
     float L = PlumeLength * Progress;
-    if (L < 0.05) discard;
+    if (L <= 0) discard;
 
     vec3 ro = CameraLocal;
     vec3 rd = normalize(vLocalPos - CameraLocal);
