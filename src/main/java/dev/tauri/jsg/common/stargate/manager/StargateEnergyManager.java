@@ -13,6 +13,7 @@ import dev.tauri.jsg.core.common.config.ingame.IConfigurable;
 import dev.tauri.jsg.core.common.config.json.dimension.JSGDimensionConfig;
 import dev.tauri.jsg.core.common.helper.BlockPosHelper;
 import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
+import dev.tauri.jsg.core.common.power.JSGEnergyStorageWrapper;
 import dev.tauri.jsg.core.common.power.general.EnergyRequiredToOperate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -34,8 +35,18 @@ public abstract class StargateEnergyManager<SG extends StargateAbstractBaseBE<?,
     protected long energyTransferredLastTick;
     protected double energySecondsToClose = -1;
 
+    protected JSGEnergyStorageWrapper storageWrapper;
+
     public StargateEnergyManager(SG stargate) {
         super(stargate);
+    }
+
+    @Override
+    public JSGEnergyStorageWrapper getStorageForCaps() {
+        if (storageWrapper != null) return storageWrapper;
+        var storage = getStorage();
+        storageWrapper = new JSGEnergyStorageWrapper(storage, storage.getTrueMaxEnergyStored(), storage.maxReceive(), 0);
+        return storageWrapper;
     }
 
     @Override
