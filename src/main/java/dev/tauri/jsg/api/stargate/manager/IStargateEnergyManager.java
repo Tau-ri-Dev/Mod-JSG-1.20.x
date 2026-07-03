@@ -15,10 +15,7 @@ import javax.annotation.Nullable;
 public interface IStargateEnergyManager<E extends JSGEnergyStorage> extends INBTSerializable<CompoundTag>, ITickable {
     E getStorage();
 
-    default JSGEnergyStorageWrapper getStorageForCaps() {
-        var storage = getStorage();
-        return new JSGEnergyStorageWrapper(storage, storage.getTrueMaxEnergyStored(), storage.maxReceive(), 0);
-    }
+    JSGEnergyStorageWrapper getStorageForCaps();
 
     double getSecondsToClose();
 
