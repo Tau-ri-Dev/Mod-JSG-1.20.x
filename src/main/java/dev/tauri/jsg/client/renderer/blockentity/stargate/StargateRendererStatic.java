@@ -4,9 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.tauri.jsg.api.config.JSGConfig;
+import dev.tauri.jsg.client.renderer.shader.JSGShaders;
 import dev.tauri.jsg.core.client.renderer.EmissiveRenderer;
-import dev.tauri.jsg.core.client.renderer.shader.KawooshShaderInstance;
-import dev.tauri.jsg.core.client.renderer.shader.Shaders;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
@@ -54,11 +53,13 @@ public class StargateRendererStatic {
         return (coord + 1) / 2f;
     }
 
-    /** Push the disc's facing direction into the event-horizon shader (the vertex stage displaces the waves). */
+    /**
+     * Push the disc's facing direction into the event-horizon shader (the vertex stage displaces the waves).
+     */
     private static void setEventHorizonUniforms(Matrix4f pose, float fillProgress, float whiteAmount) {
-        var shader = Shaders.getEventHorizonShaderInstance();
+        var shader = JSGShaders.getEventHorizonShaderInstance();
         if (shader != null) {
-            Vector3f n = new Vector3f(0f, 0f, 1f);
+            var n = new Vector3f(0f, 0f, 1f);
             pose.transformDirection(n);
             shader.setSurfaceNormal(n.normalize());
             shader.setFormation(fillProgress, whiteAmount);
@@ -74,16 +75,16 @@ public class StargateRendererStatic {
      * it, keeping only back faces so each pixel launches one ray. {@code progress} is the 0..1 burst extension.
      */
     public static void renderKawooshVolume(PoseStack stack, float progress, int color, float length) {
-        KawooshShaderInstance shader = Shaders.getKawooshShader();
+        var shader = JSGShaders.getKawooshShader();
         if (shader == null || progress <= 0.01f) return;
 
-        Matrix4f pose = new Matrix4f(stack.last().pose());
-        Vector3f camLocal = new Matrix4f(pose).invert().transformPosition(new Vector3f(0f, 0f, 0f));
+        var pose = new Matrix4f(stack.last().pose());
+        var camLocal = new Matrix4f(pose).invert().transformPosition(new Vector3f(0f, 0f, 0f));
 
         if (kawooshStartNanos == 0L) kawooshStartNanos = System.nanoTime();
         float time = (System.nanoTime() - kawooshStartNanos) / 1.0e9f;
 
-        Color c = new Color(color, true);
+        var c = new Color(color, true);
         float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
 
         RenderSystem.enableBlend();
@@ -201,7 +202,9 @@ public class StargateRendererStatic {
 
         private final Vector3f cache = new Vector3f();
 
-        /** Procedural-shader draw of the central disc: one pass into the event-horizon shader, disc coords via UV0. */
+        /**
+         * Procedural-shader draw of the central disc: one pass into the event-horizon shader, disc coords via UV0.
+         */
         public void renderProcedural(PoseStack stack, float tick, float mul, int color, float fillProgress, float whiteAmount) {
             Color c = new Color(color, true);
             final float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
@@ -222,7 +225,7 @@ public class StargateRendererStatic {
                             .color(r, g, bl, a).endVertex();
                 }
                 BufferUploader.drawWithShader(b.end());
-            }, Shaders.getEventHorizonShader());
+            }, JSGShaders.getEventHorizonShader());
         }
 
         public void render(float tick, boolean white, Float alpha, float mul, byte animationOverride, int color, int innerColor) {
@@ -395,7 +398,9 @@ public class StargateRendererStatic {
             }
         }
 
-        /** Procedural-shader draw of one horizon ring strip into the event-horizon shader (disc coords via UV0). */
+        /**
+         * Procedural-shader draw of one horizon ring strip into the event-horizon shader (disc coords via UV0).
+         */
         public void renderProcedural(PoseStack stack, double tick, float mul, int color, float fillProgress, float whiteAmount) {
             Color c = new Color(color, true);
             final float r = c.getRed() / 255f, g = c.getGreen() / 255f, bl = c.getBlue() / 255f, a = c.getAlpha() / 255f;
@@ -422,7 +427,7 @@ public class StargateRendererStatic {
                             .color(r, g, bl, a).endVertex();
                 }
                 BufferUploader.drawWithShader(b.end());
-            }, Shaders.getEventHorizonShader());
+            }, JSGShaders.getEventHorizonShader());
         }
 
         public void render(double tick, boolean white, Float alpha, float mul, byte animationOverride, int color, int innerColor) {
