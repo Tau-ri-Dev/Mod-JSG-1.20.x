@@ -1,7 +1,6 @@
 package dev.tauri.jsg.client.screen.gui.mainmenu;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -13,10 +12,12 @@ import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.ChevronEnum;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnum;
+import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolPegasusEnum;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolUniverseEnum;
 import dev.tauri.jsg.api.stargate.type.StargateTypes;
 import dev.tauri.jsg.client.renderer.blockentity.stargate.ChevronTextureList;
 import dev.tauri.jsg.client.renderer.blockentity.stargate.StargateMilkyWayRenderer;
+import dev.tauri.jsg.client.renderer.blockentity.stargate.StargatePegasusRenderer;
 import dev.tauri.jsg.common.loader.ElementEnum;
 import dev.tauri.jsg.core.client.model.AbstractOBJModel;
 import dev.tauri.jsg.core.client.renderer.EmissiveRenderer;
@@ -317,14 +318,8 @@ public class MainMenuGateRenderer {
         int chevronsCount = glyphsCount / 4;
 
         poseStack.pushPose();
-        for (int i = -8; i < (glyphsCount - 8); i++) {
-            int ii = (i % 36);
-
-            if (ii < 0) ii = 36 + ii;
-
-            ii = 36 - ii;
-
-            renderPegasusGlyph(ii, ii);
+        for (int i = 0; i < glyphsCount; i++) {
+            renderPegasusGlyph(JSGSymbolTypes.PEGASUS.get().valueOf(i), i);
         }
         poseStack.popPose();
 
@@ -360,48 +355,29 @@ public class MainMenuGateRenderer {
         poseStack.popPose();
     }
 
-    private static double[] getPositionInRingAtIndex(double radius, int index) {
-        double deg = ((360.0 / 36) * index);
-        double rad = Math.toRadians(deg);
-        return new double[]{radius * Math.cos(rad), radius * Math.sin(rad), deg};
-    }
-
-    private static void renderPegasusGlyph(int glyphId, int slot) {
-        Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder buffer = tessellator.getBuilder();
+    private static void renderPegasusGlyph(SymbolPegasusEnum symbol, int slot) {
+        var tesselator = Tesselator.getInstance();
+        var buffer = tesselator.getBuilder();
+        float tileSize = 0.270f;
         EmissiveRenderer.renderWithLightOverlay(poseStack, 0, false, () -> {
-            var symbol = JSGSymbolTypes.PEGASUS.get().valueOf(glyphId);
-            if (symbol != null) {
-                symbol.bindIconTexture(null, StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
-            }
+            symbol.bindIconTexture(null, StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
             buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
-            double[] slotPos = getPositionInRingAtIndex((StargateMilkyWayRenderer.GATE_DIAMETER / 2) - 0.85, slot);
+            double[] slotPos = StargatePegasusRenderer.getPositionInRingAtIndex(StargatePegasusRenderer.GLYPHS_RING_RADIUS, slot + 1);
 
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
             poseStack.translate(NumberUtils.round(slotPos[0], 3), NumberUtils.round(slotPos[1], 3), translationZ + 0.17);
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
 
-            // The glyphs in the assets are arranged in a circle, so we extract those glyphs at certain positions.
-            double radius = 0.94;
-            // double[] uv = getPositionInRingAtIndex(radius, -glyphId);
-            int textureSlot = JSGSymbolTypes.PEGASUS.get().valueOf(glyphId).textureSlot;
-            double[] uv = getPositionInRingAtIndex(radius, -(textureSlot));
-            float x = (float) ((uv[0] + radius) / 2);
-            float y = (float) ((uv[1] + radius) / 2);
-
-            float tileSize = 0.270f;
-            float uvSize = 0.06250f;
-
-            poseStack.mulPose(Axis.YP.rotationDegrees((360.0f / 36) * (slot - textureSlot) + 180));
+            poseStack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = poseStack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(x, y).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(x, y + uvSize).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(x + uvSize, y + uvSize).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(x + uvSize, y).endVertex();
+            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
+            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
+            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
+            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
 
-            tessellator.end();
+            tesselator.end();
         }, GameRenderer::getPositionTexShader);
     }
 }

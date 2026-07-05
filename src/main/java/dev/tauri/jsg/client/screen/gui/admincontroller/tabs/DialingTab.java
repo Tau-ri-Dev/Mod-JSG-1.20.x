@@ -224,8 +224,10 @@ public class DialingTab extends AdminControllerTabAsWidget {
             graphics.pose().translate(-(float) cWidth / 2f, -5, 0);
             graphics.drawString(baseGUI.getMinecraft().font, c, 0, 0, 0xffffff);
             graphics.pose().popPose();
-        } else
+        } else {
             symbolFrames.forEach(s -> s.offline = false);
+            symbolFrames.forEach(s -> s.renderTooltips(graphics, mouseX, mouseY, partialTick, false));
+        }
     }
 
     @Override

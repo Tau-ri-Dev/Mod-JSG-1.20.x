@@ -37,6 +37,8 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
     public static final float GATE_DIAMETER = 10.1815f;
 
+    public static final float GLYPHS_RING_RADIUS = (float) ((GATE_DIAMETER / 2f) - 0.845);
+
     private static final int GLYPHS_COUNT = 36;
 
     @Override
@@ -130,7 +132,7 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
         }
     }
 
-    private double[] getPositionInRingAtIndex(double radius, int index) {
+    public static double[] getPositionInRingAtIndex(double radius, int index) {
         double deg = -((360.0 / GLYPHS_COUNT) * index) + 90;
         double rad = Math.toRadians(deg);
         return new double[]{radius * Math.cos(rad), radius * Math.sin(rad), (360.0 / GLYPHS_COUNT) * index};
@@ -149,7 +151,7 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
     @SuppressWarnings("all")
     protected void renderGlyph(SymbolInterface glyph, int slot, boolean deactivated, boolean translatePos) {
         if (AbstractOBJModel.getRenderMethod() != AbstractOBJModel.EnumOBJRenderMethod.NORMAL) {
-            renderGlyphGUI((SymbolPegasusEnum) glyph, slot, deactivated, translatePos);
+            renderGlyphGUI(glyph, slot, deactivated, translatePos);
             return;
         }
         var vertexBuffer = SYMBOLS_MODEL_CACHE.get(glyph);
@@ -198,12 +200,12 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
         }
 
         VertexBuffer finalVertexBuffer = vertexBuffer;
+        double[] slotPos = getPositionInRingAtIndex(GLYPHS_RING_RADIUS, slot + 1);
         EmissiveRenderer.renderWithLightOverlay(stack, LightTexture.FULL_BRIGHT, true, () -> {
             var variant = (deactivated ? StargatePointOfOriginsDefaults.VARIANT_GATE_OFF_PNG : StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
             bindSymbolTextureForRing(glyph, variant);
             finalVertexBuffer.bind();
         }, () -> {
-            double[] slotPos = getPositionInRingAtIndex((GATE_DIAMETER / 2) - 0.845, slot + 1);
 
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
@@ -227,38 +229,27 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
     }
 
     @SuppressWarnings("all")
-    protected void renderGlyphGUI(SymbolPegasusEnum glyph, int slot, boolean deactivated, boolean translatePos) {
-        final var correctedSlot = StargatePegasusChevronsState.getCorrectedSlot(slot);
+    protected void renderGlyphGUI(SymbolInterface glyph, int slot, boolean deactivated, boolean translatePos) {
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
+        float tileSize = 0.270f;
+        double[] slotPos = getPositionInRingAtIndex(GLYPHS_RING_RADIUS, slot + 1);
         EmissiveRenderer.renderWithLightOverlay(stack, combinedLight, false, () -> {
             var variant = (deactivated ? StargatePointOfOriginsDefaults.VARIANT_GATE_OFF_PNG : StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
-            glyph.bindIconTexture(tileEntity.getPointOfOrigin(), variant);
+            bindSymbolTextureForRing(glyph, variant);
             buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
-            double[] slotPos = getPositionInRingAtIndex((GATE_DIAMETER / 2) - 0.85, correctedSlot);
-
-            // The glyphs in the assets are arranged in a circle, so we extract those glyphs at certain positions.
-            double radius = 0.94;
-            // double[] uv = getPositionInRingAtIndex(radius, -glyphId);
-            int textureSlot = glyph.textureSlot;
-            double[] uv = getPositionInRingAtIndex(radius, -(textureSlot));
-            float x = (float) ((uv[0] + radius) / 2);
-            float y = (float) ((uv[1] + radius) / 2);
-            float tileSize = 0.270f;
-            float uvSize = 0.06250f;
-
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
             stack.translate(NumberUtils.round(slotPos[0], 3), NumberUtils.round(slotPos[1], 3), translatePos ? -0.105 : 0.205);
             stack.mulPose(Axis.XP.rotationDegrees(90));
 
-            stack.mulPose(Axis.YP.rotationDegrees((360.0f / GLYPHS_COUNT) * (correctedSlot - textureSlot) + 180));
+            stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = stack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(x, y).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(x, y + uvSize).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(x + uvSize, y + uvSize).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(x + uvSize, y).endVertex();
+            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
+            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
+            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
+            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
 
             tessellator.end();
         }, GameRenderer::getPositionTexShader);
