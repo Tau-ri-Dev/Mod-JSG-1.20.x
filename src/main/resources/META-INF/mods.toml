@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
+mixinConfigs = ["jsg.mixins.json"]
 [[mods]]
    modId="${mod_id}"
    version="${mod_version}"

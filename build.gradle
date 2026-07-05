@@ -5,6 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id "com.vanniktech.maven.publish" version "0.36.0"
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 subprojects {
     apply plugin: 'java'
@@ -13,9 +14,15 @@ subprojects {
     apply plugin: 'net.minecraftforge.gradle'
     apply plugin: 'org.parchmentmc.librarian.forgegradle'
     apply plugin: 'com.vanniktech.maven.publish'
+    apply plugin: 'org.spongepowered.mixin'
 }
 
 allprojects {
+    mixin {
+        add sourceSets.main, "jsg.refmap.json"
+        config "jsg.mixins.json"
+    }
+
     group = mod_group_id
     if (mod_version.contains("Dev"))
         version = mod_version + (new Date().format(build_with_millis == "true" ? 'yyyyMMdd-HHmmss' : 'yyyyMMdd'))
@@ -152,6 +159,8 @@ allprojects {
 
     dependencies {
         minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+        annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
         implementation(fg.deobf("eu.tauridev:jsg-core-${minecraft_version}:${core_version}:") { transitive = false })
 

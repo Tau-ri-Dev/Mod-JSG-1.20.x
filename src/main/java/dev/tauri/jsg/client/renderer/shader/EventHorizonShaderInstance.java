@@ -20,6 +20,11 @@ public class EventHorizonShaderInstance extends ShaderInstance {
     private final Uniform FILL_PROGRESS;
     private final Uniform WHITE_AMOUNT;
 
+    public float time;
+    public Vector3f surfaceNormal;
+    public float fillProgress;
+    public float whiteAmount;
+
     public EventHorizonShaderInstance(ResourceProvider provider, ResourceLocation shaderLocation, VertexFormat format) throws IOException {
         super(provider, shaderLocation, format);
         this.TIME = this.getUniform("Time");
@@ -32,6 +37,7 @@ public class EventHorizonShaderInstance extends ShaderInstance {
         if (TIME != null) {
             TIME.set(seconds);
         }
+        this.time = seconds;
     }
 
     /**
@@ -41,11 +47,14 @@ public class EventHorizonShaderInstance extends ShaderInstance {
     public void setFormation(float fillProgress, float whiteAmount) {
         if (FILL_PROGRESS != null) FILL_PROGRESS.set(fillProgress);
         if (WHITE_AMOUNT != null) WHITE_AMOUNT.set(whiteAmount);
+        this.fillProgress = fillProgress;
+        this.whiteAmount = whiteAmount;
     }
 
     public void setSurfaceNormal(Vector3f normal) {
         if (SURFACE_NORMAL != null) {
             SURFACE_NORMAL.set(normal.x, normal.y, normal.z);
         }
+        this.surfaceNormal = normal;
     }
 }
