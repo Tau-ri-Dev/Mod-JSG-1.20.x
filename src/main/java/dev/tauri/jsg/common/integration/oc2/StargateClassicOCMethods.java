@@ -254,7 +254,7 @@ public class StargateClassicOCMethods extends AbstractOCMethods<StargateClassicB
         var s = deviceTile.getDialingManager().getSpinHelper().getCurrentTopSymbol();
         if (s == null)
             return new Object[]{false};
-        return new Object[]{true, s.getId(), s.getEnglishName(), s.getAngle(), s.origin(), deviceTile.getDialingManager().getSpinHelper().getRingAngle()};
+        return new Object[]{true, s.getId(), s.getEnglishName(deviceTile.getPointOfOrigin()), s.getAngle(), s.origin(), deviceTile.getDialingManager().getSpinHelper().getRingAngle()};
     }
 
     @SuppressWarnings("unused")

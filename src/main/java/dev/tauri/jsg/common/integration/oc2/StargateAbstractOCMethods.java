@@ -83,7 +83,7 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
     @SuppressWarnings("unused")
     @Callback(name = "getSymbolsMap")
     public final Object[] getSymbolsMap() {
-        return new Object[]{deviceTile.isMerged() ? Arrays.stream(deviceTile.getSymbolType().getValues()).map(SymbolInterface::getEnglishName).toList() : null};
+        return new Object[]{deviceTile.isMerged() ? Arrays.stream(deviceTile.getSymbolType().getValues()).map(s -> s.getEnglishName(deviceTile.getPointOfOrigin())).toList() : null};
     }
 
     @SuppressWarnings("unused")

@@ -29,7 +29,7 @@ public class StargateTollanDialingManager extends StargateMilkyWayDialingManager
         if (!r.ok()) {
             return r;
         }
-        StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.DHD, symbol, getNextChevron(symbol, true, ignoreMaxChevrons), getDialedAddressSize()).sendVia(stargate);
+        StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.DHD, stargate.getPointOfOrigin(), symbol, getNextChevron(symbol, true, ignoreMaxChevrons), getDialedAddressSize()).sendVia(stargate);
 
         setStargateState(EnumStargateState.DIALING);
         if (r == StargateChevronEngageResult.OK_CONNECTED) {

@@ -5,10 +5,7 @@ import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.common.dialhomedevice.manager.DHDReactorManager;
 import dev.tauri.jsg.common.dialhomedevice.manager.state.DHDAbstractStateManager;
-import dev.tauri.jsg.core.common.blockentity.ILinkableBE;
-import dev.tauri.jsg.core.common.blockentity.IPreparable;
-import dev.tauri.jsg.core.common.blockentity.ITickable;
-import dev.tauri.jsg.core.common.blockentity.IUpgradable;
+import dev.tauri.jsg.core.common.blockentity.*;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
@@ -32,7 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPreparable, IUpgradable {
+public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPreparable, IUpgradable, PointOfOriginProvider {
     private BlockEntity self() {
         return (BlockEntity) this;
     }
@@ -113,6 +110,7 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
     }
 
     @Nullable
+    @Override
     default PointOfOrigin getPointOfOrigin() {
         return getLinkedDeviceOptional().map((sg) -> sg.getPointOfOrigin(getSymbolType())).orElse(null);
     }

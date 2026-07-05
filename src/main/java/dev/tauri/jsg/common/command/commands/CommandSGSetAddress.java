@@ -98,7 +98,7 @@ public class CommandSGSetAddress extends AbstractStargateCommand {
 
                 for (var symbol : symbolType.getValues()) {
                     if (!symbol.isValidForAddress() || address.contains(symbol)) continue;
-                    var name = symbol.getEnglishName().replaceAll(" ", "_");
+                    var name = symbol.getEnglishName().replace(" ", "_");
                     if (Objects.equals(builder.getRemainingLowerCase(), "") || name.toLowerCase().startsWith(builder.getRemainingLowerCase()))
                         builder.suggest(name);
                 }

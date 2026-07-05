@@ -53,7 +53,7 @@ import java.util.function.Predicate;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITickable, ScheduledTaskExecutorInterface, IStateProvider, ComputerDeviceProvider {
+public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITickable, PointOfOriginProvider, ScheduledTaskExecutorInterface, IStateProvider, ComputerDeviceProvider {
     static int[] getRandomSymbolsToDisplay(int maxSymbols, Predicate<Integer> shouldDisplaySymbol) {
         var symbolsToDisplay = new ArrayList<Integer>();
         if (maxSymbols < 1) return new int[0];
@@ -186,7 +186,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
                 address.clear();
                 address.generate(random);
                 sgnPos = sgn.getStargate(address);
-                JSGApi.logger.debug("Generating address for gate at {}, symbol type {}: {} ", stargatePos.toString(), symbolType.getId(), address.getNameList());
+                JSGApi.logger.debug("Generating address for gate at {}, symbol type {}: {} ", stargatePos.toString(), symbolType.getId(), address.getNameList(getPointOfOrigin()));
             } while (sgnPos != null && !sgnPos.equals(stargatePos));
             // we can not check min symbols if dimension group equal because you can have this situation:
             // 1st gate will be in nether
@@ -225,6 +225,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
     PointOfOrigin getPointOfOrigin(IPointOfOriginType pointOfOriginType);
 
     @Nullable
+    @Override
     default PointOfOrigin getPointOfOrigin() {
         return getPointOfOrigin(getPointOfOriginType());
     }

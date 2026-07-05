@@ -87,7 +87,7 @@ public class UDManualDialScreen implements IUniverseDialerScreen {
         if (selectedSymbol != null) {
             stack.pushPose();
             stack.scale(0.7f, 0.7f, 0.7f);
-            IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, -0.7f, -0.4f, selectedSymbol.localize(), true, false);
+            IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, -0.7f, -0.4f, selectedSymbol.getEnglishName(), true, false);
             stack.popPose();
         }
 

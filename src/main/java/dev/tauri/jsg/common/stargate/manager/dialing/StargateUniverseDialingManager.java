@@ -52,7 +52,7 @@ public class StargateUniverseDialingManager extends StargateClassicDialingManage
             getConnection().runOnConnected((conn, sg) -> ((StargateAbstractDialingManager<?>) sg.getDialingManager()).runIncomingWormhole(dialedAddress.addOriginIfMissingAndImmutable().size(), 30));
         }
         if (r.ok()) {
-            StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.DHD, symbol, getNextChevron(symbol, true, ignoreMaxChevrons), getDialedAddressSize()).sendVia(stargate);
+            StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.DHD, stargate.getPointOfOrigin(), symbol, getNextChevron(symbol, true, ignoreMaxChevrons), getDialedAddressSize()).sendVia(stargate);
 
             setStargateState(EnumStargateState.DIALING);
             if (dialedAddress.size() == 1) {
@@ -277,7 +277,7 @@ public class StargateUniverseDialingManager extends StargateClassicDialingManage
                 if (getStargateState().dialingComputer())
                     setStargateState(EnumStargateState.IDLE);
                 lightUpSymbol(symbol);
-                StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.BY_SPIN, symbol, getNextChevron(symbol, true, stopSpinData.getBoolean("ignoreMaxChevrons")), getDialedAddressSize()).sendVia(stargate);
+                StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.BY_SPIN, stargate.getPointOfOrigin(), symbol, getNextChevron(symbol, true, stopSpinData.getBoolean("ignoreMaxChevrons")), getDialedAddressSize()).sendVia(stargate);
             } else {
                 stargate.getStateManager().getChevronsState().scheduleChevronFail(40, ChevronEnum.getFinal(), true);
             }

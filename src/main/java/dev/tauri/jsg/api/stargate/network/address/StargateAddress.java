@@ -137,10 +137,14 @@ public class StargateAddress implements IAddress {
     }
 
     public List<String> getNameList() {
+        return getNameList(null);
+    }
+
+    public List<String> getNameList(@Nullable PointOfOrigin pointOfOrigin) {
         List<String> out = new ArrayList<>(address.size());
 
         for (SymbolInterface symbol : address) {
-            out.add(symbol.getEnglishName());
+            out.add(symbol.getEnglishName(pointOfOrigin));
         }
 
         return out;

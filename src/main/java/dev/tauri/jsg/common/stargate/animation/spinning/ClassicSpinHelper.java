@@ -359,7 +359,7 @@ public class ClassicSpinHelper extends State implements ISpinHelper {
 
     protected void sendSpinStop() {
         if (stargate.getLevel() == null || stargate.getLevel().isClientSide()) return;
-        StargateComputerEvents.SPIN_STOP.apply(getCurrentTopSymbol()).sendVia(stargate);
+        StargateComputerEvents.SPIN_STOP.apply(getCurrentTopSymbol(), stargate.getPointOfOrigin()).sendVia(stargate);
     }
 
     @Override

@@ -94,7 +94,7 @@ public class StargateAbstractCCMethods<T extends StargateAbstractBaseBE<?, ?>> e
     @SuppressWarnings("unused")
     @LuaFunction(mainThread = true)
     public final Object[] getSymbolsMap() {
-        return new Object[]{deviceTile.isMerged() ? Arrays.stream(deviceTile.getSymbolType().getValues()).map(SymbolInterface::getEnglishName).toList() : null};
+        return new Object[]{deviceTile.isMerged() ? Arrays.stream(deviceTile.getSymbolType().getValues()).map(s -> s.getEnglishName(deviceTile.getPointOfOrigin())).toList() : null};
     }
 
     @SuppressWarnings("unused")
@@ -139,7 +139,7 @@ public class StargateAbstractCCMethods<T extends StargateAbstractBaseBE<?, ?>> e
         StargatePos pos = StargateNetwork.INSTANCE.getStargate(stargateAddress);
         if (pos == null) return new Object[]{false, "gate_not_found"};
 
-        int symbolsCount = deviceTile.getDialingManager().getMinimalSymbolsToDial(pos.getGateSymbolType(), pos);
+        int symbolsCount = deviceTile.getDialingManager().getMinimalSymbolsToDial(Objects.requireNonNull(pos.getGateSymbolType()), pos);
 
         return new Object[]{true, "symbols_needed", symbolsCount};
     }

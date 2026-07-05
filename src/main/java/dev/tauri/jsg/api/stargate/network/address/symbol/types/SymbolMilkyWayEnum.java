@@ -8,7 +8,6 @@ import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.IPointOfOriginType;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
-import dev.tauri.jsg.core.common.util.I18n;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +77,7 @@ public enum SymbolMilkyWayEnum implements SymbolInterface {
 
         this.englishName = englishName;
         this.translationKey = "glyph.jsg.milkyway." + englishName.toLowerCase().replace(" ", "_");
-        this.iconResource = JSGMapping.rl(JSGApi.MOD_ID, "textures/gui/symbol/milkyway/" + englishName.toLowerCase().replaceAll(" ", "_") + ".png");
+        this.iconResource = JSGMapping.rl(JSGApi.MOD_ID, "textures/gui/symbol/milkyway/" + englishName.toLowerCase().replace(" ", "_") + ".png");
 
         if (model == null) {
             this.modelResource = null;
@@ -138,11 +137,6 @@ public enum SymbolMilkyWayEnum implements SymbolInterface {
         }
 
         return variant.equalsIgnoreCase(StargatePointOfOriginsDefaults.VARIANT_DHD_LIGHT) ? this.modelResourceLight : this.modelResource;
-    }
-
-    @Override
-    public String localize() {
-        return I18n.format(translationKey);
     }
 
     @Override

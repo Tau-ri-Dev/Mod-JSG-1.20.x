@@ -269,7 +269,7 @@ public class PrinterRenderer implements BlockEntityRenderer<PrinterBE>, IRaycast
         stack.translate(0.2, 0.8, 0.01);
         stack.scale(0.003f, 0.003f, 0.003f);
         stack.pushPose();
-        var title = tile.address.get(editPos).getId() + " " + tile.address.get(editPos).localize();
+        var title = tile.address.get(editPos).getId() + " " + tile.address.get(editPos).getEnglishName(tile.origin);
         var width = Minecraft.getInstance().font.width(title);
         stack.translate(-width / 2f, 0, 0);
         PageRenderer.renderText(stack, source, light, title, 0x0, false);

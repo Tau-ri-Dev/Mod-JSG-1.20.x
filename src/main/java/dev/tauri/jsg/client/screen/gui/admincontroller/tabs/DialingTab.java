@@ -11,6 +11,7 @@ import dev.tauri.jsg.common.packet.packets.admincontroller.ACLinkedActionPacketT
 import dev.tauri.jsg.common.packet.packets.admincontroller.event.ACStargateEngageSymbolPacketToClient;
 import dev.tauri.jsg.core.client.screen.widget.ButtonWithIcon;
 import dev.tauri.jsg.core.client.screen.widget.SymbolFrame;
+import dev.tauri.jsg.core.common.blockentity.PointOfOriginProvider;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -174,7 +175,7 @@ public class DialingTab extends AdminControllerTabAsWidget {
                     return 0xff4FECC7;
                 }
                 return 0xffffffff;
-            }).setPath(symbolFramePaths.get(i - 1)));
+            }, () -> stargate.map(PointOfOriginProvider::getPointOfOrigin).orElse(null)).setPath(symbolFramePaths.get(i - 1)));
         }
         stargateWidget = new StargateWidget(gateCenter[0] - (195 / 2), gateCenter[1] - (195 / 2), 195, 195, Component.empty(), () -> stargate);
     }

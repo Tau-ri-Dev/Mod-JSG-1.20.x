@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -150,26 +148,5 @@ public class SymbolPegasusProvider extends SymbolType<SymbolPegasusEnum> {
     @Override
     public SymbolPegasusEnum getTopSymbol() {
         return SUBIDO;
-    }
-
-    private static final Map<Integer, SymbolPegasusEnum> ID_MAP = new HashMap<>();
-    private static final Map<String, SymbolPegasusEnum> ENGLISH_NAME_MAP = new HashMap<>();
-
-    static {
-        for (SymbolPegasusEnum symbol : SymbolPegasusEnum.values()) {
-            ID_MAP.put(symbol.id, symbol);
-            ENGLISH_NAME_MAP.put(symbol.englishName.toLowerCase(), symbol);
-        }
-        ENGLISH_NAME_MAP.put("point of origin", SUBIDO);
-    }
-
-    @Override
-    public SymbolPegasusEnum valueOf(int id) {
-        return ID_MAP.get(id);
-    }
-
-    @Override
-    public SymbolPegasusEnum fromEnglishName(String englishName) {
-        return ENGLISH_NAME_MAP.get(englishName.toLowerCase());
     }
 }

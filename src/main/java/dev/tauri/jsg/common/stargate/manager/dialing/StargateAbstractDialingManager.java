@@ -327,7 +327,7 @@ public abstract class StargateAbstractDialingManager<SG extends Stargate<?>> ext
         var r = canAddSymbol(symbol, ignoreMaxChevrons);
         if (r != StargateChevronEngageResult.OK) return r;
         dialedAddress.addSymbol(symbol);
-        stargate.getLogManager().debug(Component.literal("Symbol engaged: " + symbol.getEnglishName()));
+        stargate.getLogManager().debug(Component.literal("Symbol engaged: " + symbol.getEnglishName(stargate.getPointOfOrigin())));
         if (isLockChevron(symbol, ignoreMaxChevrons)) {
             isFinalActive = true;
             stargate.setStargateChanged();
@@ -940,7 +940,7 @@ public abstract class StargateAbstractDialingManager<SG extends Stargate<?>> ext
         var result = engageSymbolInternal(symbol, customData.getBoolean("noxDialing"), customData.getBoolean("noEnergy"), customData.getBoolean("ignoreMaxChevrons"));
         if (!result.ok())
             return result;
-        StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.BY_SPIN, symbol, getNextChevron(symbol, true, customData.getBoolean("ignoreMaxChevrons")), getDialedAddressSize()).sendVia(stargate);
+        StargateComputerEvents.CHEVRON_ENGAGED.apply(StargateComputerEvents.ChevronEvent.Source.BY_SPIN, stargate.getPointOfOrigin(), symbol, getNextChevron(symbol, true, customData.getBoolean("ignoreMaxChevrons")), getDialedAddressSize()).sendVia(stargate);
         if (customData.getBoolean("checkConnection") && customData.getBoolean("isFinal") && !getConnection().getStatus().waiting())
             return StargateChevronEngageResult.FAILED_FAIL_GATE;
         if (addressDialSequence != null)

@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -209,25 +207,5 @@ public class SymbolMilkyWayProvider extends SymbolType<SymbolMilkyWayEnum> {
     @Override
     public SymbolMilkyWayEnum getTopSymbol() {
         return ORIGIN;
-    }
-
-    private static final Map<Integer, SymbolMilkyWayEnum> ID_MAP = new HashMap<>();
-    private static final Map<String, SymbolMilkyWayEnum> ENGLISH_NAME_MAP = new HashMap<>();
-
-    static {
-        for (SymbolMilkyWayEnum symbol : SymbolMilkyWayEnum.values()) {
-            ID_MAP.put(symbol.id, symbol);
-            ENGLISH_NAME_MAP.put(symbol.englishName.toLowerCase(), symbol);
-        }
-    }
-
-    @Override
-    public SymbolMilkyWayEnum valueOf(int id) {
-        return ID_MAP.get(id);
-    }
-
-    @Override
-    public SymbolMilkyWayEnum fromEnglishName(String englishName) {
-        return ENGLISH_NAME_MAP.get(englishName.toLowerCase().replace("ö", "o"));
     }
 }

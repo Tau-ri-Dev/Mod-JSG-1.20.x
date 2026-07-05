@@ -9,10 +9,12 @@ import dev.tauri.jsg.api.stargate.result.StargateCloseResult;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
 import dev.tauri.jsg.core.common.integration.SignalHolder;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.function.TriFunction;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -23,13 +25,13 @@ public class StargateComputerEvents {
             "stargate_spin_start",
             direction.name(), speed.doubleValue()
     );
-    public static final Function<SymbolInterface, SignalHolder> SPIN_STOP = (topSymbol) -> SignalHolder.of(
+    public static final BiFunction<SymbolInterface, PointOfOrigin, SignalHolder> SPIN_STOP = (topSymbol, poo) -> SignalHolder.of(
             "stargate_spin_stop",
-            (topSymbol == null ? null : topSymbol.getEnglishName())
+            (topSymbol == null ? null : topSymbol.getEnglishName(poo))
     );
-    public static final ChevronEvent CHEVRON_ENGAGED = (source, symbol, chevron, dialedAddressSize) -> SignalHolder.of(
+    public static final ChevronEvent CHEVRON_ENGAGED = (source, poo, symbol, chevron, dialedAddressSize) -> SignalHolder.of(
             "stargate_chevron_engaged",
-            source.name(), symbol.getEnglishName(), chevron.index, dialedAddressSize
+            source.name(), symbol.getEnglishName(poo), chevron.index, dialedAddressSize
     );
     public static final Function<ChevronEnum, SignalHolder> CHEVRON_OPEN = (chevronEnum -> SignalHolder.of("stargate_chevron_open", chevronEnum.index));
     public static final Function<ChevronEnum, SignalHolder> CHEVRON_LIT = (chevronEnum -> SignalHolder.of("stargate_chevron_lit", chevronEnum.index));
@@ -84,6 +86,6 @@ public class StargateComputerEvents {
             INCOMING_WORMHOLE
         }
 
-        SignalHolder apply(Source source, SymbolInterface symbol, ChevronEnum chevron, int dialedAddressSize);
+        SignalHolder apply(Source source, @Nullable PointOfOrigin poo, SymbolInterface symbol, ChevronEnum chevron, int dialedAddressSize);
     }
 }

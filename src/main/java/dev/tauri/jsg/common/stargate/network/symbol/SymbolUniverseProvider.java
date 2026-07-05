@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -209,31 +207,13 @@ public class SymbolUniverseProvider extends SymbolType<SymbolUniverseEnum> {
         return TOP_CHEVRON;
     }
 
-    private static final Map<Integer, SymbolUniverseEnum> ID_MAP = new HashMap<>();
-    private static final Map<String, SymbolUniverseEnum> ENGLISH_NAME_MAP = new HashMap<>();
-
-    static {
-        for (SymbolUniverseEnum symbol : SymbolUniverseEnum.values()) {
-            ID_MAP.put(symbol.id, symbol);
-            ENGLISH_NAME_MAP.put(symbol.englishName.toLowerCase(), symbol);
-        }
-        ENGLISH_NAME_MAP.put("point of origin", G17);
-    }
-
-    @Override
-    public SymbolUniverseEnum valueOf(int id) {
-        return ID_MAP.get(id);
-    }
-
     @Override
     public SymbolUniverseEnum fromEnglishName(String englishName) {
-        SymbolUniverseEnum symbol = ENGLISH_NAME_MAP.get(englishName.toLowerCase());
-
+        var symbol = super.fromEnglishName(englishName);
         if (symbol != null) return symbol;
-
         try {
             int index = Integer.parseInt(englishName.replace("G", ""));
-            if (index < 1 || index > 36) return null;
+            if (index < 1 || index >= getValues().length) return null;
 
             return SymbolUniverseEnum.values()[index];
         } catch (NumberFormatException ex) {
