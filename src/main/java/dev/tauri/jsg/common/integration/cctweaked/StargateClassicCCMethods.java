@@ -15,12 +15,10 @@ import dev.tauri.jsg.api.stargate.animation.EnumSpinDirection;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisMode;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisType;
 import dev.tauri.jsg.api.stargate.iris.codesender.ComputerCodeSender;
-import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
 import dev.tauri.jsg.api.stargate.type.StargateType;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
-import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.common.integration.cctweaked.CCTweakedHelper;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.mapping.JSGMapping;
@@ -51,7 +49,7 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
         else if (!result)
             return new Object[]{false, "stargate_iris_busy", "Iris is busy"};
         else
-            return new Object[]{true};
+            return new Object[]{true, "stargate_iris_toggled", "iris toggled"};
     }
 
     @SuppressWarnings("unused")
@@ -113,15 +111,13 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
     @LuaFunction(mainThread = true)
     public final Object[] sendIrisCode(ILuaContext ctx, IArguments args) throws LuaException {
         var code = args.getString(0);
-        StargatePos destinationPos = StargateNetwork.INSTANCE.getStargate(deviceTile.getDialingManager().getDialedAddress());
-        if (destinationPos == null) return new Object[]{false, "stargate_not_engaged"};
-        var te = destinationPos.getStargate();
-        if (te instanceof StargateWithIris<?> stargateWithIris) {
-            stargateWithIris.receiveIrisCode(new ComputerCodeSender(deviceTile.getStargatePos()), code);
-        } else {
-            return new Object[]{false, "invalid_target_gate"};
-        }
-        return new Object[]{true, "success"};
+        return deviceTile.getDialingManager().getConnection().callConnected((conn, sg) -> {
+            if (sg instanceof StargateWithIris<?> stargateWithIris) {
+                stargateWithIris.receiveIrisCode(new ComputerCodeSender(deviceTile.getStargatePos()), code);
+                return new Object[]{true, "success", "Code sent"};
+            }
+            return new Object[]{false, "invalid_target_gate", "Target gate doesn't have capability to have iris"};
+        }, () -> new Object[]{false, "stargate_not_engaged", "Stargate is not open"});
     }
 
     @SuppressWarnings("unused")

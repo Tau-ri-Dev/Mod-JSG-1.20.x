@@ -84,6 +84,7 @@ public class BlackHoleAnimationState extends AbstractBlackHoleAnimationState {
         var strength = getGravitationalFieldStrength();
         if (stargate instanceof StargateWithIris<?> irisCapable && irisCapable.getIrisManager().isIrisClosed()) {
             if (irisCapable.getIrisManager().hasPhysicalIris() && strength >= 0.5f && level.random.nextFloat() < (strength - 0.5f)) {
+                // TODO(Mine): Refactor to send proper event to CC when iris is damaged
                 irisCapable.getIrisManager().hitIris();
             }
             strength /= 2;

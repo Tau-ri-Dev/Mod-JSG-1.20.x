@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+// TODO(Mine): Make this extendable - move to item itself maybe??
 public enum EnumIrisType {
     NULL((byte) 0),
 

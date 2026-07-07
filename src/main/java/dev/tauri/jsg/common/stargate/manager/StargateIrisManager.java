@@ -7,9 +7,7 @@ import dev.tauri.jsg.api.registry.JSGScheduledTaskTypes;
 import dev.tauri.jsg.api.registry.JSGStateTypes;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.StargateWithIris;
-import dev.tauri.jsg.api.stargate.iris.EnumIrisMode;
-import dev.tauri.jsg.api.stargate.iris.EnumIrisState;
-import dev.tauri.jsg.api.stargate.iris.EnumIrisType;
+import dev.tauri.jsg.api.stargate.iris.*;
 import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
 import dev.tauri.jsg.api.stargate.manager.IStargateIrisManager;
 import dev.tauri.jsg.client.renderer.blockentity.stargate.StargateClassicRenderer;
@@ -320,9 +318,12 @@ public class StargateIrisManager extends AbstractStargateManager<StargateClassic
 
             if (random > chance) {
                 irisItem.getItem().setDamage(irisItem, irisItem.getItem().getDamage(irisItem) + 1);
+                StargateComputerEvents.IRIS_DAMAGED.apply(IrisDamageSource.HIT, 1).sendVia(stargate);
             }
             if (irisItem.getCount() == 0) {
+                // iris broke
                 updateIrisType();
+                StargateComputerEvents.IRIS_DESTROYED.apply(IrisDestroyReason.COLLAPSED_UNDER_HIT).sendVia(stargate);
             }
             stargate.tryHeatUp(true, 2);
         } else if (!hasCreativeIris()) {

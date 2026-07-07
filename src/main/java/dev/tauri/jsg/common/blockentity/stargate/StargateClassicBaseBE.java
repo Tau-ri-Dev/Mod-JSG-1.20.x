@@ -4,12 +4,15 @@ import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.block.stargate.IStargateBlock;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
+import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.power.PowerUtils;
 import dev.tauri.jsg.api.registry.JSGScheduledTaskTypes;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.registry.JSGSymbolUsages;
 import dev.tauri.jsg.api.stargate.*;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisType;
+import dev.tauri.jsg.api.stargate.iris.IrisDamageSource;
+import dev.tauri.jsg.api.stargate.iris.IrisDestroyReason;
 import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
@@ -295,9 +298,13 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             if (JSGConfig.Stargate.enableIrisOverHeatCollapse.get()) {
                 if (getTime() % (((int) (Math.random() * 70)) + 1) == 0) {
                     if (getIrisManager().hasPhysicalIris() && irisItem.isDamageableItem()) {
-                        irisItem.getItem().setDamage(irisItem, irisItem.getItem().getDamage(irisItem) + (new Random().nextInt(heatCoefficient) + 1));
-                        if (irisItem.getCount() == 0)
+                        var damage = (new Random().nextInt(heatCoefficient) + 1);
+                        irisItem.getItem().setDamage(irisItem, irisItem.getItem().getDamage(irisItem) + damage);
+                        StargateComputerEvents.IRIS_DAMAGED.apply(IrisDamageSource.HEAT, damage).sendVia(this);
+                        if (irisItem.getCount() == 0) {
                             getIrisManager().updateIrisType();
+                            StargateComputerEvents.IRIS_DESTROYED.apply(IrisDestroyReason.MELTED_DOWN).sendVia(this);
+                        }
                         JSGSoundHelper.playSoundEvent(level, getGateCenterPos(), JSGSoundEvents.IRIS_HIT);
                     }
                 }
