@@ -1,5 +1,6 @@
 package dev.tauri.jsg.api.stargate.iris.codesender;
 
+import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,6 +21,7 @@ public class ComputerCodeSender extends CodeSender {
 
     @Override
     public void sendMessage(Component message) {
+        StargateComputerEvents.WORMHOLE_INCOMING_MESSAGE.apply(message.getString()).sendVia(originGate.getStargate());
     }
 
     @Override

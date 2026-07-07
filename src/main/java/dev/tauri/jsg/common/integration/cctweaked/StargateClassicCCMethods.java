@@ -5,10 +5,11 @@ import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dev.tauri.jsg.api.config.JSGConfig;
-import dev.tauri.jsg.api.registry.JSGSymbolTypes;
+import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.stargate.ChevronEnum;
 import dev.tauri.jsg.api.stargate.NearbyGate;
 import dev.tauri.jsg.api.stargate.StargateClosedReasonEnum;
+import dev.tauri.jsg.api.stargate.StargateWithIris;
 import dev.tauri.jsg.api.stargate.animation.EnumDialingType;
 import dev.tauri.jsg.api.stargate.animation.EnumSpinDirection;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisMode;
@@ -75,7 +76,23 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
 
     @SuppressWarnings("unused")
     @LuaFunction(mainThread = true)
-    public final Object[] sendMessageToIncoming(ILuaContext ctx, IArguments args) throws LuaException {
+    public final Object[] sendMessage(ILuaContext ctx, IArguments args) throws LuaException {
+        if (!deviceTile.isMerged())
+            return new Object[]{false, "stargate_failure_not_merged", "Stargate is not merged"};
+        if (!deviceTile.getDialingManager().getStargateState().engaged())
+            return new Object[]{false, "stargate_failure_not_engaged", "Stargate is not engaged"};
+
+        var msg = args.optString(0);
+        return msg.map(s -> deviceTile.getDialingManager().getConnection().callConnected((conn, sg) -> {
+                    StargateComputerEvents.WORMHOLE_INCOMING_MESSAGE.apply(s).sendVia(sg);
+                    return new Object[]{true, "success", "Message sent", s};
+                }, () -> new Object[]{false, "no_listener_available", "No target stargate found"}))
+                .orElseGet(() -> new Object[]{false, "wrong_argument_type", "Method requires 1 argument of type String"});
+    }
+
+    @SuppressWarnings("unused")
+    @LuaFunction(mainThread = true)
+    public final Object[] sendMessageToIncomingTraveller(ILuaContext ctx, IArguments args) throws LuaException {
         if (!deviceTile.isMerged())
             return new Object[]{false, "stargate_failure_not_merged", "Stargate is not merged"};
         if (!deviceTile.getDialingManager().getStargateState().engaged())
@@ -86,7 +103,7 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
 
         if (deviceTile.getIrisManager().getCodeSender() != null && deviceTile.getIrisManager().getCodeSender().canReceiveMessage()) {
             deviceTile.getIrisManager().getCodeSender().sendMessage(Component.literal(msg.get()));
-            return new Object[]{true, "success"};
+            return new Object[]{true, "success", "Message sent", msg.get()};
         }
 
         return new Object[]{false, "no_listener_available"};
@@ -99,8 +116,8 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
         StargatePos destinationPos = StargateNetwork.INSTANCE.getStargate(deviceTile.getDialingManager().getDialedAddress());
         if (destinationPos == null) return new Object[]{false, "stargate_not_engaged"};
         var te = destinationPos.getStargate();
-        if (te instanceof StargateClassicBaseBE<?> classicTile) {
-            classicTile.receiveIrisCode(new ComputerCodeSender(StargateNetwork.INSTANCE.getStargate(deviceTile.getStargateAddress(JSGSymbolTypes.MILKYWAY.get()))), code);
+        if (te instanceof StargateWithIris<?> stargateWithIris) {
+            stargateWithIris.receiveIrisCode(new ComputerCodeSender(deviceTile.getStargatePos()), code);
         } else {
             return new Object[]{false, "invalid_target_gate"};
         }

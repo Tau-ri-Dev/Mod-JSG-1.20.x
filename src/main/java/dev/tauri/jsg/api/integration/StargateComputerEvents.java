@@ -48,6 +48,7 @@ public class StargateComputerEvents {
     );
 
     public static final Function<Integer, SignalHolder> WORMHOLE_INCOMING = (addressSize) -> SignalHolder.of("stargate_wormhole_incoming", addressSize);
+    public static final Function<String, SignalHolder> WORMHOLE_INCOMING_MESSAGE = (message) -> SignalHolder.of("stargate_wormhole_incoming_message", message);
     public static final BiFunction<StargateAddressDynamic, Boolean, SignalHolder> WORMHOLE_SUBSPACE_CONNECTED = (address, isInitiating) -> SignalHolder.of("stargate_wormhole_subspace_connected", address.getNameList(), isInitiating);
     public static final BiFunction<StargateAddressDynamic, Boolean, SignalHolder> WORMHOLE_OPEN_UNSTABLE = (address, isInitiating) -> SignalHolder.of("stargate_wormhole_open_unstable", address.getNameList(), isInitiating);
     public static final BiFunction<StargateAddressDynamic, Boolean, SignalHolder> WORMHOLE_OPEN_FULLY = (address, isInitiating) -> SignalHolder.of("stargate_wormhole_open_fully", address.getNameList(), isInitiating);
