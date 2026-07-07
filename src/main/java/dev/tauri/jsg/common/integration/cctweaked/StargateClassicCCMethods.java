@@ -381,8 +381,15 @@ public class StargateClassicCCMethods extends StargateAbstractCCMethods<Stargate
     }
 
     @SuppressWarnings("unused")
+    @Deprecated(forRemoval = true)
     @LuaFunction(mainThread = true)
     public final Object[] getCapacitorsInstalled() {
+        return new Object[]{deviceTile.isMerged() ? deviceTile.currentPowerTier - 1 : null};
+    }
+
+    @SuppressWarnings("unused")
+    @LuaFunction(mainThread = true)
+    public final Object[] getEnergyCrystalsInstalled() {
         return new Object[]{deviceTile.isMerged() ? deviceTile.currentPowerTier - 1 : null};
     }
 

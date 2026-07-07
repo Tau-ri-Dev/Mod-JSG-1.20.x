@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.integration.oc2;
 
+import dan200.computercraft.api.lua.LuaFunction;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.ChevronEnum;
@@ -367,8 +368,15 @@ public class StargateClassicOCMethods extends AbstractOCMethods<StargateClassicB
     }
 
     @SuppressWarnings("unused")
+    @Deprecated(forRemoval = true)
     @Callback(name = "getCapacitorsInstalled")
     public final Object[] getCapacitorsInstalled() {
+        return new Object[]{deviceTile.isMerged() ? deviceTile.currentPowerTier - 1 : null};
+    }
+
+    @SuppressWarnings("unused")
+    @LuaFunction(mainThread = true)
+    public final Object[] getEnergyCrystalsInstalled() {
         return new Object[]{deviceTile.isMerged() ? deviceTile.currentPowerTier - 1 : null};
     }
 
