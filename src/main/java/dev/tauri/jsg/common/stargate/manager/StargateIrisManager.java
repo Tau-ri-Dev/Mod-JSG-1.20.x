@@ -316,7 +316,7 @@ public class StargateIrisManager extends AbstractStargateManager<StargateClassic
         if (!hasCreativeIris() && irisItem.getItem() instanceof IrisItem && irisItem.isDamageableItem()) {
             // different damages per source
             int chance = EnchantmentHelper.getEnchantments(irisItem).containsKey(Enchantments.UNBREAKING) ? (JSGConfig.Stargate.irisUnbreakingChance.get() * irisItem.getEnchantmentLevel(Enchantments.UNBREAKING)) : 0;
-            int random = (new Random()).nextInt(100);
+            int random = new Random().nextInt(100) + 1;
 
             if (random > chance) {
                 irisItem.getItem().setDamage(irisItem, irisItem.getItem().getDamage(irisItem) + 1);
