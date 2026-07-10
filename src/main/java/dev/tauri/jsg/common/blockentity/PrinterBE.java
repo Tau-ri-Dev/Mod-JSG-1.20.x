@@ -309,14 +309,6 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         }
     }
 
-    @Override
-    public @Nonnull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        var computerCaps = getDeviceHolder().getOrCreateDeviceBasedOnCap(capability);
-        if (computerCaps.isPresent())
-            return computerCaps;
-        return super.getCapability(capability, facing);
-    }
-
 
     // ------------------------------------------------------------------------
     // OC/CC

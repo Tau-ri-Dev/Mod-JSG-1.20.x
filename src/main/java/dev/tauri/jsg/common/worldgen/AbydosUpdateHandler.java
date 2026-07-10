@@ -5,7 +5,7 @@ import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.client.screen.provider.SGGeneratorGuiProvider;
 import dev.tauri.jsg.common.registry.JSGDimensions;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -42,7 +42,7 @@ public class AbydosUpdateHandler {
                 if (proceed) {
                     var abydosDimFolder = Path.of(e.getLevelDirectory().path().toString(), "/dimensions/jsg/abydos/").toFile();
                     if (abydosDimFolder.exists() && abydosDimFolder.isDirectory()) {
-                        Minecraft.getInstance().forceSetScreen(new GenericDirtMessageScreen(Component.literal("joinWorld.jsg.abydos_update.deleting_world")));
+                        Minecraft.getInstance().forceSetScreen(new GenericMessageScreen(Component.literal("joinWorld.jsg.abydos_update.deleting_world")));
                         JSG.logger.warn("Deleting {}", abydosDimFolder.getAbsolutePath());
                         try {
                             FileUtils.deleteDirectory(abydosDimFolder);

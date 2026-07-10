@@ -8,7 +8,7 @@ import dev.tauri.jsg.common.worldgen.generator.StargateGeneratorStepStatus;
 import dev.tauri.jsg.core.client.screen.util.GuiHelper;
 import dev.tauri.jsg.core.common.util.JSGColorUtil;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class AbstractStargateGeneratorScreen extends GenericDirtMessageScreen {
+public abstract class AbstractStargateGeneratorScreen extends GenericMessageScreen {
     final Supplier<String> step;
     final Supplier<Integer> total;
     final Supplier<Component> message;

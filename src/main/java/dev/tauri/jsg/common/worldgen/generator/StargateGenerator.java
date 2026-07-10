@@ -151,7 +151,7 @@ public class StargateGenerator implements IStargateGenerator {
                 } else {
                     if (e.first() < 0) continue;
                     capacitor = new ItemStack(CoreItems.CRYSTAL_ENERGY_BASIC.get());
-                    var storage = capacitor.getCapability(ForgeCapabilities.ENERGY, null).resolve().orElseThrow();
+                    var storage = java.util.Optional.ofNullable(capacitor.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM)).orElseThrow();
                     if (storage instanceof JSGEnergyStorage jsgEnergyStorage)
                         jsgEnergyStorage.receiveLongEnergy(e.first(), false);
                     else

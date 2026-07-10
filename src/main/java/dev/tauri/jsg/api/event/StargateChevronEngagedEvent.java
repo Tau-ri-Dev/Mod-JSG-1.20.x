@@ -2,13 +2,11 @@ package dev.tauri.jsg.api.event;
 
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
-import net.neoforged.bus.api.Cancelable;
 
 /**
  * Event that posted on chevron lock
  * This event is cancelable, you can cancel it and chevron will not lock
  */
-@Cancelable
 public final class StargateChevronEngagedEvent extends StargateAbstractEvent {
     private final SymbolInterface symbol;
     private final boolean lastSymbol;

@@ -70,18 +70,9 @@ public abstract class StargateAbstractMemberBE extends CamouflageBE implements I
     protected boolean canBeUsedAsCamoBlock(BlockState blockState) {
         return JSGConfigUtil.canBeUsedAsCamoBlock(blockState);
     }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        var level = getLevel();
-        if (capability == ForgeCapabilities.ENERGY) {
-            if (basePos != null && level != null) {
-                var tile = level.getBlockEntity(basePos);
-                if (tile instanceof Stargate<?> baseTile)
-                    return LazyOptional.of(() -> baseTile.getEnergyManager().getStorageForCaps()).cast();
-            }
-        }
-        return super.getCapability(capability, facing);
+    @org.jetbrains.annotations.Nullable
+    public BlockPos getBasePos() {
+        return basePos;
     }
 
 

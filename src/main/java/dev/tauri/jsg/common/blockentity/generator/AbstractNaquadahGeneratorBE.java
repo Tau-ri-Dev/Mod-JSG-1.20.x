@@ -82,11 +82,6 @@ public class AbstractNaquadahGeneratorBE extends BlockEntity implements BEStateP
         super.onLoad();
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        return super.getCapability(cap, side);
-    }
-
     // ------------------------------------------------------------------------
     // Scheduled tasks
 

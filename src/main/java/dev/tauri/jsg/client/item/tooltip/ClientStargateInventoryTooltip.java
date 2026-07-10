@@ -115,7 +115,7 @@ public class ClientStargateInventoryTooltip implements ClientTooltipComponent {
                 } else if (slot < 7) {
                     // capacitors
                     renderItemStack(item, x + 18 * (slot - 4), y + 22, graphics, font, slot);
-                    var energyCap = item.getCapability(ForgeCapabilities.ENERGY).resolve();
+                    var energyCap = java.util.Optional.ofNullable(item.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM));
                     if (energyCap.isPresent() && energyCap.get() instanceof JSGEnergyStorage energyStorage) {
                         additionalEnergy += energyStorage.getTrueEnergyStored();
                         additionalCapacity += energyStorage.getTrueMaxEnergyStored();

@@ -476,25 +476,9 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     }
 
     @Override
-    public void invalidateCaps() {
+    public void setRemoved() {
         getDeviceHolder().disconnectFromWirelessNetwork();
-        super.invalidateCaps();
-    }
-
-    @Override
-    public final <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-        return getStargateCapability(capability, facing);
-    }
-
-    @Override
-    public <T> LazyOptional<T> getStargateCapability(Capability<T> capability, @Nullable Direction facing) {
-        var computerCaps = getDeviceHolder().getOrCreateDeviceBasedOnCap(capability);
-        if (computerCaps.isPresent())
-            return computerCaps;
-        if (capability == ForgeCapabilities.ENERGY) {
-            return LazyOptional.of(() -> getEnergyManager().getStorageForCaps()).cast();
-        }
-        return super.getCapability(capability, facing);
+        super.setRemoved();
     }
 
     @Override

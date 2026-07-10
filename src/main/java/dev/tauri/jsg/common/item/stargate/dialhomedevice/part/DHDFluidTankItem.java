@@ -30,7 +30,7 @@ public class DHDFluidTankItem extends DHDAbstractPartItem implements IDHDFluidTa
 
     @Override
     public DHDFluidHandlerItemStack getTank(ItemStack stack) {
-        return (DHDFluidHandlerItemStack) stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).orElseThrow(IllegalStateException::new);
+        return (DHDFluidHandlerItemStack) java.util.Objects.requireNonNull(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM));
     }
 
     @Override

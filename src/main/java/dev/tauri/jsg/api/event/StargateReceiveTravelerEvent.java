@@ -4,9 +4,7 @@ import dev.tauri.jsg.api.stargate.EnumStargateState;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.traveler.IStargateTraveler;
-import net.neoforged.bus.api.Cancelable;
 
-@Cancelable
 public final class StargateReceiveTravelerEvent extends StargateConnectedAbstractEvent {
     private final IStargateTraveler<?> traveler;
     private StargatePos redirectTarget = null;

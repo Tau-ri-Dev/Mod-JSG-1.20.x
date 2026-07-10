@@ -27,14 +27,6 @@ public class JUBCableBE extends BlockEntity implements ITickable {
         super.onLoad();
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == JSGCapabilities.JUST_UNIVERSAL_BUS) {
-            return LazyOptional.of(() -> jubDevice).cast();
-        }
-        return super.getCapability(cap);
-    }
-
     // ----------------------------------------------
     // JUB
     public JUBDevice jubDevice = new JUBDevice(this) {

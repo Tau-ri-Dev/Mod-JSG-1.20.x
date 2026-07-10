@@ -805,7 +805,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             Item item = stack.getItem();
-            boolean isItemCapacitor = stack.is(JSGItemTags.STARGATE_CAPACITORS) && stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
+            boolean isItemCapacitor = stack.is(JSGItemTags.STARGATE_CAPACITORS) && (stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM) != null);
             return switch (slot) {
                 case 0, 1, 2, 3 -> StargateUpgrade.contains(item) && !hasUpgrade(item);
                 case 4 -> isItemCapacitor && getSupportedCapacitors() >= 1;
@@ -928,7 +928,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
                 ItemStack stack = itemStackHandler.getStackInSlot(i);
 
                 if (!stack.isEmpty()) {
-                    var capCapability = stack.getCapability(ForgeCapabilities.ENERGY, null).resolve();
+                    var capCapability = java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM));
                     capCapability.ifPresent(energyStorage::addStorage);
                 }
             }
@@ -941,16 +941,12 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
 
     // -----------------------------------------------------------------------------
     // Capabilities
+    public JSGItemStackHandler getInventoryHandler() {
+        return itemStackHandler;
+    }
 
-    @Override
-    public <T> LazyOptional<T> getStargateCapability(Capability<T> capability, @Nullable Direction facing) {
-        if (capability == ForgeCapabilities.ITEM_HANDLER) {
-            return LazyOptional.of(() -> itemStackHandler).cast();
-        }
-        if (capability == JSGCapabilities.JUST_UNIVERSAL_BUS) {
-            return LazyOptional.of(() -> jubDevice).cast();
-        }
-        return super.getStargateCapability(capability, facing);
+    public dev.tauri.jsg.common.jub.JUBDevice getJubDevice() {
+        return jubDevice;
     }
 
     @Override

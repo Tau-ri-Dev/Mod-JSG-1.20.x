@@ -237,7 +237,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             return switch (slot) {
                 case 0 -> item == getControlCrystal();
                 case 1, 2, 3 -> SUPPORTED_UPGRADES.contains(item) && !hasUpgrade(item);
-                case 4 -> stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(fluidHandler -> {
+                case 4 -> java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM)).map(fluidHandler -> {
                     var tanks = fluidHandler.getTanks();
                     for (var i = 0; i < tanks; i++) {
                         var tankFluid = fluidHandler.getFluidInTank(i);
@@ -295,7 +295,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
                 case 4:
                     ItemStack stack = getStackInSlot(slot);
-                    stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(fluidHandler -> {
+                    java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM)).ifPresent(fluidHandler -> {
                         var tanks = fluidHandler.getTanks();
                         for (var i = 0; i < tanks; i++) {
                             var tankFluid = fluidHandler.getFluidInTank(i);
@@ -475,14 +475,11 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
     // -----------------------------------------------------------------------------
     // Capabilities
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        if (capability == ForgeCapabilities.FLUID_HANDLER) {
-            if (isAssembled(getFluidTankItemPart()))
-                return LazyOptional.of(() -> getReactorManager().getTank()).cast();
-        }
-        return super.getCapability(capability, facing);
+    @org.jetbrains.annotations.Nullable
+    public net.neoforged.neoforge.fluids.capability.IFluidHandler getExposedFluidHandler() {
+        if (isAssembled(getFluidTankItemPart()))
+            return getReactorManager().getTank();
+        return null;
     }
 
 

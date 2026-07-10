@@ -96,7 +96,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
         for (var d : Direction.values()) {
             var be = level.getBlockEntity(pos.offset(d.getNormal()));
             if (be == null) continue;
-            var optCap = be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS);
+            var optCap = java.util.Optional.ofNullable(JSGCapabilities.getJUB(be));
             if (!optCap.isPresent() || optCap.resolve().isEmpty()) continue;
             connections.add(d);
         }
@@ -126,7 +126,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
         var newState = state;
         var delta = neighbor.subtract(pos);
         var dir = Direction.fromDelta(delta.getX(), delta.getY(), delta.getZ());
-        if (be == null || !be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).isPresent() || be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve().isEmpty()) {
+        if (be == null || (JSGCapabilities.getJUB(be) == null) || (JSGCapabilities.getJUB(be) == null)) {
             if (connections.contains(dir)) {
                 connections.remove(dir);
                 newState = newState.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.JUB_VARIANT, JUBCableVariant.fromDirections(connections));
