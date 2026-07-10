@@ -4,11 +4,11 @@ import dev.tauri.jsg.common.stargate.manager.dialing.StargateAbstractDialingMana
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
 // holds instance of incoming animation on the server
-public class IncomingAnimation<D extends StargateAbstractDialingManager<?>> implements INBTSerializable<CompoundTag>, ITickable {
+public class IncomingAnimation<D extends StargateAbstractDialingManager<?>> implements LegacyNBTSerializable, ITickable {
     protected final D dialer;
     protected long started;
     protected int addressLength;

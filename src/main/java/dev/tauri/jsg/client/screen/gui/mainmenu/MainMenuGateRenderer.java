@@ -357,11 +357,11 @@ public class MainMenuGateRenderer {
 
     private static void renderPegasusGlyph(SymbolPegasusEnum symbol, int slot) {
         var tesselator = Tesselator.getInstance();
-        var buffer = tesselator.getBuilder();
+        var buffer = new com.mojang.blaze3d.vertex.BufferBuilder[1];
         float tileSize = 0.270f;
         EmissiveRenderer.renderWithLightOverlay(poseStack, 0, false, () -> {
             symbol.bindIconTexture(null, StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            buffer[0] = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
             double[] slotPos = StargatePegasusRenderer.getPositionInRingAtIndex(StargatePegasusRenderer.GLYPHS_RING_RADIUS, slot + 1);
 
@@ -372,12 +372,12 @@ public class MainMenuGateRenderer {
 
             poseStack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = poseStack.last().pose();
-            buffer.addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
-            buffer.addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
-            buffer.addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
-            buffer.addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
-            tesselator.end();
+            com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buffer[0].buildOrThrow());
         }, GameRenderer::getPositionTexShader);
     }
 }

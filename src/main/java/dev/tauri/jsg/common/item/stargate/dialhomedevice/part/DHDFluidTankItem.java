@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import dev.tauri.jsg.core.common.registry.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,10 +20,6 @@ import java.util.List;
 public class DHDFluidTankItem extends DHDAbstractPartItem implements IDHDFluidTank {
     public DHDFluidTankItem(Properties properties, List<RegistryObject<CreativeModeTab>> tabs, boolean mandatory, int raycasterId) {
         super(properties, tabs, mandatory, raycasterId);
-    }
-
-    public ICapabilityProvider initCapabilities(@NotNull ItemStack stack, @Nullable CompoundTag nbt) {
-        return new DHDFluidHandlerItemStack(stack, JSGConfig.DialHomeDevice.fluidCapacity.get());
     }
 
     @Override

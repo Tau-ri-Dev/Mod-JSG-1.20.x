@@ -20,14 +20,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class StargatePos implements INBTSerializable<CompoundTag> {
+public class StargatePos implements LegacyNBTSerializable {
     public boolean blacklisted = false;
     public ResourceKey<Level> dimension;
     public ResourceKey<Level> fakeGateDimension;

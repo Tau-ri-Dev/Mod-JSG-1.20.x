@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AbstractNaquadahGeneratorBE extends BlockEntity implements BEStateProvider, ITickable, ICapabilityProvider, ScheduledTaskExecutorInterface {
+public class AbstractNaquadahGeneratorBE extends BlockEntity implements BEStateProvider, ITickable, ScheduledTaskExecutorInterface {
     public AbstractNaquadahGeneratorBE(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
     }

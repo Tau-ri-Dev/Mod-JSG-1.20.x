@@ -55,14 +55,14 @@ import java.util.concurrent.Executor;
 public class CommonForgeListener {
     @SubscribeEvent
     public static void onItemPickup(ItemEntityPickupEvent.Pre e) {
-        var p = e.getEntity();
-        var i = e.getItem().getItem();
+        var p = e.getPlayer();
+        var i = e.getItemEntity().getItem();
         if (CreativeItemsChecker.canInteractWith(i, p.isCreative())) return;
-        e.setCanceled(true);
+        e.setCanPickup(net.neoforged.neoforge.common.util.TriState.FALSE);
     }
 
     @SubscribeEvent
-    public static void onVillagerSpawn(MobSpawnEvent.FinalizeSpawn event) {
+    public static void onVillagerSpawn(net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent event) {
         if (!(event.getEntity() instanceof Villager villager)) return;
         if (JSGVillagers.isPriest(villager.getVillagerData().getProfession())) {
             villager.getBrain().addActivity(Activity.IDLE, ImmutableList.of(Pair.of(0, new DialGateBehaviour())));
@@ -124,9 +124,9 @@ public class CommonForgeListener {
             var recipesManager = event.getServerResources().getRecipeManager();
             var recipes = recipesManager.getRecipes();
 
-            recipes.add(new UniverseDialerCloneRecipe());
-            recipes.add(new PageAndUniverseDialerRecipe());
-            recipes.add(new StargateOrlinBaseBlockRecipe());
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(UniverseDialerCloneRecipe.ID, new UniverseDialerCloneRecipe()));
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(PageAndUniverseDialerRecipe.ID, new PageAndUniverseDialerRecipe()));
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(StargateOrlinBaseBlockRecipe.ID, new StargateOrlinBaseBlockRecipe()));
 
             recipesManager.replaceRecipes(recipes);
             JSG.logger.info("Recipes successfully reloaded!");

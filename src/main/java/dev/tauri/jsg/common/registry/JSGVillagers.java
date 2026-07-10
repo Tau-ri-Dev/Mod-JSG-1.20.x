@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
 import dev.tauri.jsg.core.common.registry.RegistryObject;
@@ -85,14 +84,14 @@ public class JSGVillagers {
                      if (!(trader.level() instanceof ServerLevel serverLevel))
                         return null;
                      if(serverLevel.dimension() == JSGDimensions.ABYDOS) {
-                        var map = ItemHelper.getMapForTarget(JSGStructureTags.ABYDOS_MARKED_ON_MAP, Component.translatable("filled_map.abydos_treasure"), MapDecoration.Type.RED_X, serverLevel, trader.blockPosition());
+                        var map = ItemHelper.getMapForTarget(JSGStructureTags.ABYDOS_MARKED_ON_MAP, Component.translatable("filled_map.abydos_treasure"), net.minecraft.world.level.saveddata.maps.MapDecorationTypes.RED_X, serverLevel, trader.blockPosition());
                         if(map == null) return null;
-                        return new MerchantOffer(new ItemStack(Items.FLINT_AND_STEEL), new ItemStack(JSGItems.FOOD_CHOCOLATE_BAR.get(), 24), map, 3, 2, 0.1F);
+                        return new MerchantOffer(new net.minecraft.world.item.trading.ItemCost(Items.FLINT_AND_STEEL), java.util.Optional.of(new net.minecraft.world.item.trading.ItemCost(JSGItems.FOOD_CHOCOLATE_BAR.get(), 24)), map, 3, 2, 0.1F);
                      }
                      if(serverLevel.dimension() == Level.OVERWORLD) {
-                        var map = ItemHelper.getMapForTarget(JSGStructureTags.OVERWORLD_MARKED_ON_MAP, Component.translatable("filled_map.burried_stargate"), MapDecoration.Type.RED_X, serverLevel, trader.blockPosition());
+                        var map = ItemHelper.getMapForTarget(JSGStructureTags.OVERWORLD_MARKED_ON_MAP, Component.translatable("filled_map.burried_stargate"), net.minecraft.world.level.saveddata.maps.MapDecorationTypes.RED_X, serverLevel, trader.blockPosition());
                         if(map == null) return null;
-                        return new MerchantOffer(new ItemStack(Items.BOOKSHELF, 16), new ItemStack(Items.GOLDEN_APPLE, 8), map, 3, 2, 0.1F);
+                        return new MerchantOffer(new net.minecraft.world.item.trading.ItemCost(Items.BOOKSHELF, 16), java.util.Optional.of(new net.minecraft.world.item.trading.ItemCost(Items.GOLDEN_APPLE, 8)), map, 3, 2, 0.1F);
                      }
                      return null;
                 })

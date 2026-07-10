@@ -133,9 +133,9 @@ public class ACEntryActionPacketToServer extends ACPacketToServer {
 
                     var notebook = NotebookItem.createNotebook(pages);
                     if (!gatePos.getName().isEmpty())
-                        notebook.setHoverName(Component.literal(gatePos.getName()));
+                        notebook.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal(gatePos.getName()));
                     else
-                        notebook.setHoverName(Component.literal(BlockHelper.blockPosToBetterString(gatePos.gatePos)));
+                        notebook.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal(BlockHelper.blockPosToBetterString(gatePos.gatePos)));
 
                     sender.addItem(notebook);
                     response(sender, ACUtils.getSuccess(Component.translatable("gui.admincontroller.response.stargate.give_address.success")));

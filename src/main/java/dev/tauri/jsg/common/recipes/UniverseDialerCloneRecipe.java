@@ -22,8 +22,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class UniverseDialerCloneRecipe extends ShapelessRecipe {
+    public static final net.minecraft.resources.ResourceLocation ID = JSGMapping.rl(JSG.MOD_ID, "universe_dialer_clone");
+
     public UniverseDialerCloneRecipe() {
-        super(JSGMapping.rl(JSG.MOD_ID, "universe_dialer_clone"), "JSG", CraftingBookCategory.MISC,
+        super("JSG", CraftingBookCategory.MISC,
                 DialerRecipeUtils.DIALER_OUT.copy(),
                 NonNullList.of(
                         Ingredient.EMPTY,
@@ -35,10 +37,10 @@ public class UniverseDialerCloneRecipe extends ShapelessRecipe {
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean matches(CraftingContainer inv, Level pLevel) {
+    public boolean matches(net.minecraft.world.item.crafting.CraftingInput inv, Level pLevel) {
         int matchCount = 0;
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
 
@@ -54,11 +56,11 @@ public class UniverseDialerCloneRecipe extends ShapelessRecipe {
     @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(net.minecraft.world.item.crafting.CraftingInput inv, net.minecraft.core.HolderLookup.Provider pRegistryAccess) {
         int outputCount = 0;
         var addressTagList = new ListTag();
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
 

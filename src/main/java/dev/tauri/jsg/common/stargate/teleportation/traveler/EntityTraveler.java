@@ -73,8 +73,8 @@ public class EntityTraveler<E extends Entity> extends AbstractTraveler<E> {
 
     @Override
     public void sendChangeDimension(ServerLevel targetLevel) {
-        get().changeDimension(targetLevel, sourceGate.getEventHorizonManager().getTeleporter(this, (traveler) -> {
-        }));
+        get().changeDimension(sourceGate.getEventHorizonManager().getTeleporter(this, (traveler) -> {
+        }).createTransition(get(), targetLevel));
     }
 
     @Override

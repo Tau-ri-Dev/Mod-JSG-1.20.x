@@ -15,7 +15,6 @@ import dev.tauri.jsg.common.config.data.ProgressJSON;
 import dev.tauri.jsg.common.injectors.JSGLootTableInjectors;
 import dev.tauri.jsg.common.injectors.JSGTemplatePoolInjectors;
 import dev.tauri.jsg.common.integration.cctweaked.CCDevices;
-import dev.tauri.jsg.common.integration.oc2.OCDevices;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.registry.JSGRegistriesInit;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
@@ -72,11 +71,12 @@ public class JSG implements JSGAddon {
         JSGApi.init();
         JSGApi.logger = logger;
         JSGApi.jsgModMainClass = this.getClass();
-        JSGApi.SGNGetter = (level) -> level.getDataStorage().computeIfAbsent((tag) -> {
-            var sgn = new StargateNetwork();
-            sgn.load(tag);
-            return sgn;
-        }, StargateNetwork::new, StargateNetwork.DATA_NAME);
+        JSGApi.SGNGetter = (level) -> level.getDataStorage().computeIfAbsent(
+                new net.minecraft.world.level.saveddata.SavedData.Factory<>(StargateNetwork::new, (tag, registries) -> {
+                    var sgn = new StargateNetwork();
+                    sgn.load(tag);
+                    return sgn;
+                }, null), StargateNetwork.DATA_NAME);
         StargateTypesLoader.load();
         // ----------
 
@@ -95,7 +95,8 @@ public class JSG implements JSGAddon {
             try {
                 var clazz = Class.forName("dev.tauri.jsg.JSGServer");
                 ModList.get().getModContainerById(getId()).ifPresentOrElse(jsgMod -> {
-                    ModLoader.get().addWarning(new ModLoadingWarning(jsgMod.getModInfo(), ModLoadingStage.CONSTRUCT, "Trying to run JSG server version on a client, this is not going to end well...", "Class " + clazz.getCanonicalName() + " is present on client"));
+                    ModLoader.addLoadingIssue(net.neoforged.fml.ModLoadingIssue.warning(
+                            "Trying to run JSG server version on a client, this is not going to end well... (class " + clazz.getCanonicalName() + " is present on client)").withAffectedMod(jsgMod.getModInfo()));
                 }, () -> {
                     throw new RuntimeException("Trying to run JSG server version on a client, this is not going to end well... (class " + clazz.getCanonicalName() + " is present on client)");
                 });
@@ -125,7 +126,7 @@ public class JSG implements JSGAddon {
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
         Integrations.CCT.addOnLoad(CCDevices::load);
-        Integrations.OC2.addOnLoad(OCDevices::load);
+        // OC2 has no 1.21.x build; its devices load hook returns when the integration is re-enabled (enable_oc2)
 
         JSGAddons.registerAddon(this);
     }

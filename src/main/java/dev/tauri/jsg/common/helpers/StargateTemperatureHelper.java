@@ -54,13 +54,13 @@ public class StargateTemperatureHelper {
         if (dev.tauri.jsg.core.common.registry.helper.FluidHelper.isLiquidBlock(state)) {
             Fluid fluid = state.getFluidState().getType();
             if (state.getBlock() instanceof LiquidBlock liquid) {
-                fluid = liquid.getFluid();
+                fluid = liquid.fluid;
             }
             if (fluid != Fluids.EMPTY) {
                 return TemperatureHelper.asKelvins(fluid.getFluidType().getTemperature()).toCelsius();
             }
         }
-        return (double) ((getTemperature(state, level, level.getBiome(pos).get(), pos) - 0.4f) * 25f);
+        return (double) ((getTemperature(state, level, level.getBiome(pos).value(), pos) - 0.4f) * 25f);
     }
 
 

@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.packet.packets.admincontroller;
 
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import dev.tauri.jsg.core.common.packet.PacketContext;
@@ -17,12 +18,12 @@ public class ACResponsePacketToClient extends ACPacketToClient {
 
     @Override
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeComponent(component);
+        ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC.encode(buf, component);
     }
 
     @Override
     public void fromBytes(FriendlyByteBuf buf) {
-        component = buf.readComponent();
+        component = ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC.decode(buf);
     }
 
     @Override

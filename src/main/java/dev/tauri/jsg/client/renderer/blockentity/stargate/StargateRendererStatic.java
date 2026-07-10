@@ -144,10 +144,9 @@ public class StargateRendererStatic {
                 EmissiveRenderer.renderWithLightOverlay(currentStack, packedLight, !coloredBackground, () -> {
                 }, () -> {
                     Tesselator t = Tesselator.getInstance();
-                    BufferBuilder b = t.getBuilder();
                     Matrix4f matrix = currentStack.last().pose();
 
-                    b.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.NEW_ENTITY);
+                    BufferBuilder b = t.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.NEW_ENTITY);
 
                     int texIndex = (int) (tick * 4 % 185);
                     float xTexOffset = texIndex % 14 / 14f;
@@ -193,10 +192,10 @@ public class StargateRendererStatic {
                         if (coloredBackground)
                             b.addVertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.addVertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
+                            b.addVertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last(), cache.x, cache.y, cache.z);
                     }
 
-                    t.end();
+                    com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(b.buildOrThrow());
                 });
             }
         }
@@ -209,9 +208,8 @@ public class StargateRendererStatic {
             EmissiveRenderer.renderWithLightOverlay(currentStack, packedLight, true, () -> {
             }, () -> {
                 Tesselator t = Tesselator.getInstance();
-                BufferBuilder b = t.getBuilder();
                 Matrix4f matrix = currentStack.last().pose();
-                b.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.NEW_ENTITY);
+                BufferBuilder b = t.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.NEW_ENTITY);
                 float xTex = 0.5f;
                 float yTex = -0.5f;
 
@@ -230,7 +228,7 @@ public class StargateRendererStatic {
                     b.addVertex(matrix, x.get(index), y.get(index), 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                 }
 
-                t.end();
+                com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(b.buildOrThrow());
             });
         }
     }
@@ -329,10 +327,9 @@ public class StargateRendererStatic {
                 EmissiveRenderer.renderWithLightOverlay(currentStack, LightTexture.FULL_BRIGHT, !coloredBackground, () -> {
                 }, () -> {
                     Tesselator t = Tesselator.getInstance();
-                    BufferBuilder b = t.getBuilder();
                     Matrix4f matrix = currentStack.last().pose();
 
-                    b.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
+                    BufferBuilder b = t.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
 
                     int index;
                     for (int i = reversed ? 0 : SECTIONS; (reversed && i <= SECTIONS) || (!reversed && i >= 0); i += (reversed ? 1 : -1)) {
@@ -369,7 +366,7 @@ public class StargateRendererStatic {
                         if (coloredBackground)
                             b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last(), cache.x, cache.y, cache.z);
 
 
                         index = index + SECTIONS;
@@ -390,10 +387,10 @@ public class StargateRendererStatic {
                         if (coloredBackground)
                             b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last(), cache.x, cache.y, cache.z);
                     }
 
-                    t.end();
+                    com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(b.buildOrThrow());
 
                 });
             }
@@ -417,10 +414,9 @@ public class StargateRendererStatic {
                 EmissiveRenderer.renderWithLightOverlay(currentStack, LightTexture.FULL_BRIGHT, !coloredBackground, () -> {
                 }, () -> {
                     Tesselator t = Tesselator.getInstance();
-                    BufferBuilder b = t.getBuilder();
                     Matrix4f matrix = currentStack.last().pose();
 
-                    b.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
+                    BufferBuilder b = t.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
 
                     int index;
                     for (int i = SECTIONS; i >= 0; i--) {
@@ -447,7 +443,7 @@ public class StargateRendererStatic {
                         if (coloredBackground)
                             b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last(), cache.x, cache.y, cache.z);
 
 
                         index = index + SECTIONS;
@@ -465,10 +461,10 @@ public class StargateRendererStatic {
                         if (coloredBackground)
                             b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last(), cache.x, cache.y, cache.z);
                     }
 
-                    t.end();
+                    com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(b.buildOrThrow());
                 });
             }
         }
@@ -480,10 +476,9 @@ public class StargateRendererStatic {
             EmissiveRenderer.renderWithLightOverlay(currentStack, LightTexture.FULL_BRIGHT, true, () -> {
             }, () -> {
                 Tesselator t = Tesselator.getInstance();
-                BufferBuilder b = t.getBuilder();
                 Matrix4f matrix = currentStack.last().pose();
 
-                b.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
+                BufferBuilder b = t.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.NEW_ENTITY);
 
                 int index;
                 for (int i = SECTIONS; i >= 0; i--) {
@@ -504,7 +499,7 @@ public class StargateRendererStatic {
 
                     b.addVertex(matrix, x.get(index), y.get(index), 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                 }
-                t.end();
+                com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(b.buildOrThrow());
             });
         }
     }

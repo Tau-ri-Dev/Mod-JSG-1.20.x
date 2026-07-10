@@ -51,6 +51,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class DHDAbstractRenderer<S extends DHDAbstractRendererState> implements LinkableRenderer, BlockEntityRenderer<DHDAbstractBE>, IRaycasterButtonsRenderer {
 
+    @Override
+    public net.minecraft.world.phys.AABB getRenderBoundingBox(DHDAbstractBE blockEntity) {
+        return blockEntity.getRenderBoundingBox();
+    }
+
     public DHDAbstractRenderer(BlockEntityRendererProvider.Context ignored) {
     }
 

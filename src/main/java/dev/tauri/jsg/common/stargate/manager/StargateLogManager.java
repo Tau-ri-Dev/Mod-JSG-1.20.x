@@ -1,5 +1,7 @@
 package dev.tauri.jsg.common.stargate.manager;
 
+import net.minecraft.network.chat.ComponentSerialization;
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.core.common.blockentity.IBELogManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -122,7 +124,7 @@ public class StargateLogManager implements IBELogManager {
             var compound = new CompoundTag();
             compound.putLong("time", time);
             compound.putString("level", level.name());
-            compound.putString("component", Component.Serializer.toJson(component));
+            compound.putString("component", Component.Serializer.toJson(component, CurrentRegistries.getOrThrow()));
             return compound;
         }
 
@@ -130,21 +132,21 @@ public class StargateLogManager implements IBELogManager {
         public void deserializeNBT(CompoundTag compound) {
             time = compound.getLong("time");
             level = Level.valueOf(compound.getString("level"));
-            component = Component.Serializer.fromJson(compound.getString("component"));
+            component = Component.Serializer.fromJson(compound.getString("component"), CurrentRegistries.getOrThrow());
         }
 
         @Override
         public void toBytes(FriendlyByteBuf buf) {
             buf.writeLong(time);
             buf.writeInt(level.ordinal());
-            buf.writeComponent(component);
+            ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC.encode(buf, component);
         }
 
         @Override
         public void fromBytes(FriendlyByteBuf buf) {
             time = buf.readLong();
             level = Level.values()[buf.readInt()];
-            component = buf.readComponent();
+            component = ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC.decode(buf);
         }
     }
 }

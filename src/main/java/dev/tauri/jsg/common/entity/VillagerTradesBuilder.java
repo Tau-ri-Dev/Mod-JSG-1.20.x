@@ -96,12 +96,16 @@ public class VillagerTradesBuilder {
         for (int level : forLevels) {
             VillagerTrades.ItemListing lambda;
             if (input2 != null)
-                lambda = (trader, random) -> new MerchantOffer(input1, input2, output, maxUses, xpPerTrade, priceMultiplier);
+                lambda = (trader, random) -> new MerchantOffer(toCost(input1), java.util.Optional.of(toCost(input2)), output, maxUses, xpPerTrade, priceMultiplier);
             else
-                lambda = (trader, random) -> new MerchantOffer(input1, output, maxUses, xpPerTrade, priceMultiplier);
+                lambda = (trader, random) -> new MerchantOffer(toCost(input1), output, maxUses, xpPerTrade, priceMultiplier);
             trades.get(level).add(lambda);
         }
         return create(event);
+    }
+
+    private static net.minecraft.world.item.trading.ItemCost toCost(ItemStack stack) {
+        return new net.minecraft.world.item.trading.ItemCost(stack.getItem(), stack.getCount());
     }
 
     public static VillagerTradesBuilder create(@NotNull VillagerTradesEvent event) {

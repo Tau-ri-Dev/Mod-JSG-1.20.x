@@ -8,11 +8,11 @@ import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
 import dev.tauri.jsg.core.common.power.JSGEnergyStorageWrapper;
 import dev.tauri.jsg.core.common.power.general.EnergyRequiredToOperate;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
 import javax.annotation.Nullable;
 
-public interface IStargateEnergyManager<E extends JSGEnergyStorage> extends INBTSerializable<CompoundTag>, ITickable {
+public interface IStargateEnergyManager<E extends JSGEnergyStorage> extends LegacyNBTSerializable, ITickable {
     E getStorage();
 
     JSGEnergyStorageWrapper getStorageForCaps();

@@ -1,5 +1,6 @@
 package dev.tauri.jsg.api.dialhomedevice;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.item.IDHDFluidTank;
 import dev.tauri.jsg.api.item.IDHDPartItem;
@@ -128,8 +129,8 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
         var stack = new ItemStack(blockState.getBlock());
         var tag = ItemNBT.getOrCreateTag(stack);
         tag.put("parts", getStateManager().serializeAssemblyToNBT());
-        tag.put("itemHandler", getItemStackHandler().serializeNBT());
-        tag.put("tank", getReactorManager().getTank().writeToNBT(new CompoundTag()));
+        tag.put("itemHandler", getItemStackHandler().serializeNBT(CurrentRegistries.getOrThrow()));
+        tag.put("tank", getReactorManager().getTank().writeToNBT(CurrentRegistries.getOrThrow(), new CompoundTag()));
         ItemNBT.setTag(stack, tag);
         return stack;
     }
@@ -138,8 +139,8 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
         var tag = ItemNBT.getOrCreateTag(stack);
         //if (!tag.contains("parts")) return;
         getStateManager().deserializeAssemblyFromNBT(tag.getCompound("parts"));
-        getItemStackHandler().deserializeNBT(tag.getCompound("itemHandler"));
-        getReactorManager().getTank().readFromNBT(tag.getCompound("tank"));
+        getItemStackHandler().deserializeNBT(CurrentRegistries.getOrThrow(), tag.getCompound("itemHandler"));
+        getReactorManager().getTank().readFromNBT(CurrentRegistries.getOrThrow(), tag.getCompound("tank"));
         setDHDChanged();
     }
 

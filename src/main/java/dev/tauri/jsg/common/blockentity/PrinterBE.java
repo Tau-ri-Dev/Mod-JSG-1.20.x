@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.core.common.packet.TargetPoint;
 import com.google.common.collect.Maps;
@@ -188,9 +189,9 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
     }
 
     @Override
-    public void invalidateCaps() {
+    public void setRemoved() {
         getDeviceHolder().disconnectFromWirelessNetwork();
-        super.invalidateCaps();
+        super.setRemoved();
     }
 
     public void switchAddressType(SymbolType<?> symbolTypeEnum) {
@@ -219,7 +220,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
             var lines = new ListTag();
             for (var line : printCustomText) {
                 var lineTag = new CompoundTag();
-                lineTag.putString("component", Component.Serializer.toJson(line));
+                lineTag.putString("component", Component.Serializer.toJson(line, CurrentRegistries.getOrThrow()));
                 lines.add(lineTag);
             }
             customText.put("lines", lines);
@@ -262,7 +263,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         var size = outputPages.size();
         compound.putInt("outputPagesSize", size);
         for (var i = 0; i < size; i++) {
-            compound.put("outputItem" + i, outputPages.get(i).save(new CompoundTag()));
+            compound.put("outputItem" + i, dev.tauri.jsg.core.common.util.ItemNBT.saveStack(outputPages.get(i)));
         }
         compound.putLong("printStarted", printStarted);
         compound.putIntArray("symbolsToPrint", symbolsToPrint);
@@ -397,7 +398,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
             return;
         }
 
-        level.playSound(null, getBlockPos(), SoundEvents.UI_BUTTON_CLICK.get(), SoundSource.BLOCKS, 1f, 1f);
+        level.playSound(null, getBlockPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.BLOCKS, 1f, 1f);
 
         if (button == 0) {
             // next pos
@@ -662,7 +663,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
                     if (!lineStr.startsWith("{") && !lineStr.startsWith("[") && !lineStr.startsWith("\"")) {
                         lineStr = ("\"" + lineStr + "\"");
                     }
-                    var line = lineStr.startsWith("\"") ? Component.literal(lineStr.substring(1, lineStr.length() - 1)) : Component.Serializer.fromJson(lineStr);
+                    var line = lineStr.startsWith("\"") ? Component.literal(lineStr.substring(1, lineStr.length() - 1)) : Component.Serializer.fromJson(lineStr, CurrentRegistries.getOrThrow());
                     printCustomText.addLast(line);
                 }
                 if (customTexts.size() == 1) {

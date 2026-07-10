@@ -18,8 +18,8 @@ public class JSGDataGenerators {
         var exFileHelper = event.getExistingFileHelper();
         var lookupProvider = event.getLookupProvider();
 
-        generator.addProvider(event.includeServer(), new JSGRecipeProvider(output));
-        generator.addProvider(event.includeServer(), JSGLootTableProvider.create(output));
+        generator.addProvider(event.includeServer(), new JSGRecipeProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), JSGLootTableProvider.create(output, lookupProvider));
 
         generator.addProvider(event.includeClient(), new JSGBlockStateProvider(output, exFileHelper));
         generator.addProvider(event.includeClient(), new JSGItemModelProvider(output, exFileHelper));

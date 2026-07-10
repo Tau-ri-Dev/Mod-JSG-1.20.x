@@ -32,18 +32,20 @@ public class StargateOrlinBaseBlockRecipe extends ShapedRecipe {
         return stack;
     }
 
+    public static final net.minecraft.resources.ResourceLocation ID = JSGMapping.rl(JSG.MOD_ID, "orlin_base_block");
+
     public StargateOrlinBaseBlockRecipe() {
-        super(JSGMapping.rl(JSG.MOD_ID, "orlin_base_block"), "JSG", CraftingBookCategory.BUILDING, 3, 3, NonNullList.of(Ingredient.EMPTY,
+        super("JSG", CraftingBookCategory.BUILDING, new net.minecraft.world.item.crafting.ShapedRecipePattern(3, 3, NonNullList.of(Ingredient.EMPTY,
                 Ingredient.of(new ItemStack(Items.COPPER_INGOT)), Ingredient.of(NotebookRecipeUtils.PAGE1.copy()), Ingredient.of(new ItemStack(Items.COPPER_INGOT)),
                 Ingredient.of(new ItemStack(Items.COPPER_INGOT)), Ingredient.of(new ItemStack(JSGBlocks.TOASTER.get())), Ingredient.of(new ItemStack(Items.COPPER_INGOT)),
                 Ingredient.of(new ItemStack(Items.REPEATER)), Ingredient.of(new ItemStack(CoreItems.TITANIUM_DUST.get())), Ingredient.of(new ItemStack(Items.REPEATER))
-        ), getOrlinGate(NotebookRecipeUtils.PAGE1.copy()));
+        ), java.util.Optional.empty()), getOrlinGate(NotebookRecipeUtils.PAGE1.copy()));
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean matches(CraftingContainer inv, Level world) {
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+    public boolean matches(net.minecraft.world.item.crafting.CraftingInput inv, Level world) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
             if (getIngredients().get(i).getItems()[0].getItem() != item) return false;
@@ -61,7 +63,7 @@ public class StargateOrlinBaseBlockRecipe extends ShapedRecipe {
 
     @Override
     @ParametersAreNonnullByDefault
-    public @NotNull ItemStack assemble(CraftingContainer inv, RegistryAccess level) {
+    public @NotNull ItemStack assemble(net.minecraft.world.item.crafting.CraftingInput inv, net.minecraft.core.HolderLookup.Provider level) {
         var page = inv.getItem(1);
         if (page.isEmpty()) return ItemStack.EMPTY;
         if (page.getItem() != CoreItems.NOTEBOOK_PAGE_FILLED.get()) return ItemStack.EMPTY;

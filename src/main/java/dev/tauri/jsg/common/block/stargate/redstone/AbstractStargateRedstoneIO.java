@@ -95,14 +95,15 @@ public abstract class AbstractStargateRedstoneIO extends JSGBlock implements ITa
 
     @Override
     @ParametersAreNonnullByDefault
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlacer) {
-        super.playerWillDestroy(pLevel, pPos, pState, pPlacer);
+    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlacer) {
+        BlockState result = super.playerWillDestroy(pLevel, pPos, pState, pPlacer);
         if (!pLevel.isClientSide()) {
             var sg = getGate(pLevel, pPos, pState);
             if (sg != null) {
                 sg.removeRedstoneDevice(pPos);
             }
         }
+        return result;
     }
 
     public abstract boolean shouldUpdateNeighbours(BlockState state, ServerLevel level, BlockPos pos, StargateClassicBaseBE<?> gateTile);

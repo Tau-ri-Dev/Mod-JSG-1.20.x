@@ -66,7 +66,6 @@ public class NetworkTab extends AdminControllerTab {
 
     @Override
     public void tick() {
-        super.tick();
         if (networkMap != null)
             networkMap.tick();
         if (leftSide != null)
@@ -284,11 +283,6 @@ public class NetworkTab extends AdminControllerTab {
             }
         }
 
-        @Override
-        public void tick() {
-            super.tick();
-            sortedEntries.forEach(p -> p.getValue().first().tick());
-        }
 
         public class DialOptionsScreen extends SubScreen {
             public static final ResourceLocation ICONS = JSGMapping.rl(JSG.MOD_ID, "textures/gui/admin_controller/controller_mode.png");

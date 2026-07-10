@@ -29,14 +29,14 @@ public class JSGTabs {
     @SubscribeEvent
     public static void buildTabsContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(JSGItems.EGG_MASTADGE);
+            event.accept(JSGItems.EGG_MASTADGE.get());
         }
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(JSGItems.FOOD_CHOCOLATE_BAR);
+            event.accept(JSGItems.FOOD_CHOCOLATE_BAR.get());
         }
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             for (var r : JSGItems.RECORDS.values()) {
-                event.accept(r);
+                event.accept(r.get());
             }
         }
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {

@@ -47,7 +47,7 @@ public abstract class AbstractStargateGeneratorScreen extends GenericMessageScre
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         var ticks = (System.currentTimeMillis() / 1000.0 * 20.0) - initTick;
-        renderDirtBackground(graphics);
+        renderMenuBackground(graphics);
         graphics.fillGradient(0, 0, width, height, 0xC0101010, 0xD0101010);
 
         var y = height - 20 - 8;

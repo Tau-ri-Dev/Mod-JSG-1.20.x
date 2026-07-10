@@ -153,8 +153,8 @@ public class JSGItems {
      * FOOD
      */
 
-    public static final RegistryObject<JSGItem> FOOD_CHOCOLATE_BAR = Constants.JSG_ITEM_HELPER.builder("chocolate_bar").setProperties(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).fast().saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0, false, false), 1).alwaysEat().build())).buildGeneric();
-    public static final RegistryObject<JSGItem> FOOD_ENHANCER = Constants.JSG_ITEM_HELPER.builder("jibbaran_enhancer").clearTooltip().setProperties(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true), 0.5f).alwaysEat().build())).buildGeneric();
+    public static final RegistryObject<JSGItem> FOOD_CHOCOLATE_BAR = Constants.JSG_ITEM_HELPER.builder("chocolate_bar").setProperties(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).fast().saturationModifier(0.2f).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0, false, false), 1).alwaysEdible().build())).buildGeneric();
+    public static final RegistryObject<JSGItem> FOOD_ENHANCER = Constants.JSG_ITEM_HELPER.builder("jibbaran_enhancer").clearTooltip().setProperties(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true), 0.5f).alwaysEdible().build())).buildGeneric();
 
     /**
      * SPAWN EGGS

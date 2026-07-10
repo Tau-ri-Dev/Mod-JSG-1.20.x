@@ -83,7 +83,7 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
         var allDim = !chevronsState.isAnySlotActive();
         if (allDim && !spinHelper.isSpinning()) {
-            Arrays.stream(JSGSymbolTypes.PEGASUS.get().stream().toList()).forEach(symbol -> {
+            Arrays.stream(JSGSymbolTypes.PEGASUS.get().getValues()).forEach(symbol -> {
                 var slot = symbol.getAngle() / 10f;
                 if (slot < 0) return;
                 renderGlyph(symbol, (int) slot, true);
@@ -192,7 +192,7 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
                     .setNormal(0, 0, 1)
                     ;
 
-            MeshData rb = buffer.end();
+            MeshData rb = buffer.buildOrThrow();
             vertexBuffer.bind();
             vertexBuffer.upload(rb);
             VertexBuffer.unbind();
@@ -230,13 +230,13 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
     @SuppressWarnings("all")
     protected void renderGlyphGUI(SymbolInterface glyph, int slot, boolean deactivated, boolean translatePos) {
         Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder buffer = tessellator.getBuilder();
+        BufferBuilder[] buffer = new BufferBuilder[1];
         float tileSize = 0.270f;
         double[] slotPos = getPositionInRingAtIndex(GLYPHS_RING_RADIUS, slot + 1);
         EmissiveRenderer.renderWithLightOverlay(stack, combinedLight, false, () -> {
             var variant = (deactivated ? StargatePointOfOriginsDefaults.VARIANT_GATE_OFF_PNG : StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
             bindSymbolTextureForRing(glyph, variant);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            buffer[0] = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
@@ -245,12 +245,12 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
             stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = stack.last().pose();
-            buffer.addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
-            buffer.addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
-            buffer.addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
-            buffer.addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
-            tessellator.end();
+            com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buffer[0].buildOrThrow());
         }, GameRenderer::getPositionTexShader);
     }
 

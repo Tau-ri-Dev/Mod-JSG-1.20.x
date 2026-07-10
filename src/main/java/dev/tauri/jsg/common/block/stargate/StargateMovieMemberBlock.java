@@ -8,6 +8,7 @@ import dev.tauri.jsg.core.common.registry.CoreTabs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -23,8 +24,8 @@ import java.util.List;
 public abstract class StargateMovieMemberBlock extends StargateClassicMemberBlock {
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, blockGetter, components, tooltipFlag);
+    public void appendHoverText(@NotNull ItemStack itemStack, Item.TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
         components.add(JSGCore.getInProgress());
     }
 

@@ -9,11 +9,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
 import java.util.function.Consumer;
 
-public interface IStargateEventHorizonManager extends INBTSerializable<CompoundTag>, ITickable {
+public interface IStargateEventHorizonManager extends LegacyNBTSerializable, ITickable {
     TravelerSendResult send(IStargateTraveler<?> traveler);
 
     void receive(IStargateTraveler<?> traveler);

@@ -2,6 +2,8 @@ package dev.tauri.jsg.common.capability;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;
+import dev.tauri.jsg.api.config.JSGConfig;
+import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
 import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
@@ -52,5 +54,9 @@ public class JSGCapabilityRegistration {
             // CC:Tweaked peripherals (no-op when CC is absent)
             JSGCore.ccWrapper.registerPeripheralBE(event, type);
         }
+
+        event.registerItem(Capabilities.FluidHandler.ITEM,
+                (stack, ctx) -> new DHDFluidHandlerItemStack(stack, JSGConfig.DialHomeDevice.fluidCapacity.get()),
+                JSGItems.DHD_NAQUADAH_TANK.get());
     }
 }

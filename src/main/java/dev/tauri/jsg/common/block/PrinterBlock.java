@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -77,8 +78,8 @@ public class PrinterBlock extends TickableBEBlock implements ITabbedItem, IHighl
 
     @Override
     @ParametersAreNonnullByDefault
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
-        super.playerWillDestroy(level, pos, blockState, player);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+        BlockState result = super.playerWillDestroy(level, pos, blockState, player);
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof PrinterBE tile) {
@@ -91,6 +92,7 @@ public class PrinterBlock extends TickableBEBlock implements ITabbedItem, IHighl
                 }
             }
         }
+        return result;
     }
 
     @Nullable
@@ -107,7 +109,7 @@ public class PrinterBlock extends TickableBEBlock implements ITabbedItem, IHighl
 
     @Override
     @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack itemStack, @javax.annotation.Nullable BlockGetter blockGetter, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
 

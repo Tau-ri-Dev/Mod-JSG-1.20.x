@@ -50,7 +50,7 @@ public class ProgressJSON extends AbstractJSONConfig<ProgressJSON.Entry> {
 
     public ProgressJSON() {
         super("data/progress", Util.make(new HashMap<>(), (map) ->
-                map.put("data", new Entry(JSGMapping.rl(JSG.MOD_ID, "act1").toString(), new ResourceLocation(JSG.MOD_ID, "act2").toString()))
+                map.put("data", new Entry(JSGMapping.rl(JSG.MOD_ID, "act1").toString(), JSGMapping.rl(JSG.MOD_ID, "act2").toString()))
         ), CODEC);
     }
 

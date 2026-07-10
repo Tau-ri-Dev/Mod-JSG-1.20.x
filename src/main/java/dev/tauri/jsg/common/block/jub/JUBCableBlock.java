@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -52,7 +53,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, Item.TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
 
@@ -78,7 +79,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         // we don't want villagers to stick on the cable
         return false;
     }
@@ -96,8 +97,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
         for (var d : Direction.values()) {
             var be = level.getBlockEntity(pos.offset(d.getNormal()));
             if (be == null) continue;
-            var optCap = java.util.Optional.ofNullable(JSGCapabilities.getJUB(be));
-            if (!optCap.isPresent() || optCap.resolve().isEmpty()) continue;
+            if (JSGCapabilities.getJUB(be) == null) continue;
             connections.add(d);
         }
         return state;//.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.JUB_VARIANT, JUBCableVariant.fromDirections(connections));

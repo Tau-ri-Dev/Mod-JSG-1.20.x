@@ -5,10 +5,10 @@ import dev.tauri.jsg.api.dialhomedevice.animation.IButtonsState;
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import dev.tauri.jsg.core.common.blockentity.StateProviderInterface;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public interface IDHDStateManager extends INBTSerializable<CompoundTag>, StateProviderInterface, ITickable {
+public interface IDHDStateManager extends LegacyNBTSerializable, StateProviderInterface, ITickable {
     IButtonsState getButtonsState();
 
     TargetPoint getTargetPoint();

@@ -240,7 +240,7 @@ public class PrinterRenderer implements BlockEntityRenderer<PrinterBE>, IRaycast
             stack.mulPose(Axis.XP.rotationDegrees(-90));
             stack.scale(0.6f, 0.6f, 0.6f);
             PageRenderer.renderPercentages = Pair.of(percent, true);
-            PageRenderer.renderByCompound(stack, source, light, ItemDisplayContext.FIXED, tile.outputPages.getLast().getTag());
+            PageRenderer.renderByCompound(stack, source, light, ItemDisplayContext.FIXED, dev.tauri.jsg.core.common.util.ItemNBT.getTag(tile.outputPages.getLast()));
             PageRenderer.renderPercentages = null;
             stack.popPose();
         }
@@ -250,7 +250,7 @@ public class PrinterRenderer implements BlockEntityRenderer<PrinterBE>, IRaycast
             stack.translate(0, 0.005 * i, 0.24 + 0.16);
             stack.mulPose(Axis.XP.rotationDegrees(-90));
             stack.scale(0.6f, 0.6f, 0.6f);
-            PageRenderer.renderByCompound(stack, source, light, ItemDisplayContext.FIXED, tile.outputPages.get(i).getTag());
+            PageRenderer.renderByCompound(stack, source, light, ItemDisplayContext.FIXED, dev.tauri.jsg.core.common.util.ItemNBT.getTag(tile.outputPages.get(i)));
             stack.popPose();
         }
         stack.popPose();

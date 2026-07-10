@@ -79,10 +79,9 @@ public class AdminControllerItem extends JSGItem {
 
                 if (te instanceof Stargate<?> baseTile && baseTile.isMerged()) {
                     // Set linked gate for updating
-                    CompoundTag compound = player.getItemInHand(hand).getTag();
-                    if (compound == null) compound = new CompoundTag();
+                    CompoundTag compound = ItemNBT.getOrCreateTag(player.getItemInHand(hand));
                     compound.putLong("linkedGatePos", baseTile.blockPosition().asLong());
-                    player.getItemInHand(hand).setTag(compound);
+                    ItemNBT.setTag(player.getItemInHand(hand), compound);
 
                     // Open GUI for the player
                     JSGPacketHandler.sendTo(new AdminControllerGuiOpenToClient(baseTile.blockPosition(), StargateNetwork.INSTANCE), sp);

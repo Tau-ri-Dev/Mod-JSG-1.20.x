@@ -2,9 +2,9 @@ package dev.tauri.jsg.api.stargate.manager;
 
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
-public interface IStargateAutoCloseManager extends INBTSerializable<CompoundTag> {
+public interface IStargateAutoCloseManager extends LegacyNBTSerializable {
 
     /**
      * AutoClose update function (on server) (engaged) (receiving gate).

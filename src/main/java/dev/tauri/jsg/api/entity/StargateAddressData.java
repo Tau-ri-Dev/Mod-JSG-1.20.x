@@ -6,13 +6,13 @@ import dev.tauri.jsg.core.common.entity.INotebookPageData;
 import dev.tauri.jsg.core.common.symbol.address.IAddress;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class StargateAddressData implements INBTSerializable<CompoundTag>, IAddressNotebookPageData {
+public class StargateAddressData implements LegacyNBTSerializable, IAddressNotebookPageData {
     public StargateAddressDynamic address;
     public int[] symbolsToDisplay;
     public @Nullable PointOfOrigin pointOfOrigin;

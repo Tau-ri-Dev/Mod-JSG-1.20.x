@@ -12,8 +12,7 @@ public class FireballTraveler extends EntityTraveler<AbstractHurtingProjectile> 
     @Override
     public void setMotion(Vec3 newMotion) {
         super.setMotion(newMotion);
-        get().xPower = newMotion.x() * 0.1D;
-        get().yPower = newMotion.y() * 0.1D;
-        get().zPower = newMotion.z() * 0.1D;
+        // 1.21: the xyz power vector became a scalar; direction now comes from the delta movement set above.
+        get().accelerationPower = newMotion.length() * 0.1D;
     }
 }

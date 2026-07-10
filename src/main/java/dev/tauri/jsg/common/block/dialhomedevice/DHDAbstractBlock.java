@@ -80,7 +80,7 @@ public abstract class DHDAbstractBlock extends TickableBEBlock implements IHighl
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         // Server side
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof DHDAbstractBE dhd) {
-            if (itemStack.getTagElement("BlockEntityTag") == null)
+            if (itemStack.get(net.minecraft.core.component.DataComponents.BLOCK_ENTITY_DATA) == null)
                 dhd.updateFromItemStack(itemStack);
             dhd.updateLinkStatus(level, pos);
         }
@@ -90,7 +90,7 @@ public abstract class DHDAbstractBlock extends TickableBEBlock implements IHighl
     @Override
     @ParametersAreNonnullByDefault
     @MethodsReturnNonnullByDefault
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         return InteractionResult.CONSUME;
     }
 
@@ -141,14 +141,15 @@ public abstract class DHDAbstractBlock extends TickableBEBlock implements IHighl
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("all")
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
-        super.playerWillDestroy(level, pos, blockState, player);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+        BlockState result = super.playerWillDestroy(level, pos, blockState, player);
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof ILinkable<?> linkable && linkable.getLinkedDevice() instanceof ILinkable<?> targetLinkable) {
                 targetLinkable.setLinkedDevice(null);
             }
         }
+        return result;
     }
 
     @Override
@@ -192,7 +193,7 @@ public abstract class DHDAbstractBlock extends TickableBEBlock implements IHighl
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }

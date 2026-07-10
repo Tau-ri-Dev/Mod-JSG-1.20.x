@@ -28,8 +28,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
 public class PageAndUniverseDialerRecipe extends ShapelessRecipe {
+    public static final net.minecraft.resources.ResourceLocation ID = JSGMapping.rl(JSG.MOD_ID, "dialer_page_combination");
+
     public PageAndUniverseDialerRecipe() {
-        super(JSGMapping.rl(JSG.MOD_ID, "dialer_page_combination"), "JSG", CraftingBookCategory.MISC,
+        super("JSG", CraftingBookCategory.MISC,
                 DialerRecipeUtils.DIALER_OUT_PAGE.copy(),
                 NonNullList.of(
                         Ingredient.EMPTY,
@@ -41,11 +43,11 @@ public class PageAndUniverseDialerRecipe extends ShapelessRecipe {
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean matches(CraftingContainer inv, Level pLevel) {
+    public boolean matches(net.minecraft.world.item.crafting.CraftingInput inv, Level pLevel) {
         int dialerCount = 0;
         int pagesCount = 0;
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
 
@@ -71,10 +73,10 @@ public class PageAndUniverseDialerRecipe extends ShapelessRecipe {
     @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(net.minecraft.world.item.crafting.CraftingInput inv, net.minecraft.core.HolderLookup.Provider pRegistryAccess) {
         var addressTagList = new ListTag();
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
             var compound = ItemNBT.getTag(stack);

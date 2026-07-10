@@ -48,7 +48,6 @@ public class ACTabButton extends TabButton {
         renderScrollingString(pGuiGraphics, pFont, this.getMessage(), x, y, maxX, maxY, pColor);
     }
 
-    @Override
     protected int getTextureY() {
         int i = 0;
         if (this.isSelected() && this.isHoveredOrFocused()) {
@@ -68,7 +67,17 @@ public class ACTabButton extends TabButton {
             graphics.blit(pAtlasLocation, pX, pY, pTextureX, pTextureY, pWidth, pHeight, BACKGROUND_W, BACKGROUND_H);
         } else {
             graphics.blit(pAtlasLocation, pX, pY, pTextureX, pTextureY, pLeftSliceWidth, pHeight, BACKGROUND_W, BACKGROUND_H);
-            graphics.blitRepeating(pAtlasLocation, pX + pLeftSliceWidth, pY, pWidth - pRightSliceWidth - pLeftSliceWidth, pHeight, pTextureX + pLeftSliceWidth, pTextureY, pUWidth - pRightSliceWidth - pLeftSliceWidth, pVHeight, BACKGROUND_W, BACKGROUND_H);
+            // GuiGraphics.blitRepeating is gone in 1.21 - tile the middle slice manually
+            int tileX = pX + pLeftSliceWidth;
+            int remaining = pWidth - pRightSliceWidth - pLeftSliceWidth;
+            int tileU = pTextureX + pLeftSliceWidth;
+            int tileUWidth = Math.max(1, pUWidth - pRightSliceWidth - pLeftSliceWidth);
+            while (remaining > 0) {
+                int sliceW = Math.min(remaining, tileUWidth);
+                graphics.blit(pAtlasLocation, tileX, pY, tileU, pTextureY, sliceW, pHeight, BACKGROUND_W, BACKGROUND_H);
+                tileX += sliceW;
+                remaining -= sliceW;
+            }
             graphics.blit(pAtlasLocation, pX + pWidth - pRightSliceWidth, pY, pTextureX + pUWidth - pRightSliceWidth, pTextureY, pRightSliceWidth, pHeight, BACKGROUND_W, BACKGROUND_H);
         }
     }

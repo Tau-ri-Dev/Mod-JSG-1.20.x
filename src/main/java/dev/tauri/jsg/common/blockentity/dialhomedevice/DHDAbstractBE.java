@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.dialhomedevice;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
@@ -330,7 +331,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         var hasPart = isAssembled(part);
         if (disassemble == !hasPart) return;
         if (disassemble) {
-            var eventCancel = NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, getBlockPos(), getBlockState(), player));
+            var eventCancel = NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, getBlockPos(), getBlockState(), player)).isCanceled();
             if (eventCancel) return;
             var newStack = new ItemStack(part.self());
             var result = onPartAssembled(part, newStack, true);
@@ -500,7 +501,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             compound.putLong("linkedGate", linkedGate.asLong());
         }
 
-        compound.put("itemStackHandler", itemStackHandler.serializeNBT());
+        compound.put("itemStackHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
     }
 
     @Override
@@ -514,18 +515,12 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             linkedGate = BlockPos.of(compound.getLong("linkedGate"));
         }
 
-        itemStackHandler.deserializeNBT(compound.getCompound("itemStackHandler"));
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        return super.serializeNBT();
+        itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), compound.getCompound("itemStackHandler"));
     }
 
     @Nonnull
-    @Override
     public AABB getRenderBoundingBox() {
-        return new AABB(getBlockPos().offset(-1, 0, -1), getBlockPos().offset(1, 2, 1));
+        return AABB.encapsulatingFullBlocks(getBlockPos().offset(-1, 0, -1), getBlockPos().offset(1, 2, 1));
     }
 
     @Override

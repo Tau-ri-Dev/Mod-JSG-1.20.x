@@ -17,7 +17,7 @@ import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
 import java.util.List;
 
 public class StargateTypesLoader {
-    public static final DeferredRegister<StargateType<?>> REGISTER = DeferredRegister.create(JSGRegistries.STARGATE_TYPE, JSG.MOD_ID);
+    public static final JSGDeferredRegister<StargateType<?>> REGISTER = JSGDeferredRegister.create(JSGRegistries.STARGATE_TYPE, JSG.MOD_ID);
 
     public static void load() {
         StargateTypes.MILKYWAY = REGISTER.register("milkyway", () -> new StargateType<>("MilkyWay", JSGSymbolTypes.MILKYWAY, StargateMilkyWayBaseBE.class,

@@ -32,7 +32,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.DistExecutor;
 import net.neoforged.fml.common.Mod;
 
 import java.util.LinkedHashMap;
@@ -55,7 +54,8 @@ public class DimensionStargateGenerator {
         final LinkedHashMap<String, StargateGeneratorStepStatus> stats = new LinkedHashMap<>();
         AtomicInteger totalGenerated = new AtomicInteger();
         AtomicReference<Component> message = new AtomicReference<>(Component.empty());
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> SGGeneratorGuiProvider.showProgress(() -> totalDimensions, () -> stats, message::get));
+        if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient())
+            SGGeneratorGuiProvider.showProgress(() -> totalDimensions, () -> stats, message::get);
         JSG.logger.info("Found {} total dimensions", totalDimensions);
         final long started = Util.getMillis();
         for (ResourceKey<Level> dimension : levels) {

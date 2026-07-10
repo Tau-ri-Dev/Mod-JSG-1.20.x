@@ -122,7 +122,7 @@ public class StargateWormholeEffect {
     }
 
     @SuppressWarnings("unused")
-    public static void render(ForgeGui forgeGui, GuiGraphics graphics, float partialTicks, int packedLight, int packedOverlay) {
+    public static void render(GuiGraphics graphics, net.minecraft.client.DeltaTracker deltaTracker) {
         if (!isPlayingWhite && !isPlaying) return;
         PoseStack stack = graphics.pose();
         GuiHelper.currentStack = graphics.pose();

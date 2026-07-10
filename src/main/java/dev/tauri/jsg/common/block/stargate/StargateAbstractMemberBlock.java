@@ -155,14 +155,15 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
 
     @Override
     @ParametersAreNonnullByDefault
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
-        super.playerWillDestroy(level, pos, blockState, player);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+        BlockState result = super.playerWillDestroy(level, pos, blockState, player);
         if (!level.isClientSide()) {
             if (level.getBlockEntity(pos) instanceof StargateAbstractMemberBE e) {
                 e.findBaseAndUpdateMergeState(false);
                 e.dropCamo();
             }
         }
+        return result;
     }
 
     @Override
@@ -260,7 +261,7 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }

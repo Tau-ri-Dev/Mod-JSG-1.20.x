@@ -18,7 +18,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -113,7 +113,7 @@ public class DHDButtonsState extends State implements IButtonsState {
         }
     }
 
-    public static class ButtonState extends State implements IButtonState, INBTSerializable<CompoundTag>, ITickable {
+    public static class ButtonState extends State implements IButtonState, LegacyNBTSerializable, ITickable {
         private final Map<BiomeOverlayInstance, Map<Integer, ResourceLocation>> BIOME_TEXTURE_MAP = new HashMap<>();
 
         protected final DHDAbstractStateManager<?, ?> stateManager;

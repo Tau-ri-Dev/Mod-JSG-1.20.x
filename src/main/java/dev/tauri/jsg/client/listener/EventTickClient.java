@@ -17,15 +17,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 public class EventTickClient {
     @SubscribeEvent
     public void tick(PlayerTickEvent.Post event) {
-        if (event.phase == TickEvent.Phase.END) {
-            Minecraft mc = Minecraft.getInstance();
-            if (event.player != null) {
-                Player player = mc.player;
-                if (player != null) {
-                    Vec3 v = player.position();
-                    JSG.lastPlayerPosInWorld = new BlockPos((int) v.x, (int) v.y, (int) v.z);
-                    JSGApi.lastPlayerPosInWorld = JSG.lastPlayerPosInWorld;
-                }
+        Minecraft mc = Minecraft.getInstance();
+        if (event.getEntity() != null) {
+            Player player = mc.player;
+            if (player != null) {
+                Vec3 v = player.position();
+                JSG.lastPlayerPosInWorld = new BlockPos((int) v.x, (int) v.y, (int) v.z);
+                JSGApi.lastPlayerPosInWorld = JSG.lastPlayerPosInWorld;
             }
         }
     }

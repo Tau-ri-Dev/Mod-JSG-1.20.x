@@ -45,8 +45,7 @@ public class StargateOrlinBaseBlock extends StargateAbstractBaseBlock {
     protected boolean showGateInfo(Player player, InteractionHand hand, Level world, BlockPos pos) {
         if (world.isClientSide) return false;
         if (!(world.getBlockEntity(pos) instanceof StargateOrlinBaseBE baseTile)) return false;
-        var energyStorage = java.util.Optional.ofNullable(baseTile.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM));
-        if (energyStorage.isEmpty()) return false;
+        if (world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, pos, null) == null) return false;
         long energyStored = baseTile.getEnergyManager().getStorage().getTrueEnergyStored();
         var energyString = String.format("%,d", energyStored);
         var energyNeeded = baseTile.getEnergyRequiredToDial();
@@ -76,7 +75,7 @@ public class StargateOrlinBaseBlock extends StargateAbstractBaseBlock {
                 }
             }
         }
-        super.appendHoverText(itemStack, blockGetter, components, tooltipFlag);
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
     }
 
     @Nullable

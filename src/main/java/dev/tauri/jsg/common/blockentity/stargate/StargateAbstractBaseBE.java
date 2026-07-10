@@ -438,7 +438,6 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     // ----------------------------------------------
     // BLOCK ENTITY METHODS
 
-    @Override
     public AABB getRenderBoundingBox() {
         return relative(new JSGAxisAlignedBB(-4.5, -0.5, -0.5, 4.5, 8.5, 8).offset(new Vec3(0.5, 0.5, 0.5)), new Vec3(0.5, 0.5, 0.5));
     }

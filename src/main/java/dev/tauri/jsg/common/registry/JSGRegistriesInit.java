@@ -38,6 +38,7 @@ public class JSGRegistriesInit {
             RegistryHelper.registerEntityRenderer(JSGEntities.MASTADGE.get(), MastadgeRenderer::new);
         });
         JSGApi.REGISTRY_HELPER.register(bus);
+        JSGDataComponents.REGISTER.register(bus);
         StargateTypesLoader.register(bus);
         JSGUniverseDialerModes.register(bus);
     }

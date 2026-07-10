@@ -50,6 +50,6 @@ public abstract class StargateAbstractEvent extends Event {
      * @return true if event canceled, false if not
      */
     public boolean post() {
-        return NeoForge.EVENT_BUS.post(this);
+        return NeoForge.EVENT_BUS.post(this) instanceof net.neoforged.bus.api.ICancellableEvent cancellable && cancellable.isCanceled();
     }
 }

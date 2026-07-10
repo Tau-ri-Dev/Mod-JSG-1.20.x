@@ -151,8 +151,8 @@ public class MastadgeModel<T extends Entity> extends HierarchicalModel<T> {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        mastadge.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        mastadge.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
     @Override

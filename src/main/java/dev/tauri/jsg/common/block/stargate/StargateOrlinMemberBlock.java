@@ -65,7 +65,7 @@ public class StargateOrlinMemberBlock extends StargateAbstractMemberBlock implem
                 components.add(Component.translatable("block.jsg.stargate_orlin_base_block.open_count", compound.getInt("openCount"), JSGConfig.Stargate.stargateOrlinMaxOpenCount.get()));
             }
         }
-        super.appendHoverText(itemStack, blockGetter, components, tooltipFlag);
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
     }
 
     @Override

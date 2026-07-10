@@ -55,8 +55,8 @@ public class StargateWormholeHandler {
 
     @SubscribeEvent
     public static void tick(LevelTickEvent.Post event) {
-        if (event.side.isClient()) return;
-        var server = event.level.getServer();
+        if (event.getLevel().isClientSide()) return;
+        var server = event.getLevel().getServer();
         if (server == null) return;
         List<UUID> toDelete = new ArrayList<>();
         for (var t : WORMHOLE_ANIMATION_END_MAP.entrySet()) {

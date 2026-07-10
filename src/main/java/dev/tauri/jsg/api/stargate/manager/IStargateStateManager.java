@@ -6,10 +6,10 @@ import dev.tauri.jsg.api.stargate.animation.IChevronsState;
 import dev.tauri.jsg.core.common.blockentity.IStateProvider;
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public interface IStargateStateManager extends INBTSerializable<CompoundTag>, IStateProvider, ITickable {
+public interface IStargateStateManager extends LegacyNBTSerializable, IStateProvider, ITickable {
     IChevronsState getChevronsState();
 
     AbstractBlackHoleAnimationState getBlackHoleAnimationState();

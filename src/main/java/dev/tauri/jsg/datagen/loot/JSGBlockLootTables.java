@@ -33,10 +33,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class JSGBlockLootTables extends BlockLootSubProvider {
-    protected static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-
-    public JSGBlockLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public JSGBlockLootTables(net.minecraft.core.HolderLookup.Provider registries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 
     @Override
@@ -129,7 +127,7 @@ public class JSGBlockLootTables extends BlockLootSubProvider {
     @Override
     @NotNull
     protected Iterable<Block> getKnownBlocks() {
-        return JSGApi.REGISTRY_HELPER.block().getEntries().stream().map(RegistryObject::get)::iterator;
+        return JSGApi.REGISTRY_HELPER.block().getEntries().stream().map(holder -> (Block) holder.get())::iterator;
     }
 
     protected void dropNothing(Block block) {
@@ -141,7 +139,7 @@ public class JSGBlockLootTables extends BlockLootSubProvider {
     }
 
     protected void dropOre(Block block, Item item, NumberProvider dropsCount) {
-        add(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(dropsCount)).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
+        add(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(dropsCount)).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))))));
     }
 
     protected void dropAndCopyNBT(Block block, CopyCustomDataFunction.Builder copyNbtFunctionBuilder) {

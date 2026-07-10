@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.block.stargate.IStargateBlock;
@@ -631,7 +632,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         if (isLinked(true)) {
             compound.putLong("linkedDHD", linkedDHD.asLong());
         }
-        compound.put("itemHandler", itemStackHandler.serializeNBT());
+        compound.put("itemHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
 
         compound.put("config", getConfig().serializeNBT());
 
@@ -660,7 +661,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         if (compound.contains("linkedDHD"))
             linkedDHD = BlockPos.of(compound.getLong("linkedDHD"));
 
-        itemStackHandler.deserializeNBT(compound.getCompound("itemHandler"));
+        itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), compound.getCompound("itemHandler"));
 
         getConfig().deserializeNBT(compound.getCompound("config"));
 
@@ -757,7 +758,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             getConfig().deserializeNBT(tag.getCompound("config"));
         if (!tag.contains("itemHandler")) return;
         updateItemHandlerSize();
-        itemStackHandler.deserializeNBT(tag.getCompound("itemHandler"));
+        itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), tag.getCompound("itemHandler"));
         updatePowerTier();
         getIrisManager().updateIrisType();
         sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
@@ -791,7 +792,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     public ItemStack getDropBaseBlock(ServerPlayer player) {
         var stack = super.getDropBaseBlock(player);
         var tag = ItemNBT.getOrCreateTag(stack);
-        tag.put("itemHandler", itemStackHandler.serializeNBT());
+        tag.put("itemHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
         tag.put("config", getConfig().serializeNBT());
         ItemNBT.setTag(stack, tag);
         return stack;

@@ -91,7 +91,7 @@ public class AdminControllerGUI extends Screen {
     @Override
     public void tick() {
         super.tick();
-        this.tabManager.tickCurrent();
+        if (this.tabManager.getCurrentTab() instanceof dev.tauri.jsg.client.screen.gui.admincontroller.tabs.IAdminControllerTab acTab) acTab.tick();
         if (JSGMinecraftHelper.getPlayerTickClientSide() % 20 == 0)
             requestStargateData();
     }
@@ -136,7 +136,7 @@ public class AdminControllerGUI extends Screen {
     }
 
     public void renderBackground(GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.renderBackground(graphics, pMouseX, pMouseY, pPartialTick);
         if (responseBar != null)
             responseBar.render(graphics, pMouseX, pMouseY, pPartialTick);
         ITexture.bindTextureWithMc(BACKGROUND_TEXTURE);

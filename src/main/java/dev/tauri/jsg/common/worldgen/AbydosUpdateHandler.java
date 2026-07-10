@@ -16,7 +16,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.event.ModMismatchEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.DistExecutor;
 import net.neoforged.fml.common.Mod;
 import org.apache.commons.io.FileUtils;
 
@@ -37,8 +36,7 @@ public class AbydosUpdateHandler {
         if (Integer.parseInt(splitVersion[0]) >= 5 && Integer.parseInt(splitVersion[1]) >= 1)
             return;
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            SGGeneratorGuiProvider.showAbydosWarning((proceed) -> {
+        SGGeneratorGuiProvider.showAbydosWarning((proceed) -> {
                 if (proceed) {
                     var abydosDimFolder = Path.of(e.getLevelDirectory().path().toString(), "/dimensions/jsg/abydos/").toFile();
                     if (abydosDimFolder.exists() && abydosDimFolder.isDirectory()) {
@@ -53,7 +51,7 @@ public class AbydosUpdateHandler {
                     }
                     try {
                         JSG.logger.info("Rewriting {}", Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toString());
-                        var levelDat = NbtIo.readCompressed(Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toFile());
+                        var levelDat = NbtIo.readCompressed(Path.of(e.getLevelDirectory().path().toString(), "/level.dat"), net.minecraft.nbt.NbtAccounter.unlimitedHeap());
                         var data = levelDat.getCompound("Data");
                         var wgs = data.getCompound("WorldGenSettings");
                         var dims = wgs.getCompound("dimensions");
@@ -76,7 +74,7 @@ public class AbydosUpdateHandler {
                             newList.add(newCompound);
                         }
                         fml.put("LoadingModList", newList);
-                        NbtIo.writeCompressed(levelDat, Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toFile());
+                        NbtIo.writeCompressed(levelDat, Path.of(e.getLevelDirectory().path().toString(), "/level.dat"));
                         JSG.logger.info("Rewrite done!");
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
@@ -84,7 +82,6 @@ public class AbydosUpdateHandler {
                     e.markResolved(JSG.MOD_ID);
                 }
                 Minecraft.getInstance().forceSetScreen(new SelectWorldScreen(null));
-            });
         });
     }
 }

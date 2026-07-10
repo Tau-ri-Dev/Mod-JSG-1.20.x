@@ -19,13 +19,13 @@ import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public interface IStargateDialingManager extends INBTSerializable<CompoundTag>, ITickable {
+public interface IStargateDialingManager extends LegacyNBTSerializable, ITickable {
     ISpinHelper getSpinHelper();
 
     EnumStargateState getStargateState();

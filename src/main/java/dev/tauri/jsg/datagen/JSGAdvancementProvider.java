@@ -91,7 +91,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("use_gdo", JSGCriterions.GDO_USED.createInstance())
+                .addCriterion("use_gdo", JSGCriterions.GDO_USED.createCriterion())
                 .save(saver, JSGAdvancements.USE_GDO, fileHelper);
 
         AdvancementHolder toaster = Advancement.Builder.advancement()
@@ -121,7 +121,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_orlin_gate", JSGCriterions.ACTIVATE_ORLIN_GATE.createInstance())
+                .addCriterion("activate_orlin_gate", JSGCriterions.ACTIVATE_ORLIN_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_ORLIN_GATE, fileHelper);
 
         AdvancementHolder mw_crystal = Advancement.Builder.advancement()
@@ -196,7 +196,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_movie_gate", JSGCriterions.ACTIVATE_MOVIE_GATE.createInstance())
+                .addCriterion("activate_movie_gate", JSGCriterions.ACTIVATE_MOVIE_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_MOVIE_GATE, fileHelper);
 
         AdvancementHolder mw_gate = Advancement.Builder.advancement()
@@ -211,7 +211,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_milkyway_gate", JSGCriterions.ACTIVATE_MILKYWAY_GATE.createInstance())
+                .addCriterion("activate_milkyway_gate", JSGCriterions.ACTIVATE_MILKYWAY_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_MILKYWAY_GATE, fileHelper);
 
         Advancement.Builder.advancement()
@@ -226,7 +226,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_tollan_gate", JSGCriterions.ACTIVATE_TOLLAN_GATE.createInstance())
+                .addCriterion("activate_tollan_gate", JSGCriterions.ACTIVATE_TOLLAN_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_TOLLAN_GATE, fileHelper);
 
         AdvancementHolder pg_gate = Advancement.Builder.advancement()
@@ -241,7 +241,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_pegasus_gate", JSGCriterions.ACTIVATE_PEGASUS_GATE.createInstance())
+                .addCriterion("activate_pegasus_gate", JSGCriterions.ACTIVATE_PEGASUS_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_PEGASUS_GATE, fileHelper);
 
         Advancement.Builder.advancement()
@@ -256,7 +256,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("activate_universe_gate", JSGCriterions.ACTIVATE_UNIVERSE_GATE.createInstance())
+                .addCriterion("activate_universe_gate", JSGCriterions.ACTIVATE_UNIVERSE_GATE.createCriterion())
                 .save(saver, JSGAdvancements.ACTIVATE_UNIVERSE_GATE, fileHelper);
 
         Advancement.Builder.advancement()
@@ -286,7 +286,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("kawoosh_death", JSGCriterions.KAWOOSH_CREMATION.createInstance())
+                .addCriterion("kawoosh_death", JSGCriterions.KAWOOSH_CREMATION.createCriterion())
                 .save(saver, JSGAdvancements.KAWOOSH_DEATH, fileHelper);
 
         Advancement.Builder.advancement()
@@ -301,7 +301,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("iris_impact", JSGCriterions.IRIS_IMPACT.createInstance())
+                .addCriterion("iris_impact", JSGCriterions.IRIS_IMPACT.createCriterion())
                 .save(saver, JSGAdvancements.IRIS_IMPACT, fileHelper);
 
         AdvancementHolder wormhole = Advancement.Builder.advancement()
@@ -316,7 +316,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("wormhole_go", JSGCriterions.WORMHOLE_GO.createInstance())
+                .addCriterion("wormhole_go", JSGCriterions.WORMHOLE_GO.createCriterion())
                 .save(saver, JSGAdvancements.WORMHOLE_GO, fileHelper);
 
         Advancement.Builder.advancement()
@@ -331,7 +331,7 @@ public class JSGAdvancementProvider implements AdvancementProvider.AdvancementGe
                         true,
                         false
                 )
-                .addCriterion("unstable_go", JSGCriterions.UNSTABLE_SURVIVE.createInstance())
+                .addCriterion("unstable_go", JSGCriterions.UNSTABLE_SURVIVE.createCriterion())
                 .save(saver, JSGAdvancements.UNSTABLE_GO, fileHelper);
         
         AdvancementHolder mw_dhd = Advancement.Builder.advancement()

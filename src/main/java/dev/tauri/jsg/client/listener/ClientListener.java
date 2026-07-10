@@ -29,7 +29,7 @@ public class ClientListener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onGuiOpen(ScreenEvent.Opening event) {
-        if (!event.isCanceled() && event.getScreen() instanceof LevelLoadingScreen) {
+        if (event.getScreen() instanceof LevelLoadingScreen) {
             event.setNewScreen(new LevelGenerationScreen());
             return;
         }
@@ -46,12 +46,12 @@ public class ClientListener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onGuiOpen(ScreenEvent.Init.Post event) {
-        if (!event.isCanceled() && event.getScreen() instanceof LevelLoadingScreen) {
+        if (event.getScreen() instanceof LevelLoadingScreen) {
             Minecraft.getInstance().forceSetScreen(new LevelGenerationScreen());
             return;
         }
         if (!JSGConfig.General.disableJSGMainMenu.get()) {
-            if (!event.isCanceled() && event.getScreen() instanceof TitleScreen) {
+            if (event.getScreen() instanceof TitleScreen) {
                 Minecraft.getInstance().setScreen(new GuiCustomMainMenu());
                 if (initMainMenu) {
                     GuiCustomMainMenu.menuDisplayed = -1;

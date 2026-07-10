@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.capability;
 
+import dev.tauri.jsg.common.registry.JSGDataComponents;
 import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +14,7 @@ public class DHDFluidHandlerItemStack extends FluidHandlerItemStack {
      * @param capacity  The maximum capacity of this fluid tank.
      */
     public DHDFluidHandlerItemStack(@NotNull ItemStack container, int capacity) {
-        super(container, capacity);
+        super(JSGDataComponents.DHD_FLUID::get, container, capacity);
         if (ItemNBT.getOrCreateTag(container).contains("savedCapacity"))
             this.capacity = ItemNBT.getOrCreateTag(container).getInt("savedCapacity");
     }

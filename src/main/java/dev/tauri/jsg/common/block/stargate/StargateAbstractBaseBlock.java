@@ -220,8 +220,8 @@ public abstract class StargateAbstractBaseBlock extends TickableBEBlock implemen
 
     @Override
     @ParametersAreNonnullByDefault
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
-        super.playerWillDestroy(level, pos, blockState, player);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+        BlockState result = super.playerWillDestroy(level, pos, blockState, player);
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof Stargate<?> stargate) {
@@ -233,6 +233,7 @@ public abstract class StargateAbstractBaseBlock extends TickableBEBlock implemen
                 stargate.onGateBroken();
             }
         }
+        return result;
     }
 
     /*_
@@ -361,7 +362,7 @@ public abstract class StargateAbstractBaseBlock extends TickableBEBlock implemen
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }

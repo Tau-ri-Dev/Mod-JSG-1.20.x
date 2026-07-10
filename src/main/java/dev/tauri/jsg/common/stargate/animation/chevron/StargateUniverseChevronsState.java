@@ -17,7 +17,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -124,7 +124,7 @@ public abstract class StargateUniverseChevronsState extends StargateChevronsStat
         NBTUtils.mapFromBytes(symbolsStates, buf, (b) -> stateManager.stargate.getSymbolType().valueOf(b.readInt()), (b) -> new SymbolState(stateManager, b));
     }
 
-    public static class SymbolState extends State implements INBTSerializable<CompoundTag>, ITickable {
+    public static class SymbolState extends State implements LegacyNBTSerializable, ITickable {
         protected final StargateAbstractStateManager<?, ?> stateManager;
         protected SymbolInterface symbol;
         protected float lightStage;

@@ -37,7 +37,7 @@ public class StargateNetwork extends SavedData implements IStargateNetwork {
 
     public void register(@Nonnull DimensionDataStorage storage) {
         INSTANCE = this;
-        storage.computeIfAbsent(INSTANCE::load, () -> INSTANCE, DATA_NAME);
+        storage.computeIfAbsent(new Factory<>(() -> INSTANCE, (tag, registries) -> INSTANCE.load(tag), null), DATA_NAME);
     }
 
     public StargateNetwork() {
@@ -243,7 +243,7 @@ public class StargateNetwork extends SavedData implements IStargateNetwork {
 
     @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag compound) {
+    public CompoundTag save(@Nonnull CompoundTag compound, @Nonnull net.minecraft.core.HolderLookup.Provider registries) {
         JSG.logger.info("Saving SGN: Started");
         compound.putString("version", "2.0");
         ListTag stargateTagList = new ListTag();

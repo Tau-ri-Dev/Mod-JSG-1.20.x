@@ -53,7 +53,7 @@ public class ClientStargateInventoryTooltip implements ClientTooltipComponent {
         var energyResult = new InventoryRenderEnergyResult(0, 0, 0);
         if (compound.contains("itemHandler")) {
             var handler = new JSGItemStackHandler(1);
-            handler.deserializeNBT(compound.getCompound("itemHandler"));
+            handler.deserializeNBT(dev.tauri.jsg.common.helpers.CurrentRegistries.getOrThrow(), compound.getCompound("itemHandler"));
             energyResult = renderInventory(font, x, y, graphics, handler, compound);
             offsetY += 44;
         }
