@@ -122,7 +122,8 @@ public class CommonForgeListener {
                            Executor pBackgroundExecutor,
                            Executor pGameExecutor) -> pPreparationBarrier.wait(Unit.INSTANCE).thenRun(() -> {
             var recipesManager = event.getServerResources().getRecipeManager();
-            var recipes = recipesManager.getRecipes();
+            // getRecipes() is an immutable view on 1.21 - copy before adding
+            var recipes = new java.util.ArrayList<net.minecraft.world.item.crafting.RecipeHolder<?>>(recipesManager.getRecipes());
 
             recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(UniverseDialerCloneRecipe.ID, new UniverseDialerCloneRecipe()));
             recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(PageAndUniverseDialerRecipe.ID, new PageAndUniverseDialerRecipe()));
