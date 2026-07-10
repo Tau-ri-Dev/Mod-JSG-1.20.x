@@ -19,24 +19,18 @@
     },
     "level_count_provider": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 15,
-        "max_inclusive": 25
-      }
+      "min_inclusive": 15,
+      "max_inclusive": 25
     },
     "level_height_provider": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 4,
-        "max_inclusive": 6
-      }
+      "min_inclusive": 4,
+      "max_inclusive": 6
     },
     "deformation_provider": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": -2,
-        "max_inclusive": 2
-      }
+      "min_inclusive": -2,
+      "max_inclusive": 2
     },
     "can_protrude_through": "#jsg:worldgen/deepslate_naquadah_spire_can_protrude_through",
     "can_grow_from": "#jsg:worldgen/deepslate_naquadah_spire_can_grow_from"
