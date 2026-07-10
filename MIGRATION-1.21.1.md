@@ -56,6 +56,22 @@ The mod (`jsg`, this repo, 474 Java files / ~49k LOC) hard-depends on the framew
   - `META-INF/neoforge.mods.toml` written (static, modId `jsg_core`, loaderVersion `[4,)`, neoforge `[21.1.0,)`).
   - Old `mods.toml` + `pack.mcmeta` removed (NeoForge 1.21.1 mods need no pack.mcmeta).
 
+### MOD IN PROGRESS (2026-07-10, session 2): branch `1.21.1`, 3144 -> 628 compile errors
+M0 (build files), M1/M2 (mechanical renames + registries + datafixer aliases + JSG.java entrypoint),
+M4 (capabilities: JSGCapabilityRegistration with instance-checked providers for all BE types;
+JUB as BlockCapability; item-stack caps nullable) are committed. Misc: tick events split,
+EventHooks, gui layers, BufHelper/ItemNBT.stackOf/saveStack in core for packet+NBT ItemStack io.
+REMAINING (~628 errors, regenerate worklist with the python snippet in scratchpad usage below):
+- stargate teleport: ITeleporter/PortalInfo -> DimensionTransition rework (biggest semantic piece,
+  StargateTeleporter + travelers + IStargateTeleporter)
+- per-file long tail in common/stargate managers, common/block, client/screen+renderer (same
+  recipes as core: vertex API leftovers, blit, widgets), datagen providers (same as core's),
+  common/recipes (CraftingInput/MapCodec for 2 custom recipes), JSG.java leftovers
+- M7 worldgen injectors, M8 data/ sweep (same script as core C9), M9 integrations wiring
+  (CCDevices/OCDevices load hooks; JEI plugin), M10 runtime gates.
+Worklist regen: compile with `flatpak-spawn --host ./gradlew compileJava`, then the
+python error+source lister used throughout (see git history of this file / scratchpad).
+
 ### CORE DONE (2026-07-10): jsg-core builds on NeoForge 1.21.1
 `Mod-JSGCore-1.21.x/build/libs/jsg-core-1.21.1-1.0.0.0-Dev.jar` — `flatpak-spawn --host ./gradlew build` green.
 All checkpoints C0-C9 committed (see git log in Mod-JSGCore-1.21.x). Additional key decisions beyond the plan:
