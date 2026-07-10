@@ -122,6 +122,7 @@ public class JSG implements JSGAddon {
         JSGRegistriesInit.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::loadCompleteServer);
         NeoForge.EVENT_BUS.register(this);
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
@@ -143,7 +144,6 @@ public class JSG implements JSGAddon {
         }
     }
 
-    @SubscribeEvent
     public void loadCompleteServer(FMLLoadCompleteEvent event) {
         JSG.logger.info("Just Stargate Mod loading completed!");
     }
@@ -171,10 +171,6 @@ public class JSG implements JSGAddon {
     @SubscribeEvent
     public void onCommandsRegister(RegisterCommandsEvent event) {
         JSGCommands.registerCommands(event);
-    }
-
-    @SubscribeEvent
-    public void addCreative(BuildCreativeModeTabContentsEvent event) {
     }
 
     @Override
