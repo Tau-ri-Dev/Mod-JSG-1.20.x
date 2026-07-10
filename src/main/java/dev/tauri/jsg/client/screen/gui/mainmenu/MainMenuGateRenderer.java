@@ -26,7 +26,7 @@ import dev.tauri.jsg.core.common.util.math.NumberUtils;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.ForgeHooksClient;
+import net.neoforged.neoforge.client.ClientHooks;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL14C;
 
@@ -60,7 +60,7 @@ public class MainMenuGateRenderer {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        translationZ = ((ForgeHooksClient.getGuiFarPlane() - 1200) / size);
+        translationZ = ((ClientHooks.getGuiFarPlane() - 1200) / size);
         poseStack.translate(x, y, 0);
         poseStack.scale(size, -size, size);
         poseStack.translate(0, 0, -translationZ);
@@ -99,7 +99,7 @@ public class MainMenuGateRenderer {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        translationZ = ((ForgeHooksClient.getGuiFarPlane() - 1200) / size);
+        translationZ = ((ClientHooks.getGuiFarPlane() - 1200) / size);
         poseStack.translate(x, y, 0);
         poseStack.scale(size, -size, size);
         poseStack.translate(0, 0, -translationZ);

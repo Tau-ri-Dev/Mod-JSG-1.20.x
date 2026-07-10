@@ -8,14 +8,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 
 
 @OnlyIn(Dist.CLIENT)
 public class EventTickClient {
     @SubscribeEvent
-    public void tick(TickEvent.PlayerTickEvent event) {
+    public void tick(PlayerTickEvent.Post event) {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
             if (event.player != null) {

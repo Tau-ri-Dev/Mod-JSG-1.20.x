@@ -52,11 +52,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.capabilities.Capability;
-import net.neoforged.neoforge.capabilities.ForgeCapabilities;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -342,7 +339,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             player.getInventory().add(newStack);
             level.playSound(null, getBlockPos(), part.getDisassembleSound(), SoundSource.BLOCKS, 1, 1);
         } else {
-            var eventCanceled = ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(level.dimension(), level, getBlockPos()), Direction.UP);
+            var eventCanceled = EventHooks.onBlockPlace(player, BlockSnapshot.create(level.dimension(), level, getBlockPos()), Direction.UP);
             if (eventCanceled) return;
             var result = onPartAssembled(part, stack, false);
             if (!result) return;

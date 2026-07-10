@@ -9,7 +9,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 public abstract class StargateClassicBaseBlock extends StargateAbstractBaseBlock {
 
@@ -23,7 +22,7 @@ public abstract class StargateClassicBaseBlock extends StargateAbstractBaseBlock
             if (!gate.isMerged()) return false;
 
             if (player instanceof ServerPlayer sp) {
-                NetworkHooks.openScreen(sp, new SimpleMenuProvider((id, pInv, p) -> new StargateContainer(id, pInv, gate), Component.empty()), pos);
+                sp.openMenu(new SimpleMenuProvider((id, pInv, p) -> new StargateContainer(id, pInv, gate), Component.empty()), pos);
                 //sp.openMenu(new SimpleMenuProvider((id, pInv, p) -> new StargateContainer(id, pInv, gate), Component.empty()), pos);
                 return true;
             }

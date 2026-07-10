@@ -37,7 +37,7 @@ import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
-import net.neoforged.neoforge.event.entity.player.EntityItemPickupEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
@@ -54,7 +54,7 @@ import java.util.concurrent.Executor;
 @EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonForgeListener {
     @SubscribeEvent
-    public static void onItemPickup(EntityItemPickupEvent e) {
+    public static void onItemPickup(ItemEntityPickupEvent.Pre e) {
         var p = e.getEntity();
         var i = e.getItem().getItem();
         if (CreativeItemsChecker.canInteractWith(i, p.isCreative())) return;

@@ -36,7 +36,7 @@ public class MineBlockBehavior extends Behavior<Villager> {
     @Override
     @ParametersAreNonnullByDefault
     protected boolean checkExtraStartConditions(ServerLevel pLevel, Villager pOwner) {
-        if (!net.neoforged.neoforge.event.ForgeEventFactory.getMobGriefingEvent(pLevel, pOwner)) {
+        if (!net.neoforged.neoforge.event.EventHooks.canEntityGrief(pLevel, pOwner)) {
             return false;
         }
         BlockPos.MutableBlockPos pos = pOwner.blockPosition().mutable();

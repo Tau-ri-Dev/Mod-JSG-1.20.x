@@ -38,8 +38,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -260,7 +258,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
     @ParametersAreNonnullByDefault
     public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         super.saveAdditional(compound, registries);
-        compound.put("inputItem", inputPages.save(new CompoundTag()));
+        compound.put("inputItem", dev.tauri.jsg.core.common.util.ItemNBT.saveStack(inputPages));
         var size = outputPages.size();
         compound.putInt("outputPagesSize", size);
         for (var i = 0; i < size; i++) {
@@ -276,7 +274,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         compound.putInt("inksCount", cartridges.size());
         var i = 0;
         for (var cartridge : cartridges) {
-            compound.put("cartridge" + i, cartridge.save(new CompoundTag()));
+            compound.put("cartridge" + i, dev.tauri.jsg.core.common.util.ItemNBT.saveStack(cartridge));
             i++;
         }
     }
@@ -287,10 +285,10 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         super.loadAdditional(compound, registries);
         cartridges.clear();
         outputPages.clear();
-        inputPages = ItemStack.of(compound.getCompound("inputItem"));
+        inputPages = dev.tauri.jsg.core.common.util.ItemNBT.stackOf(compound.getCompound("inputItem"));
         var size = compound.getInt("outputPagesSize");
         for (int i = 0; i < size; i++) {
-            outputPages.addLast(ItemStack.of(compound.getCompound("outputItem" + i)));
+            outputPages.addLast(dev.tauri.jsg.core.common.util.ItemNBT.stackOf(compound.getCompound("outputItem" + i)));
         }
         printStarted = compound.getLong("printStarted");
         var array = compound.getIntArray("symbolsToPrint");
@@ -305,7 +303,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
             address = new StargateAddressDynamic(compound.getCompound("address"));
         var inksCount = compound.getInt("inksCount");
         for (var i = 0; i < inksCount; i++) {
-            cartridges.add(ItemStack.of(compound.getCompound("cartridge" + i)));
+            cartridges.add(dev.tauri.jsg.core.common.util.ItemNBT.stackOf(compound.getCompound("cartridge" + i)));
         }
     }
 

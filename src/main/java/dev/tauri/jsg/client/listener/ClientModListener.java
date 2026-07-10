@@ -10,7 +10,7 @@ import dev.tauri.jsg.common.item.tooltips.ServerStargateInventoryTooltip;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -37,7 +37,7 @@ public class ClientModListener {
     }
 
     @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+    public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAboveAll("wormhole_overlay", StargateWormholeEffect::render);
     }
 }

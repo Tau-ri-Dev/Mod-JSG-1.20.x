@@ -6,7 +6,8 @@ import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.packet.packets.effect.StargateWormholeEffectToClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -53,7 +54,7 @@ public class StargateWormholeHandler {
     }
 
     @SubscribeEvent
-    public static void tick(TickEvent.LevelTickEvent event) {
+    public static void tick(LevelTickEvent.Post event) {
         if (event.side.isClient()) return;
         var server = event.level.getServer();
         if (server == null) return;
