@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+updateJSONURL="https://api.modrinth.com/updates/jsg/forge_updates.json"
+
+[[mods]]
+    modId="${mod_id}"
+    version="${mod_version}"
+    displayName="${mod_name}"
+    displayURL="https://justsgmod.eu"
+    authors="${mod_authors}"
+    description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="jsg_core"
+    type="required"
+    versionRange="${core_version_range}"
+    ordering="AFTER"
+    side="BOTH"
