@@ -69,7 +69,7 @@ public class DimensionStargateGenerator {
                 stats.put(dimension.location().toString(), StargateGeneratorDimStatus.ERROR);
                 continue;
             }
-            message.set(Component.translatable("createWorld.stargates_generating.trying", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.trying", level.dimension().location().toString()));
             if (!level.structureManager().shouldGenerateStructures()) {
                 stats.put(dimension.location().toString(), StargateGeneratorDimStatus.SKIPPED);
                 continue;
@@ -114,7 +114,7 @@ public class DimensionStargateGenerator {
             var holderSet = level.registryAccess().registry(tag.registry()).map(r -> r.getOrCreateTag(tag));
             if (holderSet.isEmpty())
                 return result;
-            message.set(Component.translatable("createWorld.stargates_generating.searching", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.searching", level.dimension().location().toString()));
             // workaround to prevent WatchDog crashing the server...
             // Go into future...
             AccessUtil.setNextTickTime(level.getServer(), (Util.getMillis() + 5 * 60 * 1000));
@@ -126,7 +126,7 @@ public class DimensionStargateGenerator {
                 JSG.logger.warn("No structure to generate for {}", level.dimension().location().toString());
                 return result;
             }
-            message.set(Component.translatable("createWorld.stargates_generating.generating", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.generating", level.dimension().location().toString()));
             var origin = structureEntry.getFirst().immutable();
             if (level.dimension() == JSGDimensions.ABYDOS)
                 origin = new BlockPos(0, 0, 0);
