@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.renderer.blockentity.machine;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

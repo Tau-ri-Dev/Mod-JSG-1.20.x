@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.block.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.block.stargate.IStargateRingBlock;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.common.blockentity.stargate.StargateOrlinBaseBE;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -22,7 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,9 +57,9 @@ public class StargateOrlinMemberBlock extends StargateAbstractMemberBlock implem
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
-        if (itemStack.hasTag()) {
-            CompoundTag compound = itemStack.getTag();
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+        if (ItemNBT.hasTag(itemStack)) {
+            CompoundTag compound = ItemNBT.getTag(itemStack);
 
             if (compound != null && compound.contains("openCount")) {
                 components.add(Component.translatable("block.jsg.stargate_orlin_base_block.open_count", compound.getInt("openCount"), JSGConfig.Stargate.stargateOrlinMaxOpenCount.get()));

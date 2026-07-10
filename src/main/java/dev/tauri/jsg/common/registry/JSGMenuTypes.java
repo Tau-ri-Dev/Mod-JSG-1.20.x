@@ -5,7 +5,7 @@ import dev.tauri.jsg.client.screen.inventory.StargateContainerGui;
 import dev.tauri.jsg.common.container.StargateContainer;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGMenuTypes {
 

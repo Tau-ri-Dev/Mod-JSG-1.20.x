@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.block.stargate.IStargateBlock;
 import dev.tauri.jsg.api.config.JSGConfig;
@@ -87,10 +88,10 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -628,7 +629,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     // NBT
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.put("irisManager", irisManager.serializeNBT());
         if (isLinked(true)) {
             compound.putLong("linkedDHD", linkedDHD.asLong());
@@ -652,12 +653,12 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             compound.putLong("redstoneIODevice_pos" + i, REDSTONE_IO_BLOCKS.get(i).asLong());
         }
 
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         irisManager.deserializeNBT(compound.getCompound("irisManager"));
         if (compound.contains("linkedDHD"))
             linkedDHD = BlockPos.of(compound.getLong("linkedDHD"));
@@ -754,7 +755,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     @Override
     public void updateContainerItemsByItemStack(ItemStack stack) {
         super.updateContainerItemsByItemStack(stack);
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         if (tag.contains("config"))
             getConfig().deserializeNBT(tag.getCompound("config"));
         if (!tag.contains("itemHandler")) return;
@@ -792,10 +793,10 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     @Override
     public ItemStack getDropBaseBlock(ServerPlayer player) {
         var stack = super.getDropBaseBlock(player);
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         tag.put("itemHandler", itemStackHandler.serializeNBT());
         tag.put("config", getConfig().serializeNBT());
-        stack.setTag(tag);
+        ItemNBT.setTag(stack, tag);
         return stack;
     }
 

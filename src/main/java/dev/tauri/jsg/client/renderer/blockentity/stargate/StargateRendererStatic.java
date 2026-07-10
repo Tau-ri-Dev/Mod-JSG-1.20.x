@@ -164,9 +164,9 @@ public class StargateRendererStatic {
                     } else yTex *= -1;
 
                     if (coloredBackground)
-                        b.vertex(matrix, 0, 0, 0).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                        b.addVertex(matrix, 0, 0, 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                     else
-                        b.vertex(matrix, 0, 0, 0).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                        b.addVertex(matrix, 0, 0, 0).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                     int index;
                     for (int i = SECTIONS; i >= 0; i--) {
                         if (i == SECTIONS)
@@ -191,9 +191,9 @@ public class StargateRendererStatic {
                         } else yTex *= -1;
 
                         if (coloredBackground)
-                            b.vertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.vertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(currentStack.last().normal(), cache.x, cache.y, cache.z).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), getOffset(index, tick * mul, mul, 0)).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
                     }
 
                     t.end();
@@ -215,7 +215,7 @@ public class StargateRendererStatic {
                 float xTex = 0.5f;
                 float yTex = -0.5f;
 
-                b.vertex(matrix, 0, 0, 0).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                b.addVertex(matrix, 0, 0, 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
 
                 int index;
                 for (int i = SECTIONS; i >= 0; i--) {
@@ -227,7 +227,7 @@ public class StargateRendererStatic {
                     xTex = tx.get(index);
                     yTex = -ty.get(index);
 
-                    b.vertex(matrix, x.get(index), y.get(index), 0).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                    b.addVertex(matrix, x.get(index), y.get(index), 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                 }
 
                 t.end();
@@ -367,9 +367,9 @@ public class StargateRendererStatic {
                         } else yTex *= -1;
 
                         if (coloredBackground)
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(currentStack.last().normal(), cache.x, cache.y, cache.z).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
 
 
                         index = index + SECTIONS;
@@ -388,9 +388,9 @@ public class StargateRendererStatic {
                         else z = getOffset(index + SECTIONS * quadStripIndex, tick * mul, mul, quadStripIndex + 1);
 
                         if (coloredBackground)
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(currentStack.last().normal(), cache.x, cache.y, cache.z).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
                     }
 
                     t.end();
@@ -445,9 +445,9 @@ public class StargateRendererStatic {
                         yTex += yTexOffset;
 
                         if (coloredBackground)
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(currentStack.last().normal(), cache.x, cache.y, cache.z).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
 
 
                         index = index + SECTIONS;
@@ -463,9 +463,9 @@ public class StargateRendererStatic {
                         z = z5;
 
                         if (coloredBackground)
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                         else
-                            b.vertex(matrix, x.get(index), y.get(index), z).color((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(currentStack.last().normal(), cache.x, cache.y, cache.z).endVertex();
+                            b.addVertex(matrix, x.get(index), y.get(index), z).setColor((innerC.getRed() / 255f), (innerC.getGreen() / 255f), (innerC.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(currentStack.last().setNormal(), cache.x, cache.y, cache.z);
                     }
 
                     t.end();
@@ -495,14 +495,14 @@ public class StargateRendererStatic {
                     float xTex = tx.get(index);
                     float yTex = -ty.get(index);
 
-                    b.vertex(matrix, x.get(index), y.get(index), 0).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                    b.addVertex(matrix, x.get(index), y.get(index), 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
 
                     index = index + SECTIONS;
 
                     xTex = tx.get(index);
                     yTex = -ty.get(index);
 
-                    b.vertex(matrix, x.get(index), y.get(index), 0).color((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).uv(xTex, yTex).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
+                    b.addVertex(matrix, x.get(index), y.get(index), 0).setColor((c.getRed() / 255f), (c.getGreen() / 255f), (c.getBlue() / 255f), a).setUv(xTex, yTex).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 1, 0);
                 }
                 t.end();
             });

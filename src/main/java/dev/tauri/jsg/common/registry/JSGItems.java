@@ -30,8 +30,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 public class JSGItems {
-    private static final DeferredRegister<Item> REGISTER = JSGApi.REGISTRY_HELPER.item();
+    private static final JSGDeferredRegister<Item> REGISTER = JSGApi.REGISTRY_HELPER.item();
 
     /**
      * Icons used in advancements

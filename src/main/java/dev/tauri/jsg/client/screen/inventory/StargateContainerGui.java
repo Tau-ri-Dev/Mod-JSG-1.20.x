@@ -37,8 +37,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -307,7 +307,7 @@ public class StargateContainerGui extends TabbedContainerScreen<StargateContaine
             }
         }
 
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         boolean hasAddressUpgrade = false;
         boolean hasIrisUpgrade = !menu.getSlot(8).getItem().isEmpty();

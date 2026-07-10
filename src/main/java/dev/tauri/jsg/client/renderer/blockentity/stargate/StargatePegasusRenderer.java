@@ -83,7 +83,7 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
         var allDim = !chevronsState.isAnySlotActive();
         if (allDim && !spinHelper.isSpinning()) {
-            Arrays.stream(JSGSymbolTypes.PEGASUS.get().getValues()).forEach(symbol -> {
+            Arrays.stream(JSGSymbolTypes.PEGASUS.get().stream().toList()).forEach(symbol -> {
                 var slot = symbol.getAngle() / 10f;
                 if (slot < 0) return;
                 renderGlyph(symbol, (int) slot, true);
@@ -161,39 +161,38 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
             vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
             Tesselator tessellator = Tesselator.getInstance();
-            BufferBuilder buffer = tessellator.getBuilder();
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
+            BufferBuilder buffer = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
 
-            buffer.vertex(-tileSize, 0, -tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(0, 0)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(-tileSize, 0, tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(0, 1)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(tileSize, 0, tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(1, 1)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(tileSize, 0, -tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(1, 0)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
+            buffer.addVertex(-tileSize, 0, -tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(0, 0)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(-tileSize, 0, tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(0, 1)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(tileSize, 0, tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(1, 1)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(tileSize, 0, -tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(1, 0)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
 
-            BufferBuilder.RenderedBuffer rb = buffer.end();
+            MeshData rb = buffer.end();
             vertexBuffer.bind();
             vertexBuffer.upload(rb);
             VertexBuffer.unbind();
@@ -246,10 +245,10 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
             stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = stack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
+            buffer.addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer.addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer.addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer.addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
             tessellator.end();
         }, GameRenderer::getPositionTexShader);

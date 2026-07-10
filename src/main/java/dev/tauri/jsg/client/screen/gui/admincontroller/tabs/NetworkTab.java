@@ -613,7 +613,7 @@ public class NetworkTab extends AdminControllerTab {
         }
 
         @Override
-        public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+        public boolean mouseScrolled(double pMouseX, double pMouseY, double scrollX, double pDelta) {
             var oldScale = scale;
             rescale(pDelta, pMouseX, pMouseY);
             if (oldScale == scale) return true;

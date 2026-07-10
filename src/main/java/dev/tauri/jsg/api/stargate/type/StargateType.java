@@ -72,11 +72,11 @@ public class StargateType<T extends SymbolType<?>> implements IPointOfOriginType
     // Static
 
     public static StargateType<?> valueOf(ResourceLocation id) {
-        return JSGRegistries.R_STARGATE_TYPE.get().getValue(id);
+        return JSGRegistries.R_STARGATE_TYPE.get().get(id);
     }
 
     public static Collection<StargateType<?>> values() {
-        return JSGRegistries.R_STARGATE_TYPE.get().getValues();
+        return JSGRegistries.R_STARGATE_TYPE.get().stream().toList();
     }
 
     @Nullable

@@ -4,7 +4,7 @@ import dev.tauri.jsg.core.common.blockentity.ITickable;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
 public interface ISpinHelper extends INBTSerializable<CompoundTag>, ITickable {

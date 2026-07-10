@@ -6,7 +6,7 @@ import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public interface IStargateListenerHandler extends INBTSerializable<CompoundTag> {
     void addListener(IStargateListener listener);

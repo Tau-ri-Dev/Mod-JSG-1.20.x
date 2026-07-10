@@ -1,5 +1,6 @@
 package dev.tauri.jsg.api.dialhomedevice;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.item.IDHDFluidTank;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
@@ -18,8 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -125,16 +126,16 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
 
     default ItemStack getDropBlock(ServerPlayer player, BlockState blockState) {
         var stack = new ItemStack(blockState.getBlock());
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         tag.put("parts", getStateManager().serializeAssemblyToNBT());
         tag.put("itemHandler", getItemStackHandler().serializeNBT());
         tag.put("tank", getReactorManager().getTank().writeToNBT(new CompoundTag()));
-        stack.setTag(tag);
+        ItemNBT.setTag(stack, tag);
         return stack;
     }
 
     default void updateFromItemStack(ItemStack stack) {
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         //if (!tag.contains("parts")) return;
         getStateManager().deserializeAssemblyFromNBT(tag.getCompound("parts"));
         getItemStackHandler().deserializeNBT(tag.getCompound("itemHandler"));
@@ -144,8 +145,8 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
 
     @ParametersAreNonnullByDefault
     static boolean isPartAssembledOnStack(ItemStack stack, IDHDPartItem part) {
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         if (!tag.contains("parts")) return true;
-        return tag.getCompound("parts").getBoolean(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(part.self())).toString());
+        return tag.getCompound("parts").getBoolean(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(part.self())).toString());
     }
 }

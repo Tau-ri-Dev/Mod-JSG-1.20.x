@@ -10,8 +10,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.NetworkDirection;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class SaveIrisCodeToServer extends PositionedPacket {
     String code;
@@ -45,7 +45,7 @@ public class SaveIrisCodeToServer extends PositionedPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         if (ctx.getDirection() != NetworkDirection.PLAY_TO_SERVER) return;
         ctx.setPacketHandled(true);
         ServerPlayer player = ctx.getSender();

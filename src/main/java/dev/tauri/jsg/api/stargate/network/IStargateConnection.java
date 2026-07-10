@@ -5,7 +5,7 @@ import dev.tauri.jsg.api.stargate.manager.IStargateDialingManager;
 import dev.tauri.jsg.api.stargate.result.StargateConnectionStatus;
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.apache.logging.log4j.util.TriConsumer;
 
 import java.util.Optional;

@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.renderer.item;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -14,8 +15,8 @@ import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import static dev.tauri.jsg.core.client.renderer.HandHeldDeviceRenderer.drawModalRectWithCustomSizedTexture;
 
@@ -65,7 +66,7 @@ public class GarageDoorOpenerBEWLR extends AbstractItemBEWLR {
 
         double signal = 0;
         double battery = 0;
-        var compound = itemStack.getTag();
+        var compound = ItemNBT.getTag(itemStack);
         if (compound != null) {
             if (compound.contains("battery_percentage")) {
                 battery = compound.getDouble("battery_percentage");

@@ -1,7 +1,7 @@
 package dev.tauri.jsg.common.registry;
 
 import dev.tauri.jsg.client.renderer.dimension.AbydosSkyEffects;
-import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 
 public class JSGDimensionEffects {
     public static void register(RegisterDimensionSpecialEffectsEvent event) {

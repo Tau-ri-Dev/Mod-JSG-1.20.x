@@ -11,7 +11,7 @@ import dev.tauri.jsg.common.stargate.teleportation.StargateTeleporter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.ForgeHooks;
 
 public class PlayerTraveler extends LivingTraveler<ServerPlayer> {
     public PlayerTraveler(ServerPlayer entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> receivingGate, boolean isStatic) {

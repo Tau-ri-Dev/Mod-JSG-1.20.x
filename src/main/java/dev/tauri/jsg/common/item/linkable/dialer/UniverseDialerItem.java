@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.item.linkable.dialer;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.registry.JSGUniverseDialerModes;
 import dev.tauri.jsg.client.renderer.item.dialer.UniverseDialerBEWLR;
 import dev.tauri.jsg.client.screen.gui.DialerVirtualGui;
@@ -25,9 +26,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -65,7 +66,7 @@ public class UniverseDialerItem extends JSGItem {
                 player.displayClientMessage(Component.translatable("item.jsg.universe_dialer.in_menu.alert"), true);
             return;
         }
-        var compound = stack.getOrCreateTag();
+        var compound = ItemNBT.getOrCreateTag(stack);
         boolean changed = false;
         if (!compound.contains(C_MODE, Tag.TAG_STRING)) {
             compound.putString(C_MODE, UniverseDialerMode.getDefault().id.toString());
@@ -83,17 +84,17 @@ public class UniverseDialerItem extends JSGItem {
             changed = true;
         }
         if (changed)
-            stack.setTag(compound);
+            ItemNBT.setTag(stack, compound);
 
         mode.inventoryTick(stack, mode.getTag(compound), world, entity, itemSlot, isSelected);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
 
-        var list = stack.getOrCreateTag().getCompound(JSGUniverseDialerModes.MEMORY.get().id + C_MODE_TAG).getList(UDMemoryMode.C_ENTRIES, Tag.TAG_COMPOUND);
+        var list = ItemNBT.getOrCreateTag(stack).getCompound(JSGUniverseDialerModes.MEMORY.get().id + C_MODE_TAG).getList(UDMemoryMode.C_ENTRIES, Tag.TAG_COMPOUND);
         components.add(Component.literal(ChatFormatting.GRAY + I18n.format("item.jsg.universe_dialer.saved_gates", list.size())));
 
         for (int i = 0; i < list.size(); i++) {
@@ -117,7 +118,7 @@ public class UniverseDialerItem extends JSGItem {
         if (stack.getItem() != this)
             return super.use(world, player, hand);
 
-        var compound = stack.getOrCreateTag();
+        var compound = ItemNBT.getOrCreateTag(stack);
         if (!compound.contains(C_MODE, Tag.TAG_STRING))
             return super.use(world, player, hand);
 

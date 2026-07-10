@@ -8,7 +8,7 @@ import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
 import dev.tauri.jsg.core.common.power.JSGEnergyStorageWrapper;
 import dev.tauri.jsg.core.common.power.general.EnergyRequiredToOperate;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import javax.annotation.Nullable;
 

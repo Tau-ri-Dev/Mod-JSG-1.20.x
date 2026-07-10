@@ -1,5 +1,7 @@
 package dev.tauri.jsg.common.blockentity;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import com.google.common.collect.Maps;
 import dev.tauri.jsg.api.entity.StargateAddressData;
 import dev.tauri.jsg.api.registry.JSGNotebookPageTypes;
@@ -36,9 +38,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,17 +78,17 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
     }
 
     public static double getInkStatus(ItemStack stack) {
-        if (!stack.hasTag()) return 1;
-        var tag = stack.getOrCreateTag();
+        if (!ItemNBT.hasTag(stack)) return 1;
+        var tag = ItemNBT.getOrCreateTag(stack);
         if (!tag.contains("inkStatus")) return 1;
         return tag.getDouble("inkStatus");
     }
 
     public void shrinkInk() {
         cartridges.forEach((c) -> {
-            var tag = c.getOrCreateTag();
+            var tag = ItemNBT.getOrCreateTag(c);
             tag.putDouble("inkStatus", getInkStatus(c) - ((CartridgeItem) c.getItem()).inkPerPage);
-            c.setTag(tag);
+            ItemNBT.setTag(c, tag);
         });
         setChanged();
     }
@@ -113,8 +115,8 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
 
     public ItemStack getNextEmptyAndRemove() {
         var empties = cartridges.stream().filter((c) -> {
-            if (!c.hasTag()) return false;
-            var tag = c.getOrCreateTag();
+            if (!ItemNBT.hasTag(c)) return false;
+            var tag = ItemNBT.getOrCreateTag(c);
             var item = (CartridgeItem) c.getItem();
             return (tag.getDouble("inkStatus") < item.inkPerPage);
         }).toList();
@@ -154,7 +156,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
     public void tick(@NotNull Level level) {
         if (!level.isClientSide) {
             if (targetPoint == null) {
-                targetPoint = new PacketDistributor.TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
+                targetPoint = new TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
                 setChanged();
                 getAndSendState(CoreStateTypes.RENDERER_UPDATE.get());
             }
@@ -231,7 +233,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
             }
         }
 
-        outputPage.setTag(nbt);
+        ItemNBT.setTag(outputPage, nbt);
         printStarted = level.getGameTime();
         outputPages.addLast(outputPage);
         shrinkInk();
@@ -244,7 +246,7 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         super.onLoad();
         if (level == null) return;
         if (!level.isClientSide) {
-            targetPoint = new PacketDistributor.TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
+            targetPoint = new TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
             getAndSendState(CoreStateTypes.RENDERER_UPDATE.get());
         } else {
             requestState(CoreStateTypes.RENDERER_UPDATE.get());
@@ -256,8 +258,8 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
     // NBT
     @Override
     @ParametersAreNonnullByDefault
-    public void saveAdditional(CompoundTag compound) {
-        super.saveAdditional(compound);
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(compound, registries);
         compound.put("inputItem", inputPages.save(new CompoundTag()));
         var size = outputPages.size();
         compound.putInt("outputPagesSize", size);
@@ -281,8 +283,8 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
 
     @Override
     @ParametersAreNonnullByDefault
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         cartridges.clear();
         outputPages.clear();
         inputPages = ItemStack.of(compound.getCompound("inputItem"));
@@ -384,12 +386,12 @@ public class PrinterBE extends BlockEntity implements ITickable, ComputerDeviceP
         }
     }
 
-    protected PacketDistributor.TargetPoint targetPoint;
+    protected TargetPoint targetPoint;
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         if (targetPoint == null && level != null) {
-            targetPoint = new PacketDistributor.TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
+            targetPoint = new TargetPoint(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 512, level.dimension());
         }
         return targetPoint;
     }

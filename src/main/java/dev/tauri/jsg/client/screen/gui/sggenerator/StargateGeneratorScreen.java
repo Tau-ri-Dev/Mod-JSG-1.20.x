@@ -2,8 +2,8 @@ package dev.tauri.jsg.client.screen.gui.sggenerator;
 
 import dev.tauri.jsg.common.worldgen.generator.StargateGeneratorStepStatus;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Map;
 import java.util.function.Supplier;

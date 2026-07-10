@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.stargate.manager;
 
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public interface IStargateSoundManager extends INBTSerializable<CompoundTag>, ITickable {
     void updateRingRollSound(boolean play);

@@ -7,7 +7,7 @@ import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
 
 public class JSGRegistriesInit {
     public static void init() {

@@ -1,6 +1,6 @@
 package dev.tauri.jsg.api.stargate.type;
 
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class StargateTypes {
     public static RegistryObject<StargateType<?>> MILKYWAY;

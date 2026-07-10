@@ -1,5 +1,6 @@
 package dev.tauri.jsg.api.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.registry.JSGScheduledTaskTypes;
 import dev.tauri.jsg.api.registry.JSGSymbolUsages;
@@ -40,8 +41,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -454,14 +455,14 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
 
     default ItemStack getDropBaseBlock(ServerPlayer player) {
         var stack = new ItemStack(this.getStargateType().getBaseBlock());
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         tag.put("stargateEnergyManager", getEnergyManager().serializeNBT());
-        stack.setTag(tag);
+        ItemNBT.setTag(stack, tag);
         return stack;
     }
 
     default void updateContainerItemsByItemStack(ItemStack stack) {
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         if (!tag.contains("stargateEnergyManager")) return;
         getEnergyManager().deserializeNBT(tag.getCompound("stargateEnergyManager"));
         setStargateChanged();

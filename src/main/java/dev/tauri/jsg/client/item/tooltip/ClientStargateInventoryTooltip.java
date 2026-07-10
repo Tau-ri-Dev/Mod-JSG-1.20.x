@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.item.tooltip;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.power.PowerUtils;
@@ -18,7 +19,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -34,21 +35,21 @@ public class ClientStargateInventoryTooltip implements ClientTooltipComponent {
 
     @Override
     public int getHeight() {
-        if (!stack.hasTag()) return 0;
+        if (!ItemNBT.hasTag(stack)) return 0;
         return 57;
     }
 
     @Override
     public int getWidth(Font font) {
-        if (!stack.hasTag()) return 0;
+        if (!ItemNBT.hasTag(stack)) return 0;
         return 90;
     }
 
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics graphics) {
-        if (!stack.hasTag()) return;
+        if (!ItemNBT.hasTag(stack)) return;
         GuiHelper.currentStack = graphics.pose();
-        var compound = stack.getOrCreateTag();
+        var compound = ItemNBT.getOrCreateTag(stack);
         int offsetY = 0;
         var energyResult = new InventoryRenderEnergyResult(0, 0, 0);
         if (compound.contains("itemHandler")) {

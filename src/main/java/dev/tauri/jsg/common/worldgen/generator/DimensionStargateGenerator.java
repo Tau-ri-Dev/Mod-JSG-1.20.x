@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.worldgen.generator;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.datafixers.util.Pair;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
@@ -27,12 +28,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.DistExecutor;
+import net.neoforged.fml.common.Mod;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DimensionStargateGenerator {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onServerStarted(ServerStartedEvent e) {

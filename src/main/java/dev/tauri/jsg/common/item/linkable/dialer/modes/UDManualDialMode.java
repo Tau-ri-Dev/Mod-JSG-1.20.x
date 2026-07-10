@@ -27,7 +27,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -73,7 +73,7 @@ public class UDManualDialMode extends UniverseDialerMode {
     }
 
     @Override
-    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, NetworkEvent.Context ctx) {
+    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, PacketContext ctx) {
         var player = ctx.getSender();
         if (player == null) return;
         if (action == UniverseDialerClientActionEnum.ADDRESS_CHANGE) {

@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.event;
 
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.StargateClosedReasonEnum;
-import net.minecraftforge.eventbus.api.Cancelable;
+import net.neoforged.bus.api.Cancelable;
 
 /**
  * Event that posted when stargate is trying to close

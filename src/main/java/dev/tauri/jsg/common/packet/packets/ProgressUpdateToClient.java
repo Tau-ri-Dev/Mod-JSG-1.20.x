@@ -4,7 +4,7 @@ import dev.tauri.jsg.common.config.data.ProgressJSON;
 import dev.tauri.jsg.core.common.packet.packets.JSGPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class ProgressUpdateToClient extends JSGPacket {
     public ResourceLocation act;
@@ -28,7 +28,7 @@ public class ProgressUpdateToClient extends JSGPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.enqueueWork(() -> {
             ProgressJSON.get().currentActId = act.toString();
             ProgressJSON.update();

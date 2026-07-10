@@ -136,7 +136,7 @@ public class AdminControllerGUI extends Screen {
     }
 
     public void renderBackground(GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(graphics);
+        renderBackground(graphics, mouseX, mouseY, partialTick);
         if (responseBar != null)
             responseBar.render(graphics, pMouseX, pMouseY, pPartialTick);
         ITexture.bindTextureWithMc(BACKGROUND_TEXTURE);

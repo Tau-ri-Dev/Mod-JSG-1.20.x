@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.recipes;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.entity.StargateAddressData;
 import dev.tauri.jsg.api.stargate.type.StargateTypes;
@@ -25,9 +26,9 @@ public class StargateOrlinBaseBlockRecipe extends ShapedRecipe {
     @SuppressWarnings("all")
     public static ItemStack getOrlinGate(ItemStack page) {
         var stack = new ItemStack(JSGBlocks.STARGATE_ORLIN_BASE_BLOCK.get());
-        var tag = stack.getOrCreateTag();
-        tag.put("notebook_page", page.getOrCreateTag().copy());
-        stack.setTag(tag);
+        var tag = ItemNBT.getOrCreateTag(stack);
+        tag.put("notebook_page", ItemNBT.getOrCreateTag(page).copy());
+        ItemNBT.setTag(stack, tag);
         return stack;
     }
 
@@ -48,8 +49,8 @@ public class StargateOrlinBaseBlockRecipe extends ShapedRecipe {
             if (getIngredients().get(i).getItems()[0].getItem() != item) return false;
             if (i == 1) {
                 // slot where notebook page should be at
-                if (!stack.hasTag() || stack.getTag() == null) return false;
-                var dataWrapper = NotebookPageType.pageDataFromCompound(stack.getOrCreateTag());
+                if (!ItemNBT.hasTag(stack) || ItemNBT.getTag(stack) == null) return false;
+                var dataWrapper = NotebookPageType.pageDataFromCompound(ItemNBT.getOrCreateTag(stack));
                 if (dataWrapper == null) return false;
                 if (!(dataWrapper.data() instanceof StargateAddressData stargateAddressData) || stargateAddressData.getAddress().getSymbolType() != StargateTypes.ORLIN.get().symbolType.get())
                     return false;
@@ -64,7 +65,7 @@ public class StargateOrlinBaseBlockRecipe extends ShapedRecipe {
         var page = inv.getItem(1);
         if (page.isEmpty()) return ItemStack.EMPTY;
         if (page.getItem() != CoreItems.NOTEBOOK_PAGE_FILLED.get()) return ItemStack.EMPTY;
-        var tag = page.getTag();
+        var tag = ItemNBT.getTag(page);
         if (tag == null) return ItemStack.EMPTY;
         return getOrlinGate(page);
     }

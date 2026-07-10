@@ -1,15 +1,16 @@
 package dev.tauri.jsg.common.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.packet.packets.effect.StargateWormholeEffectToClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
@@ -18,7 +19,7 @@ import java.util.function.Consumer;
 /**
  * SERVER SIDE
  */
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 @ParametersAreNonnullByDefault
 public class StargateWormholeHandler {
     public static final Map<UUID, Long> WORMHOLE_ANIMATION_END_MAP = new HashMap<>();

@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class RIGEntity {
     public static final Codec<RIGEntity> CODEC = RecordCodecBuilder.create(rigEntityInstance -> rigEntityInstance.group(
@@ -47,7 +47,7 @@ public class RIGEntity {
         Entity entity = null;
         var rlString = JSGMapping.rl(replacer.apply(name));
         try {
-            var type = ForgeRegistries.ENTITY_TYPES.getValue(rlString);
+            var type = BuiltInRegistries.ENTITY_TYPE.get(rlString);
             if (type != null) {
                 CompoundTag compoundtag = nbt.copy();
                 compoundtag.putString("id", replacer.apply(name));

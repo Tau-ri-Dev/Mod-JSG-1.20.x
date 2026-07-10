@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.common.registry.JSGBlockEntities;
 import dev.tauri.jsg.common.registry.JSGBlocks;
@@ -41,8 +42,8 @@ public class StargateOrlinMemberBE extends StargateAbstractMemberBE {
     }
 
     public void initializeFromItemStack(ItemStack stack) {
-        if (stack.hasTag()) {
-            CompoundTag compound = stack.getTag();
+        if (ItemNBT.hasTag(stack)) {
+            CompoundTag compound = ItemNBT.getTag(stack);
             if (compound != null && compound.contains("openCount")) {
                 openCount = compound.getInt("openCount");
             }
@@ -53,16 +54,16 @@ public class StargateOrlinMemberBE extends StargateAbstractMemberBE {
     // NBT
 
     @Override
-    public void saveAdditional(@NotNull CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.putInt("openCount", openCount);
 
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag compound) {
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         openCount = compound.getInt("openCount");
 
-        super.load(compound);
+        super.loadAdditional(compound, registries);
     }
 }

@@ -5,8 +5,8 @@ import dev.tauri.jsg.common.packet.packets.linkable.UniverseDialerKeyPressedToSe
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DialerVirtualGui extends Screen {
@@ -34,7 +34,7 @@ public class DialerVirtualGui extends Screen {
 
     @Override
     public boolean charTyped(char pCodePoint, int pModifiers) {
-        if (SharedConstants.isAllowedChatCharacter(pCodePoint)) {
+        if (net.minecraft.util.StringUtil.isAllowedChatCharacter(pCodePoint)) {
             JSGPacketHandler.sendToServer(new UniverseDialerKeyPressedToServer(pCodePoint, false, Screen.hasShiftDown(), Screen.hasAltDown(), Screen.hasControlDown()));
             return true;
         }

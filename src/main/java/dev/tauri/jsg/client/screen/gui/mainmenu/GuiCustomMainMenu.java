@@ -32,9 +32,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.gui.ModListScreen;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.gui.ModListScreen;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2i;
 
@@ -385,8 +385,8 @@ public class GuiCustomMainMenu extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double x, double y, double amount) {
-        super.mouseScrolled(x, y, amount);
+    public boolean mouseScrolled(double x, double y, double scrollX, double amount) {
+        super.mouseScrolled(x, y, scrollX, amount);
         if (amount == 0) return false;
         int topY = Integer.MAX_VALUE;
         int leftX = Integer.MAX_VALUE;

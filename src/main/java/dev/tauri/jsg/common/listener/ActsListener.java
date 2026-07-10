@@ -1,6 +1,7 @@
 package dev.tauri.jsg.common.listener;
 
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.event.StargateReceiveTravelerEvent;
 import dev.tauri.jsg.client.screen.gui.mainmenu.MainMenuTheme;
@@ -9,11 +10,11 @@ import dev.tauri.jsg.common.registry.JSGDimensions;
 import dev.tauri.jsg.common.stargate.teleportation.traveler.PlayerTraveler;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.EntityTravelToDimensionEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ActsListener {
     @SubscribeEvent
     public static void onDimChanged(EntityTravelToDimensionEvent e) {

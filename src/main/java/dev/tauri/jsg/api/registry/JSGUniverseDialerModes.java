@@ -6,13 +6,13 @@ import dev.tauri.jsg.common.item.linkable.dialer.modes.UDManualDialMode;
 import dev.tauri.jsg.common.item.linkable.dialer.modes.UDMemoryMode;
 import dev.tauri.jsg.common.item.linkable.dialer.modes.UDNearbyMode;
 import dev.tauri.jsg.common.item.linkable.dialer.modes.UDStatusMode;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.bus.api.IEventBus;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
 
 import java.util.function.Supplier;
 
 public class JSGUniverseDialerModes {
-    public static final DeferredRegister<UniverseDialerMode> REGISTER = DeferredRegister.create(JSGRegistries.UNIVERSE_DIALER_MODES, JSG.MOD_ID);
+    public static final JSGDeferredRegister<UniverseDialerMode> REGISTER = JSGDeferredRegister.create(JSGRegistries.UNIVERSE_DIALER_MODES, JSG.MOD_ID);
 
     public static final Supplier<UDNearbyMode> NEARBY = REGISTER.register("nearby", UDNearbyMode::new);
     public static final Supplier<UDMemoryMode> MEMORY = REGISTER.register("memory", UDMemoryMode::new);

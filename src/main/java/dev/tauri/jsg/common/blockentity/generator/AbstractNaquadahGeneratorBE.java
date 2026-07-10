@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.generator;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.core.common.blockentity.BEStateProvider;
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import dev.tauri.jsg.core.common.blockentity.ScheduledTaskExecutorInterface;
@@ -14,10 +15,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -66,7 +67,7 @@ public class AbstractNaquadahGeneratorBE extends BlockEntity implements BEStateP
     }
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         return null;
     }
 
@@ -107,13 +108,13 @@ public class AbstractNaquadahGeneratorBE extends BlockEntity implements BEStateP
 
     @Override
     @ParametersAreNonnullByDefault
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void saveAdditional(CompoundTag compound) {
-        super.saveAdditional(compound);
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(compound, registries);
     }
 }

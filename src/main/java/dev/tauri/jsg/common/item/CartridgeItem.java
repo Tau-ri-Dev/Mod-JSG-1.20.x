@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.item;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.core.common.item.JSGItem;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +20,8 @@ public class CartridgeItem extends JSGItem {
 
     @Override
     public @NotNull String getDescriptionId(ItemStack stack) {
-        if (stack.hasTag()) {
-            var tag = stack.getOrCreateTag();
+        if (ItemNBT.hasTag(stack)) {
+            var tag = ItemNBT.getOrCreateTag(stack);
             if (tag.contains("inkStatus")) {
                 if (tag.getDouble("inkStatus") < inkPerPage) {
                     return super.getDescriptionId(stack) + ".empty";

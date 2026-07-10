@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.registry;
 
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.core.common.entity.StateType;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGStateTypes {
     public static final RegistryObject<StateType> SPIN_STATE = JSGApi.REGISTRY_HELPER.state().register("spin_state", () -> new StateType("spin_state"));

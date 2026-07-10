@@ -3,7 +3,7 @@ package dev.tauri.jsg.common.command;
 import dev.tauri.jsg.common.command.commands.*;
 import dev.tauri.jsg.core.common.command.JSGAbstractCommand;
 import dev.tauri.jsg.core.common.command.JSGCommand;
-import net.minecraftforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 import java.util.List;
 

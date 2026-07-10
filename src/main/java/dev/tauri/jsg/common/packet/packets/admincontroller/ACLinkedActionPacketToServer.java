@@ -9,7 +9,7 @@ import dev.tauri.jsg.common.item.admincontroller.ACUtils;
 import dev.tauri.jsg.common.item.admincontroller.AdminControllerAction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import java.util.Optional;
 
@@ -38,7 +38,7 @@ public class ACLinkedActionPacketToServer extends ACPacketToServer {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             var sender = ctx.getSender();

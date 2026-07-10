@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.packet.packets.linkable;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerItem;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerMode;
 import dev.tauri.jsg.common.registry.JSGItems;
@@ -9,7 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class UniverseDialerKeyPressedToServer extends JSGPacket {
     char codePoint;
@@ -49,7 +50,7 @@ public class UniverseDialerKeyPressedToServer extends JSGPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         var player = ctx.getSender();
         if (player == null) return;
@@ -57,8 +58,8 @@ public class UniverseDialerKeyPressedToServer extends JSGPacket {
             var hand = getHand(player, JSGItems.UNIVERSE_DIALER.get());
             var stack = player.getItemInHand(hand);
             if (stack.getItem() != JSGItems.UNIVERSE_DIALER.get()) return;
-            if (!stack.hasTag()) return;
-            var compound = stack.getOrCreateTag();
+            if (!ItemNBT.hasTag(stack)) return;
+            var compound = ItemNBT.getOrCreateTag(stack);
             var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
             mode.keyPressed(mode.getTag(compound), stack, player.level(), player, hand, codePoint, backspace, shiftPressed, altPressed, ctrlPressed);
         });

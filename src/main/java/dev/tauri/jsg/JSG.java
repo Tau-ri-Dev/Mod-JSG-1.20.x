@@ -1,5 +1,6 @@
 package dev.tauri.jsg;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.registry.JSGRegistries;
@@ -29,21 +30,20 @@ import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.*;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +65,7 @@ public class JSG implements JSGAddon {
         return JSGMapping.rl(JSG.MOD_ID, path);
     }
 
-    public JSG() {
+    public JSG(IEventBus eventBus) {
         logger = new LoggerWrapper("[" + MOD_ID + "] ", LoggerFactory.getLogger(MOD_NAME));
 
         // API INIT
@@ -106,8 +106,6 @@ public class JSG implements JSGAddon {
         JSGConfig.load();
         JSGConfig.register();
 
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         Constants.init();
         JSGRegistries.init();
         JSGRegistries.register(eventBus);
@@ -118,10 +116,12 @@ public class JSG implements JSGAddon {
         JSGTemplatePoolInjectors.register();
         JSGLootTableInjectors.register();
 
+        dev.tauri.jsg.common.datafixer.JSGDataFixers.registerAliases();
+
         JSGRegistriesInit.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
         Integrations.CCT.addOnLoad(CCDevices::load);
@@ -131,6 +131,9 @@ public class JSG implements JSGAddon {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        // custom registries are frozen now; Forge's onBake callback used to do this
+        dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerMode.calculateModesSequence();
+
         ProgressJSON.INSTANCE.load(JSGCore.modConfigDir);
         try {
             ProgressJSON.INSTANCE.reload(null);
@@ -146,11 +149,11 @@ public class JSG implements JSGAddon {
 
     public static void shutDown() {
         JSG.logger.info("Good bye! Thank you for using Just Stargate Mod :)");
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+        if (FMLEnvironment.dist.isClient()) {
             if (JSGConfig.C_GENERAL.builtSpec == null || !JSGConfig.C_GENERAL.builtSpec.isLoaded()) return;
             if (!FMLEnvironment.production) return;
             JSGConfig.General.mainMenuMusicVolume.set(GuiCustomMainMenu.musicVolume.doubleValue());
-        });
+        }
     }
 
     @SubscribeEvent
@@ -197,7 +200,7 @@ public class JSG implements JSGAddon {
         return Optional.of(logger);
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

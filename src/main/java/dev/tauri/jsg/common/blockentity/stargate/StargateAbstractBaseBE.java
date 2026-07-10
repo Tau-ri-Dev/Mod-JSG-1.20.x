@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.entity.StargateAddressData;
@@ -58,10 +59,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -433,7 +434,7 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     }
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         return getStateManager().getTargetPoint();
     }
 
@@ -512,7 +513,7 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     // NBT
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.put("soundManager", getSoundManager().serializeNBT());
         compound.put("stargateEnergyManager", getEnergyManager().serializeNBT());
         compound.put("stargateDialingManager", getDialingManager().serializeNBT());
@@ -529,11 +530,11 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
             compound.put("address_" + stargateAddress.getSymbolType(), stargateAddress.serializeNBT());
         }
         compound.put("scheduledTasks", ScheduledTask.serializeList(scheduledTasks));
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         if (compound.contains("soundManager")) {
             getSoundManager().deserializeNBT(compound.getCompound("soundManager"));
             getEnergyManager().deserializeNBT(compound.getCompound("stargateEnergyManager"));
@@ -559,7 +560,7 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
             JSG.logger.warn("If loading world used with previous version and nothing game-breaking doesn't happen, please ignore it", e);
         }
 
-        super.load(compound);
+        super.loadAdditional(compound, registries);
     }
 
 

@@ -22,9 +22,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -32,9 +32,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class JSGVillagers {
-    private static final DeferredRegister<VillagerProfession> PROFESSION_REGISTER = JSGApi.REGISTRY_HELPER.villagerProfession();
-    private static final DeferredRegister<VillagerType> TYPE_REGISTER = JSGApi.REGISTRY_HELPER.villagerType();
-    private static final DeferredRegister<PoiType> POI_REGISTER = JSGApi.REGISTRY_HELPER.poi();
+    private static final JSGDeferredRegister<VillagerProfession> PROFESSION_REGISTER = JSGApi.REGISTRY_HELPER.villagerProfession();
+    private static final JSGDeferredRegister<VillagerType> TYPE_REGISTER = JSGApi.REGISTRY_HELPER.villagerType();
+    private static final JSGDeferredRegister<PoiType> POI_REGISTER = JSGApi.REGISTRY_HELPER.poi();
 
     public static final RegistryObject<PoiType> NAQUADAH_CAULDRON_POI = POI_REGISTER.register("naquadah_cauldron", () -> new PoiType(ImmutableSet.copyOf(CoreFluids.MOLTEN_NAQUADAH_RAW.cauldron.get().getStateDefinition().getPossibleStates()), 4, 1));
 

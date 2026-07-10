@@ -11,8 +11,8 @@ import dev.tauri.jsg.api.stargate.type.StargateTypes;
 import dev.tauri.jsg.common.blockentity.stargate.*;
 import dev.tauri.jsg.common.registry.JSGBlocks;
 import dev.tauri.jsg.core.mapping.JSGMapping;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.bus.api.IEventBus;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
 
 import java.util.List;
 

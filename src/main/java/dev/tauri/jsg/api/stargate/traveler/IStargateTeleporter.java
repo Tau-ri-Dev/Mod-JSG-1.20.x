@@ -1,6 +1,6 @@
 package dev.tauri.jsg.api.stargate.traveler;
 
-import net.minecraftforge.common.util.ITeleporter;
+import net.neoforged.neoforge.common.util.ITeleporter;
 
 public interface IStargateTeleporter extends ITeleporter {
 }

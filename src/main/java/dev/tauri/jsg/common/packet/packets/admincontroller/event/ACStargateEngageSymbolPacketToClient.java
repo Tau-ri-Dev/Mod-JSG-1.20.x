@@ -6,7 +6,7 @@ import dev.tauri.jsg.common.packet.packets.admincontroller.ACPacketToClient;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -43,7 +43,7 @@ public class ACStargateEngageSymbolPacketToClient extends ACPacketToClient {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> getGUI().ifPresent(gui -> gui.handleChevronEngageEvent(this)));
     }

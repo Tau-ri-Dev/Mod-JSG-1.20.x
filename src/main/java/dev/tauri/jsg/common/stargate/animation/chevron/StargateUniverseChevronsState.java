@@ -17,7 +17,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -222,7 +222,7 @@ public abstract class StargateUniverseChevronsState extends StargateChevronsStat
             if (buf.readBoolean()) {
                 activation = getActivation(buf);
                 if (activation.stateChange >= (stateManager.stargate.getTime() - getTickCompensation()))
-                    activation.stateChange = (long) Math.ceil(stateManager.stargate.getTime() + (double) Minecraft.getInstance().getPartialTick());
+                    activation.stateChange = (long) Math.ceil(stateManager.stargate.getTime() + (double) Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true));
             }
         }
     }

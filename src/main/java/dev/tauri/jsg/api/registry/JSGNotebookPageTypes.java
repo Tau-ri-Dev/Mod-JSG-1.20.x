@@ -11,7 +11,7 @@ import dev.tauri.jsg.core.common.entity.NotebookPageType;
 import dev.tauri.jsg.core.common.helper.DimensionsHelper;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.mapping.JSGMapping;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGNotebookPageTypes {
 

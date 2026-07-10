@@ -7,7 +7,7 @@ import dev.tauri.jsg.core.common.packet.packets.PositionedPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class StargatePlayerMotionToServer extends PositionedPacket {
     private int entityId;
@@ -50,7 +50,7 @@ public class StargatePlayerMotionToServer extends PositionedPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         var player = ctx.getSender();
         if (player == null) return;

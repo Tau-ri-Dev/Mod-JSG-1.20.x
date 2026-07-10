@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.worldgen;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.client.screen.provider.SGGeneratorGuiProvider;
 import dev.tauri.jsg.common.registry.JSGDimensions;
@@ -11,18 +12,18 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.ModMismatchEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.event.ModMismatchEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.DistExecutor;
+import net.neoforged.fml.common.Mod;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class AbydosUpdateHandler {
 
     @SuppressWarnings("all")

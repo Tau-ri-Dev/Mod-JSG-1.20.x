@@ -14,7 +14,7 @@ import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
 import dev.tauri.jsg.common.blockentity.stargate.*;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.List;
 

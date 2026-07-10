@@ -211,7 +211,7 @@ public class StargateUniverseBaseBE extends StargateClassicBaseBE<StargateUniver
     // NBTs
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         if (fakePos != null) {
             compound.putInt("fakeX", fakePos.getX());
             compound.putInt("fakeY", fakePos.getY());
@@ -220,12 +220,12 @@ public class StargateUniverseBaseBE extends StargateClassicBaseBE<StargateUniver
         if (fakeWorld != null)
             compound.putString("fakeWorld", fakeWorld.location().toString());
 
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         if (compound.contains("fakeX"))
             this.fakePos = new BlockPos(compound.getInt("fakeX"), compound.getInt("fakeY"), compound.getInt("fakeZ"));
         if (compound.contains("fakeWorld") && level != null && level.getServer() != null)

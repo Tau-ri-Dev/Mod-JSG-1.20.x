@@ -26,7 +26,7 @@ import dev.tauri.jsg.core.common.util.math.NumberUtils;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
+import net.neoforged.neoforge.client.ForgeHooksClient;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL14C;
 
@@ -372,10 +372,10 @@ public class MainMenuGateRenderer {
 
             poseStack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = poseStack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
+            buffer.addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer.addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer.addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer.addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
             tesselator.end();
         }, GameRenderer::getPositionTexShader);

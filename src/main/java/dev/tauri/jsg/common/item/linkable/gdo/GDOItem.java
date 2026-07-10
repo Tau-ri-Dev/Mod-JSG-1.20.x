@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.item.linkable.gdo;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.iris.codesender.CodeSender;
@@ -20,13 +21,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -61,7 +63,7 @@ public class GDOItem extends JSGItem {
     }
 
     public boolean sendCode(ItemStack stack, CodeSender sender) {
-        var compound = stack.getOrCreateTag();
+        var compound = ItemNBT.getOrCreateTag(stack);
         if (!compound.contains("linked_gate_pos")) return false;
         var signal = compound.getDouble("signal_strength");
         if (signal <= 0) return false;
@@ -69,7 +71,7 @@ public class GDOItem extends JSGItem {
         BlockPos tilePos = BlockPos.of(compound.getLong("linked_gate_pos"));
         if (sender.getWorld() == null || !(sender.getWorld().getBlockEntity(tilePos) instanceof Stargate<?> gateTile))
             return false;
-        return gateTile.sendIrisCode(sender, stack.getOrCreateTag().getString("entered_code"));
+        return gateTile.sendIrisCode(sender, ItemNBT.getOrCreateTag(stack).getString("entered_code"));
     }
 
     @Override
@@ -83,7 +85,7 @@ public class GDOItem extends JSGItem {
         if (world.getGameTime() % 20 == 0) {
             BlockPos pos = entity.blockPosition();
             int reachSquared = JSGConfig.DialHomeDevice.universeDialerReach.get() * JSGConfig.DialHomeDevice.universeDialerReach.get() * 2;
-            var compound = stack.getOrCreateTag();
+            var compound = ItemNBT.getOrCreateTag(stack);
             if (compound.contains("linked_gate_pos")) {
                 BlockPos tilePos = BlockPos.of(compound.getLong("linked_gate_pos"));
 
@@ -118,7 +120,7 @@ public class GDOItem extends JSGItem {
             }
             while (!found && loop < 100);
 
-            stack.setTag(compound);
+            ItemNBT.setTag(stack, compound);
         }
     }
 
@@ -129,7 +131,7 @@ public class GDOItem extends JSGItem {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
 

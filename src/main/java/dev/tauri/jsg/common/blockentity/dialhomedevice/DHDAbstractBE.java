@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.dialhomedevice;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.dialhomedevice.StargateDHD;
@@ -50,18 +51,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.util.BlockSnapshot;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -332,7 +333,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         var hasPart = isAssembled(part);
         if (disassemble == !hasPart) return;
         if (disassemble) {
-            var eventCancel = MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, getBlockPos(), getBlockState(), player));
+            var eventCancel = NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, getBlockPos(), getBlockState(), player));
             if (eventCancel) return;
             var newStack = new ItemStack(part.self());
             var result = onPartAssembled(part, newStack, true);
@@ -486,7 +487,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         return getStateManager().getTargetPoint();
     }
 
@@ -495,10 +496,10 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     // NBT
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.put("stateManager", stateManager.serializeNBT());
         compound.put("reactorManager", reactorManager.serializeNBT());
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
 
 
         if (linkedGate != null) {
@@ -509,8 +510,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     }
 
     @Override
-    public void load(@Nonnull CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         stateManager.deserializeNBT(compound.getCompound("stateManager"));
         reactorManager.deserializeNBT(compound.getCompound("reactorManager"));
 

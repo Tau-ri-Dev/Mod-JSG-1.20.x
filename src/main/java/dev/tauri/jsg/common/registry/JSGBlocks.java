@@ -15,13 +15,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.List;
 
 public class JSGBlocks {
-    private static final DeferredRegister<Block> REGISTER = JSGApi.REGISTRY_HELPER.block();
+    private static final JSGDeferredRegister<Block> REGISTER = JSGApi.REGISTRY_HELPER.block();
 
     /**
      * INVISIBLE
@@ -72,7 +72,7 @@ public class JSGBlocks {
     /**
      * Natural Blocks
      */
-    public static final RegistryObject<Block> ABYDOS_SAND = Constants.JSG_BLOCK_HELPER.builder("abydos_sand").clearTooltip().setInTabs(List.of(CoreTabs.TAB_BUILDING_BLOCKS)).setProperties(BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.COLOR_YELLOW)).buildFallingGeneric();
+    public static final RegistryObject<Block> ABYDOS_SAND = Constants.JSG_BLOCK_HELPER.builder("abydos_sand").clearTooltip().setInTabs(List.of(CoreTabs.TAB_BUILDING_BLOCKS)).setProperties(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.COLOR_YELLOW)).buildFallingGeneric();
     /**
      * MISC
      */

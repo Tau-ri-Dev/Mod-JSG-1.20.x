@@ -8,7 +8,7 @@ import dev.tauri.jsg.common.stargate.network.symbol.SymbolMilkyWayProvider;
 import dev.tauri.jsg.common.stargate.network.symbol.SymbolPegasusProvider;
 import dev.tauri.jsg.common.stargate.network.symbol.SymbolUniverseProvider;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGSymbolTypes {
     public static final RegistryObject<SymbolType<SymbolMilkyWayEnum>> MILKYWAY = JSGApi.REGISTRY_HELPER.symbolType()

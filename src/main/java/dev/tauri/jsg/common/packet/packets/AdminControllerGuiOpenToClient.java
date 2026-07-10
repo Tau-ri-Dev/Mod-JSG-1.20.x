@@ -4,7 +4,7 @@ import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.common.packet.packets.JSGPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class AdminControllerGuiOpenToClient extends JSGPacket {
     public AdminControllerGuiOpenToClient() {
@@ -54,7 +54,7 @@ public class AdminControllerGuiOpenToClient extends JSGPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             if (displayGui) {

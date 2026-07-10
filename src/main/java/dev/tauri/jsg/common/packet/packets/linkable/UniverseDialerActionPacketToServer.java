@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.packet.packets.linkable;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerClientActionEnum;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerItem;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerMode;
@@ -10,7 +11,7 @@ import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class UniverseDialerActionPacketToServer extends JSGPacket {
 
@@ -43,17 +44,17 @@ public class UniverseDialerActionPacketToServer extends JSGPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             var player = ctx.getSender();
             if (player == null) return;
             var stack = player.getItemInHand(hand);
             if (stack.getItem() != JSGItems.UNIVERSE_DIALER.get()) return;
-            if (!stack.hasTag()) return;
+            if (!ItemNBT.hasTag(stack)) return;
 
-            if (stack.getItem() == JSGItems.UNIVERSE_DIALER.get() && stack.hasTag()) {
-                var compound = stack.getTag();
+            if (stack.getItem() == JSGItems.UNIVERSE_DIALER.get() && ItemNBT.hasTag(stack)) {
+                var compound = ItemNBT.getTag(stack);
                 if (compound != null) {
                     var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
                     var modeTag = compound.getCompound(mode.id + UniverseDialerItem.C_MODE_TAG);

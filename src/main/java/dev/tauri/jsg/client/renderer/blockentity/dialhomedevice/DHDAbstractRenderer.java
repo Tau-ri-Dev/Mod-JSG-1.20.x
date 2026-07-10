@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.renderer.blockentity.dialhomedevice;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.tauri.jsg.api.config.JSGConfig;
@@ -39,8 +40,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -209,12 +210,12 @@ public abstract class DHDAbstractRenderer<S extends DHDAbstractRendererState> im
         if (p == null) return null;
         CompoundTag compound = null;
         ItemStack item = p.getItemInHand(InteractionHand.MAIN_HAND);
-        if (item.hasTag())
-            compound = item.getTag();
+        if (ItemNBT.hasTag(item))
+            compound = ItemNBT.getTag(item);
         else {
             item = p.getItemInHand(InteractionHand.OFF_HAND);
-            if (item.hasTag())
-                compound = item.getTag();
+            if (ItemNBT.hasTag(item))
+                compound = ItemNBT.getTag(item);
         }
         return compound;
     }
