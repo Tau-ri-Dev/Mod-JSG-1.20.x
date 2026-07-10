@@ -161,7 +161,7 @@ public class DimensionStargateGenerator {
 
         Stargate<?> gateBE = null;
         for (var i = 1; i <= 4; i++) {
-            message.set(Component.translatable("createWorld.stargates_generating.searching_stargate", level.dimension().location(), structureOrigin.toShortString(), String.valueOf(i)));
+            message.set(Component.translatable("createWorld.stargates_generating.searching_stargate", level.dimension().location().toString(), structureOrigin.toShortString(), String.valueOf(i)));
             gateBE = LinkingHelper.findClosestTile(level, structureOrigin, JSGBlockTags.ALL_STARGATE_BASES, Stargate.class,
                     60 + 20 * i, 60 + 20 * i, (pos) -> {
                         if (box.get() == null) return true;
