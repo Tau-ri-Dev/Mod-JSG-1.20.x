@@ -123,6 +123,7 @@ public class JSG implements JSGAddon {
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::loadCompleteServer);
+        eventBus.addListener(this::registerSpawnPlacements);
         NeoForge.EVENT_BUS.register(this);
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
@@ -130,6 +131,14 @@ public class JSG implements JSGAddon {
         // OC2 has no 1.21.x build; its devices load hook returns when the integration is re-enabled (enable_oc2)
 
         JSGAddons.registerAddon(this);
+    }
+
+    private void registerSpawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event) {
+        event.register(dev.tauri.jsg.common.registry.JSGEntities.MASTADGE.get(),
+                net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.animal.Animal::checkAnimalSpawnRules,
+                net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
