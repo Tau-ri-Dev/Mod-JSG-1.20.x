@@ -213,7 +213,8 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
             stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f projection = RenderSystem.getProjectionMatrix();
-            Matrix4f matrix = stack.last().pose();
+            // compose with the global model-view - on 1.21 it carries the camera rotation
+            Matrix4f matrix = new Matrix4f(RenderSystem.getModelViewMatrix()).mul(stack.last().pose());
             finalVertexBuffer.drawWithShader(matrix, projection, Objects.requireNonNull(RenderSystem.getShader()));
             VertexBuffer.unbind();
         });
