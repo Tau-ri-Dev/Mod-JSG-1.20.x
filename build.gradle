@@ -101,7 +101,6 @@ dependencies {
     localRuntime "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cct_version}"
 
     localRuntime "maven.modrinth:stellarview:${stellarview_version}"
-    localRuntime "dev.matrixlab:webp4j:1.4.0"
 
     // OC2 / Tinkers: no 1.21.x builds (see enable_oc2); Create/Mekanism runtime deps
     // return in M9/M10 once integration code is ported.
