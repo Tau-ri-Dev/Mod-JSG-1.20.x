@@ -66,16 +66,22 @@ The mod (`jsg`, this repo, 474 Java files / ~49k LOC) hard-depends on the framew
   at time of writing — check `git log`).
 
 ### REMAINING
-- **M10 gate 3 (runClient smoke)** — needs a user at the screen: world -> place gate+DHD -> GUIs ->
-  dial -> walk through -> dialer GUI -> CC `peripheral.find` + method -> config screen -> JEI.
-  Then networked dial client<->dedicated server (real payload encoding over the wire).
+- **M10 gate 3 (runClient smoke)** — in progress (user-driven). Done so far: world loads, gate
+  constructs + merges and renders in place (model-view compose fix), DHD places/renders, gate
+  right-click works (use() -> useItemOn conversion in 4 blocks), DHD raycaster buttons work
+  (top buttons + screwdriver disassembly verified 2026-07-12; the earlier "dead DHD" was stale
+  client state on a block placed during a broken session — fresh placements sync fine).
+  Still to smoke: GUIs -> dial -> walk through -> dialer GUI -> CC `peripheral.find` + method ->
+  config screen -> JEI. Then networked dial client<->dedicated server (real payload encoding).
 - Visual pass over GUIs (core widget framework vs 1.21 gui atlas - silent mis-renders possible).
 - Verify structures generate in a fresh world (AT'd JigsawPlacement; abydos worldgen).
 - Known deferred: webp4j jarJar embedding before shipping; jukebox_song JSONs for the music discs
   (minecraft:music_discs item tag is gone; discs need `minecraft:jukebox_playable` data to work in
   jukeboxes); Create/Mekanism runtime-only integrations not wired into dev runs (no compile deps);
   pre-existing (also broken on 1.20.1): RIGEntity `%UUID%` NBT template fails TagParser at
-  StargateRIGConfig defaults (wandering_trader/trader_llama).
+  StargateRIGConfig defaults (wandering_trader/trader_llama); item models/textures absent for
+  `milkyway_dhd_upgrades_cover`, `pegasus_dhd_upgrades_cover`, `dhd_naquadah_tank` (no model JSON
+  or texture on 1.20.1 either -> purple/black item; needs art upstream).
 
 ### Notes for the next session
 - Spurious permission declines can hit Read/Write/Edit of arbitrary files; shell-based
