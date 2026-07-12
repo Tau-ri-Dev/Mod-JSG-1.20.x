@@ -261,6 +261,16 @@
   "block.jsg.toaster": "Toaster",
   "block.jsg.printer": "Printer",
 
+  "block.jsg.zpm": "Zero Point Module (ZPM)",
+  "block.jsg.creative_zpm": "Creative Zero Point Module (ZPM)",
+  "block.jsg.zpm_hub_block": "Atlantis ZPM Hub",
+  "block.jsg.zpm_slot_block": "ZPM Slot",
+  "gui.zpmhub.inProgress": "ZPMs are moving!",
+  "gui.zpmhub.slideDown": "Engage ZPMs",
+  "gui.zpmhub.slideUp": "Disengage ZPMs",
+  "gui.zpmhub.alert": "ZPM slots are locked!",
+  "gui.jsg.config_child.zpm": "ZPM Config",
+
   "_comment400": "-------------------- ENTITIES --------------------",
 
   "entity.minecraft.villager.jsg.priest_desert": "Priest",

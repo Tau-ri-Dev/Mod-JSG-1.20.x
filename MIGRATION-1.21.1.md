@@ -159,6 +159,20 @@ The mod (`jsg`, this repo, 474 Java files / ~49k LOC) hard-depends on the framew
   dialer GUI → CC `peripheral.find` + method → config screen → JEI; 3. `runServer` reaches "Done"
   (client-class leakage check), then networked dial client↔dedicated server (real payload encoding).
 
+## New features ported alongside the migration
+- **ZPM forward-port (2026-07-12)**: Zero Point Module, Creative ZPM, ZPM Hub, ZPM Slot ported from the
+  1.12.2 codebase (Tau-ri-Dev/Mod-JSG-1.12.2) — absent from upstream 4.x. Built on existing core machinery:
+  `EnergyItem`-style item energy (custom_data `energy`, long-capable `ItemEnergyStorage` via
+  `Capabilities.EnergyStorage.ITEM`), `LargeEnergyStorage` aggregation in the hub (replaces 1.12
+  `ZPMHubEnergyStorage` + custom `CapabilityEnergyZPM` — standard FE caps now), core state system
+  (`CapacitorPowerLevelUpdate`, new `ZPMHubRendererState`/`ZPMHubContainerGuiUpdate`). New config child
+  `JSGConfig.ZPM` (capacity 4.398T FE, hub throughput 1,043,600 FE/t). Assets (OBJ models, TESR textures,
+  Blockbench item models) copied from the local `jsg-1.12/` extracted jar (dir is git-excluded).
+  Verified on dedicated server via RCON: place/mine keeps energy (loot `copy_custom_data`
+  energyStorage.energy→energy), hub pushes exactly maxTransfer/t into adjacent FE receivers and drains the
+  inserted ZPM stack 1:1, disengaged slots stop transfer, creative ZPM is infinite. Client visuals
+  (renderers/GUIs) not yet eyeballed. 1.12 ZPM_HUB/ZPM_SLOT advancements not ported (no criterions in 4.x).
+
 ## Top risks
 1. SimplePacketHandler redesign ripples (24 packets, thread-model change) — test on dedicated server.
 2. NBT→DataComponents — world-breaking for old saves (accepted).

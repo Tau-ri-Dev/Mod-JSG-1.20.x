@@ -4,6 +4,7 @@ import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.packet.packets.AdminControllerGuiOpenToClient;
 import dev.tauri.jsg.common.packet.packets.PrinterButtonClickedToServer;
+import dev.tauri.jsg.common.packet.packets.ZPMHubAnimationToServer;
 import dev.tauri.jsg.common.packet.packets.ProgressUpdateToClient;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACEntryActionPacketToServer;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACLinkedActionPacketToServer;
@@ -48,6 +49,7 @@ public class JSGPacketHandler {
         HANDLER.registerPacketToServer(GDOCodeKeyPressedToServer.class);
         HANDLER.registerPacketToServer(UniverseDialerKeyPressedToServer.class);
         HANDLER.registerPacketToServer(PrinterButtonClickedToServer.class);
+        HANDLER.registerPacketToServer(ZPMHubAnimationToServer.class);
         HANDLER.registerPacketToServer(StargatePlayerMotionToServer.class);
         HANDLER.registerPacketToServer(ACRenameGatePacketToServer.class);
         HANDLER.registerPacketToServer(ACEntryActionPacketToServer.class);

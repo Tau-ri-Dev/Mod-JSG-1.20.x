@@ -3,10 +3,13 @@ package dev.tauri.jsg.common.capability;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.config.JSGConfig;
+import dev.tauri.jsg.common.item.energy.ZPMItemBlock;
+import dev.tauri.jsg.common.registry.JSGBlocks;
 import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
 import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
+import dev.tauri.jsg.common.blockentity.energy.ZPMHubBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractMemberBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
@@ -36,11 +39,16 @@ public class JSGCapabilityRegistration {
                         && member.getLevel() != null && member.getBasePos() != null
                         && member.getLevel().getBlockEntity(member.getBasePos()) instanceof Stargate<?> baseGate)
                     return baseGate.getEnergyManager().getStorageForCaps();
+                if (be instanceof ZPMHubBE hub)
+                    return hub.getEnergyStorage();
                 return null;
             });
 
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type, (be, side) ->
-                    be instanceof StargateClassicBaseBE gate ? gate.getInventoryHandler() : null);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type, (be, side) -> {
+                if (be instanceof StargateClassicBaseBE gate) return gate.getInventoryHandler();
+                if (be instanceof ZPMHubBE hub) return hub.getItemHandler();
+                return null;
+            });
 
             event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type, (be, side) ->
                     be instanceof DHDAbstractBE dhd ? dhd.getExposedFluidHandler() : null);
@@ -58,5 +66,9 @@ public class JSGCapabilityRegistration {
         event.registerItem(Capabilities.FluidHandler.ITEM,
                 (stack, ctx) -> new DHDFluidHandlerItemStack(stack, JSGConfig.DialHomeDevice.fluidCapacity.get()),
                 JSGItems.DHD_NAQUADAH_TANK.get());
+
+        event.registerItem(Capabilities.EnergyStorage.ITEM,
+                (stack, ctx) -> ((ZPMItemBlock) stack.getItem()).createEnergyStorage(stack),
+                JSGBlocks.ZPM.get().asItem(), JSGBlocks.CREATIVE_ZPM.get().asItem());
     }
 }

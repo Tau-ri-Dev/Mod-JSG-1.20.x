@@ -10,6 +10,13 @@ import dev.tauri.jsg.common.blockentity.ToasterBE;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDMilkyWayBE;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDPegasusBE;
 import dev.tauri.jsg.common.blockentity.generator.OrbanNaquadahGeneratorBE;
+import dev.tauri.jsg.client.renderer.blockentity.energy.ZPMHubRenderer;
+import dev.tauri.jsg.client.renderer.blockentity.energy.ZPMRenderer;
+import dev.tauri.jsg.client.renderer.blockentity.energy.ZPMSlotRenderer;
+import dev.tauri.jsg.common.blockentity.energy.ZPMBE;
+import dev.tauri.jsg.common.blockentity.energy.ZPMCreativeBE;
+import dev.tauri.jsg.common.blockentity.energy.ZPMHubBE;
+import dev.tauri.jsg.common.blockentity.energy.ZPMSlotBE;
 import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
 import dev.tauri.jsg.common.blockentity.stargate.*;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
@@ -41,6 +48,10 @@ public class JSGBlockEntities {
     public static final RegistryObject<BlockEntityType<DHDPegasusBE>> DHD_PEGASUS = JSGApi.REGISTRY_HELPER.be().register("dhd_pegasus", RegistryHelper.beSupplier(DHDPegasusBE::new, JSGBlocks.DHD_PEGASUS));
 
     public static final RegistryObject<BlockEntityType<OrbanNaquadahGeneratorBE>> ORBAN_NAQUADAH_GENERATOR = null; //registerBE("orban_naquadah_generator", OrbanNaquadahGeneratorBE::new, BlockRegistry.ORBAN_NAQUADAH_GENERATOR_BLOCK);
+    public static final RegistryObject<BlockEntityType<ZPMBE>> ZPM = JSGApi.REGISTRY_HELPER.be().register("zpm", RegistryHelper.beSupplier(ZPMBE::new, JSGBlocks.ZPM));
+    public static final RegistryObject<BlockEntityType<ZPMCreativeBE>> ZPM_CREATIVE = JSGApi.REGISTRY_HELPER.be().register("creative_zpm", RegistryHelper.beSupplier(ZPMCreativeBE::new, JSGBlocks.CREATIVE_ZPM));
+    public static final RegistryObject<BlockEntityType<ZPMHubBE>> ZPM_HUB = JSGApi.REGISTRY_HELPER.be().register("zpm_hub_block", RegistryHelper.beSupplier(ZPMHubBE::new, JSGBlocks.ZPM_HUB));
+    public static final RegistryObject<BlockEntityType<ZPMSlotBE>> ZPM_SLOT = JSGApi.REGISTRY_HELPER.be().register("zpm_slot_block", RegistryHelper.beSupplier(ZPMSlotBE::new, JSGBlocks.ZPM_SLOT));
     public static final RegistryObject<BlockEntityType<ToasterBE>> TOASTER = JSGApi.REGISTRY_HELPER.be().register("toaster", RegistryHelper.beSupplier(ToasterBE::new, JSGBlocks.TOASTER));
     public static final RegistryObject<BlockEntityType<PrinterBE>> PRINTER = JSGApi.REGISTRY_HELPER.be().register("printer", RegistryHelper.beSupplier(PrinterBE::new, JSGBlocks.PRINTER));
 
@@ -56,7 +67,11 @@ public class JSGBlockEntities {
                 new RegistryHelper.BlockEntityRendererPair<>(STARGATE_MOVIE_BASE_BE.get(), StargateMovieRenderer::new),
                 new RegistryHelper.BlockEntityRendererPair<>(DHD_MILKYWAY.get(), DHDMilkyWayRenderer::new),
                 new RegistryHelper.BlockEntityRendererPair<>(DHD_PEGASUS.get(), DHDPegasusRenderer::new),
-                new RegistryHelper.BlockEntityRendererPair<>(PRINTER.get(), PrinterRenderer::new)
+                new RegistryHelper.BlockEntityRendererPair<>(PRINTER.get(), PrinterRenderer::new),
+                new RegistryHelper.BlockEntityRendererPair<>(ZPM.get(), ZPMRenderer::new),
+                new RegistryHelper.BlockEntityRendererPair<>(ZPM_CREATIVE.get(), ZPMRenderer::new),
+                new RegistryHelper.BlockEntityRendererPair<>(ZPM_HUB.get(), ZPMHubRenderer::new),
+                new RegistryHelper.BlockEntityRendererPair<>(ZPM_SLOT.get(), ZPMSlotRenderer::new)
                 //new RegistryHelper.BlockEntityRendererPair<>(ORBAN_NAQUADAH_GENERATOR.get(), OrbanNaquadahGeneratorRenderer::new)
         ));
     }

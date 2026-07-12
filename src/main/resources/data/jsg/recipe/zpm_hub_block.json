@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "jsg_core:pegasus_crystal"
+    },
+    "C": {
+      "item": "jsg_core:circuit_control_crystal"
+    },
+    "T": {
+      "item": "jsg_core:titanium_ingot"
+    },
+    "R": {
+      "item": "jsg_core:red_crystal"
+    },
+    "N": {
+      "item": "jsg_core:plate_naquadah_raw"
+    }
+  },
+  "pattern": [
+    "RNR",
+    "NCN",
+    "TPT"
+  ],
+  "result": {"id": "jsg:zpm_hub_block"
+  },
+  "show_notification": true
+}

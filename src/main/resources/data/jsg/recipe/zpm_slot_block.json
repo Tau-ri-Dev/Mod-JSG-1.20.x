@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "jsg_core:circuit_control_crystal"
+    },
+    "T": {
+      "item": "jsg_core:plate_titanium"
+    },
+    "R": {
+      "item": "jsg_core:red_crystal"
+    },
+    "W": {
+      "item": "jsg_core:white_crystal"
+    },
+    "Y": {
+      "item": "jsg_core:yellow_crystal"
+    }
+  },
+  "pattern": [
+    "YTR",
+    "TCT",
+    "RTW"
+  ],
+  "result": {"id": "jsg:zpm_slot_block"
+  },
+  "show_notification": true
+}
