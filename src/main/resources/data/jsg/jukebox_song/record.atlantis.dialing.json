@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.jsg.music_disc_atlantis_dialing.desc"
+  },
+  "length_in_seconds": 131.0,
+  "sound_event": "jsg:record.atlantis.dialing"
+}
