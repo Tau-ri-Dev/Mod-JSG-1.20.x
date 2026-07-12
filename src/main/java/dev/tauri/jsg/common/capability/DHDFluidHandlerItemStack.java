@@ -21,7 +21,7 @@ public class DHDFluidHandlerItemStack extends FluidHandlerItemStack {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-        ItemNBT.getOrCreateTag(container).putInt("savedCapacity", capacity);
+        ItemNBT.update(container, tag -> tag.putInt("savedCapacity", capacity));
     }
 
     @Override

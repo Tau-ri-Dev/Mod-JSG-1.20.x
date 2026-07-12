@@ -62,6 +62,7 @@ public class UniverseDialerKeyPressedToServer extends JSGPacket {
             var compound = ItemNBT.getOrCreateTag(stack);
             var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
             mode.keyPressed(mode.getTag(compound), stack, player.level(), player, hand, codePoint, backspace, shiftPressed, altPressed, ctrlPressed);
+            ItemNBT.setTag(stack, compound);
         });
     }
 

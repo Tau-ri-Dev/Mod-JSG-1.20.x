@@ -83,10 +83,9 @@ public class UniverseDialerItem extends JSGItem {
             compound.putString(C_MODE, mode.id.toString());
             changed = true;
         }
-        if (changed)
-            ItemNBT.setTag(stack, compound);
-
         mode.inventoryTick(stack, mode.getTag(compound), world, entity, itemSlot, isSelected);
+        // ItemNBT tags are copies of the custom_data component - persist the mode's mutations too
+        ItemNBT.setTag(stack, compound);
     }
 
     @Override
@@ -126,7 +125,10 @@ public class UniverseDialerItem extends JSGItem {
         if (!mode.id.toString().equals(compound.getString(C_MODE)))
             return super.use(world, player, hand);
 
-        if (mode.onUse(mode.getTag(compound), stack, world, player, hand, player.isShiftKeyDown()))
+        var result = mode.onUse(mode.getTag(compound), stack, world, player, hand, player.isShiftKeyDown());
+        if (!world.isClientSide)
+            ItemNBT.setTag(stack, compound);
+        if (result)
             return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
         return super.use(world, player, hand);
     }

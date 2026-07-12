@@ -57,7 +57,8 @@ public class UniverseDialerActionPacketToServer extends JSGPacket {
                 var compound = ItemNBT.getTag(stack);
                 if (compound != null) {
                     var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
-                    var modeTag = compound.getCompound(mode.id + UniverseDialerItem.C_MODE_TAG);
+                    // ItemNBT tags are copies of the custom_data component - mutations must be written back
+                    var modeTag = mode.getTag(compound);
 
                     if (action == UniverseDialerClientActionEnum.MODE_CHANGE) {
                         if (next) // message.offset < 0
@@ -66,10 +67,12 @@ public class UniverseDialerActionPacketToServer extends JSGPacket {
                             mode = mode.prev();
 
                         compound.putString(UniverseDialerItem.C_MODE, mode.id.toString());
+                        ItemNBT.setTag(stack, compound);
                         JSGSoundHelper.playSoundToPlayer(player, JSGSoundEvents.UNIVERSE_DIALER_MODE_CHANGE, player.blockPosition());
                         return;
                     }
                     mode.handlePacketToServer(action, modeTag, this, ctx);
+                    ItemNBT.setTag(stack, compound);
                 }
             }
         });
