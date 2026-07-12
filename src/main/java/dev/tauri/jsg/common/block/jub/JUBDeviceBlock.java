@@ -17,16 +17,17 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import net.minecraft.world.ItemInteractionResult;
 
 public abstract class JUBDeviceBlock extends TickableBEBlock {
     public JUBDeviceBlock(Properties properties) {
         super(properties);
     }
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             var deviceBE = level.getBlockEntity(pos);
             if (deviceBE != null) {
@@ -34,7 +35,7 @@ public abstract class JUBDeviceBlock extends TickableBEBlock {
                 deviceCapOpt.ifPresent(deviceCap -> player.sendSystemMessage(Component.literal(deviceCap.getBus().uuid.toString())));
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

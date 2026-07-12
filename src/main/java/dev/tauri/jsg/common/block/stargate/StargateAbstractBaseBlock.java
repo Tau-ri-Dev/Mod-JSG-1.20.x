@@ -55,6 +55,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import net.minecraft.world.ItemInteractionResult;
 
 public abstract class StargateAbstractBaseBlock extends TickableBEBlock implements dev.tauri.jsg.core.common.block.util.IItemBlock, IStargateBlock, dev.tauri.jsg.core.common.block.util.IHighlightBlock, SimpleWaterloggedBlock, ITabbedItem, dev.tauri.jsg.core.common.block.util.WrenchRotatable {
     protected static final Properties STARGATE_BASE_PROPS = Properties.of()
@@ -141,10 +142,10 @@ public abstract class StargateAbstractBaseBlock extends TickableBEBlock implemen
     }
 
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         boolean shift = player.isShiftKeyDown();
         boolean autoBuild = false;
         boolean guiDisplayed = false;
@@ -160,8 +161,8 @@ public abstract class StargateAbstractBaseBlock extends TickableBEBlock implemen
                     }
                 }
             }
-        } else return InteractionResult.sidedSuccess(true);
-        return (!shift && (autoBuild || guiDisplayed || camoChanged)) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        } else return ItemInteractionResult.sidedSuccess(true);
+        return (!shift && (autoBuild || guiDisplayed || camoChanged)) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.FAIL;
     }
 
     protected abstract boolean showGateInfo(Player player, InteractionHand hand, Level world, BlockPos pos);

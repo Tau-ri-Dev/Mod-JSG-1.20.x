@@ -43,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import net.minecraft.world.ItemInteractionResult;
 
 public class PrinterBlock extends TickableBEBlock implements ITabbedItem, IHighlightBlock {
     public PrinterBlock() {
@@ -55,25 +56,25 @@ public class PrinterBlock extends TickableBEBlock implements ITabbedItem, IHighl
     }
 
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof PrinterBE printer) {
                 if (printer.tryInsertCartridge(player.getItemInHand(hand))) {
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
                 if (player.getItemInHand(hand).isEmpty()) {
                     var stack = printer.getNextEmptyAndRemove();
                     if (stack != null) {
                         ItemHandlerHelper.spawnItemStack(level, pos.above(), stack);
-                        return InteractionResult.SUCCESS;
+                        return ItemInteractionResult.SUCCESS;
                     }
                 }
             }
         }
-        return InteractionResult.FAIL;
+        return ItemInteractionResult.FAIL;
     }
 
     @Override

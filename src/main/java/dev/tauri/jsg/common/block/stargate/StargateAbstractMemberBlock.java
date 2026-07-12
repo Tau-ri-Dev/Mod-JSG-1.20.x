@@ -42,6 +42,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 import static dev.tauri.jsg.common.block.stargate.StargateAbstractBaseBlock.getNextDirections;
+import net.minecraft.world.ItemInteractionResult;
 
 public abstract class StargateAbstractMemberBlock extends TickableBEBlock implements IStargateBlock, dev.tauri.jsg.core.common.block.util.IHighlightBlock, SimpleWaterloggedBlock, dev.tauri.jsg.core.common.block.util.WrenchRotatable {
     protected static final Properties STARGATE_MEMBER_PROPS = Properties.of()
@@ -95,10 +96,10 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
         return blockState.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.FACING_HORIZONTAL_PROPERTY, BlockPosHelper.flipDir(blockState.getValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.FACING_HORIZONTAL_PROPERTY), mirror));
     }
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         boolean shift = player.isShiftKeyDown();
         boolean guiDisplayed = false;
         boolean camoChanged = false;
@@ -114,8 +115,8 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
                     }
                 }
             }
-        } else return InteractionResult.sidedSuccess(true);
-        return (!shift && (guiDisplayed || camoChanged)) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        } else return ItemInteractionResult.sidedSuccess(true);
+        return (!shift && (guiDisplayed || camoChanged)) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.FAIL;
     }
 
     @Override
