@@ -24,11 +24,13 @@ import dev.tauri.jsg.core.client.renderer.EmissiveRenderer;
 import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import dev.tauri.jsg.core.common.util.math.NumberUtils;
 import dev.tauri.jsg.core.mapping.JSGMapping;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.ClientHooks;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL14C;
+import org.lwjgl.opengl.GL46C;
 
 import static dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu.graphics;
 import static dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu.poseStack;
@@ -60,7 +62,7 @@ public class MainMenuGateRenderer {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        translationZ = ((ClientHooks.getGuiFarPlane() - 1200) / size);
+        translationZ = 0; //((ClientHooks.getGuiFarPlane() - 40000) / size);
         poseStack.translate(x, y, 0);
         poseStack.scale(size, -size, size);
         poseStack.translate(0, 0, -translationZ);
@@ -360,6 +362,7 @@ public class MainMenuGateRenderer {
         var buffer = new com.mojang.blaze3d.vertex.BufferBuilder[1];
         float tileSize = 0.270f;
         EmissiveRenderer.renderWithLightOverlay(poseStack, 0, false, () -> {
+            GL46C.glEnable(GL46C.GL_DEPTH_CLAMP);
             symbol.bindIconTexture(null, StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
             buffer[0] = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
@@ -367,7 +370,7 @@ public class MainMenuGateRenderer {
 
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
-            poseStack.translate(NumberUtils.round(slotPos[0], 3), NumberUtils.round(slotPos[1], 3), translationZ + 0.17);
+            poseStack.translate(NumberUtils.round(slotPos[0], 3), NumberUtils.round(slotPos[1], 3), LayeredDraw.Z_SEPARATION + 2.05 + 0.17);
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
 
             poseStack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
@@ -378,6 +381,7 @@ public class MainMenuGateRenderer {
             buffer[0].addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
             com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buffer[0].buildOrThrow());
+            GL46C.glDisable(GL46C.GL_DEPTH_CLAMP);
         }, GameRenderer::getPositionTexShader);
     }
 }
