@@ -1,6 +1,5 @@
 package dev.tauri.jsg.client.renderer.item.dialer;
 
-import dev.tauri.jsg.core.common.util.ItemNBT;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -11,6 +10,7 @@ import dev.tauri.jsg.core.client.renderer.AbstractItemBEWLR;
 import dev.tauri.jsg.core.client.renderer.HandPosition;
 import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
 import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.HumanoidArm;
@@ -31,29 +31,25 @@ public class UniverseDialerBEWLR extends AbstractItemBEWLR {
 
         float f = (itemDisplayContext == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || itemDisplayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND ? 1 : -1);
 
-        if(itemDisplayContext == ItemDisplayContext.GUI){
+        if (itemDisplayContext == ItemDisplayContext.GUI) {
             stack.scale(0.2f, 0.2f, 0.2f);
             stack.mulPose(Axis.XP.rotationDegrees(-90));
             stack.mulPose(Axis.YP.rotationDegrees(-90));
             stack.translate(1.5, 0, 0);
-        }
-        else if(itemDisplayContext == ItemDisplayContext.GROUND){
+        } else if (itemDisplayContext == ItemDisplayContext.GROUND) {
             stack.scale(0.2f, 0.2f, 0.2f);
-        }
-        else if(itemDisplayContext == ItemDisplayContext.FIXED){
+        } else if (itemDisplayContext == ItemDisplayContext.FIXED) {
             stack.translate(0.5, 0.5, 0.43);
             stack.mulPose(Axis.XP.rotationDegrees(90));
             stack.scale(0.2f, 0.2f, 0.2f);
-        }
-        else {
-            if(itemDisplayContext.firstPerson()) {
+        } else {
+            if (itemDisplayContext.firstPerson()) {
                 stack.translate(0, -0.1, 1);
                 stack.scale(0.2f, 0.2f, 0.2f);
                 stack.mulPose(Axis.YP.rotationDegrees(190));
                 stack.mulPose(Axis.XP.rotationDegrees(50));
                 stack.mulPose(Axis.ZN.rotationDegrees(-10 * f));
-            }
-            else {
+            } else {
                 stack.translate(0, -0.7, 1);
                 stack.scale(0.2f, 0.2f, 0.2f);
                 stack.mulPose(Axis.YP.rotationDegrees(190));
@@ -62,44 +58,42 @@ public class UniverseDialerBEWLR extends AbstractItemBEWLR {
             }
         }
 
-        var compound = ItemNBT.getTag(itemStack);
-        if (compound != null) {
-            var biomeOverlay = CoreBiomeOverlays.NORMAL.get();
-            if (compound.contains(UniverseDialerItem.C_BIOME_OVERLAY)) {
-                biomeOverlay = BiomeOverlayInstance.byId(JSGMapping.rl(compound.getString(UniverseDialerItem.C_BIOME_OVERLAY)));
-            }
-
-            ElementEnum.UNIVERSE_DIALER.bindTexture(biomeOverlay).render(stack, bufferSource, light);
-            RenderSystem.enableDepthTest();
-
-            stack.pushPose();
-            var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
-            var modeTag = mode.getTag(compound);
-
-            boolean notLinked = (mode.matchBlocks != null && !modeTag.contains(UniverseDialerMode.C_LINKED_POS));
-
-            stack.mulPose(Axis.XP.rotationDegrees(90));
-            stack.mulPose(Axis.YP.rotationDegrees(180));
-            stack.translate(0.65, 0, 1.1865);
-            stack.scale(1, -1, 1);
-            stack.translate(-0.2, 0.8, -1);
-
-            stack.pushPose();
-            RenderSystem.enableBlend();
-
-            if (notLinked)
-                UDModesRenderUtils.drawWaringGlyph(stack, bufferSource, light, new Color(0xffffffff, true));
-
-            IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, 0, 0, mode.localize(), true, false);
-            IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, -0.7f, 0, mode.next().localize(), false, false);
-
-            RenderSystem.enableDepthTest();
-            mode.getScreen().render(itemStack, modeTag, itemDisplayContext, stack, bufferSource, light, overlay);
-            RenderSystem.disableBlend();
-
-            stack.popPose();
-            stack.popPose();
+        var compound = ItemNBT.getOrCreateTag(itemStack);
+        var biomeOverlay = CoreBiomeOverlays.NORMAL.get();
+        if (compound.contains(UniverseDialerItem.C_BIOME_OVERLAY)) {
+            biomeOverlay = BiomeOverlayInstance.byId(JSGMapping.rl(compound.getString(UniverseDialerItem.C_BIOME_OVERLAY)));
         }
+
+        ElementEnum.UNIVERSE_DIALER.bindTexture(biomeOverlay).render(stack, bufferSource, light);
+        RenderSystem.enableDepthTest();
+
+        stack.pushPose();
+        var mode = UniverseDialerMode.valueOf(JSGMapping.rl(compound.getString(UniverseDialerItem.C_MODE))).orElse(UniverseDialerMode.getDefault());
+        var modeTag = mode.getTag(compound);
+
+        boolean notLinked = (mode.matchBlocks != null && !modeTag.contains(UniverseDialerMode.C_LINKED_POS));
+
+        stack.mulPose(Axis.XP.rotationDegrees(90));
+        stack.mulPose(Axis.YP.rotationDegrees(180));
+        stack.translate(0.65, 0, 1.1865);
+        stack.scale(1, -1, 1);
+        stack.translate(-0.2, 0.8, -1);
+
+        stack.pushPose();
+        RenderSystem.enableBlend();
+
+        if (notLinked)
+            UDModesRenderUtils.drawWaringGlyph(stack, bufferSource, light, new Color(0xffffffff, true));
+
+        IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, 0, 0, mode.localize(), true, false);
+        IUniverseDialerScreen.drawStringWithShadow(stack, bufferSource, -0.7f, 0, mode.next().localize(), false, false);
+
+        RenderSystem.enableDepthTest();
+        mode.getScreen().render(itemStack, modeTag, itemDisplayContext, stack, bufferSource, light, overlay);
+        RenderSystem.disableBlend();
+
+        stack.popPose();
+        stack.popPose();
         stack.popPose();
         RenderSystem.disableDepthTest();
     }
@@ -109,8 +103,7 @@ public class UniverseDialerBEWLR extends AbstractItemBEWLR {
         if (handSide == HumanoidArm.RIGHT) {
             stack.mulPose(Axis.YP.rotationDegrees(120));
             stack.translate(0.5, 0.2, -0.4);
-        }
-        else {
+        } else {
             stack.mulPose(Axis.YP.rotationDegrees(-120));
             stack.translate(-0.5, 0.2, -0.4);
         }
