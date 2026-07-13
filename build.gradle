@@ -89,7 +89,7 @@ dependencies {
     compileOnly "org.jspecify:jspecify:1.0.0"
 
     // jsg-core: built locally from the sibling project (no publishing)
-    implementation files("Mod-JSGCore-1.21.x/build/libs/jsg-core-${minecraft_version}-${core_version}.jar")
+    implementation files("Mod-JSGCore/build/libs/jsg-core-${minecraft_version}-${core_version}.jar")
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
