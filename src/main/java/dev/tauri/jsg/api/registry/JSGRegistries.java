@@ -1,6 +1,5 @@
 package dev.tauri.jsg.api.registry;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.stargate.type.StargateType;
@@ -12,7 +11,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = JSG.MOD_ID)
 public class JSGRegistries {
     private static final List<DeferredRegister<?>> REGISTERS = new ArrayList<>();
 

@@ -1,6 +1,5 @@
 package dev.tauri.jsg.client.listener;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu;
@@ -9,13 +8,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 
-@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = JSG.MOD_ID, value = Dist.CLIENT)
 public class ClientListener {
 
     @SubscribeEvent

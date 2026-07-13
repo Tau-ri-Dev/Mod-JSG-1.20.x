@@ -1,15 +1,14 @@
 package dev.tauri.jsg.datagen;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.datagen.custom.JSGRIGWavesProvider;
 import dev.tauri.jsg.datagen.loot.JSGLootTableProvider;
 import dev.tauri.jsg.datagen.tag.*;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = JSG.MOD_ID)
 public class JSGDataGenerators {
     @SubscribeEvent
     public static void generate(GatherDataEvent event) {
@@ -33,6 +32,6 @@ public class JSGDataGenerators {
 
         generator.addProvider(event.includeServer(), new JSGRIGWavesProvider(output));
 
-        generator.addProvider(event.includeServer(), JSGAdvancementProvider.create(output, lookupProvider, exFileHelper));
+        //generator.addProvider(event.includeServer(), JSGAdvancementProvider.create(output, lookupProvider, exFileHelper));
     }
 }

@@ -1,21 +1,20 @@
 package dev.tauri.jsg.common.registry;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.api.JSGApi;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 import dev.tauri.jsg.core.common.registry.helper.TabBuilder;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
-import dev.tauri.jsg.core.common.registry.RegistryObject;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 import static dev.tauri.jsg.JSG.MOD_ID;
 
-@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
 public class JSGTabs {
     private static final JSGDeferredRegister<CreativeModeTab> REGISTER = JSGApi.REGISTRY_HELPER.tab();
 

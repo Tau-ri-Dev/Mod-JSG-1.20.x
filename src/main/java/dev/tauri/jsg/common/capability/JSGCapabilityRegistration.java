@@ -3,16 +3,16 @@ package dev.tauri.jsg.common.capability;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.config.JSGConfig;
-import dev.tauri.jsg.common.item.energy.ZPMItemBlock;
-import dev.tauri.jsg.common.registry.JSGBlocks;
-import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
-import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
 import dev.tauri.jsg.common.blockentity.energy.ZPMHubBE;
+import dev.tauri.jsg.common.blockentity.jub.JUBCableBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractMemberBE;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
+import dev.tauri.jsg.common.item.energy.ZPMItemBlock;
+import dev.tauri.jsg.common.registry.JSGBlocks;
+import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.core.JSGCore;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,7 +25,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
  * Providers are registered for every JSG block entity type and dispatch on the
  * instance, mirroring the old override chain.
  */
-@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = JSG.MOD_ID)
 public class JSGCapabilityRegistration {
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {

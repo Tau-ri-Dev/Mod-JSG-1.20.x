@@ -1,6 +1,5 @@
 package dev.tauri.jsg.common.listener;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
@@ -14,6 +13,7 @@ import dev.tauri.jsg.common.registry.JSGVillagers;
 import dev.tauri.jsg.common.registry.util.VillagerUtil;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.common.registry.CoreBlocks;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 import dev.tauri.jsg.core.common.util.CreativeItemsChecker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.MappedRegistry;
@@ -34,16 +34,14 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
-import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +49,7 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 
 
-@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = JSG.MOD_ID)
 public class CommonForgeListener {
     @SubscribeEvent
     public static void onItemPickup(ItemEntityPickupEvent.Pre e) {

@@ -62,6 +62,7 @@ if (enable_oc2 != "true") {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -88,8 +89,7 @@ configurations {
 dependencies {
     compileOnly "org.jspecify:jspecify:1.0.0"
 
-    // jsg-core: built locally from the sibling project (no publishing)
-    implementation files("Mod-JSGCore-1.21.x/build/libs/jsg-core-${minecraft_version}-${core_version}.jar")
+    implementation("eu.tauridev:jsg-core-${minecraft_version}:${core_version}:") { transitive = false }
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
