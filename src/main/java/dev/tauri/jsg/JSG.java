@@ -56,7 +56,7 @@ public class JSG implements JSGAddon {
 
     public static String MOD_VERSION = "";
     public static String MOD_VERSION_ONLY = "";
-    public static final String MC_VERSION = "1.20.1";
+    public static final String MC_VERSION = "1.21.1";
 
     public static long memoryTotal = 0;
 
