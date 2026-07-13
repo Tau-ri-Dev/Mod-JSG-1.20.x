@@ -3,7 +3,7 @@ package dev.tauri.jsg.common.packet.packets.admincontroller;
 import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -39,7 +39,7 @@ public class ACRenameGatePacketToServer extends ACPacketToServer {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             var sgnEntry = StargateNetwork.INSTANCE.getAll().get(gatePos);

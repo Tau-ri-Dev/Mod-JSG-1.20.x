@@ -18,16 +18,16 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class StargatePos implements INBTSerializable<CompoundTag> {
+public class StargatePos implements LegacyNBTSerializable {
     public boolean blacklisted = false;
     public ResourceKey<Level> dimension;
     public ResourceKey<Level> fakeGateDimension;

@@ -21,9 +21,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,7 +68,7 @@ public abstract class UniverseDialerMode {
     public static void calculateModesSequence() {
         synchronized (calculationsDone) {
             if (calculationsDone.get()) return;
-            for (var mode : JSGRegistries.R_UNIVERSE_DIALER_MODES.get().getValues()) {
+            for (var mode : JSGRegistries.R_UNIVERSE_DIALER_MODES.get()) {
                 if (firstMode == null) firstMode = mode;
                 if (lastMode == null) lastMode = mode;
                 firstMode.prev = mode;
@@ -131,7 +131,7 @@ public abstract class UniverseDialerMode {
     }
 
     @ParametersAreNonnullByDefault
-    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, NetworkEvent.Context ctx) {
+    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, PacketContext ctx) {
 
     }
 
@@ -167,7 +167,7 @@ public abstract class UniverseDialerMode {
     }
 
     public static Optional<UniverseDialerMode> valueOf(ResourceLocation id) {
-        return Optional.ofNullable(JSGRegistries.R_UNIVERSE_DIALER_MODES.get().getValue(id));
+        return Optional.ofNullable(JSGRegistries.R_UNIVERSE_DIALER_MODES.get().get(id));
     }
 
     public static UniverseDialerMode getDefault() {
@@ -175,7 +175,7 @@ public abstract class UniverseDialerMode {
     }
 
     public static Collection<UniverseDialerMode> values() {
-        return JSGRegistries.R_UNIVERSE_DIALER_MODES.get().getValues();
+        return JSGRegistries.R_UNIVERSE_DIALER_MODES.get().stream().toList();
     }
 
     @Override

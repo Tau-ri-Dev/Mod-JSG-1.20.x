@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.listener;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.client.screen.gui.mainmenu.GuiCustomMainMenu;
@@ -7,14 +8,14 @@ import dev.tauri.jsg.client.screen.gui.sggenerator.LevelGenerationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientListener {
 
     @SubscribeEvent
@@ -28,7 +29,7 @@ public class ClientListener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onGuiOpen(ScreenEvent.Opening event) {
-        if (!event.isCanceled() && event.getScreen() instanceof LevelLoadingScreen) {
+        if (event.getScreen() instanceof LevelLoadingScreen) {
             event.setNewScreen(new LevelGenerationScreen());
             return;
         }
@@ -45,12 +46,12 @@ public class ClientListener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onGuiOpen(ScreenEvent.Init.Post event) {
-        if (!event.isCanceled() && event.getScreen() instanceof LevelLoadingScreen) {
+        if (event.getScreen() instanceof LevelLoadingScreen) {
             Minecraft.getInstance().forceSetScreen(new LevelGenerationScreen());
             return;
         }
         if (!JSGConfig.General.disableJSGMainMenu.get()) {
-            if (!event.isCanceled() && event.getScreen() instanceof TitleScreen) {
+            if (event.getScreen() instanceof TitleScreen) {
                 Minecraft.getInstance().setScreen(new GuiCustomMainMenu());
                 if (initMainMenu) {
                     GuiCustomMainMenu.menuDisplayed = -1;

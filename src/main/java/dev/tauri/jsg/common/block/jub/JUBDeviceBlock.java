@@ -17,24 +17,25 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import net.minecraft.world.ItemInteractionResult;
 
 public abstract class JUBDeviceBlock extends TickableBEBlock {
     public JUBDeviceBlock(Properties properties) {
         super(properties);
     }
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             var deviceBE = level.getBlockEntity(pos);
             if (deviceBE != null) {
-                var deviceCapOpt = deviceBE.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve();
+                var deviceCapOpt = java.util.Optional.ofNullable(JSGCapabilities.getJUB(deviceBE));
                 deviceCapOpt.ifPresent(deviceCap -> player.sendSystemMessage(Component.literal(deviceCap.getBus().uuid.toString())));
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -54,7 +55,7 @@ public abstract class JUBDeviceBlock extends TickableBEBlock {
         var deviceBE = level.getBlockEntity(pos);
         if (deviceBE == null) return;
 
-        var deviceCapOpt = deviceBE.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve();
+        var deviceCapOpt = java.util.Optional.ofNullable(JSGCapabilities.getJUB(deviceBE));
         if (deviceCapOpt.isEmpty()) return;
         var deviceCap = deviceCapOpt.get();
 

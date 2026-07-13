@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.listener;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.serialization.Dynamic;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
@@ -10,13 +11,13 @@ import dev.tauri.jsg.core.common.event.config.DimensionConfigPreRegisterEvent;
 import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Map;
 import java.util.stream.Stream;
 
-@Mod.EventBusSubscriber(modid = JSG.MOD_ID)
+@EventBusSubscriber(modid = JSG.MOD_ID)
 public class CoreListener {
     @SubscribeEvent
     public static void onDimensionConfigPreRegister(DimensionConfigPreRegisterEvent event) {

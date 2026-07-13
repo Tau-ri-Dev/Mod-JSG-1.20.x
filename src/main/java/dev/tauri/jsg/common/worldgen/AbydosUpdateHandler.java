@@ -1,28 +1,28 @@
 package dev.tauri.jsg.common.worldgen;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.client.screen.provider.SGGeneratorGuiProvider;
 import dev.tauri.jsg.common.registry.JSGDimensions;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.ModMismatchEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.event.ModMismatchEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class AbydosUpdateHandler {
 
     @SuppressWarnings("all")
@@ -36,12 +36,11 @@ public class AbydosUpdateHandler {
         if (Integer.parseInt(splitVersion[0]) >= 5 && Integer.parseInt(splitVersion[1]) >= 1)
             return;
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            SGGeneratorGuiProvider.showAbydosWarning((proceed) -> {
+        SGGeneratorGuiProvider.showAbydosWarning((proceed) -> {
                 if (proceed) {
                     var abydosDimFolder = Path.of(e.getLevelDirectory().path().toString(), "/dimensions/jsg/abydos/").toFile();
                     if (abydosDimFolder.exists() && abydosDimFolder.isDirectory()) {
-                        Minecraft.getInstance().forceSetScreen(new GenericDirtMessageScreen(Component.literal("joinWorld.jsg.abydos_update.deleting_world")));
+                        Minecraft.getInstance().forceSetScreen(new GenericMessageScreen(Component.literal("joinWorld.jsg.abydos_update.deleting_world")));
                         JSG.logger.warn("Deleting {}", abydosDimFolder.getAbsolutePath());
                         try {
                             FileUtils.deleteDirectory(abydosDimFolder);
@@ -52,7 +51,7 @@ public class AbydosUpdateHandler {
                     }
                     try {
                         JSG.logger.info("Rewriting {}", Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toString());
-                        var levelDat = NbtIo.readCompressed(Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toFile());
+                        var levelDat = NbtIo.readCompressed(Path.of(e.getLevelDirectory().path().toString(), "/level.dat"), net.minecraft.nbt.NbtAccounter.unlimitedHeap());
                         var data = levelDat.getCompound("Data");
                         var wgs = data.getCompound("WorldGenSettings");
                         var dims = wgs.getCompound("dimensions");
@@ -75,7 +74,7 @@ public class AbydosUpdateHandler {
                             newList.add(newCompound);
                         }
                         fml.put("LoadingModList", newList);
-                        NbtIo.writeCompressed(levelDat, Path.of(e.getLevelDirectory().path().toString(), "/level.dat").toFile());
+                        NbtIo.writeCompressed(levelDat, Path.of(e.getLevelDirectory().path().toString(), "/level.dat"));
                         JSG.logger.info("Rewrite done!");
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
@@ -83,7 +82,6 @@ public class AbydosUpdateHandler {
                     e.markResolved(JSG.MOD_ID);
                 }
                 Minecraft.getInstance().forceSetScreen(new SelectWorldScreen(null));
-            });
         });
     }
 }

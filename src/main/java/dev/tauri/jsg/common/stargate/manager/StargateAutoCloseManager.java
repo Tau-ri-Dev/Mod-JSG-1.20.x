@@ -40,7 +40,7 @@ public class StargateAutoCloseManager extends AbstractStargateManager<Stargate<?
             if (playersPassed > 0) {
                 if (sourceLoaded) {
                     // create scan box
-                    AABB scanBox = new AABB(sourcePos.offset(new Vec3i(-10, -5, -10)), sourcePos.offset(new Vec3i(10, 5, 10)));
+                    AABB scanBox = AABB.encapsulatingFullBlocks(sourcePos.offset(new Vec3i(-10, -5, -10)), sourcePos.offset(new Vec3i(10, 5, 10)));
                     // scan players in box
                     int playerCount = sourceWorld.getEntities((Entity) null, scanBox, (e) -> {
                         if (e instanceof Player p)

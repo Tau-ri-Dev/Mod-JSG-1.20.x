@@ -33,7 +33,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -45,7 +45,7 @@ import java.util.Map;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @FieldsAreNonnullByDefault
-public abstract class StargateChevronsState extends State implements INBTSerializable<CompoundTag>, ITickable, ScheduledTaskExecutorInterface, IChevronsState {
+public abstract class StargateChevronsState extends State implements LegacyNBTSerializable, ITickable, ScheduledTaskExecutorInterface, IChevronsState {
     protected final Map<ChevronEnum, ChevronState> states = new HashMap<>();
     protected final StargateAbstractStateManager<?, ?> stateManager;
 
@@ -402,7 +402,7 @@ public abstract class StargateChevronsState extends State implements INBTSeriali
         scheduleChevronFail(60, ChevronEnum.getFinal(), checkingForConnection);
     }
 
-    public static class ChevronState extends State implements IChevronState, INBTSerializable<CompoundTag>, ITickable {
+    public static class ChevronState extends State implements IChevronState, LegacyNBTSerializable, ITickable {
         private final Map<BiomeOverlayInstance, ResourceLocation> CHEVRON_RESOURCE_MAP = new HashMap<>();
         private final Map<BiomeOverlayInstance, ResourceLocation> CHEVRON_LIGHT_RESOURCE_MAP = new HashMap<>();
         private final Map<BiomeOverlayInstance, ResourceLocation> CHEVRON_LIGHT_RESOURCE_MAP_OFF = new HashMap<>();

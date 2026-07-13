@@ -55,7 +55,7 @@ public class MastadgeEntity extends Camel {
     @ParametersAreNonnullByDefault
     protected void positionRider(Entity passenger, Entity.MoveFunction moveFunction) {
         if (hasPassenger(passenger)) {
-            double y = getY() + getPassengersRidingOffset() + passenger.getMyRidingOffset() + 0.5f;
+            double y = getPassengerRidingPosition(passenger).y + 0.5f;
             moveFunction.accept(passenger, getX(), y, getZ());
         }
     }
@@ -69,8 +69,8 @@ public class MastadgeEntity extends Camel {
 
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
-        return pPose == Pose.SITTING ? EntityDimensions.scalable(JSGEntities.MASTADGE.get().getWidth(), JSGEntities.MASTADGE.get().getHeight() - 1.43F).scale(this.getScale()) : super.getDimensions(pPose);
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pPose) {
+        return pPose == Pose.SITTING ? EntityDimensions.scalable(JSGEntities.MASTADGE.get().getWidth(), JSGEntities.MASTADGE.get().getHeight() - 1.43F) : super.getDefaultDimensions(pPose);
     }
 
     @Nullable

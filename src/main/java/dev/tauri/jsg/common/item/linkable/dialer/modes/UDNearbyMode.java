@@ -36,7 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -122,7 +122,7 @@ public class UDNearbyMode extends UniverseDialerMode {
     }
 
     @Override
-    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, NetworkEvent.Context ctx) {
+    public void handlePacketToServer(UniverseDialerClientActionEnum action, CompoundTag compound, UniverseDialerActionPacketToServer packet, PacketContext ctx) {
         if (action != UniverseDialerClientActionEnum.ADDRESS_CHANGE) return;
         var selected = compound.getByte(C_SELECTED);
         var addressCount = compound.getList(C_ENTRIES, Tag.TAG_COMPOUND).size();

@@ -7,7 +7,7 @@ import dev.tauri.jsg.common.advancements.JSGCriterions;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
 import dev.tauri.jsg.core.common.registry.CoreTabs;
 import dev.tauri.jsg.core.common.registry.helper.RegistryHelper;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
 
 public class JSGRegistriesInit {
     public static void init() {
@@ -38,6 +38,7 @@ public class JSGRegistriesInit {
             RegistryHelper.registerEntityRenderer(JSGEntities.MASTADGE.get(), MastadgeRenderer::new);
         });
         JSGApi.REGISTRY_HELPER.register(bus);
+        JSGDataComponents.REGISTER.register(bus);
         StargateTypesLoader.register(bus);
         JSGUniverseDialerModes.register(bus);
     }

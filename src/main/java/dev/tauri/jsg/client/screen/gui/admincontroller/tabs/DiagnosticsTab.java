@@ -82,7 +82,6 @@ public class DiagnosticsTab extends AdminControllerTabAsWidget {
 
     @Override
     public void tick() {
-        super.tick();
         var poses = List.of(
                 LayoutSettings.defaults().paddingRight(100).paddingTop(100),
                 LayoutSettings.defaults().paddingRight(150).paddingTop(40),

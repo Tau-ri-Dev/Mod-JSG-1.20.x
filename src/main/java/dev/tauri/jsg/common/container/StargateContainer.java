@@ -26,8 +26,7 @@ import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -148,7 +147,7 @@ public class StargateContainer extends JSGContainer implements OpenTabHolderInte
             )).toList();
 
             // Capacitors
-            if (stack.is(JSGItemTags.STARGATE_CAPACITORS) && stack.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
+            if (stack.is(JSGItemTags.STARGATE_CAPACITORS) && (stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM) != null)) {
                 for (int i = 4; i < 7; i++) {
                     if (!getSlot(i).hasItem() && getSlot(i).mayPlace(stack)) {
                         ItemStack stack1 = stack.copy();

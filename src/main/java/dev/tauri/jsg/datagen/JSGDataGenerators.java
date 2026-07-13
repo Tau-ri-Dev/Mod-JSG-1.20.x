@@ -1,14 +1,15 @@
 package dev.tauri.jsg.datagen;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.datagen.custom.JSGRIGWavesProvider;
 import dev.tauri.jsg.datagen.loot.JSGLootTableProvider;
 import dev.tauri.jsg.datagen.tag.*;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class JSGDataGenerators {
     @SubscribeEvent
     public static void generate(GatherDataEvent event) {
@@ -17,8 +18,8 @@ public class JSGDataGenerators {
         var exFileHelper = event.getExistingFileHelper();
         var lookupProvider = event.getLookupProvider();
 
-        generator.addProvider(event.includeServer(), new JSGRecipeProvider(output));
-        generator.addProvider(event.includeServer(), JSGLootTableProvider.create(output));
+        generator.addProvider(event.includeServer(), new JSGRecipeProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), JSGLootTableProvider.create(output, lookupProvider));
 
         generator.addProvider(event.includeClient(), new JSGBlockStateProvider(output, exFileHelper));
         generator.addProvider(event.includeClient(), new JSGItemModelProvider(output, exFileHelper));

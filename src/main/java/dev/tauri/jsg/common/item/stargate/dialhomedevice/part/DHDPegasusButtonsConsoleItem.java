@@ -3,10 +3,10 @@ package dev.tauri.jsg.common.item.stargate.dialhomedevice.part;
 import dev.tauri.jsg.client.renderer.item.dialhomedevice.part.DHDPegasusButtonsConsoleBEWLR;
 import dev.tauri.jsg.core.client.renderer.AbstractItemBEWLR;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.List;
 import java.util.function.Consumer;

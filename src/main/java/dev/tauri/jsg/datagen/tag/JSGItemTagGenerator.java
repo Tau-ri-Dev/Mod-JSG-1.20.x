@@ -12,7 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -28,8 +28,8 @@ public class JSGItemTagGenerator extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         //Minecraft Tags
 
-        Util.make(tag(ItemTags.MUSIC_DISCS), (tag) ->
-                JSGItems.RECORDS.forEach((event, item) -> tag.add(item.get())));
+        // minecraft:music_discs item tag was removed in 1.21 (jukebox playability now comes
+        // from the jukebox_song data attached to the item).
 
         Util.make(tag(ItemTags.CREEPER_DROP_MUSIC_DISCS), (tag) ->
                 JSGItems.RECORDS.forEach((event, item) -> tag.add(item.get())));

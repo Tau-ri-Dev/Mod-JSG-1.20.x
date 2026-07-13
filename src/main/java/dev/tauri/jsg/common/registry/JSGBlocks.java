@@ -6,6 +6,10 @@ import dev.tauri.jsg.common.block.PrinterBlock;
 import dev.tauri.jsg.common.block.ToasterBlock;
 import dev.tauri.jsg.common.block.dialhomedevice.DHDMilkyWayBlock;
 import dev.tauri.jsg.common.block.dialhomedevice.DHDPegasusBlock;
+import dev.tauri.jsg.common.block.energy.ZPMBlock;
+import dev.tauri.jsg.common.block.energy.ZPMBlockCreative;
+import dev.tauri.jsg.common.block.energy.ZPMHubBlock;
+import dev.tauri.jsg.common.block.energy.ZPMSlotBlock;
 import dev.tauri.jsg.common.block.invisible.IrisBlock;
 import dev.tauri.jsg.common.block.stargate.*;
 import dev.tauri.jsg.common.block.stargate.redstone.StargateRedstoneDialerI;
@@ -15,13 +19,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.List;
 
 public class JSGBlocks {
-    private static final DeferredRegister<Block> REGISTER = JSGApi.REGISTRY_HELPER.block();
+    private static final JSGDeferredRegister<Block> REGISTER = JSGApi.REGISTRY_HELPER.block();
 
     /**
      * INVISIBLE
@@ -61,6 +65,10 @@ public class JSGBlocks {
      */
 
     //public static final RegistryObject<Block> ORBAN_NAQUADAH_GENERATOR_BLOCK = REGISTER.register("orban_naquadah_generator_block", OrbanNaquadahGeneratorBlock::new);
+    public static final RegistryObject<Block> ZPM = REGISTER.register("zpm", ZPMBlock::new);
+    public static final RegistryObject<Block> CREATIVE_ZPM = REGISTER.register("creative_zpm", ZPMBlockCreative::new);
+    public static final RegistryObject<Block> ZPM_HUB = REGISTER.register("zpm_hub_block", ZPMHubBlock::new);
+    public static final RegistryObject<Block> ZPM_SLOT = REGISTER.register("zpm_slot_block", ZPMSlotBlock::new);
 
 
     /**
@@ -72,7 +80,7 @@ public class JSGBlocks {
     /**
      * Natural Blocks
      */
-    public static final RegistryObject<Block> ABYDOS_SAND = Constants.JSG_BLOCK_HELPER.builder("abydos_sand").clearTooltip().setInTabs(List.of(CoreTabs.TAB_BUILDING_BLOCKS)).setProperties(BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.COLOR_YELLOW)).buildFallingGeneric();
+    public static final RegistryObject<Block> ABYDOS_SAND = Constants.JSG_BLOCK_HELPER.builder("abydos_sand").clearTooltip().setInTabs(List.of(CoreTabs.TAB_BUILDING_BLOCKS)).setProperties(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.COLOR_YELLOW)).buildFallingGeneric();
     /**
      * MISC
      */

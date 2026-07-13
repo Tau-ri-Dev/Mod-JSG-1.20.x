@@ -59,6 +59,7 @@
 
   "compatibility":
   {
+    "lunar_moon_dimension": "jsg:abydos",
     "enhanced_celestials_moon_dimension": "jsg:abydos"
   }
 }

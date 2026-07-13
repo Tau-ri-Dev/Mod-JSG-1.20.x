@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.item.tooltip;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.power.PowerUtils;
@@ -18,7 +19,6 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -34,26 +34,26 @@ public class ClientStargateInventoryTooltip implements ClientTooltipComponent {
 
     @Override
     public int getHeight() {
-        if (!stack.hasTag()) return 0;
+        if (!ItemNBT.hasTag(stack)) return 0;
         return 57;
     }
 
     @Override
     public int getWidth(Font font) {
-        if (!stack.hasTag()) return 0;
+        if (!ItemNBT.hasTag(stack)) return 0;
         return 90;
     }
 
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics graphics) {
-        if (!stack.hasTag()) return;
+        if (!ItemNBT.hasTag(stack)) return;
         GuiHelper.currentStack = graphics.pose();
-        var compound = stack.getOrCreateTag();
+        var compound = ItemNBT.getOrCreateTag(stack);
         int offsetY = 0;
         var energyResult = new InventoryRenderEnergyResult(0, 0, 0);
         if (compound.contains("itemHandler")) {
             var handler = new JSGItemStackHandler(1);
-            handler.deserializeNBT(compound.getCompound("itemHandler"));
+            handler.deserializeNBT(dev.tauri.jsg.common.helpers.CurrentRegistries.getOrThrow(), compound.getCompound("itemHandler"));
             energyResult = renderInventory(font, x, y, graphics, handler, compound);
             offsetY += 44;
         }
@@ -114,7 +114,7 @@ public class ClientStargateInventoryTooltip implements ClientTooltipComponent {
                 } else if (slot < 7) {
                     // capacitors
                     renderItemStack(item, x + 18 * (slot - 4), y + 22, graphics, font, slot);
-                    var energyCap = item.getCapability(ForgeCapabilities.ENERGY).resolve();
+                    var energyCap = java.util.Optional.ofNullable(item.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM));
                     if (energyCap.isPresent() && energyCap.get() instanceof JSGEnergyStorage energyStorage) {
                         additionalEnergy += energyStorage.getTrueEnergyStored();
                         additionalCapacity += energyStorage.getTrueMaxEnergyStored();

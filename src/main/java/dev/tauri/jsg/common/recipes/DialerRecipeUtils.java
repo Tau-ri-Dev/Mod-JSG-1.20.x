@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.recipes;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.registry.JSGUniverseDialerModes;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerItem;
 import dev.tauri.jsg.common.item.linkable.dialer.modes.UDMemoryMode;
@@ -28,7 +29,7 @@ public class DialerRecipeUtils {
 
         modeTag.put(UDMemoryMode.C_ENTRIES, list);
         compound.put(JSGUniverseDialerModes.MEMORY.get().id + UniverseDialerItem.C_MODE_TAG, modeTag);
-        stack.setTag(compound);
+        ItemNBT.setTag(stack, compound);
 
         return stack;
     }

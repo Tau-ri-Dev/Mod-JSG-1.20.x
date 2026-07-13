@@ -5,7 +5,7 @@ import dev.tauri.jsg.common.item.admincontroller.ACStargateData;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACPacketToServer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import java.util.Optional;
 
@@ -19,7 +19,7 @@ public class ACStargateDataRequestPacketToServer extends ACPacketToServer {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             var sender = ctx.getSender();

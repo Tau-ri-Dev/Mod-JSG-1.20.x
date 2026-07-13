@@ -1,9 +1,11 @@
 package dev.tauri.jsg.common.capability;
 
+import dev.tauri.jsg.common.registry.JSGDataComponents;
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class DHDFluidHandlerItemStack extends FluidHandlerItemStack {
@@ -12,14 +14,14 @@ public class DHDFluidHandlerItemStack extends FluidHandlerItemStack {
      * @param capacity  The maximum capacity of this fluid tank.
      */
     public DHDFluidHandlerItemStack(@NotNull ItemStack container, int capacity) {
-        super(container, capacity);
-        if (container.getOrCreateTag().contains("savedCapacity"))
-            this.capacity = container.getOrCreateTag().getInt("savedCapacity");
+        super(JSGDataComponents.DHD_FLUID::get, container, capacity);
+        if (ItemNBT.getOrCreateTag(container).contains("savedCapacity"))
+            this.capacity = ItemNBT.getOrCreateTag(container).getInt("savedCapacity");
     }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-        container.getOrCreateTag().putInt("savedCapacity", capacity);
+        ItemNBT.update(container, tag -> tag.putInt("savedCapacity", capacity));
     }
 
     @Override

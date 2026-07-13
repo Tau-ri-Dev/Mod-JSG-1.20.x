@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.dialhomedevice.manager;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.dialhomedevice.DHDReactorState;
@@ -11,9 +12,8 @@ import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.util.FluidTank;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
@@ -82,8 +82,7 @@ public class DHDReactorManager extends AbstractDHDManager<DHDAbstractBE> impleme
         }
 
         dhd.getLinkedDeviceOptional().ifPresentOrElse((gateTile) -> {
-            var energyStorageOpt = gateTile.getStargateCapability(ForgeCapabilities.ENERGY, null).resolve();
-            if (energyStorageOpt.isEmpty() || !(energyStorageOpt.get() instanceof JSGEnergyStorage energyStorage)) {
+            if (!(gateTile.getEnergyManager().getStorage() instanceof JSGEnergyStorage energyStorage)) {
                 state = DHDReactorState.STANDBY;
                 return;
             }
@@ -118,12 +117,12 @@ public class DHDReactorManager extends AbstractDHDManager<DHDAbstractBE> impleme
     @Override
     public CompoundTag serializeNBT() {
         var compound = new CompoundTag();
-        compound.put("tank", tank.writeToNBT(new CompoundTag()));
+        compound.put("tank", tank.writeToNBT(CurrentRegistries.getOrThrow(), new CompoundTag()));
         return compound;
     }
 
     @Override
     public void deserializeNBT(CompoundTag compound) {
-        tank.readFromNBT(compound.getCompound("tank"));
+        tank.readFromNBT(CurrentRegistries.getOrThrow(), compound.getCompound("tank"));
     }
 }

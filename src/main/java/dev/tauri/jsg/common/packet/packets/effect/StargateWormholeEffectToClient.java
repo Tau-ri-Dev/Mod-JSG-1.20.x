@@ -4,10 +4,10 @@ import dev.tauri.jsg.client.renderer.StargateWormholeEffect;
 import dev.tauri.jsg.common.effect.StargateWormholeType;
 import dev.tauri.jsg.core.common.packet.packets.JSGPacket;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import dev.tauri.jsg.core.common.packet.NetworkDirection;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class StargateWormholeEffectToClient extends JSGPacket {
 
@@ -45,7 +45,7 @@ public class StargateWormholeEffectToClient extends JSGPacket {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         if (ctx.getDirection() != NetworkDirection.PLAY_TO_CLIENT) return;
         ctx.enqueueWork(() -> {
             ctx.setPacketHandled(true);

@@ -115,6 +115,14 @@ public enum ElementEnum implements IModelsHolder {
     KINO("tools/kino.obj", "tools/kino", true),
 
     // --------------------------------------------------------------------------------------------
+    // ZPM
+
+    ZPM("zpm/zpm.obj", "zpm/zpm0.png", false),
+    ZPM_HUB("zpm/pg_zpm_hub.obj", "zpm/hub/pg_zpm_hub.jpg", false),
+    ZPM_HUB_LIGHTS("zpm/pg_lights.obj", "zpm/hub/pg_lights0.jpg", false),
+    ZPM_SLOT("zpm/slot.obj", "zpm/slot.png", false),
+
+    // --------------------------------------------------------------------------------------------
 
     ;
 

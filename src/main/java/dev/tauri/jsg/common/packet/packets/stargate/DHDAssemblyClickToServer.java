@@ -8,9 +8,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import dev.tauri.jsg.core.common.packet.NetworkDirection;
+import dev.tauri.jsg.core.common.packet.PacketContext;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
@@ -36,19 +36,19 @@ public class DHDAssemblyClickToServer extends PositionedPacket {
     @Override
     public void toBytes(FriendlyByteBuf buf) {
         super.toBytes(buf);
-        buf.writeResourceLocation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(part.self())));
+        buf.writeResourceLocation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(part.self())));
         buf.writeBoolean(disassemble);
     }
 
     @Override
     public void fromBytes(FriendlyByteBuf buf) {
         super.fromBytes(buf);
-        part = (IDHDPartItem) ForgeRegistries.ITEMS.getValue(buf.readResourceLocation());
+        part = (IDHDPartItem) BuiltInRegistries.ITEM.get(buf.readResourceLocation());
         disassemble = buf.readBoolean();
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         if (ctx.getDirection() != NetworkDirection.PLAY_TO_SERVER) return;
         ctx.setPacketHandled(true);
         ServerPlayer player = ctx.getSender();

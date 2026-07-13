@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.packet.packets.linkable;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.stargate.iris.codesender.PlayerCodeSender;
 import dev.tauri.jsg.common.advancements.JSGCriterions;
@@ -10,7 +11,7 @@ import dev.tauri.jsg.core.common.packet.packets.JSGPacket;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class GDOCodeKeyPressedToServer extends JSGPacket {
     int number;
@@ -38,21 +39,21 @@ public class GDOCodeKeyPressedToServer extends JSGPacket {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         var player = ctx.getSender();
         if (player == null) return;
         ctx.enqueueWork(() -> {
             var stack = player.getItemInHand(hand);
             if (stack.getItem() != JSGItems.GDO.get()) return;
-            if (!stack.hasTag()) return;
-            var compound = stack.getOrCreateTag();
+            if (!ItemNBT.hasTag(stack)) return;
+            var compound = ItemNBT.getOrCreateTag(stack);
             var code = compound.getString("entered_code");
             if (number >= 0 && number <= 9) {
                 code += String.valueOf(number);
                 if (code.length() > JSGConfig.Stargate.irisCodeLength.get()) return;
                 compound.putString("entered_code", code);
-                stack.setTag(compound);
+                ItemNBT.setTag(stack, compound);
                 JSGSoundHelper.playSoundToPlayer(player, JSGSoundEvents.GDO_BUTTON_CLICK, player.blockPosition());
                 return;
             }
@@ -61,12 +62,12 @@ public class GDOCodeKeyPressedToServer extends JSGPacket {
                 if (((GDOItem) JSGItems.GDO.get()).sendCode(stack, new PlayerCodeSender(player)))
                     JSGCriterions.GDO_USED.trigger(player);
                 compound.putString("entered_code", "");
-                stack.setTag(compound);
+                ItemNBT.setTag(stack, compound);
             }
             if (number == -2 && !code.isEmpty()) {
                 JSGSoundHelper.playSoundToPlayer(player, JSGSoundEvents.GDO_BUTTON_CLICK, player.blockPosition());
                 compound.putString("entered_code", code.substring(0, code.length() - 1));
-                stack.setTag(compound);
+                ItemNBT.setTag(stack, compound);
             }
         });
     }

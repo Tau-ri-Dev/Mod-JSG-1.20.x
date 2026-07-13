@@ -8,7 +8,7 @@ import dev.tauri.jsg.core.common.config.JSGConfigChild;
 import dev.tauri.jsg.core.common.config.JSGCoreConfig;
 import dev.tauri.jsg.core.common.config.values.JSGConfigValue;
 import dev.tauri.jsg.core.common.helper.TemperatureHelper;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,10 @@ public class JSGConfig {
     public static final JSGConfigChild C_DEBUG = new JSGConfigChild(() -> Debug.BUILDER, "Debug", JSGApi.MOD_ID);
     public static final JSGConfigChild C_DHD = new JSGConfigChild(() -> DialHomeDevice.BUILDER, "DialHomeDevice", JSGApi.MOD_ID);
     public static final JSGConfigChild C_SG = new JSGConfigChild(() -> Stargate.BUILDER, "Stargate", JSGApi.MOD_ID);
+    public static final JSGConfigChild C_ZPM = new JSGConfigChild(() -> ZPM.BUILDER, "ZPM", JSGApi.MOD_ID);
 
     public static class General {
-        private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
         public static final JSGConfigValue.BooleanValue enableAutoUpdater = C_GENERAL.add(new JSGConfigValue.BooleanValue(BUILDER,
                 "Check for updates", true,
                 "Should JSG check for update on startup?",
@@ -73,14 +74,14 @@ public class JSGConfig {
     }
 
     public static class Debug {
-        private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
         public static final JSGConfigValue.BooleanValue renderInvisibleBlocks = C_DEBUG.add(new JSGConfigValue.BooleanValue(BUILDER, "Render invisible blocks", false));
         public static final JSGConfigValue.BooleanValue renderBoundingBoxes = C_DEBUG.add(new JSGConfigValue.BooleanValue(BUILDER, "Render bounding boxes", false));
     }
 
     public static class DialHomeDevice {
-        private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
         public static final JSGConfigValue.IntValue rangeFlat = C_DHD.add(new JSGConfigValue.IntValue(BUILDER,
                 "DHD range's radius horizontal", 25, 1, 64,
@@ -172,7 +173,7 @@ public class JSGConfig {
     }
 
     public static class Stargate {
-        public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
         // --------------------------------------
         //      MECHANICS
         // --------------------------------------
@@ -423,6 +424,23 @@ public class JSGConfig {
     }
 
 
+    public static class ZPM {
+        private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+
+        public static final JSGConfigValue.LongValue zpmCapacity = C_ZPM.add(new JSGConfigValue.LongValue(BUILDER,
+                "Power.ZPM capacity (FE)", 4_398_046_511_104L, 1, Long.MAX_VALUE,
+                "Energy capacity of one Zero Point Module.",
+                "SIDE: SERVER"
+        ));
+
+        public static final JSGConfigValue.IntValue zpmHubMaxEnergyTransfer = C_ZPM.add(new JSGConfigValue.IntValue(BUILDER,
+                "Power.ZPMHub's max power throughput", 1_043_600, 1, Integer.MAX_VALUE,
+                "Maximum energy per tick the ZPM Hub can transfer to adjacent blocks.",
+                "SIDE: SERVER"
+        ));
+    }
+
+
     // ----------------------------------------------------
     // REGISTRATION
 
@@ -437,6 +455,7 @@ public class JSGConfig {
         LIST.add(C_DEBUG);
         LIST.add(C_DHD);
         LIST.add(C_SG);
+        LIST.add(C_ZPM);
 
         JSGCoreConfig.register(JSG.MOD_ID, CONFIG_FILE_NAME, LIST);
     }

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.jsg.music_disc_origins_theme.desc"
+  },
+  "length_in_seconds": 75.0,
+  "sound_event": "jsg:record.origins.theme"
+}

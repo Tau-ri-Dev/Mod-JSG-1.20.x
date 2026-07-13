@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.recipes;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.registry.JSGUniverseDialerModes;
 import dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerItem;
@@ -21,8 +22,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class UniverseDialerCloneRecipe extends ShapelessRecipe {
+    public static final net.minecraft.resources.ResourceLocation ID = JSGMapping.rl(JSG.MOD_ID, "universe_dialer_clone");
+
     public UniverseDialerCloneRecipe() {
-        super(JSGMapping.rl(JSG.MOD_ID, "universe_dialer_clone"), "JSG", CraftingBookCategory.MISC,
+        super("JSG", CraftingBookCategory.MISC,
                 DialerRecipeUtils.DIALER_OUT.copy(),
                 NonNullList.of(
                         Ingredient.EMPTY,
@@ -34,10 +37,10 @@ public class UniverseDialerCloneRecipe extends ShapelessRecipe {
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean matches(CraftingContainer inv, Level pLevel) {
+    public boolean matches(net.minecraft.world.item.crafting.CraftingInput inv, Level pLevel) {
         int matchCount = 0;
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
 
@@ -53,16 +56,16 @@ public class UniverseDialerCloneRecipe extends ShapelessRecipe {
     @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(net.minecraft.world.item.crafting.CraftingInput inv, net.minecraft.core.HolderLookup.Provider pRegistryAccess) {
         int outputCount = 0;
         var addressTagList = new ListTag();
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             var stack = inv.getItem(i);
             var item = stack.getItem();
 
             if (item == JSGItems.UNIVERSE_DIALER.get()) {
-                var modeTag = JSGUniverseDialerModes.MEMORY.get().getTag(stack.getOrCreateTag());
+                var modeTag = JSGUniverseDialerModes.MEMORY.get().getTag(ItemNBT.getOrCreateTag(stack));
                 var addressTags = modeTag.getList(UDMemoryMode.C_ENTRIES, Tag.TAG_COMPOUND);
 
                 for (var tag : addressTags) {
@@ -80,7 +83,7 @@ public class UniverseDialerCloneRecipe extends ShapelessRecipe {
         var modeTag = JSGUniverseDialerModes.MEMORY.get().getTag(compound);
         modeTag.put(UDMemoryMode.C_ENTRIES, addressTagList);
         compound.put(JSGUniverseDialerModes.MEMORY.get().id + UniverseDialerItem.C_MODE_TAG, modeTag);
-        output.setTag(compound);
+        ItemNBT.setTag(output, compound);
 
         return output;
     }

@@ -11,7 +11,7 @@ import dev.tauri.jsg.common.stargate.teleportation.StargateTeleporter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 
 public class PlayerTraveler extends LivingTraveler<ServerPlayer> {
     public PlayerTraveler(ServerPlayer entity, Vec3 destinationPos, Vec3 originalMotion, Vec3 destinationMotion, float destinationYaw, Stargate<?> sourceGate, Stargate<?> receivingGate, boolean isStatic) {
@@ -34,19 +34,20 @@ public class PlayerTraveler extends LivingTraveler<ServerPlayer> {
     public boolean canBeSendToTarget() {
         if (sourceGate.getStargatePos() == null || receivingGate.getStargatePos() == null || sourceGate.getStargatePos().dimension == receivingGate.getStargatePos().dimension)
             return true;
-        return ForgeHooks.onTravelToDimension(entity, receivingGate.getStargatePos().dimension);
+        return CommonHooks.onTravelToDimension(entity, receivingGate.getStargatePos().dimension);
     }
 
     @Override
     public void sendChangeDimension(ServerLevel targetLevel) {
         if (isStatic()) {
-            get().changeDimension(targetLevel, new StargateTeleporter(this, (traveler) -> setMotion(getDestinationMotion())));
+            get().changeDimension(new StargateTeleporter(this, (traveler) -> setMotion(getDestinationMotion()))
+                    .createTransition(get(), targetLevel));
             return;
         }
-        StargateWormholeHandler.handle(get(), (afterPlace) -> get().changeDimension(targetLevel, new StargateTeleporter(this, (traveler) -> {
+        StargateWormholeHandler.handle(get(), (afterPlace) -> get().changeDimension(new StargateTeleporter(this, (traveler) -> {
             afterPlace.accept((ServerPlayer) traveler.get());
             setMotion(getDestinationMotion());
-        })), StargateWormholeType.fromTileEntity(receivingGate), 5);
+        }).createTransition(get(), targetLevel)), StargateWormholeType.fromTileEntity(receivingGate), 5);
     }
 
     @Override

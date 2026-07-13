@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.listener;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.tauri.jsg.client.screen.gui.DialerVirtualGui;
 import dev.tauri.jsg.client.screen.gui.GDOVirtualGui;
@@ -15,16 +16,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import javax.annotation.Nullable;
 
 import static com.mojang.blaze3d.platform.InputConstants.*;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class InputHandlerClient {
     // Common bindings
     private static final KeyMapping MODE_SCROLL = new KeyMapping("config.jsg.mode_scroll", KEY_LCONTROL, "key.categories.jsg");
@@ -49,7 +50,7 @@ public class InputHandlerClient {
 
     @SubscribeEvent
     public static void onMouseEvent(InputEvent.MouseScrollingEvent event) {
-        boolean next = event.getScrollDelta() < 0;
+        boolean next = event.getScrollDeltaY() < 0;
         if (checkForItem(JSGItems.UNIVERSE_DIALER.get())) {
             var hand = getHand(JSGItems.UNIVERSE_DIALER.get());
             UniverseDialerClientActionEnum action = null;

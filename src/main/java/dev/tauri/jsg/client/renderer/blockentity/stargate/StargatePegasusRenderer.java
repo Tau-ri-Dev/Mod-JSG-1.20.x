@@ -161,39 +161,38 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
             vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
             Tesselator tessellator = Tesselator.getInstance();
-            BufferBuilder buffer = tessellator.getBuilder();
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
+            BufferBuilder buffer = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
 
-            buffer.vertex(-tileSize, 0, -tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(0, 0)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(-tileSize, 0, tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(0, 1)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(tileSize, 0, tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(1, 1)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
-            buffer.vertex(tileSize, 0, -tileSize)
-                    .color(1f, 1f, 1f, 1f)
-                    .uv(1, 0)
-                    .overlayCoords(OverlayTexture.NO_OVERLAY)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(0, 0, 1)
-                    .endVertex();
+            buffer.addVertex(-tileSize, 0, -tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(0, 0)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(-tileSize, 0, tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(0, 1)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(tileSize, 0, tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(1, 1)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
+            buffer.addVertex(tileSize, 0, -tileSize)
+                    .setColor(1f, 1f, 1f, 1f)
+                    .setUv(1, 0)
+                    .setOverlay(OverlayTexture.NO_OVERLAY)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(0, 0, 1)
+                    ;
 
-            BufferBuilder.RenderedBuffer rb = buffer.end();
+            MeshData rb = buffer.buildOrThrow();
             vertexBuffer.bind();
             vertexBuffer.upload(rb);
             VertexBuffer.unbind();
@@ -214,7 +213,8 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
             stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f projection = RenderSystem.getProjectionMatrix();
-            Matrix4f matrix = stack.last().pose();
+            // compose with the global model-view - on 1.21 it carries the camera rotation
+            Matrix4f matrix = new Matrix4f(RenderSystem.getModelViewMatrix()).mul(stack.last().pose());
             finalVertexBuffer.drawWithShader(matrix, projection, Objects.requireNonNull(RenderSystem.getShader()));
             VertexBuffer.unbind();
         });
@@ -231,13 +231,13 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
     @SuppressWarnings("all")
     protected void renderGlyphGUI(SymbolInterface glyph, int slot, boolean deactivated, boolean translatePos) {
         Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder buffer = tessellator.getBuilder();
+        BufferBuilder[] buffer = new BufferBuilder[1];
         float tileSize = 0.270f;
         double[] slotPos = getPositionInRingAtIndex(GLYPHS_RING_RADIUS, slot + 1);
         EmissiveRenderer.renderWithLightOverlay(stack, combinedLight, false, () -> {
             var variant = (deactivated ? StargatePointOfOriginsDefaults.VARIANT_GATE_OFF_PNG : StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
             bindSymbolTextureForRing(glyph, variant);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            buffer[0] = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
             // Round is necessary here, since Minecraft doesn't handle many decimal places very well in this case,
             // so that the texture just ceases to exist.
@@ -246,12 +246,12 @@ public class StargatePegasusRenderer extends StargateClassicRenderer<StargatePeg
 
             stack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = stack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
+            buffer[0].addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
-            tessellator.end();
+            com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buffer[0].buildOrThrow());
         }, GameRenderer::getPositionTexShader);
     }
 

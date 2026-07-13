@@ -1,5 +1,6 @@
 package dev.tauri.jsg.client.renderer.item.dialer;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -15,8 +16,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.awt.*;
 
@@ -61,7 +62,7 @@ public class UniverseDialerBEWLR extends AbstractItemBEWLR {
             }
         }
 
-        var compound = itemStack.getTag();
+        var compound = ItemNBT.getTag(itemStack);
         if (compound != null) {
             var biomeOverlay = CoreBiomeOverlays.NORMAL.get();
             if (compound.contains(UniverseDialerItem.C_BIOME_OVERLAY)) {

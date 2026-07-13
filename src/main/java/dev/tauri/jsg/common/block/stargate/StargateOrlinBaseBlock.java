@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.block.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.common.blockentity.stargate.StargateOrlinBaseBE;
 import dev.tauri.jsg.core.common.item.notebook.PageNotebookItemFilled;
@@ -10,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -21,7 +23,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,8 +45,7 @@ public class StargateOrlinBaseBlock extends StargateAbstractBaseBlock {
     protected boolean showGateInfo(Player player, InteractionHand hand, Level world, BlockPos pos) {
         if (world.isClientSide) return false;
         if (!(world.getBlockEntity(pos) instanceof StargateOrlinBaseBE baseTile)) return false;
-        var energyStorage = baseTile.getCapability(ForgeCapabilities.ENERGY).resolve();
-        if (energyStorage.isEmpty()) return false;
+        if (world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, pos, null) == null) return false;
         long energyStored = baseTile.getEnergyManager().getStorage().getTrueEnergyStored();
         var energyString = String.format("%,d", energyStored);
         var energyNeeded = baseTile.getEnergyRequiredToDial();
@@ -60,9 +60,9 @@ public class StargateOrlinBaseBlock extends StargateAbstractBaseBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
-        if (itemStack.hasTag()) {
-            CompoundTag compound = itemStack.getOrCreateTag();
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+        if (ItemNBT.hasTag(itemStack)) {
+            CompoundTag compound = ItemNBT.getOrCreateTag(itemStack);
 
             if (compound.contains("openCount")) {
                 components.add(Component.translatable("block.jsg.stargate_orlin_base_block.open_count", compound.getInt("openCount"), JSGConfig.Stargate.stargateOrlinMaxOpenCount.get()));
@@ -75,7 +75,7 @@ public class StargateOrlinBaseBlock extends StargateAbstractBaseBlock {
                 }
             }
         }
-        super.appendHoverText(itemStack, blockGetter, components, tooltipFlag);
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
     }
 
     @Nullable

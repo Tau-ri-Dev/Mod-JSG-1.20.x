@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.jsg.music_disc_siren_sgc_offworld.desc"
+  },
+  "length_in_seconds": 1.0,
+  "sound_event": "jsg:record.siren.sgc.offworld"
+}

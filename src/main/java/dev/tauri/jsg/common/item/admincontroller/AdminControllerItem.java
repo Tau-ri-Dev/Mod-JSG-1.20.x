@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.item.admincontroller;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.client.renderer.item.AdminControllerBEWLR;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractMemberBE;
@@ -21,10 +22,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -45,7 +47,7 @@ public class AdminControllerItem extends JSGItem {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(Objects.requireNonNull(JSGItems.ADMIN_CONTROLLER.getId()).getPath(), components, tooltipFlag);
     }
 
@@ -77,10 +79,9 @@ public class AdminControllerItem extends JSGItem {
 
                 if (te instanceof Stargate<?> baseTile && baseTile.isMerged()) {
                     // Set linked gate for updating
-                    CompoundTag compound = player.getItemInHand(hand).getTag();
-                    if (compound == null) compound = new CompoundTag();
+                    CompoundTag compound = ItemNBT.getOrCreateTag(player.getItemInHand(hand));
                     compound.putLong("linkedGatePos", baseTile.blockPosition().asLong());
-                    player.getItemInHand(hand).setTag(compound);
+                    ItemNBT.setTag(player.getItemInHand(hand), compound);
 
                     // Open GUI for the player
                     JSGPacketHandler.sendTo(new AdminControllerGuiOpenToClient(baseTile.blockPosition(), StargateNetwork.INSTANCE), sp);

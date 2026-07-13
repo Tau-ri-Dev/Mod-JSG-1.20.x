@@ -26,7 +26,7 @@ import dev.tauri.jsg.core.common.util.math.NumberUtils;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
+import net.neoforged.neoforge.client.ClientHooks;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL14C;
 
@@ -60,7 +60,7 @@ public class MainMenuGateRenderer {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        translationZ = ((ForgeHooksClient.getGuiFarPlane() - 1200) / size);
+        translationZ = ((ClientHooks.getGuiFarPlane() - 1200) / size);
         poseStack.translate(x, y, 0);
         poseStack.scale(size, -size, size);
         poseStack.translate(0, 0, -translationZ);
@@ -99,7 +99,7 @@ public class MainMenuGateRenderer {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        translationZ = ((ForgeHooksClient.getGuiFarPlane() - 1200) / size);
+        translationZ = ((ClientHooks.getGuiFarPlane() - 1200) / size);
         poseStack.translate(x, y, 0);
         poseStack.scale(size, -size, size);
         poseStack.translate(0, 0, -translationZ);
@@ -357,11 +357,11 @@ public class MainMenuGateRenderer {
 
     private static void renderPegasusGlyph(SymbolPegasusEnum symbol, int slot) {
         var tesselator = Tesselator.getInstance();
-        var buffer = tesselator.getBuilder();
+        var buffer = new com.mojang.blaze3d.vertex.BufferBuilder[1];
         float tileSize = 0.270f;
         EmissiveRenderer.renderWithLightOverlay(poseStack, 0, false, () -> {
             symbol.bindIconTexture(null, StargatePointOfOriginsDefaults.VARIANT_GATE_PNG);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            buffer[0] = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         }, () -> {
             double[] slotPos = StargatePegasusRenderer.getPositionInRingAtIndex(StargatePegasusRenderer.GLYPHS_RING_RADIUS, slot + 1);
 
@@ -372,12 +372,12 @@ public class MainMenuGateRenderer {
 
             poseStack.mulPose(Axis.YN.rotationDegrees((float) slotPos[2]));
             Matrix4f matrix = poseStack.last().pose();
-            buffer.vertex(matrix, -tileSize, 0, -tileSize).uv(0, 0).endVertex();
-            buffer.vertex(matrix, -tileSize, 0, tileSize).uv(0, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, tileSize).uv(1, 1).endVertex();
-            buffer.vertex(matrix, tileSize, 0, -tileSize).uv(1, 0).endVertex();
+            buffer[0].addVertex(matrix, -tileSize, 0, -tileSize).setUv(0, 0);
+            buffer[0].addVertex(matrix, -tileSize, 0, tileSize).setUv(0, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, tileSize).setUv(1, 1);
+            buffer[0].addVertex(matrix, tileSize, 0, -tileSize).setUv(1, 0);
 
-            tesselator.end();
+            com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buffer[0].buildOrThrow());
         }, GameRenderer::getPositionTexShader);
     }
 }

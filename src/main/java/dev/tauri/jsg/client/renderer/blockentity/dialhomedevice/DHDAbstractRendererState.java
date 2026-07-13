@@ -7,7 +7,7 @@ import dev.tauri.jsg.core.common.entity.State;
 import dev.tauri.jsg.core.common.registry.CoreBiomeOverlays;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public abstract class DHDAbstractRendererState extends State {
         } else
             buf.writeBoolean(false);
         buf.writeInt(assembledParts.size());
-        assembledParts.forEach(p -> buf.writeResourceLocation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(p.self()))));
+        assembledParts.forEach(p -> buf.writeResourceLocation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(p.self()))));
         buf.writeInt(naquadahAmount);
         buf.writeInt(naquadahMaxAmount);
         buf.writeInt(reactorState.ordinal());
@@ -57,7 +57,7 @@ public abstract class DHDAbstractRendererState extends State {
         assembledParts.clear();
         var size = buf.readInt();
         for (int i = 0; i < size; i++)
-            assembledParts.add((IDHDPartItem) ForgeRegistries.ITEMS.getValue(buf.readResourceLocation()));
+            assembledParts.add((IDHDPartItem) BuiltInRegistries.ITEM.get(buf.readResourceLocation()));
         naquadahAmount = buf.readInt();
         naquadahMaxAmount = buf.readInt();
         reactorState = DHDReactorState.values()[buf.readInt()];

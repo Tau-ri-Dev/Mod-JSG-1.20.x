@@ -5,7 +5,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,12 +96,16 @@ public class VillagerTradesBuilder {
         for (int level : forLevels) {
             VillagerTrades.ItemListing lambda;
             if (input2 != null)
-                lambda = (trader, random) -> new MerchantOffer(input1, input2, output, maxUses, xpPerTrade, priceMultiplier);
+                lambda = (trader, random) -> new MerchantOffer(toCost(input1), java.util.Optional.of(toCost(input2)), output, maxUses, xpPerTrade, priceMultiplier);
             else
-                lambda = (trader, random) -> new MerchantOffer(input1, output, maxUses, xpPerTrade, priceMultiplier);
+                lambda = (trader, random) -> new MerchantOffer(toCost(input1), output, maxUses, xpPerTrade, priceMultiplier);
             trades.get(level).add(lambda);
         }
         return create(event);
+    }
+
+    private static net.minecraft.world.item.trading.ItemCost toCost(ItemStack stack) {
+        return new net.minecraft.world.item.trading.ItemCost(stack.getItem(), stack.getCount());
     }
 
     public static VillagerTradesBuilder create(@NotNull VillagerTradesEvent event) {

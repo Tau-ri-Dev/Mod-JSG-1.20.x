@@ -14,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 public abstract class RaycasterDHD extends Raycaster {
 
@@ -50,7 +49,7 @@ public abstract class RaycasterDHD extends Raycaster {
         if (dhdTile != null) {
             if (!dhdTile.isAssembled(getDHDButtonsConsolePart()) && buttonId < 100) return false;
             var item = player.getItemInHand(hand);
-            var fluidCap = item.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            var fluidCap = java.util.Optional.ofNullable(item.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM));
             if (item.getItem() instanceof IDHDPartItem dhdPart) {
                 if (dhdTile.isAssembled(dhdPart))
                     return false;
@@ -95,7 +94,7 @@ public abstract class RaycasterDHD extends Raycaster {
             var dhdTile = (DHDAbstractBE) world.getBlockEntity(pos);
             if (dhdTile != null) {
                 var item = player.getItemInHand(hand);
-                var fluidCap = item.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+                var fluidCap = java.util.Optional.ofNullable(item.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM));
                 if (item.getItem() instanceof IDHDPartItem part) {
                     if (!dhdTile.getAllParts().contains(part)) return false;
                     if (part.getRaycasterButtonID() == buttonId) {

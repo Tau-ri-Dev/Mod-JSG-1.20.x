@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +53,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, Item.TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
 
@@ -78,7 +79,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         // we don't want villagers to stick on the cable
         return false;
     }
@@ -96,8 +97,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
         for (var d : Direction.values()) {
             var be = level.getBlockEntity(pos.offset(d.getNormal()));
             if (be == null) continue;
-            var optCap = be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS);
-            if (!optCap.isPresent() || optCap.resolve().isEmpty()) continue;
+            if (JSGCapabilities.getJUB(be) == null) continue;
             connections.add(d);
         }
         return state;//.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.JUB_VARIANT, JUBCableVariant.fromDirections(connections));
@@ -126,7 +126,7 @@ public class JUBCableBlock extends JUBDeviceBlock implements SimpleWaterloggedBl
         var newState = state;
         var delta = neighbor.subtract(pos);
         var dir = Direction.fromDelta(delta.getX(), delta.getY(), delta.getZ());
-        if (be == null || !be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).isPresent() || be.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve().isEmpty()) {
+        if (be == null || (JSGCapabilities.getJUB(be) == null) || (JSGCapabilities.getJUB(be) == null)) {
             if (connections.contains(dir)) {
                 connections.remove(dir);
                 newState = newState.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.JUB_VARIANT, JUBCableVariant.fromDirections(connections));

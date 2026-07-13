@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.common.config.JSGConfigUtil;
@@ -13,10 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,18 +67,9 @@ public abstract class StargateAbstractMemberBE extends CamouflageBE implements I
     protected boolean canBeUsedAsCamoBlock(BlockState blockState) {
         return JSGConfigUtil.canBeUsedAsCamoBlock(blockState);
     }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        var level = getLevel();
-        if (capability == ForgeCapabilities.ENERGY) {
-            if (basePos != null && level != null) {
-                var tile = level.getBlockEntity(basePos);
-                if (tile instanceof Stargate<?> baseTile)
-                    return LazyOptional.of(() -> baseTile.getEnergyManager().getStorageForCaps()).cast();
-            }
-        }
-        return super.getCapability(capability, facing);
+    @org.jetbrains.annotations.Nullable
+    public BlockPos getBasePos() {
+        return basePos;
     }
 
 
@@ -89,16 +78,16 @@ public abstract class StargateAbstractMemberBE extends CamouflageBE implements I
      *         NBT DATA SAVING
      * -----------------------------------
      */
-    public void load(@NotNull CompoundTag compound) {
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         if (compound.contains("basePos"))
             basePos = BlockPos.of(compound.getLong("basePos"));
-        super.load(compound);
+        super.loadAdditional(compound, registries);
     }
 
-    public void saveAdditional(@NotNull CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         if (basePos != null)
             compound.putLong("basePos", basePos.asLong());
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Nullable
@@ -114,8 +103,8 @@ public abstract class StargateAbstractMemberBE extends CamouflageBE implements I
     }
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         var pos = getBlockPos();
-        return new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, getLevel() == null ? Level.OVERWORLD : getLevel().dimension());
+        return new TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, getLevel() == null ? Level.OVERWORLD : getLevel().dimension());
     }
 }

@@ -46,6 +46,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class StargateAbstractRenderer<S extends StargateAbstractRendererState> implements LinkableRenderer, BlockEntityRenderer<StargateAbstractBaseBE<?, ?>>, IMultiStructureRenderer<StargateAbstractBaseBE<?, ?>> {
+
+    @Override
+    public net.minecraft.world.phys.AABB getRenderBoundingBox(StargateAbstractBaseBE<?, ?> blockEntity) {
+        return blockEntity.getRenderBoundingBox();
+    }
     public StargateAbstractRenderer(BlockEntityRendererProvider.Context ignored) {
     }
 
@@ -250,7 +255,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
     }
 
     protected ResourceLocation getEventHorizonTextureResource(boolean kawoosh) {
-        return new ResourceLocation(JSG.MOD_ID, (kawoosh ? EV_HORIZON_KAWOOSH_OVERLAY_TEXTURE : EV_HORIZON_OVERLAY_TEXTURE));
+        return dev.tauri.jsg.core.mapping.JSGMapping.rl(JSG.MOD_ID, (kawoosh ? EV_HORIZON_KAWOOSH_OVERLAY_TEXTURE : EV_HORIZON_OVERLAY_TEXTURE));
     }
 
     protected void renderKawoosh() {

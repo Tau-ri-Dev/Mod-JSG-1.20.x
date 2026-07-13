@@ -4,7 +4,7 @@ import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.common.raycaster.RaycasterMilkyWayDHD;
 import dev.tauri.jsg.common.raycaster.RaycasterPegasusDHD;
 import dev.tauri.jsg.common.raycaster.RaycasterPrinter;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGRaycasters {
     public static final RegistryObject<RaycasterMilkyWayDHD> MILKYWAY_DHD_RAYCASTER = JSGApi.REGISTRY_HELPER.raycaster().register("milkyway_dhd", RaycasterMilkyWayDHD::new);

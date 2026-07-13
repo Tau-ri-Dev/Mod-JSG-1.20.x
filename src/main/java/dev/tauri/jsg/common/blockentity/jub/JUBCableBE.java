@@ -8,8 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 
 public class JUBCableBE extends BlockEntity implements ITickable {
@@ -25,14 +23,6 @@ public class JUBCableBE extends BlockEntity implements ITickable {
     @Override
     public void onLoad() {
         super.onLoad();
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == JSGCapabilities.JUST_UNIVERSAL_BUS) {
-            return LazyOptional.of(() -> jubDevice).cast();
-        }
-        return super.getCapability(cap);
     }
 
     // ----------------------------------------------

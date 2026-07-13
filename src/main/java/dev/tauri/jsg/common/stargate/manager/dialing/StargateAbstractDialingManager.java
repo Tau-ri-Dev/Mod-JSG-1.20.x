@@ -48,7 +48,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,7 +70,7 @@ import static dev.tauri.jsg.common.stargate.animation.chevron.StargateChevronsSt
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 @FieldsAreNonnullByDefault
-public abstract class StargateAbstractDialingManager<SG extends Stargate<?>> extends AbstractStargateManager<SG> implements ITickable, ScheduledTaskExecutorInterface, INBTSerializable<CompoundTag>, IStargateDialingManager {
+public abstract class StargateAbstractDialingManager<SG extends Stargate<?>> extends AbstractStargateManager<SG> implements ITickable, ScheduledTaskExecutorInterface, LegacyNBTSerializable, IStargateDialingManager {
     public static final Supplier<IStargateNetwork> network = () -> StargateNetwork.INSTANCE;
     protected final StargateConnection activeConnection;
     protected final Consumer<StargateConnection> tickConnection;

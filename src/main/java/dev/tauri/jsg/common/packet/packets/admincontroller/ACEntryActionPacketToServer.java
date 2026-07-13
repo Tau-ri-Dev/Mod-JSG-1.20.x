@@ -20,7 +20,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -93,7 +93,7 @@ public class ACEntryActionPacketToServer extends ACPacketToServer {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> {
             var sender = ctx.getSender();
@@ -133,9 +133,9 @@ public class ACEntryActionPacketToServer extends ACPacketToServer {
 
                     var notebook = NotebookItem.createNotebook(pages);
                     if (!gatePos.getName().isEmpty())
-                        notebook.setHoverName(Component.literal(gatePos.getName()));
+                        notebook.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal(gatePos.getName()));
                     else
-                        notebook.setHoverName(Component.literal(BlockHelper.blockPosToBetterString(gatePos.gatePos)));
+                        notebook.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal(BlockHelper.blockPosToBetterString(gatePos.gatePos)));
 
                     sender.addItem(notebook);
                     response(sender, ACUtils.getSuccess(Component.translatable("gui.admincontroller.response.stargate.give_address.success")));

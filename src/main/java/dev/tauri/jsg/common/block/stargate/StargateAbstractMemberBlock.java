@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -41,6 +42,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 import static dev.tauri.jsg.common.block.stargate.StargateAbstractBaseBlock.getNextDirections;
+import net.minecraft.world.ItemInteractionResult;
 
 public abstract class StargateAbstractMemberBlock extends TickableBEBlock implements IStargateBlock, dev.tauri.jsg.core.common.block.util.IHighlightBlock, SimpleWaterloggedBlock, dev.tauri.jsg.core.common.block.util.WrenchRotatable {
     protected static final Properties STARGATE_MEMBER_PROPS = Properties.of()
@@ -94,10 +96,10 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
         return blockState.setValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.FACING_HORIZONTAL_PROPERTY, BlockPosHelper.flipDir(blockState.getValue(dev.tauri.jsg.core.common.blockstate.JSGProperties.FACING_HORIZONTAL_PROPERTY), mirror));
     }
 
+    @Override
     @NotNull
     @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         boolean shift = player.isShiftKeyDown();
         boolean guiDisplayed = false;
         boolean camoChanged = false;
@@ -113,8 +115,8 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
                     }
                 }
             }
-        } else return InteractionResult.sidedSuccess(true);
-        return (!shift && (guiDisplayed || camoChanged)) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        } else return ItemInteractionResult.sidedSuccess(true);
+        return (!shift && (guiDisplayed || camoChanged)) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.FAIL;
     }
 
     @Override
@@ -137,7 +139,7 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable BlockGetter blockGetter, @NotNull List<Component> components, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         ItemHelper.applyGenericToolTip(this.getDescriptionId(), components, tooltipFlag);
     }
 
@@ -154,14 +156,15 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
 
     @Override
     @ParametersAreNonnullByDefault
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
-        super.playerWillDestroy(level, pos, blockState, player);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+        BlockState result = super.playerWillDestroy(level, pos, blockState, player);
         if (!level.isClientSide()) {
             if (level.getBlockEntity(pos) instanceof StargateAbstractMemberBE e) {
                 e.findBaseAndUpdateMergeState(false);
                 e.dropCamo();
             }
         }
+        return result;
     }
 
     @Override
@@ -259,7 +262,7 @@ public abstract class StargateAbstractMemberBlock extends TickableBEBlock implem
     @Override
     @ParametersAreNonnullByDefault
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }

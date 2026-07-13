@@ -3,8 +3,8 @@ package dev.tauri.jsg.api.event;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.Event;
 
 /**
  * Parent event for all stargate-related events in JSG
@@ -45,11 +45,11 @@ public abstract class StargateAbstractEvent extends Event {
     }
 
     /**
-     * Post event to MinecraftForge.EVENT_BUS. Internal use only
+     * Post event to NeoForge.EVENT_BUS. Internal use only
      *
      * @return true if event canceled, false if not
      */
     public boolean post() {
-        return MinecraftForge.EVENT_BUS.post(this);
+        return NeoForge.EVENT_BUS.post(this) instanceof net.neoforged.bus.api.ICancellableEvent cancellable && cancellable.isCanceled();
     }
 }

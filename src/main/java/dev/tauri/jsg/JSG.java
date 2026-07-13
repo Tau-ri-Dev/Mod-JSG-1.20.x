@@ -1,5 +1,6 @@
 package dev.tauri.jsg;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.registry.JSGRegistries;
@@ -14,7 +15,6 @@ import dev.tauri.jsg.common.config.data.ProgressJSON;
 import dev.tauri.jsg.common.injectors.JSGLootTableInjectors;
 import dev.tauri.jsg.common.injectors.JSGTemplatePoolInjectors;
 import dev.tauri.jsg.common.integration.cctweaked.CCDevices;
-import dev.tauri.jsg.common.integration.oc2.OCDevices;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.registry.JSGRegistriesInit;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
@@ -29,21 +29,20 @@ import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.*;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.LoggerFactory;
 
@@ -65,18 +64,19 @@ public class JSG implements JSGAddon {
         return JSGMapping.rl(JSG.MOD_ID, path);
     }
 
-    public JSG() {
+    public JSG(IEventBus eventBus) {
         logger = new LoggerWrapper("[" + MOD_ID + "] ", LoggerFactory.getLogger(MOD_NAME));
 
         // API INIT
         JSGApi.init();
         JSGApi.logger = logger;
         JSGApi.jsgModMainClass = this.getClass();
-        JSGApi.SGNGetter = (level) -> level.getDataStorage().computeIfAbsent((tag) -> {
-            var sgn = new StargateNetwork();
-            sgn.load(tag);
-            return sgn;
-        }, StargateNetwork::new, StargateNetwork.DATA_NAME);
+        JSGApi.SGNGetter = (level) -> level.getDataStorage().computeIfAbsent(
+                new net.minecraft.world.level.saveddata.SavedData.Factory<>(StargateNetwork::new, (tag, registries) -> {
+                    var sgn = new StargateNetwork();
+                    sgn.load(tag);
+                    return sgn;
+                }, null), StargateNetwork.DATA_NAME);
         StargateTypesLoader.load();
         // ----------
 
@@ -95,7 +95,8 @@ public class JSG implements JSGAddon {
             try {
                 var clazz = Class.forName("dev.tauri.jsg.JSGServer");
                 ModList.get().getModContainerById(getId()).ifPresentOrElse(jsgMod -> {
-                    ModLoader.get().addWarning(new ModLoadingWarning(jsgMod.getModInfo(), ModLoadingStage.CONSTRUCT, "Trying to run JSG server version on a client, this is not going to end well...", "Class " + clazz.getCanonicalName() + " is present on client"));
+                    ModLoader.addLoadingIssue(net.neoforged.fml.ModLoadingIssue.warning(
+                            "Trying to run JSG server version on a client, this is not going to end well... (class " + clazz.getCanonicalName() + " is present on client)").withAffectedMod(jsgMod.getModInfo()));
                 }, () -> {
                     throw new RuntimeException("Trying to run JSG server version on a client, this is not going to end well... (class " + clazz.getCanonicalName() + " is present on client)");
                 });
@@ -105,8 +106,6 @@ public class JSG implements JSGAddon {
 
         JSGConfig.load();
         JSGConfig.register();
-
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         Constants.init();
         JSGRegistries.init();
@@ -118,19 +117,34 @@ public class JSG implements JSGAddon {
         JSGTemplatePoolInjectors.register();
         JSGLootTableInjectors.register();
 
+        dev.tauri.jsg.common.datafixer.JSGDataFixers.registerAliases();
+
         JSGRegistriesInit.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
+        eventBus.addListener(this::loadCompleteServer);
+        eventBus.addListener(this::registerSpawnPlacements);
+        NeoForge.EVENT_BUS.register(this);
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
         Integrations.CCT.addOnLoad(CCDevices::load);
-        Integrations.OC2.addOnLoad(OCDevices::load);
+        // OC2 has no 1.21.x build; its devices load hook returns when the integration is re-enabled (enable_oc2)
 
         JSGAddons.registerAddon(this);
     }
 
+    private void registerSpawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event) {
+        event.register(dev.tauri.jsg.common.registry.JSGEntities.MASTADGE.get(),
+                net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.animal.Animal::checkAnimalSpawnRules,
+                net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
+        // custom registries are frozen now; Forge's onBake callback used to do this
+        dev.tauri.jsg.common.item.linkable.dialer.UniverseDialerMode.calculateModesSequence();
+
         ProgressJSON.INSTANCE.load(JSGCore.modConfigDir);
         try {
             ProgressJSON.INSTANCE.reload(null);
@@ -139,18 +153,17 @@ public class JSG implements JSGAddon {
         }
     }
 
-    @SubscribeEvent
     public void loadCompleteServer(FMLLoadCompleteEvent event) {
         JSG.logger.info("Just Stargate Mod loading completed!");
     }
 
     public static void shutDown() {
         JSG.logger.info("Good bye! Thank you for using Just Stargate Mod :)");
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+        if (FMLEnvironment.dist.isClient()) {
             if (JSGConfig.C_GENERAL.builtSpec == null || !JSGConfig.C_GENERAL.builtSpec.isLoaded()) return;
             if (!FMLEnvironment.production) return;
             JSGConfig.General.mainMenuMusicVolume.set(GuiCustomMainMenu.musicVolume.doubleValue());
-        });
+        }
     }
 
     @SubscribeEvent
@@ -167,10 +180,6 @@ public class JSG implements JSGAddon {
     @SubscribeEvent
     public void onCommandsRegister(RegisterCommandsEvent event) {
         JSGCommands.registerCommands(event);
-    }
-
-    @SubscribeEvent
-    public void addCreative(BuildCreativeModeTabContentsEvent event) {
     }
 
     @Override
@@ -197,7 +206,7 @@ public class JSG implements JSGAddon {
         return Optional.of(logger);
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.entity.StargateAddressData;
@@ -193,8 +194,8 @@ public class StargateOrlinBaseBE extends StargateAbstractBaseBE<StargateOrlinRen
     }
 
     public void initializeFromItemStack(ItemStack stack) {
-        if (stack.hasTag()) {
-            CompoundTag compound = stack.getOrCreateTag();
+        if (ItemNBT.hasTag(stack)) {
+            CompoundTag compound = ItemNBT.getOrCreateTag(stack);
 
             if (compound.contains("openCount")) {
                 openCount = compound.getInt("openCount");
@@ -248,24 +249,24 @@ public class StargateOrlinBaseBE extends StargateAbstractBaseBE<StargateOrlinRen
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.putBoolean("isPowered", isPowered);
         compound.putInt("openCount", openCount);
         compound.putBoolean("canNotGenerate", canNotGenerate);
         if (notebookPageTag != null)
             compound.put("notebook_page", notebookPageTag);
 
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         isPowered = compound.getBoolean("isPowered");
         openCount = compound.getInt("openCount");
         canNotGenerate = compound.getBoolean("canNotGenerate");
         if (compound.contains("notebook_page"))
             notebookPageTag = compound.getCompound("notebook_page");
-        super.load(compound);
+        super.loadAdditional(compound, registries);
     }
 
     @Override

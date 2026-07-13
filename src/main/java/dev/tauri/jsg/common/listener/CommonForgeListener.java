@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.listener;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
@@ -33,16 +34,16 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,18 +51,18 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 
 
-@Mod.EventBusSubscriber(modid = JSG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = JSG.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonForgeListener {
     @SubscribeEvent
-    public static void onItemPickup(EntityItemPickupEvent e) {
-        var p = e.getEntity();
-        var i = e.getItem().getItem();
+    public static void onItemPickup(ItemEntityPickupEvent.Pre e) {
+        var p = e.getPlayer();
+        var i = e.getItemEntity().getItem();
         if (CreativeItemsChecker.canInteractWith(i, p.isCreative())) return;
-        e.setCanceled(true);
+        e.setCanPickup(net.neoforged.neoforge.common.util.TriState.FALSE);
     }
 
     @SubscribeEvent
-    public static void onVillagerSpawn(MobSpawnEvent.FinalizeSpawn event) {
+    public static void onVillagerSpawn(net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent event) {
         if (!(event.getEntity() instanceof Villager villager)) return;
         if (JSGVillagers.isPriest(villager.getVillagerData().getProfession())) {
             villager.getBrain().addActivity(Activity.IDLE, ImmutableList.of(Pair.of(0, new DialGateBehaviour())));
@@ -121,11 +122,12 @@ public class CommonForgeListener {
                            Executor pBackgroundExecutor,
                            Executor pGameExecutor) -> pPreparationBarrier.wait(Unit.INSTANCE).thenRun(() -> {
             var recipesManager = event.getServerResources().getRecipeManager();
-            var recipes = recipesManager.getRecipes();
+            // getRecipes() is an immutable view on 1.21 - copy before adding
+            var recipes = new java.util.ArrayList<net.minecraft.world.item.crafting.RecipeHolder<?>>(recipesManager.getRecipes());
 
-            recipes.add(new UniverseDialerCloneRecipe());
-            recipes.add(new PageAndUniverseDialerRecipe());
-            recipes.add(new StargateOrlinBaseBlockRecipe());
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(UniverseDialerCloneRecipe.ID, new UniverseDialerCloneRecipe()));
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(PageAndUniverseDialerRecipe.ID, new PageAndUniverseDialerRecipe()));
+            recipes.add(new net.minecraft.world.item.crafting.RecipeHolder<>(StargateOrlinBaseBlockRecipe.ID, new StargateOrlinBaseBlockRecipe()));
 
             recipesManager.replaceRecipes(recipes);
             JSG.logger.info("Recipes successfully reloaded!");

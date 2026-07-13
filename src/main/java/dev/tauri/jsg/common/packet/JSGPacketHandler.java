@@ -1,8 +1,10 @@
 package dev.tauri.jsg.common.packet;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.common.packet.packets.AdminControllerGuiOpenToClient;
 import dev.tauri.jsg.common.packet.packets.PrinterButtonClickedToServer;
+import dev.tauri.jsg.common.packet.packets.ZPMHubAnimationToServer;
 import dev.tauri.jsg.common.packet.packets.ProgressUpdateToClient;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACEntryActionPacketToServer;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACLinkedActionPacketToServer;
@@ -19,7 +21,7 @@ import dev.tauri.jsg.common.packet.packets.stargate.*;
 import dev.tauri.jsg.core.common.packet.SimplePacketHandler;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class JSGPacketHandler {
 
@@ -29,7 +31,7 @@ public class JSGPacketHandler {
         HANDLER.sendToServer(packet);
     }
 
-    public static void sendToClient(Object packet, PacketDistributor.TargetPoint point) {
+    public static void sendToClient(Object packet, TargetPoint point) {
         HANDLER.sendToClient(packet, point);
     }
 
@@ -47,6 +49,7 @@ public class JSGPacketHandler {
         HANDLER.registerPacketToServer(GDOCodeKeyPressedToServer.class);
         HANDLER.registerPacketToServer(UniverseDialerKeyPressedToServer.class);
         HANDLER.registerPacketToServer(PrinterButtonClickedToServer.class);
+        HANDLER.registerPacketToServer(ZPMHubAnimationToServer.class);
         HANDLER.registerPacketToServer(StargatePlayerMotionToServer.class);
         HANDLER.registerPacketToServer(ACRenameGatePacketToServer.class);
         HANDLER.registerPacketToServer(ACEntryActionPacketToServer.class);

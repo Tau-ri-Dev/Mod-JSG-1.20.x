@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.worldgen.generator;
 
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.datafixers.util.Pair;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
@@ -27,12 +28,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DimensionStargateGenerator {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onServerStarted(ServerStartedEvent e) {
@@ -54,7 +54,8 @@ public class DimensionStargateGenerator {
         final LinkedHashMap<String, StargateGeneratorStepStatus> stats = new LinkedHashMap<>();
         AtomicInteger totalGenerated = new AtomicInteger();
         AtomicReference<Component> message = new AtomicReference<>(Component.empty());
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> SGGeneratorGuiProvider.showProgress(() -> totalDimensions, () -> stats, message::get));
+        if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient())
+            SGGeneratorGuiProvider.showProgress(() -> totalDimensions, () -> stats, message::get);
         JSG.logger.info("Found {} total dimensions", totalDimensions);
         final long started = Util.getMillis();
         for (ResourceKey<Level> dimension : levels) {
@@ -68,7 +69,7 @@ public class DimensionStargateGenerator {
                 stats.put(dimension.location().toString(), StargateGeneratorDimStatus.ERROR);
                 continue;
             }
-            message.set(Component.translatable("createWorld.stargates_generating.trying", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.trying", level.dimension().location().toString()));
             if (!level.structureManager().shouldGenerateStructures()) {
                 stats.put(dimension.location().toString(), StargateGeneratorDimStatus.SKIPPED);
                 continue;
@@ -113,7 +114,7 @@ public class DimensionStargateGenerator {
             var holderSet = level.registryAccess().registry(tag.registry()).map(r -> r.getOrCreateTag(tag));
             if (holderSet.isEmpty())
                 return result;
-            message.set(Component.translatable("createWorld.stargates_generating.searching", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.searching", level.dimension().location().toString()));
             // workaround to prevent WatchDog crashing the server...
             // Go into future...
             AccessUtil.setNextTickTime(level.getServer(), (Util.getMillis() + 5 * 60 * 1000));
@@ -125,7 +126,7 @@ public class DimensionStargateGenerator {
                 JSG.logger.warn("No structure to generate for {}", level.dimension().location().toString());
                 return result;
             }
-            message.set(Component.translatable("createWorld.stargates_generating.generating", level.dimension().location()));
+            message.set(Component.translatable("createWorld.stargates_generating.generating", level.dimension().location().toString()));
             var origin = structureEntry.getFirst().immutable();
             if (level.dimension() == JSGDimensions.ABYDOS)
                 origin = new BlockPos(0, 0, 0);
@@ -160,7 +161,7 @@ public class DimensionStargateGenerator {
 
         Stargate<?> gateBE = null;
         for (var i = 1; i <= 4; i++) {
-            message.set(Component.translatable("createWorld.stargates_generating.searching_stargate", level.dimension().location(), structureOrigin.toShortString(), String.valueOf(i)));
+            message.set(Component.translatable("createWorld.stargates_generating.searching_stargate", level.dimension().location().toString(), structureOrigin.toShortString(), String.valueOf(i)));
             gateBE = LinkingHelper.findClosestTile(level, structureOrigin, JSGBlockTags.ALL_STARGATE_BASES, Stargate.class,
                     60 + 20 * i, 60 + 20 * i, (pos) -> {
                         if (box.get() == null) return true;

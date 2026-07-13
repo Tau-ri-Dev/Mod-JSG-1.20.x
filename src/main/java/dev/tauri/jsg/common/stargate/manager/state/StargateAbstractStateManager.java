@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.stargate.manager.state;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.api.registry.JSGScheduledTaskTypes;
 import dev.tauri.jsg.api.registry.JSGStateTypes;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisState;
@@ -23,11 +24,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class StargateAbstractStateManager<SG extends StargateAbstractBaseBE<?, ?>, S extends StargateAbstractRendererState> extends AbstractStargateManager<SG> implements IStargateStateManager, StateProviderInterface {
-    private PacketDistributor.TargetPoint targetPoint;
+    private TargetPoint targetPoint;
     protected StargateChevronsState chevronsState;
     protected BlackHoleAnimationState blackHoleAnimationState;
 
@@ -162,11 +163,11 @@ public abstract class StargateAbstractStateManager<SG extends StargateAbstractBa
     // ------------------------------------------------------------------------
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         if (stargate.getLevel() == null) return targetPoint;
         if (targetPoint == null) {
             var pos = getStateHandlerBlockPos();
-            targetPoint = new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, stargate.getLevel().dimension());
+            targetPoint = new TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, stargate.getLevel().dimension());
         }
         return targetPoint;
     }

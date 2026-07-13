@@ -9,14 +9,14 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public interface IStargateIrisManager extends INBTSerializable<CompoundTag>, ITickable {
+public interface IStargateIrisManager extends LegacyNBTSerializable, ITickable {
     @Nullable
     CodeSender getCodeSender();
 

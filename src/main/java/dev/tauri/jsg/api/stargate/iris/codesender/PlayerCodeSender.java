@@ -1,6 +1,7 @@
 package dev.tauri.jsg.api.stargate.iris.codesender;
 
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -60,9 +61,9 @@ public class PlayerCodeSender extends CodeSender {
         ItemStack gdo = player.getMainHandItem();
         /*if (gdo.isEmpty() || gdo.getItem() != ItemRegistry.GDO.get()) {
             gdo = player.getOffhandItem();
-            if (gdo.isEmpty() || gdo.getItem() != ItemRegistry.GDO.get() || !gdo.hasTag()) return false;
+            if (gdo.isEmpty() || gdo.getItem() != ItemRegistry.GDO.get() || !ItemNBT.hasTag(gdo)) return false;
         }*/
-        return (gdo.getTag() != null && gdo.getTag().contains("linkedGate"));
+        return (ItemNBT.getTag(gdo) != null && ItemNBT.getTag(gdo).contains("linkedGate"));
     }
 
     @Override

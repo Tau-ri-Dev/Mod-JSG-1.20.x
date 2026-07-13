@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.dialhomedevice.manager.state;
 
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.api.dialhomedevice.manager.IDHDStateManager;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.registry.JSGStateTypes;
@@ -14,8 +15,8 @@ import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S extends DHDAbstractRendererState> extends AbstractDHDManager<DHD> implements IDHDStateManager {
-    private PacketDistributor.TargetPoint targetPoint;
+    private TargetPoint targetPoint;
     protected DHDButtonsState buttonsState;
     protected final List<IDHDPartItem> assembledParts = new ArrayList<>();
 
@@ -130,11 +131,11 @@ public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S exten
     // ------------------------------------------------------------------------
 
     @Override
-    public PacketDistributor.TargetPoint getTargetPoint() {
+    public TargetPoint getTargetPoint() {
         if (dhd.getLevel() == null) return targetPoint;
         if (targetPoint == null) {
             var pos = getStateHandlerBlockPos();
-            targetPoint = new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, dhd.getLevel().dimension());
+            targetPoint = new TargetPoint(pos.getX(), pos.getY(), pos.getZ(), 512, dhd.getLevel().dimension());
         }
         return targetPoint;
     }
@@ -169,14 +170,14 @@ public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S exten
 
     public CompoundTag serializeAssemblyToNBT() {
         var compound = new CompoundTag();
-        dhd.getAllParts().forEach(part -> compound.putBoolean(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(part.self())).toString(), isDHDPartAssembled(part)));
+        dhd.getAllParts().forEach(part -> compound.putBoolean(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(part.self())).toString(), isDHDPartAssembled(part)));
         return compound;
     }
 
     public void deserializeAssemblyFromNBT(CompoundTag compound) {
         assembledParts.clear();
         dhd.getAllParts().forEach(part -> {
-            if (compound.isEmpty() || compound.getBoolean(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(part.self())).toString()))
+            if (compound.isEmpty() || compound.getBoolean(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(part.self())).toString()))
                 assembledParts.add(part);
         });
 

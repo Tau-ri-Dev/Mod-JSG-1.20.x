@@ -3,7 +3,7 @@ package dev.tauri.jsg.common.packet.packets.admincontroller.handshake;
 import dev.tauri.jsg.common.item.admincontroller.ACStargateData;
 import dev.tauri.jsg.common.packet.packets.admincontroller.ACPacketToClient;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import dev.tauri.jsg.core.common.packet.PacketContext;
 
 public class ACStargateDataPacketToClient extends ACPacketToClient {
     protected ACStargateData data;
@@ -27,7 +27,7 @@ public class ACStargateDataPacketToClient extends ACPacketToClient {
     }
 
     @Override
-    public void handle(NetworkEvent.Context ctx) {
+    public void handle(PacketContext ctx) {
         ctx.setPacketHandled(true);
         ctx.enqueueWork(() -> getGUI().ifPresent(gui -> gui.setStargateData(data)));
     }

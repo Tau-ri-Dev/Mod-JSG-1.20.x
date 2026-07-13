@@ -4,10 +4,10 @@ import dev.tauri.jsg.core.common.blockentity.ITickable;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
-public interface ISpinHelper extends INBTSerializable<CompoundTag>, ITickable {
+public interface ISpinHelper extends LegacyNBTSerializable, ITickable {
     /**
      * Gets nearest symbol from the top that is in maximum 5 degrees away from the top
      *

@@ -5,7 +5,7 @@ import dev.tauri.jsg.api.stargate.manager.IStargateDialingManager;
 import dev.tauri.jsg.api.stargate.result.StargateConnectionStatus;
 import dev.tauri.jsg.core.common.blockentity.ITickable;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import dev.tauri.jsg.api.nbt.LegacyNBTSerializable;
 import org.apache.logging.log4j.util.TriConsumer;
 
 import java.util.Optional;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  *
  * @author MineDragonCZ_ (Tau'ri Dev)
  */
-public interface IStargateConnection extends INBTSerializable<CompoundTag>, ITickable {
+public interface IStargateConnection extends LegacyNBTSerializable, ITickable {
     StargateConnectionStatus getStatus();
 
     Optional<StargatePos> getTarget();

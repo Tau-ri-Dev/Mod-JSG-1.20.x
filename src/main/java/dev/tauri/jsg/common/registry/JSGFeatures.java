@@ -4,11 +4,11 @@ import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.common.worldgen.feature.OreSpireFeature;
 import dev.tauri.jsg.common.worldgen.feature.config.OreSpireConfig;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.JSGDeferredRegister;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGFeatures {
-    private static final DeferredRegister<Feature<?>> REGISTER = JSGApi.REGISTRY_HELPER.feature();
+    private static final JSGDeferredRegister<Feature<?>> REGISTER = JSGApi.REGISTRY_HELPER.feature();
 
     public static final RegistryObject<Feature<?>> ORE_SPIRE = register("ore_spire", new OreSpireFeature(OreSpireConfig.CODEC));
 

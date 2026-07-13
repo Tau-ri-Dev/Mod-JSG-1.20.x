@@ -37,8 +37,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -176,7 +176,7 @@ public class StargateContainerGui extends TabbedContainerScreen<StargateContaine
         int energyBarMaxWidth = 156;
         int currentIndex = 3;
         for (int i = 4; i < 7; i++) {
-            Optional<IEnergyStorage> energyStorage = menu.getSlot(i).getItem().getCapability(ForgeCapabilities.ENERGY, null).resolve();
+            Optional<IEnergyStorage> energyStorage = Optional.ofNullable(menu.getSlot(i).getItem().getCapability(Capabilities.EnergyStorage.ITEM));
             if (energyStorage.isPresent())
                 continue;
             energyBarMaxWidth -= 39;
@@ -307,7 +307,7 @@ public class StargateContainerGui extends TabbedContainerScreen<StargateContaine
             }
         }
 
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
 
         boolean hasAddressUpgrade = false;
         boolean hasIrisUpgrade = !menu.getSlot(8).getItem().isEmpty();
@@ -342,7 +342,7 @@ public class StargateContainerGui extends TabbedContainerScreen<StargateContaine
         energyStoredInternally = energyStorageInternal.getTrueEnergyStored();
 
         for (int i = 4; i < 7; i++) {
-            Optional<IEnergyStorage> energyStorage = menu.getSlot(i).getItem().getCapability(ForgeCapabilities.ENERGY, null).resolve();
+            Optional<IEnergyStorage> energyStorage = Optional.ofNullable(menu.getSlot(i).getItem().getCapability(Capabilities.EnergyStorage.ITEM));
 
             if (energyStorage.isEmpty())
                 continue;

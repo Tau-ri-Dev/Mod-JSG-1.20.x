@@ -2,7 +2,7 @@ package dev.tauri.jsg.api.registry;
 
 import dev.tauri.jsg.api.JSGApi;
 import dev.tauri.jsg.core.common.entity.ScheduledTaskType;
-import net.minecraftforge.registries.RegistryObject;
+import dev.tauri.jsg.core.common.registry.RegistryObject;
 
 public class JSGScheduledTaskTypes {
     public static final RegistryObject<ScheduledTaskType> STARGATE_OPEN_SOUND = JSGApi.REGISTRY_HELPER.scheduledTask().register("stargate_open_sound", () -> new ScheduledTaskType("stargate_open_sound", 1, false));

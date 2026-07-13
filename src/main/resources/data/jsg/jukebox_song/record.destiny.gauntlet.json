@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.jsg.music_disc_destiny_gauntlet.desc"
+  },
+  "length_in_seconds": 158.0,
+  "sound_event": "jsg:record.destiny.gauntlet"
+}

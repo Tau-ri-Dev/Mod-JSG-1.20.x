@@ -10,7 +10,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -23,14 +23,14 @@ public class JSGRIGWavesProvider implements DataProvider {
     protected final PackOutput.PathProvider pathProvider;
 
     public JSGRIGWavesProvider(PackOutput pOutput) {
-        this.pathProvider = pOutput.createPathProvider(PackOutput.Target.DATA_PACK, ForgeHooks.prefixNamespace(JSGRegistries.RIG_WAVES.location()));
+        this.pathProvider = pOutput.createPathProvider(PackOutput.Target.DATA_PACK, CommonHooks.prefixNamespace(JSGRegistries.RIG_WAVES.location()));
     }
 
     @Override
     public CompletableFuture<?> run(CachedOutput pOutput) {
         List<CompletableFuture<?>> list = new ArrayList<>();
         for (var wave : StargateRIGConfig.DEFAULT_VALUES.entrySet()) {
-            list.add(DataProvider.saveStable(pOutput, RIGWave.CODEC.encodeStart(JsonOps.INSTANCE, wave.getValue()).get().orThrow(), pathProvider.json(JSGMapping.rl(JSG.MOD_ID, wave.getKey().toLowerCase()))));
+            list.add(DataProvider.saveStable(pOutput, RIGWave.CODEC.encodeStart(JsonOps.INSTANCE, wave.getValue()).getOrThrow(), pathProvider.json(JSGMapping.rl(JSG.MOD_ID, wave.getKey().toLowerCase()))));
         }
 
         return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));

@@ -192,7 +192,6 @@ public class DialingTab extends AdminControllerTabAsWidget {
 
     @Override
     public void tick() {
-        super.tick();
         if (baseGUI.stargateData == null) return;
         var address = baseGUI.stargateData.dialedAddress;
         symbolFrames.forEach(s -> {

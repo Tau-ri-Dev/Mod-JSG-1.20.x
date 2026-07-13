@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -81,7 +81,7 @@ public abstract class JUBDevice {
 
     public void updateBusDevices(Level level, BlockPos posChanged) {
         var changedBE = level.getBlockEntity(posChanged);
-        var wasRemoved = (changedBE == null || changedBE.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve().isEmpty());
+        var wasRemoved = (changedBE == null || (JSGCapabilities.getJUB(changedBE) == null));
         if (wasRemoved) {
             var deviceBus = getBus();
             if (deviceBus == null) return;
@@ -99,7 +99,7 @@ public abstract class JUBDevice {
             }
         } else {
             JSG.logger.info(BlockHelper.blockPosToBetterString(posChanged));
-            var changedBECap = changedBE.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve().get();
+            var changedBECap = java.util.Objects.requireNonNull(JSGCapabilities.getJUB(changedBE));
             if (getBus() == null) {
                 if (changedBECap.getBus() == null) {
                     changedBECap.connectToBus(new JUB());
@@ -127,7 +127,7 @@ public abstract class JUBDevice {
             if (map.containsKey(newPos)) continue;
             var newBE = level.getBlockEntity(newPos);
             if (newBE == null) continue;
-            var capOpt = newBE.getCapability(JSGCapabilities.JUST_UNIVERSAL_BUS).resolve();
+            var capOpt = java.util.Optional.ofNullable(JSGCapabilities.getJUB(newBE));
             if (capOpt.isEmpty()) continue;
 
             if (capOpt.get().getBus() != newBus)

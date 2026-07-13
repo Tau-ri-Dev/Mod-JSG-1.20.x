@@ -1,5 +1,7 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.block.stargate.IStargateBlock;
 import dev.tauri.jsg.api.config.JSGConfig;
@@ -87,10 +89,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -628,12 +627,12 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     // NBT
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
         compound.put("irisManager", irisManager.serializeNBT());
         if (isLinked(true)) {
             compound.putLong("linkedDHD", linkedDHD.asLong());
         }
-        compound.put("itemHandler", itemStackHandler.serializeNBT());
+        compound.put("itemHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
 
         compound.put("config", getConfig().serializeNBT());
 
@@ -652,17 +651,17 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
             compound.putLong("redstoneIODevice_pos" + i, REDSTONE_IO_BLOCKS.get(i).asLong());
         }
 
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(CompoundTag compound, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         irisManager.deserializeNBT(compound.getCompound("irisManager"));
         if (compound.contains("linkedDHD"))
             linkedDHD = BlockPos.of(compound.getLong("linkedDHD"));
 
-        itemStackHandler.deserializeNBT(compound.getCompound("itemHandler"));
+        itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), compound.getCompound("itemHandler"));
 
         getConfig().deserializeNBT(compound.getCompound("config"));
 
@@ -754,12 +753,12 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     @Override
     public void updateContainerItemsByItemStack(ItemStack stack) {
         super.updateContainerItemsByItemStack(stack);
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         if (tag.contains("config"))
             getConfig().deserializeNBT(tag.getCompound("config"));
         if (!tag.contains("itemHandler")) return;
         updateItemHandlerSize();
-        itemStackHandler.deserializeNBT(tag.getCompound("itemHandler"));
+        itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), tag.getCompound("itemHandler"));
         updatePowerTier();
         getIrisManager().updateIrisType();
         sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
@@ -792,10 +791,10 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     @Override
     public ItemStack getDropBaseBlock(ServerPlayer player) {
         var stack = super.getDropBaseBlock(player);
-        var tag = stack.getOrCreateTag();
-        tag.put("itemHandler", itemStackHandler.serializeNBT());
+        var tag = ItemNBT.getOrCreateTag(stack);
+        tag.put("itemHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
         tag.put("config", getConfig().serializeNBT());
-        stack.setTag(tag);
+        ItemNBT.setTag(stack, tag);
         return stack;
     }
 
@@ -804,7 +803,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             Item item = stack.getItem();
-            boolean isItemCapacitor = stack.is(JSGItemTags.STARGATE_CAPACITORS) && stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
+            boolean isItemCapacitor = stack.is(JSGItemTags.STARGATE_CAPACITORS) && (stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM) != null);
             return switch (slot) {
                 case 0, 1, 2, 3 -> StargateUpgrade.contains(item) && !hasUpgrade(item);
                 case 4 -> isItemCapacitor && getSupportedCapacitors() >= 1;
@@ -927,7 +926,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
                 ItemStack stack = itemStackHandler.getStackInSlot(i);
 
                 if (!stack.isEmpty()) {
-                    var capCapability = stack.getCapability(ForgeCapabilities.ENERGY, null).resolve();
+                    var capCapability = java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ITEM));
                     capCapability.ifPresent(energyStorage::addStorage);
                 }
             }
@@ -940,16 +939,12 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
 
     // -----------------------------------------------------------------------------
     // Capabilities
+    public JSGItemStackHandler getInventoryHandler() {
+        return itemStackHandler;
+    }
 
-    @Override
-    public <T> LazyOptional<T> getStargateCapability(Capability<T> capability, @Nullable Direction facing) {
-        if (capability == ForgeCapabilities.ITEM_HANDLER) {
-            return LazyOptional.of(() -> itemStackHandler).cast();
-        }
-        if (capability == JSGCapabilities.JUST_UNIVERSAL_BUS) {
-            return LazyOptional.of(() -> jubDevice).cast();
-        }
-        return super.getStargateCapability(capability, facing);
+    public dev.tauri.jsg.common.jub.JUBDevice getJubDevice() {
+        return jubDevice;
     }
 
     @Override

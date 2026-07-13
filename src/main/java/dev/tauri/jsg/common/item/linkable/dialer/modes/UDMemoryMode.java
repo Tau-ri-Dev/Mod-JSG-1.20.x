@@ -1,5 +1,6 @@
 package dev.tauri.jsg.common.item.linkable.dialer.modes;
 
+import dev.tauri.jsg.core.common.util.ItemNBT;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddress;
 import dev.tauri.jsg.common.blockentity.stargate.StargateUniverseBaseBE;
@@ -62,7 +63,7 @@ public class UDMemoryMode extends UDNearbyMode {
 
             var pageCompound = PageNotebookItemFilled.getCompoundFromAddress(address, symbolsToDisplay, PageNotebookItemFilled.getRegistryPathFromWorld(null, null), originId, NotebookPageSerialization.STARGATES);
             var pageStack = new ItemStack(CoreItems.NOTEBOOK_PAGE_FILLED.get(), 1);
-            pageStack.setTag(pageCompound);
+            ItemNBT.setTag(pageStack, pageCompound);
             serverPlayer.addItem(pageStack);*/
             return true;
         }
@@ -70,7 +71,7 @@ public class UDMemoryMode extends UDNearbyMode {
     }
 
     public void addEntry(StargateAddress address, int[] symbolsToDisplay, int originId, ItemStack stack) {
-        var tag = stack.getOrCreateTag();
+        var tag = ItemNBT.getOrCreateTag(stack);
         var modeTag = getTag(tag);
         var list = modeTag.getList(C_ENTRIES, CompoundTag.TAG_COMPOUND);
 
@@ -80,6 +81,6 @@ public class UDMemoryMode extends UDNearbyMode {
 
         list.add(addressTag);
         modeTag.put(C_ENTRIES, list);
-        stack.setTag(tag);
+        ItemNBT.setTag(stack, tag);
     }
 }
