@@ -14,7 +14,7 @@ import dev.tauri.jsg.common.config.data.ProgressJSON;
 import dev.tauri.jsg.common.injectors.JSGLootTableInjectors;
 import dev.tauri.jsg.common.injectors.JSGTemplatePoolInjectors;
 import dev.tauri.jsg.common.integration.cctweaked.CCDevices;
-import dev.tauri.jsg.common.integration.oc2.OCDevices;
+import dev.tauri.jsg.common.integration.oc.OCDevices;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
 import dev.tauri.jsg.common.registry.JSGRegistriesInit;
 import dev.tauri.jsg.common.stargate.StargateTypesLoader;
@@ -65,7 +65,7 @@ public class JSG implements JSGAddon {
         return JSGMapping.rl(JSG.MOD_ID, path);
     }
 
-    public JSG() {
+    public JSG(FMLJavaModLoadingContext ctx) {
         logger = new LoggerWrapper("[" + MOD_ID + "] ", LoggerFactory.getLogger(MOD_NAME));
 
         // API INIT
@@ -106,7 +106,7 @@ public class JSG implements JSGAddon {
         JSGConfig.load();
         JSGConfig.register();
 
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = ctx.getModEventBus();
 
         Constants.init();
         JSGRegistries.init();
@@ -125,7 +125,7 @@ public class JSG implements JSGAddon {
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
         Integrations.CCT.addOnLoad(CCDevices::load);
-        Integrations.OC2.addOnLoad(OCDevices::load);
+        Integrations.OCCE.addOnLoad(OCDevices::load);
 
         JSGAddons.registerAddon(this);
     }

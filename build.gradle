@@ -140,9 +140,8 @@ allprojects {
                 includeGroup "maven.modrinth"
             }
         }
-        flatDir {
-            dir rootDir.getAbsolutePath() + "/libs"
-        }
+        // OCCE
+        maven { url = "https://maven.akkiserver.uk/releases/" }
 
         // Create
         maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
@@ -161,7 +160,11 @@ allprojects {
 
         compileOnly fg.deobf("maven.modrinth:stellarview:k9iMuxYs")
 
-        compileOnly "li.cil:oc2:1.0"
+        compileOnly "li.cil.oc:opencomputers:${minecraft_version}-${oc_version}:api"
+        runtimeOnly fg.deobf("li.cil.oc:opencomputers:${minecraft_version}-${oc_version}:")
+        // scalablecatsforce - core for OC:CE
+        implementation fg.deobf("maven.modrinth:zr0QMQMo:1qV9Ew3X")
+
         compileOnly "com.github.SlimeKnights:TinkersConstruct:v3.9.2.37"
 
 

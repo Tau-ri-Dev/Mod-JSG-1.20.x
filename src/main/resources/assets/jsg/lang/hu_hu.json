@@ -752,7 +752,7 @@
   "gui.stargate.iris.closed_help": "Az írisz állandóan zárva",
   "gui.stargate.iris.auto_help": "Az írisz bejövő féregjáratoknál automatikusan bezárul",
   "gui.stargate.iris.auto1_help": "GDO-val kinyitható a megadott kód elküldésével",
-  "gui.stargate.iris.oc_help": "Az íriszt CC vagy OC2 számítógépek tudják vezérelni",
+  "gui.stargate.iris.oc_help": "Az íriszt CC vagy OC számítógépek tudják vezérelni",
   "gui.stargate.iris.dialer_help": "Az íriszt az Universe tárcsázó fogja vezérelni",
   "_comment615": "===>>> Info Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
   "gui.stargate.info": "Csillagkapu információ",

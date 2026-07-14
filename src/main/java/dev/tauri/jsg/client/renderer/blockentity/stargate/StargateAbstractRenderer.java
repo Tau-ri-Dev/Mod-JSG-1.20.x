@@ -250,7 +250,7 @@ public abstract class StargateAbstractRenderer<S extends StargateAbstractRendere
     }
 
     protected ResourceLocation getEventHorizonTextureResource(boolean kawoosh) {
-        return new ResourceLocation(JSG.MOD_ID, (kawoosh ? EV_HORIZON_KAWOOSH_OVERLAY_TEXTURE : EV_HORIZON_OVERLAY_TEXTURE));
+        return JSGMapping.rl(JSG.MOD_ID, (kawoosh ? EV_HORIZON_KAWOOSH_OVERLAY_TEXTURE : EV_HORIZON_OVERLAY_TEXTURE));
     }
 
     protected void renderKawoosh() {

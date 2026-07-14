@@ -452,6 +452,12 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     }
 
     @Override
+    public void setRemoved() {
+        onStargateUnloaded();
+        super.setRemoved();
+    }
+
+    @Override
     public void tick(Level level) {
         Stargate.super.tick(level);
         ScheduledTask.iterate(scheduledTasks, getTime());

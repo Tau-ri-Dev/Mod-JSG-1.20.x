@@ -25,10 +25,8 @@ import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.item.CommonUpgrade;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
-import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.sound.ISoundEvent;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
-import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.util.FluidTank;
 import dev.tauri.jsg.core.common.util.JSGItemStackHandler;
@@ -56,7 +54,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.PacketDistributor;
@@ -222,27 +219,7 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            Item item = stack.getItem();
-
-            return switch (slot) {
-                case 0 -> item == getControlCrystal();
-                case 1, 2, 3 -> SUPPORTED_UPGRADES.contains(item) && !hasUpgrade(item);
-                case 4 -> stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(fluidHandler -> {
-                    var tanks = fluidHandler.getTanks();
-                    for (var i = 0; i < tanks; i++) {
-                        var tankFluid = fluidHandler.getFluidInTank(i);
-                        if (tankFluid.getFluid() == CoreFluids.MOLTEN_NAQUADAH_REFINED.get()) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }).orElse(false);
-                case BIOME_OVERRIDE_SLOT -> {
-                    var override = BiomeOverlayInstance.getBiomeOverlayByItem(stack, true);
-                    yield override != null;
-                }
-                default -> true;
-            };
+            return false;
         }
 
         @SuppressWarnings("null")
@@ -266,31 +243,6 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
         @Override
         protected void onContentsChanged(int slot) {
-            switch (slot) {
-                case BIOME_OVERRIDE_SLOT:
-                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
-                    break;
-
-                case 4:
-                    ItemStack stack = getStackInSlot(slot);
-                    stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(fluidHandler -> {
-                        var tanks = fluidHandler.getTanks();
-                        for (var i = 0; i < tanks; i++) {
-                            var tankFluid = fluidHandler.getFluidInTank(i);
-                            if (tankFluid.getFluid() == CoreFluids.MOLTEN_NAQUADAH_REFINED.get()) {
-                                var extracted = fluidHandler.drain(tankFluid, IFluidHandler.FluidAction.SIMULATE);
-                                int filled = getReactorManager().getTank().fill(extracted, IFluidHandler.FluidAction.EXECUTE);
-                                fluidHandler.drain(new FluidStack(tankFluid.getFluid(), filled), IFluidHandler.FluidAction.EXECUTE);
-                            }
-                        }
-                    });
-                    break;
-
-
-                default:
-                    break;
-            }
-
             super.onContentsChanged(slot);
             setChanged();
         }
@@ -438,13 +390,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
 
     public BiomeOverlayInstance determineBiomeOverride() {
-        ItemStack stack = getItemStackHandler().getStackInSlot(BIOME_OVERRIDE_SLOT);
-
-        if (stack.isEmpty()) {
-            return null;
-        }
-
-        return BiomeOverlayInstance.getBiomeOverlayByItem(stack);
+        // TODO: Get overlay from Stargate
+        return null;
     }
 
     // -----------------------------------------------------------------------------
