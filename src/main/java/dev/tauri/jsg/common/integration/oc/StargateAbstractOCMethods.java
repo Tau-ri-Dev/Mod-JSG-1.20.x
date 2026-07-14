@@ -2,17 +2,20 @@ package dev.tauri.jsg.common.integration.oc;
 
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.registry.JSGSymbolUsages;
+import dev.tauri.jsg.api.stargate.network.StargatePos;
+import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
+import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
+import dev.tauri.jsg.core.common.integration.cctweaked.CCTweakedHelper;
 import dev.tauri.jsg.core.common.integration.oc.methods.AbstractOCMethods;
+import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstractBaseBE<?, ?>> {
     public StargateAbstractOCMethods(ComputerDeviceProvider gateTile) {
@@ -95,5 +98,79 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
             return new Object[]{true, "open", deviceTile.getDialingManager().getStargateState().initiating()};
 
         return new Object[]{true, deviceTile.getDialingManager().getStargateState().toString().toLowerCase()};
+    }
+
+    @SuppressWarnings("unused")
+    @Callback(value = "getSymbolsNeeded")
+    public final Object[] getSymbolsNeeded(Context context, Arguments args) {
+        if (!deviceTile.isMerged()) return new Object[]{false, "not_merged"};
+
+        StargateAddressDynamic stargateAddress = new StargateAddressDynamic(deviceTile.getSymbolType());
+
+        var symbols = CCTweakedHelper.getCorrectlyOrderedTableValues(args.checkTable(0));
+        for (Object symbolObj : symbols) {
+            if (stargateAddress.size() == 9) {
+                throw new IllegalArgumentException("Too much glyphs");
+            }
+
+            SymbolInterface symbol = deviceTile.getSymbolFromNameIndex(symbolObj);
+            if (stargateAddress.contains(symbol)) {
+                throw new IllegalArgumentException("Duplicate glyph");
+            }
+
+            stargateAddress.addSymbol(symbol);
+        }
+
+        if (!stargateAddress.getLast().origin() && stargateAddress.size() < 9) stargateAddress.addOrigin();
+
+        if (!stargateAddress.validate()) return new Object[]{false, "address_malformed"};
+
+        if (!deviceTile.getDialingManager().canDialAddress(stargateAddress, false))
+            return new Object[]{false, "address_malformed"};
+
+        StargatePos pos = StargateNetwork.INSTANCE.getStargate(stargateAddress);
+        if (pos == null) return new Object[]{false, "gate_not_found"};
+
+        int symbolsCount = deviceTile.getDialingManager().getMinimalSymbolsToDial(Objects.requireNonNull(pos.getGateSymbolType()), pos);
+
+        return new Object[]{true, "symbols_needed", symbolsCount};
+    }
+
+    @SuppressWarnings("unused")
+    @Callback(value = "getEnergyRequiredToDial")
+    public final Object[] getEnergyRequiredToDial(Context context, Arguments args) {
+        if (!deviceTile.isMerged()) return new Object[]{false, "not_merged"};
+
+        StargateAddressDynamic stargateAddress = new StargateAddressDynamic(deviceTile.getSymbolType());
+
+        var symbols = CCTweakedHelper.getCorrectlyOrderedTableValues(args.checkTable(0));
+        for (Object symbolObj : symbols) {
+            if (stargateAddress.size() == 9) {
+                throw new IllegalArgumentException("Too much glyphs");
+            }
+
+            SymbolInterface symbol = deviceTile.getSymbolFromNameIndex(symbolObj);
+            if (stargateAddress.contains(symbol)) {
+                throw new IllegalArgumentException("Duplicate glyph");
+            }
+
+            stargateAddress.addSymbol(symbol);
+        }
+
+        if (!stargateAddress.getLast().origin() && stargateAddress.size() < 9) stargateAddress.addOrigin();
+
+        if (!stargateAddress.validate()) return new Object[]{false, "address_malformed"};
+
+        if (!deviceTile.getDialingManager().canDialAddress(stargateAddress, false))
+            return new Object[]{false, "address_malformed"};
+
+        var energyRequired = deviceTile.getEnergyManager().getEnergyRequiredToDial(Objects.requireNonNull(StargateNetwork.INSTANCE.getStargate(stargateAddress)), stargateAddress);
+        Map<String, Object> energyMap = new HashMap<>();
+
+        energyMap.put("open", energyRequired.energyToOpen);
+        energyMap.put("keepAlive", energyRequired.keepAlive);
+        energyMap.put("canOpen", deviceTile.getEnergyManager().getStorage().getTrueEnergyStored() >= energyRequired.energyToOpen);
+
+        return new Object[]{true, "energy_map", energyMap};
     }
 }
