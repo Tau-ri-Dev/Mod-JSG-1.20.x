@@ -15,7 +15,6 @@ import dev.tauri.jsg.common.dialhomedevice.animation.DHDButtonsState;
 import dev.tauri.jsg.common.dialhomedevice.manager.DHDReactorManager;
 import dev.tauri.jsg.common.dialhomedevice.manager.state.DHDAbstractStateManager;
 import dev.tauri.jsg.common.helpers.StargateLinkingHelper;
-import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.core.common.blockentity.BEStateProvider;
 import dev.tauri.jsg.core.common.blockentity.ILinkable;
 import dev.tauri.jsg.core.common.blockentity.JSGBlockEntity;
@@ -26,7 +25,6 @@ import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.item.CommonUpgrade;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
-import dev.tauri.jsg.core.common.registry.CoreItems;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.sound.ISoundEvent;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
@@ -67,17 +65,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDHD, ILinkable<Stargate<?>>, BEStateProvider {
-    // TODO: Refactor to use IUpgrade class
-    public static final List<Item> SUPPORTED_UPGRADES = Arrays.asList(JSGItems.CRYSTAL_GLYPH_DHD.get(), CoreItems.CRYSTAL_UPGRADE_CAPACITY.get(), CoreItems.CRYSTAL_UPGRADE_EFFICIENCY.get());
-    public static final int BIOME_OVERRIDE_SLOT = 5;
-
     // ====================================================================================
-
     protected DHDAbstractStateManager<?, ?> stateManager;
     protected DHDReactorManager reactorManager;
 

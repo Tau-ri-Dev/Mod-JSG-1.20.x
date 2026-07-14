@@ -145,12 +145,6 @@ public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S exten
         if (level.isClientSide) {
             if (getRendererStateClient() == null) {
                 requestState(CoreStateTypes.RENDERER_STATE.get());
-                // Each 2s check for the sky
-                // TODO(Mine): Fix biome overlays
-                //if (level.getGameTime() % 40 == 0 && rendererStateClient != null
-                //        && getRendererStateClient().biomeOverride == null) {
-                //    rendererStateClient.setBiomeOverlay(BiomeOverlayInstance.getUpdatedBiomeOverlay(level, getBlockPos()));
-                //}
             }
         }
     }
@@ -183,7 +177,7 @@ public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S exten
         // OLD versions compat
         var stackHandler = dhd.getItemStackHandler();
         if (!stackHandler.getStackInSlot(0).isEmpty() && !isDHDPartAssembled((IDHDPartItem) dhd.getControlCrystal())) {
-
+            assembledParts.add((IDHDPartItem) dhd.getControlCrystal());
         }
 
         var level = dhd.getLevel();

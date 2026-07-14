@@ -9,7 +9,6 @@ import dev.tauri.jsg.core.common.blockentity.*;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
 import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
-import dev.tauri.jsg.core.common.util.IUpgrade;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -113,10 +112,6 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
     @Override
     default PointOfOrigin getPointOfOrigin() {
         return getLinkedDeviceOptional().map((sg) -> sg.getPointOfOrigin(getSymbolType())).orElse(null);
-    }
-
-    enum DHDUpgradeEnum implements IUpgrade {
-        CHEVRON_UPGRADE
     }
 
     default void setDHDChanged() {
