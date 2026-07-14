@@ -264,25 +264,13 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         @Override
         public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
             super.setStackInSlot(slot, stack);
-
-            if (level != null && !level.isClientSide && slot == 0) {
-                // Crystal changed
-                updateCrystal();
-            }
         }
 
         @SuppressWarnings("null")
         @Nonnull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            ItemStack out = super.extractItem(slot, amount, simulate);
-
-            if (level != null && !level.isClientSide && slot == 0 && amount > 0 && !simulate) {
-                // Removing crystal
-                updateCrystal();
-            }
-
-            return out;
+            return super.extractItem(slot, amount, simulate);
         }
 
         @Override
@@ -316,10 +304,6 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             setChanged();
         }
     };
-
-    // TODO(Mine): Update client about this change
-    public void updateCrystal() {
-    }
 
     @Override
     public abstract Item getControlCrystal();
