@@ -1,6 +1,5 @@
 package dev.tauri.jsg.common.blockentity.stargate;
 
-import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.entity.StargateAddressData;
@@ -38,6 +37,7 @@ import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.integration.ComputerDeviceHolder;
 import dev.tauri.jsg.core.common.item.notebook.PageNotebookItemFilled;
 import dev.tauri.jsg.core.common.multistructure.IMultiStructureBE;
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.sound.IPositionedSound;
@@ -49,7 +49,6 @@ import dev.tauri.jsg.core.common.symbol.pointoforigin.PointOfOrigin;
 import dev.tauri.jsg.core.common.util.JSGAxisAlignedBB;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -59,7 +58,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -449,6 +447,13 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
     }
 
     @Override
+    public void setRemoved() {
+        onStargateUnloaded();
+        getDeviceHolder().disconnectFromWirelessNetwork();
+        super.setRemoved();
+    }
+
+    @Override
     public void tick(Level level) {
         Stargate.super.tick(level);
         ScheduledTask.iterate(scheduledTasks, getTime());
@@ -469,12 +474,6 @@ public abstract class StargateAbstractBaseBE<S extends StargateAbstractRendererS
         getRIGManager().onUnload();
         getDeviceHolder().disconnectFromWirelessNetwork();
         super.onChunkUnloaded();
-    }
-
-    @Override
-    public void setRemoved() {
-        getDeviceHolder().disconnectFromWirelessNetwork();
-        super.setRemoved();
     }
 
     @Override

@@ -220,7 +220,7 @@ public abstract class StargateClassicBaseBE<S extends StargateClassicRendererSta
     public int getMaxChevrons() {
         if (getDialingManager().getStargateState().dialingComputer()) return 9;
         if (isLinkedAndDHDOperational()) {
-            return getLinkedDevice() != null && !getLinkedDevice().hasUpgrade(DHDAbstractBE.DHDUpgradeEnum.CHEVRON_UPGRADE) ? 7 : 9;
+            return getLinkedDevice() != null ? 7 : 9; //TODO: Implement DHD upgrades
         }
         return 9;
     }

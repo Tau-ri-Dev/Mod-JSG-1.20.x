@@ -134,7 +134,7 @@ public class TabIris extends Tab {
             switch (mouseButton) {
                 case 0:
                     buttonChangeMode.nextState();
-                    if (!(Integrations.CCT.isLoaded() || Integrations.OC2.isLoaded()) && buttonChangeMode.getCurrentState() == 3) {
+                    if (!(Integrations.CCT.isLoaded() || Integrations.OCCE.isLoaded()) && buttonChangeMode.getCurrentState() == 3) {
                         buttonChangeMode.nextState();
                     }
                     if (!isUniverse && buttonChangeMode.getCurrentState() == 4) {
@@ -146,7 +146,7 @@ public class TabIris extends Tab {
                     if (!isUniverse && buttonChangeMode.getCurrentState() == 4) {
                         buttonChangeMode.previousState();
                     }
-                    if (!(Integrations.CCT.isLoaded() || Integrations.OC2.isLoaded()) && buttonChangeMode.getCurrentState() == 3) {
+                    if (!(Integrations.CCT.isLoaded() || Integrations.OCCE.isLoaded()) && buttonChangeMode.getCurrentState() == 3) {
                         buttonChangeMode.previousState();
                     }
                     break;

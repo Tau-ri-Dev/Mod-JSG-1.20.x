@@ -359,6 +359,11 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
         getRIGManager().onLoad(level);
         getEventHorizonManager().onLoad(level);
         getSoundManager().onLoad(level);
+        getDeviceHolder().onLoad();
+    }
+
+    default void onStargateUnloaded() {
+        getDeviceHolder().onUnload();
     }
 
     @Override

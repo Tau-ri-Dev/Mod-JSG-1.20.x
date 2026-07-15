@@ -1,10 +1,11 @@
 package dev.tauri.jsg.common.blockentity.dialhomedevice;
 
-import dev.tauri.jsg.common.helpers.CurrentRegistries;
-import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.dialhomedevice.StargateDHD;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgrade;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgradeBehavior;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgradeItem;
 import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
@@ -16,8 +17,8 @@ import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.common.dialhomedevice.animation.DHDButtonsState;
 import dev.tauri.jsg.common.dialhomedevice.manager.DHDReactorManager;
 import dev.tauri.jsg.common.dialhomedevice.manager.state.DHDAbstractStateManager;
+import dev.tauri.jsg.common.helpers.CurrentRegistries;
 import dev.tauri.jsg.common.helpers.StargateLinkingHelper;
-import dev.tauri.jsg.common.registry.JSGItems;
 import dev.tauri.jsg.core.common.blockentity.BEStateProvider;
 import dev.tauri.jsg.core.common.blockentity.ILinkable;
 import dev.tauri.jsg.core.common.blockentity.JSGBlockEntity;
@@ -27,12 +28,10 @@ import dev.tauri.jsg.core.common.entity.State;
 import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.item.CommonUpgrade;
+import dev.tauri.jsg.core.common.packet.TargetPoint;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
-import dev.tauri.jsg.core.common.registry.CoreItems;
-import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.sound.ISoundEvent;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
-import dev.tauri.jsg.core.common.state.BiomeOverrideState;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.util.FluidTank;
 import dev.tauri.jsg.core.common.util.JSGItemStackHandler;
@@ -57,28 +56,24 @@ import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDHD, ILinkable<Stargate<?>>, BEStateProvider {
-    // TODO: Refactor to use IUpgrade class
-    public static final List<Item> SUPPORTED_UPGRADES = Arrays.asList(JSGItems.CRYSTAL_GLYPH_DHD.get(), CoreItems.CRYSTAL_UPGRADE_CAPACITY.get(), CoreItems.CRYSTAL_UPGRADE_EFFICIENCY.get());
-    public static final int BIOME_OVERRIDE_SLOT = 5;
-
     // ====================================================================================
-
     protected DHDAbstractStateManager<?, ?> stateManager;
     protected DHDReactorManager reactorManager;
+
+    protected final HashMap<Integer, IDHDUpgradeBehavior> behaviors = new HashMap<>();
 
     public DHDAbstractBE(BlockEntityType<?> entityType, BlockPos pos, BlockState state) {
         super(entityType, pos, state);
@@ -214,6 +209,10 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         });
     }
 
+    public Collection<IDHDUpgradeBehavior> getBehaviors() {
+        return behaviors.values();
+    }
+
     // ====================================================================================
 
 
@@ -229,28 +228,9 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     protected final ItemStackHandler itemStackHandler = new JSGItemStackHandler(6) {
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            Item item = stack.getItem();
-
-            return switch (slot) {
-                case 0 -> item == getControlCrystal();
-                case 1, 2, 3 -> SUPPORTED_UPGRADES.contains(item) && !hasUpgrade(item);
-                case 4 -> java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM)).map(fluidHandler -> {
-                    var tanks = fluidHandler.getTanks();
-                    for (var i = 0; i < tanks; i++) {
-                        var tankFluid = fluidHandler.getFluidInTank(i);
-                        if (tankFluid.getFluid() == CoreFluids.MOLTEN_NAQUADAH_REFINED.get()) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }).orElse(false);
-                case BIOME_OVERRIDE_SLOT -> {
-                    var override = BiomeOverlayInstance.getBiomeOverlayByItem(stack, true);
-                    yield override != null;
-                }
-                default -> true;
-            };
+        public boolean isItemValid(int slot, @NonNull ItemStack stack) {
+            if (slot == 0) return stack.getItem() == getControlCrystal();
+            return stack.getItem() instanceof IDHDUpgradeItem upgrade && upgrade.getUpgrade() instanceof IDHDUpgrade;
         }
 
         @SuppressWarnings("null")
@@ -263,62 +243,33 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         @Override
         public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
             super.setStackInSlot(slot, stack);
-
-            if (level != null && !level.isClientSide && slot == 0) {
-                // Crystal changed
-                updateCrystal();
-            }
         }
 
         @SuppressWarnings("null")
         @Nonnull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            ItemStack out = super.extractItem(slot, amount, simulate);
-
-            if (level != null && !level.isClientSide && slot == 0 && amount > 0 && !simulate) {
-                // Removing crystal
-                updateCrystal();
-            }
-
-            return out;
+            return super.extractItem(slot, amount, simulate);
         }
 
         @Override
         protected void onContentsChanged(int slot) {
-            switch (slot) {
-                case BIOME_OVERRIDE_SLOT:
-                    sendState(CoreStateTypes.BIOME_OVERRIDE_STATE.get(), new BiomeOverrideState(determineBiomeOverride()));
-                    break;
-
-                case 4:
-                    ItemStack stack = getStackInSlot(slot);
-                    java.util.Optional.ofNullable(stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM)).ifPresent(fluidHandler -> {
-                        var tanks = fluidHandler.getTanks();
-                        for (var i = 0; i < tanks; i++) {
-                            var tankFluid = fluidHandler.getFluidInTank(i);
-                            if (tankFluid.getFluid() == CoreFluids.MOLTEN_NAQUADAH_REFINED.get()) {
-                                var extracted = fluidHandler.drain(tankFluid, IFluidHandler.FluidAction.SIMULATE);
-                                int filled = getReactorManager().getTank().fill(extracted, IFluidHandler.FluidAction.EXECUTE);
-                                fluidHandler.drain(new FluidStack(tankFluid.getFluid(), filled), IFluidHandler.FluidAction.EXECUTE);
-                            }
-                        }
-                    });
-                    break;
-
-
-                default:
-                    break;
-            }
-
             super.onContentsChanged(slot);
+            if (slot == 0) {
+                if (getStackInSlot(slot).isEmpty())
+                    getStateManager().disassemblePart((IDHDPartItem) getControlCrystal());
+                else if (!isAssembled((IDHDPartItem) getControlCrystal()))
+                    getStateManager().assemblePart((IDHDPartItem) getControlCrystal());
+            } else {
+                if (getStackInSlot(slot).isEmpty() && behaviors.containsKey(slot))
+                    behaviors.remove(slot);
+                else if (getStackInSlot(slot).getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade) {
+                    behaviors.put(slot, dhdUpgrade.createBehavior(DHDAbstractBE.this));
+                }
+            }
             setChanged();
         }
     };
-
-    // TODO(Mine): Update client about this change
-    public void updateCrystal() {
-    }
 
     @Override
     public abstract Item getControlCrystal();
@@ -462,13 +413,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
 
     public BiomeOverlayInstance determineBiomeOverride() {
-        ItemStack stack = getItemStackHandler().getStackInSlot(BIOME_OVERRIDE_SLOT);
-
-        if (stack.isEmpty()) {
-            return null;
-        }
-
-        return BiomeOverlayInstance.getBiomeOverlayByItem(stack);
+        // TODO: Get overlay from Stargate
+        return null;
     }
 
     // -----------------------------------------------------------------------------
@@ -502,6 +448,10 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         }
 
         compound.put("itemStackHandler", itemStackHandler.serializeNBT(CurrentRegistries.getOrThrow()));
+
+        var behaviorsCompound = new CompoundTag();
+        behaviors.forEach((slot, behavior) -> behaviorsCompound.put("behavior_" + slot, behavior.serializeNBT(registries)));
+        compound.put("behaviors", behaviorsCompound);
     }
 
     @Override
@@ -516,6 +466,15 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         }
 
         itemStackHandler.deserializeNBT(CurrentRegistries.getOrThrow(), compound.getCompound("itemStackHandler"));
+
+        var behaviorsCompound = compound.getCompound("behaviors");
+        behaviors.clear();
+        for (var key : behaviorsCompound.getAllKeys()) {
+            int slot = Integer.parseInt(key.replace("behavior_", ""));
+            var stack = getItemStackHandler().getStackInSlot(slot);
+            if (stack.getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade)
+                behaviors.put(slot, dhdUpgrade.createBehavior(this));
+        }
     }
 
     @Nonnull
@@ -529,5 +488,4 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         setLinkedDevice(null);
         return true;
     }
-
 }

@@ -53,7 +53,7 @@ public class DialGateBehaviour extends Behavior<Villager> {
     protected StargateAddressDynamic getRandomVillageAddress(Villager owner) {
         if (dhd == null || gate == null) return null;
         var symbolType = dhd.getSymbolType();
-        boolean hasUpgrade = dhd.hasUpgrade(DHDAbstractBE.DHDUpgradeEnum.CHEVRON_UPGRADE) && owner.getVillagerData().getLevel() > 1;
+        boolean hasUpgrade = false; //dhd.hasUpgrade(DHDAbstractBE.DHDUpgradeEnum.CHEVRON_UPGRADE) && owner.getVillagerData().getLevel() > 1;
         var stargateType = hasUpgrade ? StargateType.getRandomClassic(owner.getRandom()) : gate.getStargateType();
         if (stargateType == null) return null;
         var randomGate = StargateNetwork.INSTANCE.getRandomAddress(owner.getRandom(), symbolType, stargateType, null);

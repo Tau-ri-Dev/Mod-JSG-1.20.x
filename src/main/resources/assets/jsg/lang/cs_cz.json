@@ -720,7 +720,7 @@
   "gui.stargate.iris.closed_help": "Iris je trvale uzavřena",
   "gui.stargate.iris.auto_help": "Iris se automaticky uzavře při příchozí červí díře,",
   "gui.stargate.iris.auto1_help": "může být otevřena GDO odesláním kódů uvedeném v poli",
-  "gui.stargate.iris.oc_help": "Iris je ovládána CC / OC2 počítačem",
+  "gui.stargate.iris.oc_help": "Iris je ovládána CC / OC počítačem",
   "gui.stargate.iris.dialer_help": "Iris může být ovládána antickým ovladačem",
   "_comment615": "===>>> Info Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
   "gui.stargate.info": "Informace o bráně",

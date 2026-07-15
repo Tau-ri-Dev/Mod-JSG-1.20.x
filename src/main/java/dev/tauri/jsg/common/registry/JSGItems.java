@@ -2,7 +2,6 @@ package dev.tauri.jsg.common.registry;
 
 import dev.tauri.jsg.Constants;
 import dev.tauri.jsg.api.JSGApi;
-import dev.tauri.jsg.api.dialhomedevice.StargateDHD;
 import dev.tauri.jsg.api.stargate.StargateUpgrade;
 import dev.tauri.jsg.api.stargate.iris.EnumIrisType;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnum;
@@ -87,7 +86,7 @@ public class JSGItems {
     /**
      * These allow for dialing 8th glyph(cross dimension travel) and show different address spaces
      */
-    public static final RegistryObject<JSGItem> CRYSTAL_GLYPH_DHD = Constants.JSG_ITEM_HELPER.builder("crystal_glyph_dhd").setInTabs(List.of(CoreTabs.TAB_UPGRADES)).buildUpgrade(() -> StargateDHD.DHDUpgradeEnum.CHEVRON_UPGRADE);
+    public static final RegistryObject<JSGItem> CRYSTAL_GLYPH_DHD = Constants.JSG_ITEM_HELPER.builder("crystal_glyph_dhd").setInTabs(List.of(CoreTabs.TAB_UPGRADES)).buildGeneric(); //.buildUpgrade(() -> StargateDHD.DHDUpgradeEnum.CHEVRON_UPGRADE);
     public static final RegistryObject<JSGItem> CRYSTAL_GLYPH_STARGATE = Constants.JSG_ITEM_HELPER.builder("crystal_glyph_stargate").setInTabs(List.of(CoreTabs.TAB_UPGRADES)).buildUpgrade(() -> StargateUpgrade.CHEVRON_UPGRADE);
     public static final RegistryObject<JSGItem> CRYSTAL_GLYPH_MILKYWAY = Constants.JSG_ITEM_HELPER.builder("crystal_glyph_milkyway").setInTabs(List.of(CoreTabs.TAB_UPGRADES)).buildUpgrade(() -> StargateUpgrade.MILKYWAY_GLYPHS);
     public static final RegistryObject<JSGItem> CRYSTAL_GLYPH_PEGASUS = Constants.JSG_ITEM_HELPER.builder("crystal_glyph_pegasus").setInTabs(List.of(CoreTabs.TAB_UPGRADES)).buildUpgrade(() -> StargateUpgrade.PEGASUS_GLYPHS);

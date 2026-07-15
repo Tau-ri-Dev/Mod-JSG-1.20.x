@@ -56,8 +56,8 @@ neoForge {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-if (enable_oc2 != "true") {
-    sourceSets.main.java.exclude 'dev/tauri/jsg/common/integration/oc2/**'
+if (enable_oc != "true") {
+    sourceSets.main.java.exclude 'dev/tauri/jsg/common/integration/oc/**'
 }
 
 repositories {

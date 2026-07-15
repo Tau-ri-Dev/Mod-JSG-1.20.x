@@ -592,7 +592,7 @@
   "gui.stargate.iris.closed_help": "Iris is permanently closed",
   "gui.stargate.iris.auto_help": "Iris automatically closes on incoming wormhole,",
   "gui.stargate.iris.auto1_help": "it can be opened with GDO by sending code set in field",
-  "gui.stargate.iris.oc_help": "Iris can be controlled by CC or OC2 computers",
+  "gui.stargate.iris.oc_help": "Iris can be controlled by CC or OC computers",
   "gui.stargate.iris.dialer_help": "Iris can be controlled by universe dialer",
 
   "_comment615": "===>>> Info Tab <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",

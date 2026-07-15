@@ -128,7 +128,7 @@ public class JSG implements JSGAddon {
         Runtime.getRuntime().addShutdownHook(new Thread(JSG::shutDown));
 
         Integrations.CCT.addOnLoad(CCDevices::load);
-        // OC2 has no 1.21.x build; its devices load hook returns when the integration is re-enabled (enable_oc2)
+        //Integrations.OCCE.addOnLoad(OCDevices::load);
 
         JSGAddons.registerAddon(this);
     }

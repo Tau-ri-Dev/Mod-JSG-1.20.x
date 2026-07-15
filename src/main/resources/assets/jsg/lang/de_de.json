@@ -755,7 +755,7 @@
   "gui.stargate.iris.closed_help": "Iris ist immer geschlossen",
   "gui.stargate.iris.auto_help": "Iris schließt sich automatisch bei einem eingehenden Wurmloch",
   "gui.stargate.iris.auto1_help": "sie kann mit einem GDO geöffnet werden, indem man den eingestellten Code sendet",
-  "gui.stargate.iris.oc_help": "Iris kann mit CC und OC2 Computer gesteuert werden",
+  "gui.stargate.iris.oc_help": "Iris kann mit CC und OC Computer gesteuert werden",
   "gui.stargate.iris.dialer_help": "Iris kann über den Universe Dialer gesteuert werden.",
   "_comment615": "===>>> Registerkarte „Info“ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
   "gui.stargate.info": "Stargate Information",
