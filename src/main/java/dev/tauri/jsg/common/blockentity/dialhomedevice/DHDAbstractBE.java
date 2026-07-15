@@ -4,6 +4,7 @@ import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.dialhomedevice.StargateDHD;
 import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgrade;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgradeBehavior;
 import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgradeItem;
 import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.item.IDHDPartItem;
@@ -65,12 +66,16 @@ import org.jspecify.annotations.NonNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDHD, ILinkable<Stargate<?>>, BEStateProvider {
     // ====================================================================================
     protected DHDAbstractStateManager<?, ?> stateManager;
     protected DHDReactorManager reactorManager;
+
+    protected final HashMap<Integer, IDHDUpgradeBehavior> behaviors = new HashMap<>();
 
     public DHDAbstractBE(BlockEntityType<?> entityType, BlockPos pos, BlockState state) {
         super(entityType, pos, state);
@@ -206,6 +211,10 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         });
     }
 
+    public Collection<IDHDUpgradeBehavior> getBehaviors() {
+        return behaviors.values();
+    }
+
     // ====================================================================================
 
 
@@ -253,6 +262,12 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
                     getStateManager().disassemblePart((IDHDPartItem) getControlCrystal());
                 else if (!isAssembled((IDHDPartItem) getControlCrystal()))
                     getStateManager().assemblePart((IDHDPartItem) getControlCrystal());
+            } else {
+                if (getStackInSlot(slot).isEmpty() && behaviors.containsKey(slot))
+                    behaviors.remove(slot);
+                else if (getStackInSlot(slot).getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade) {
+                    behaviors.put(slot, dhdUpgrade.createBehavior(DHDAbstractBE.this));
+                }
             }
             setChanged();
         }
@@ -438,6 +453,10 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         }
 
         compound.put("itemStackHandler", itemStackHandler.serializeNBT());
+
+        var behaviorsCompound = new CompoundTag();
+        behaviors.forEach((slot, behavior) -> behaviorsCompound.put("behavior_" + slot, behavior.serializeNBT()));
+        compound.put("behaviors", behaviorsCompound);
     }
 
     @Override
@@ -452,6 +471,15 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         }
 
         itemStackHandler.deserializeNBT(compound.getCompound("itemStackHandler"));
+
+        var behaviorsCompound = compound.getCompound("behaviors");
+        behaviors.clear();
+        for (var key : behaviorsCompound.getAllKeys()) {
+            int slot = Integer.parseInt(key.replace("behavior_", ""));
+            var stack = getItemStackHandler().getStackInSlot(slot);
+            if (stack.getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade)
+                behaviors.put(slot, dhdUpgrade.createBehavior(this));
+        }
     }
 
     @Override
@@ -471,5 +499,4 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         setLinkedDevice(null);
         return true;
     }
-
 }
