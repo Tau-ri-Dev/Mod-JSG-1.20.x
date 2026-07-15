@@ -2,12 +2,16 @@ package dev.tauri.jsg.api.dialhomedevice.upgrade;
 
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class DHDUpgradeBehaviorImpl implements IDHDUpgradeBehavior {
     @Override
     public void onAttach(Level level) {
@@ -40,17 +44,17 @@ public class DHDUpgradeBehaviorImpl implements IDHDUpgradeBehavior {
     }
 
     @Override
-    public void tick(@NotNull Level level) {
+    public void tick(Level level) {
 
     }
 
     @Override
     public CompoundTag serializeNBT() {
-        return null;
+        return new CompoundTag();
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundTag compound) {
 
     }
 }

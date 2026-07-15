@@ -3,6 +3,8 @@ package dev.tauri.jsg.common.blockentity.dialhomedevice;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.config.ingame.option.StargateConfigOptions;
 import dev.tauri.jsg.api.dialhomedevice.StargateDHD;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgrade;
+import dev.tauri.jsg.api.dialhomedevice.upgrade.IDHDUpgradeItem;
 import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
@@ -58,6 +60,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -218,8 +221,9 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     protected final ItemStackHandler itemStackHandler = new JSGItemStackHandler(6) {
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return false;
+        public boolean isItemValid(int slot, @NonNull ItemStack stack) {
+            if (slot == 0) return stack.getItem() == getControlCrystal();
+            return stack.getItem() instanceof IDHDUpgradeItem upgrade && upgrade.getUpgrade() instanceof IDHDUpgrade;
         }
 
         @SuppressWarnings("null")
@@ -244,6 +248,12 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
+            if (slot == 0) {
+                if (getStackInSlot(slot).isEmpty())
+                    getStateManager().disassemblePart((IDHDPartItem) getControlCrystal());
+                else if (!isAssembled((IDHDPartItem) getControlCrystal()))
+                    getStateManager().assemblePart((IDHDPartItem) getControlCrystal());
+            }
             setChanged();
         }
     };
