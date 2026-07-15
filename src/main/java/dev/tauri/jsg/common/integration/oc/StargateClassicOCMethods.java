@@ -17,7 +17,6 @@ import dev.tauri.jsg.api.stargate.type.StargateType;
 import dev.tauri.jsg.common.blockentity.stargate.StargateClassicBaseBE;
 import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
 import dev.tauri.jsg.core.common.integration.cctweaked.CCTweakedHelper;
-import dev.tauri.jsg.core.common.integration.oc.methods.AbstractOCMethods;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import li.cil.oc.api.machine.Arguments;
@@ -27,7 +26,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.*;
 
-public class StargateClassicOCMethods extends AbstractOCMethods<StargateClassicBaseBE<?>> {
+public class StargateClassicOCMethods extends StargateAbstractOCMethods<StargateClassicBaseBE<?>> {
     public StargateClassicOCMethods(ComputerDeviceProvider deviceTile) {
         super((StargateClassicBaseBE<?>) deviceTile, OCDevices.STARGATE_CLASSIC);
     }

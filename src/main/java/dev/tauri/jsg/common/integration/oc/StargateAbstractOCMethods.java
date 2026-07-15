@@ -6,8 +6,8 @@ import dev.tauri.jsg.api.stargate.network.StargatePos;
 import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.common.blockentity.stargate.StargateAbstractBaseBE;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
-import dev.tauri.jsg.core.common.integration.ComputerDeviceProvider;
 import dev.tauri.jsg.core.common.integration.cctweaked.CCTweakedHelper;
+import dev.tauri.jsg.core.common.integration.oc.OCDevice;
 import dev.tauri.jsg.core.common.integration.oc.methods.AbstractOCMethods;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
 import dev.tauri.jsg.core.common.symbol.SymbolType;
@@ -17,20 +17,24 @@ import li.cil.oc.api.machine.Context;
 
 import java.util.*;
 
-public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstractBaseBE<?, ?>> {
-    public StargateAbstractOCMethods(ComputerDeviceProvider gateTile) {
-        super((StargateAbstractBaseBE<?, ?>) gateTile, OCDevices.STARGATE_ABSTRACT);
+public class StargateAbstractOCMethods<T extends StargateAbstractBaseBE<?, ?>> extends AbstractOCMethods<T> {
+    public StargateAbstractOCMethods(T gateTile) {
+        this(gateTile, OCDevices.STARGATE_ABSTRACT);
+    }
+
+    public StargateAbstractOCMethods(T gateTile, OCDevice device) {
+        super(gateTile, device);
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getJSGVersion")
-    public final Object[] getJSGVersion(Context context, Arguments args) {
+    public Object[] getJSGVersion(Context context, Arguments args) {
         return new Object[]{JSG.MOD_VERSION};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getOpenedTime")
-    public final Object[] getOpenedTime(Context context, Arguments args) {
+    public Object[] getOpenedTime(Context context, Arguments args) {
         if (deviceTile.getDialingManager().getStargateState().engaged()) {
             float openedSeconds = deviceTile.getDialingManager().getConnection().getSecondsOpen();
             int minutes = ((int) Math.floor(openedSeconds / 60));
@@ -43,7 +47,7 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
 
     @SuppressWarnings("unused")
     @Callback(value = "getStargateAddress")
-    public final Object[] getStargateAddress(Context context, Arguments args) {
+    public Object[] getStargateAddress(Context context, Arguments args) {
         var a = new HashMap<String, List<String>>();
         for (var symbolType : SymbolType.values(JSGSymbolUsages.STARGATES.get())) {
             var address = deviceTile.getStargateAddress(symbolType);
@@ -55,43 +59,43 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
 
     @SuppressWarnings("unused")
     @Callback(value = "getDialedAddress")
-    public final Object[] getDialedAddress(Context context, Arguments args) {
+    public Object[] getDialedAddress(Context context, Arguments args) {
         return new Object[]{deviceTile.getDialingManager().getDialedAddress().getNameList()};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getEnergyStored")
-    public final Object[] getEnergyStored(Context context, Arguments args) {
+    public Object[] getEnergyStored(Context context, Arguments args) {
         return new Object[]{deviceTile.getEnergyManager().getStorage().getTrueEnergyStored()};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getMaxEnergyStored")
-    public final Object[] getMaxEnergyStored(Context context, Arguments args) {
+    public Object[] getMaxEnergyStored(Context context, Arguments args) {
         return new Object[]{deviceTile.getEnergyManager().getStorage().getTrueMaxEnergyStored()};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getGateType")
-    public final Object[] getGateType(Context context, Arguments args) {
+    public Object[] getGateType(Context context, Arguments args) {
         return new Object[]{deviceTile.isMerged() ? deviceTile.getStargateType().toString() : null};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getSymbolType")
-    public final Object[] getSymbolType(Context context, Arguments args) {
+    public Object[] getSymbolType(Context context, Arguments args) {
         return new Object[]{deviceTile.isMerged() ? deviceTile.getSymbolType().getId() : null};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getSymbolsMap")
-    public final Object[] getSymbolsMap(Context context, Arguments args) {
+    public Object[] getSymbolsMap(Context context, Arguments args) {
         return new Object[]{deviceTile.isMerged() ? Arrays.stream(deviceTile.getSymbolType().getValues()).map(s -> s.getEnglishName(deviceTile.getPointOfOrigin())).toList() : null};
     }
 
     @SuppressWarnings("unused")
     @Callback(value = "getGateStatus")
-    public final Object[] getGateStatus(Context context, Arguments args) {
+    public Object[] getGateStatus(Context context, Arguments args) {
         if (!deviceTile.isMerged()) return new Object[]{false, "not_merged"};
 
         if (deviceTile.getDialingManager().getStargateState().engaged())
@@ -102,7 +106,7 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
 
     @SuppressWarnings("unused")
     @Callback(value = "getSymbolsNeeded")
-    public final Object[] getSymbolsNeeded(Context context, Arguments args) {
+    public Object[] getSymbolsNeeded(Context context, Arguments args) {
         if (!deviceTile.isMerged()) return new Object[]{false, "not_merged"};
 
         StargateAddressDynamic stargateAddress = new StargateAddressDynamic(deviceTile.getSymbolType());
@@ -138,7 +142,7 @@ public class StargateAbstractOCMethods extends AbstractOCMethods<StargateAbstrac
 
     @SuppressWarnings("unused")
     @Callback(value = "getEnergyRequiredToDial")
-    public final Object[] getEnergyRequiredToDial(Context context, Arguments args) {
+    public Object[] getEnergyRequiredToDial(Context context, Arguments args) {
         if (!deviceTile.isMerged()) return new Object[]{false, "not_merged"};
 
         StargateAddressDynamic stargateAddress = new StargateAddressDynamic(deviceTile.getSymbolType());
