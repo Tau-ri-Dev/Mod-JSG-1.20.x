@@ -328,7 +328,6 @@ public class GuiCustomMainMenu extends Screen {
         RenderSystem.disableBlend();
         poseStack.popPose();
         poseStack.popPose();
-        poseStack.popPose();
     }
 
     @Override
