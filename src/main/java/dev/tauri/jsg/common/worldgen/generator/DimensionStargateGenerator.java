@@ -12,7 +12,6 @@ import dev.tauri.jsg.common.registry.tags.JSGBlockTags;
 import dev.tauri.jsg.common.registry.tags.JSGStructureTags;
 import dev.tauri.jsg.common.stargate.network.StargateNetwork;
 import dev.tauri.jsg.common.stargate.network.StargateReservedAddresses;
-import dev.tauri.jsg.core.common.chunkloader.ChunkManager;
 import dev.tauri.jsg.core.common.config.json.dimension.JSGDimensionConfig;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
 import dev.tauri.jsg.core.common.util.AccessUtil;
@@ -22,7 +21,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -81,7 +83,25 @@ public class DimensionStargateGenerator {
             }
             var sg = getStargateFromNetwork(network, dimension);
             if (sg.isEmpty()) {
-                if (findStructureAndGenerate(level, message)) {
+                boolean generated;
+                try {
+                    generated = findStructureAndGenerate(level, message);
+                } catch (Exception ex) {
+                    // Generating a stargate here forces chunk generation. Another mod's world
+                    // generation may throw while those chunks generate (e.g. a placed feature
+                    // reading a biome outside its allowed region -> "Requested chunk unavailable
+                    // during world generation"). In 1.21 that stores a fatal exception on the
+                    // server (MinecraftServer.setFatalException) which findStructureAndGenerate
+                    // surfaces to us via managedBlock. Clear it so the server survives, then skip
+                    // this dimension and carry on instead of aborting world creation.
+                    MinecraftServer.fatalException.set(null);
+                    JSG.logger.error("Failed to generate stargate in dimension {} - skipping it. "
+                            + "This is caused by world generation (usually another mod's) throwing during forced chunk generation.",
+                            dimension.location(), ex);
+                    stats.put(dimension.location().toString(), StargateGeneratorDimStatus.ERROR);
+                    continue;
+                }
+                if (generated) {
                     totalGenerated.getAndIncrement();
                     stats.put(dimension.location().toString(), StargateGeneratorDimStatus.GENERATED);
                 } else stats.put(dimension.location().toString(), StargateGeneratorDimStatus.NO_STRUCTURE);
@@ -130,23 +150,56 @@ public class DimensionStargateGenerator {
             var origin = structureEntry.getFirst().immutable();
             if (level.dimension() == JSGDimensions.ABYDOS)
                 origin = new BlockPos(0, 0, 0);
-            var chunksRadius = 2;
-            for (var x = -chunksRadius; x < chunksRadius; x++) {
-                for (var z = -chunksRadius; z < chunksRadius; z++) {
-                    ChunkManager.forceChunk(level, new ChunkPos(origin.offset(x * 16, 0, z * 16)), true);
-                }
+            // Force-load a small region around the structure's start piece. The stargate lives
+            // in that start piece (at the located origin), so this is all the scan needs; the
+            // scan itself (setGeneratedStargateAddress -> LinkingHelper) only reads already-loaded
+            // chunks, so it never generates the distant chunks its search radius would reach.
+            //
+            // We must NOT use a blocking forceChunk here: if generating one of these chunks fails
+            // (another mod's worldgen throwing), 1.21 stores the error via
+            // MinecraftServer.setFatalException and leaves the chunk future incomplete, which
+            // hangs the plain chunk-source managedBlock forever. Instead we ticket the region and
+            // drive generation through the server's own managedBlock, which both pumps chunk
+            // generation and re-throws that fatal exception to us (caught in onServerStarted),
+            // so a bad dimension is skipped instead of hanging world creation.
+            var chunksRadius = 3;
+            var originChunk = new ChunkPos(origin);
+            var chunkSource = level.getChunkSource();
+            // Push the next-tick deadline far out so the watchdog stays quiet and haveTime() keeps
+            // returning true (otherwise the server would not pump chunk-generation tasks for us).
+            AccessUtil.setNextTickTime(level.getServer(), Util.getMillis() + 5 * 60 * 1000);
+            chunkSource.addRegionTicket(TicketType.FORCED, originChunk, chunksRadius, originChunk);
+            try {
+                final long deadlineNanos = Util.getNanos() + 120L * 1_000_000_000L;
+                level.getServer().managedBlock(() -> Util.getNanos() > deadlineNanos
+                        || allChunksFull(chunkSource, originChunk, chunksRadius));
+                origin = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin);
+                JSG.logger.info("Searching for stargate in {} at {}", level.dimension().location().toString(), origin.toShortString());
+                setGeneratedStargateAddress(level, origin, i == 0, structureEntry, message);
+                result = true;
+            } finally {
+                // Always release the region ticket, even if generation threw above, so an aborted
+                // dimension does not leak forced chunks.
+                chunkSource.removeRegionTicket(TicketType.FORCED, originChunk, chunksRadius, originChunk);
+                AccessUtil.setNextTickTime(level.getServer(), Util.getMillis());
             }
-            origin = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin);
-            JSG.logger.info("Searching for stargate in {} at {}", level.dimension().location().toString(), origin.toShortString());
-            setGeneratedStargateAddress(level, origin, i == 0, structureEntry, message);
-            for (var x = -chunksRadius; x < chunksRadius; x++) {
-                for (var z = -chunksRadius; z < chunksRadius; z++) {
-                    ChunkManager.unforceChunk(level, new ChunkPos(origin.offset(x * 16, 0, z * 16)), true);
-                }
-            }
-            result = true;
         }
         return result;
+    }
+
+    /**
+     * @return true once every chunk in the (2*radius+1) square around {@code center} is fully
+     * generated and loaded. Never triggers generation itself - {@link ServerChunkCache#getChunkNow}
+     * returns null for chunks that are not yet at FULL status.
+     */
+    private static boolean allChunksFull(ServerChunkCache chunkSource, ChunkPos center, int radius) {
+        for (var x = -radius; x <= radius; x++) {
+            for (var z = -radius; z <= radius; z++) {
+                if (chunkSource.getChunkNow(center.x + x, center.z + z) == null)
+                    return false;
+            }
+        }
+        return true;
     }
 
     private static void setGeneratedStargateAddress(ServerLevel level, BlockPos structureOrigin, boolean setAddress, Pair<BlockPos, Holder<Structure>> structureEntry, AtomicReference<Component> message) {
