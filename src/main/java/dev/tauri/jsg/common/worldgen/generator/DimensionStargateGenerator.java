@@ -96,7 +96,7 @@ public class DimensionStargateGenerator {
                     // this dimension and carry on instead of aborting world creation.
                     MinecraftServer.fatalException.set(null);
                     JSG.logger.error("Failed to generate stargate in dimension {} - skipping it. "
-                            + "This is caused by world generation (usually another mod's) throwing during forced chunk generation.",
+                            + "World creation continues without a gate there.",
                             dimension.location(), ex);
                     stats.put(dimension.location().toString(), StargateGeneratorDimStatus.ERROR);
                     continue;
@@ -111,6 +111,19 @@ public class DimensionStargateGenerator {
 
         JSG.logger.info("SG generator progress: {}% ({}s elapsed)", String.format("%.2f", 100f), (double) (Util.getMillis() - started) / 1000);
         JSG.logger.info("Total new gates generated: {}", totalGenerated);
+        // Per-dimension summary, cross-checked against the stargate network. The stats map is
+        // our own bookkeeping; the network is the ground truth for "a gate really exists here",
+        // so a GENERATED dimension without a registered gate means generation silently failed.
+        for (ResourceKey<Level> dimension : levels) {
+            var status = stats.get(dimension.location().toString());
+            var registered = getStargateFromNetwork(network, dimension).isPresent();
+            if ((status == StargateGeneratorDimStatus.GENERATED || status == StargateGeneratorDimStatus.ALREADY_GENERATED) && !registered)
+                JSG.logger.error("SG generator summary: {} -> {} but NO stargate is registered in the network!", dimension.location(), status);
+            else if (status == StargateGeneratorDimStatus.ERROR)
+                JSG.logger.warn("SG generator summary: {} -> {} (no gate was generated there, see errors above)", dimension.location(), status);
+            else
+                JSG.logger.info("SG generator summary: {} -> {}{}", dimension.location(), status, registered ? " (gate registered in network)" : "");
+        }
         JSG.logger.info("SG generator DONE");
     }
 
@@ -169,22 +182,59 @@ public class DimensionStargateGenerator {
             // returning true (otherwise the server would not pump chunk-generation tasks for us).
             AccessUtil.setNextTickTime(level.getServer(), Util.getMillis() + 5 * 60 * 1000);
             chunkSource.addRegionTicket(TicketType.FORCED, originChunk, chunksRadius, originChunk);
+            var escalated = false;
             try {
-                final long deadlineNanos = Util.getNanos() + 120L * 1_000_000_000L;
-                level.getServer().managedBlock(() -> Util.getNanos() > deadlineNanos
-                        || allChunksFull(chunkSource, originChunk, chunksRadius));
+                waitForChunks(level, originChunk, chunksRadius);
                 origin = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin);
                 JSG.logger.info("Searching for stargate in {} at {}", level.dimension().location().toString(), origin.toShortString());
-                setGeneratedStargateAddress(level, origin, i == 0, structureEntry, message);
+                var found = setGeneratedStargateAddress(level, origin, i == 0, structureEntry, message);
+                if (!found) {
+                    // The gate is normally in the structure's start piece right at the located
+                    // origin, but some structures place it in a piece further out. The scan never
+                    // loads chunks itself, so widen the loaded region to the scan's full 140-block
+                    // range and scan once more before declaring failure.
+                    JSG.logger.warn("No stargate within the initially loaded region of {} - loading the full scan range and retrying", level.dimension().location());
+                    escalated = true;
+                    chunkSource.addRegionTicket(TicketType.FORCED, originChunk, ESCALATED_CHUNKS_RADIUS, originChunk);
+                    waitForChunks(level, originChunk, ESCALATED_CHUNKS_RADIUS);
+                    found = setGeneratedStargateAddress(level, origin, i == 0, structureEntry, message);
+                }
+                if (!found)
+                    throw new IllegalStateException("Structure generated at " + origin.toShortString() + " but no stargate was found inside it");
                 result = true;
             } finally {
-                // Always release the region ticket, even if generation threw above, so an aborted
+                // Always release the region tickets, even if generation threw above, so an aborted
                 // dimension does not leak forced chunks.
                 chunkSource.removeRegionTicket(TicketType.FORCED, originChunk, chunksRadius, originChunk);
+                if (escalated)
+                    chunkSource.removeRegionTicket(TicketType.FORCED, originChunk, ESCALATED_CHUNKS_RADIUS, originChunk);
                 AccessUtil.setNextTickTime(level.getServer(), Util.getMillis());
             }
         }
         return result;
+    }
+
+    /**
+     * Covers the widest gate scan in {@link #setGeneratedStargateAddress} (140 blocks): a block
+     * 140 blocks from the origin is at most 9 chunks from the origin's chunk.
+     */
+    private static final int ESCALATED_CHUNKS_RADIUS = 9;
+
+    /**
+     * Pumps the server's task queue (which drives chunk generation) until every chunk within
+     * {@code radius} of {@code center} is fully generated. The server's own managedBlock re-throws
+     * worldgen failures stored via {@link MinecraftServer#setFatalException}, and the deadline
+     * turns a stall into an exception too - both are handled per-dimension in onServerStarted,
+     * so a bad dimension is skipped instead of hanging world creation or scanning a half-loaded
+     * region.
+     */
+    private static void waitForChunks(ServerLevel level, ChunkPos center, int radius) {
+        var chunkSource = level.getChunkSource();
+        final long deadlineNanos = Util.getNanos() + 120L * 1_000_000_000L;
+        level.getServer().managedBlock(() -> Util.getNanos() > deadlineNanos
+                || allChunksFull(chunkSource, center, radius));
+        if (!allChunksFull(chunkSource, center, radius))
+            throw new IllegalStateException("Timed out waiting for chunks around " + center + " (radius " + radius + ") to generate");
     }
 
     /**
@@ -202,7 +252,11 @@ public class DimensionStargateGenerator {
         return true;
     }
 
-    private static void setGeneratedStargateAddress(ServerLevel level, BlockPos structureOrigin, boolean setAddress, Pair<BlockPos, Holder<Structure>> structureEntry, AtomicReference<Component> message) {
+    /**
+     * @return true if a stargate was found (and registered) in the generated structure. The scan
+     * only sees loaded chunks, so a false return may just mean the gate's chunk is not loaded yet.
+     */
+    private static boolean setGeneratedStargateAddress(ServerLevel level, BlockPos structureOrigin, boolean setAddress, Pair<BlockPos, Holder<Structure>> structureEntry, AtomicReference<Component> message) {
         final AtomicReference<BoundingBox> box = new AtomicReference<>(null);
         /*var structureManager = level.structureManager();
         var startPiece = structureManager.getStructureAt(structureEntry.getFirst(), structureEntry.getSecond().get());
@@ -230,14 +284,15 @@ public class DimensionStargateGenerator {
                     level.dimension().location().toString(),
                     structureEntry.getSecond().unwrapKey().map(ResourceKey::location).orElse(JSGMapping.rl("error")).toString()
             );
-            return;
+            return false;
         }
         message.set(Component.translatable("createWorld.stargates_generating.running_sg_regen"));
         gateBE.tryRegenerateStargateIfNeeded();
         var reservedStargate = StargateReservedAddresses.getStargate(level);
-        if (reservedStargate.isEmpty()) return;
-        if (reservedStargate.get().isGenerated()) return;
+        if (reservedStargate.isEmpty()) return true;
+        if (reservedStargate.get().isGenerated()) return true;
         if (setAddress)
             reservedStargate.get().setAddresses(gateBE);
+        return true;
     }
 }
