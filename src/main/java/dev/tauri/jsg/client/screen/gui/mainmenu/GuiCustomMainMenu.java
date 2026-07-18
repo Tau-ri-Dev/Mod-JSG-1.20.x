@@ -8,6 +8,7 @@ import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.client.screen.EnumMainMenuGateType;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.client.screen.element.MainMenuMusicSlider;
+import dev.tauri.jsg.client.screen.gui.mainmenu.background.GuiStargateBackgroundRenderer;
 import dev.tauri.jsg.common.config.data.ProgressJSON;
 import dev.tauri.jsg.common.registry.JSGPositionedSounds;
 import dev.tauri.jsg.common.util.WebsiteUtils;
@@ -24,9 +25,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -41,7 +42,6 @@ import org.joml.Vector2i;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,8 +66,6 @@ public class GuiCustomMainMenu extends Screen {
     public static final long FIRST_TRANSITION_LENGTH = 15 * 20; // in relative ticks
     public static final int PADDING = 10;
     public static final MainMenuNotifications NOTIFIER = MainMenuNotifications.getManager();
-    private static final int BACKGROUND_CHANGE_ANIMATION_LENGTH = 60; //ticks
-    private static final int BACKGROUND_STAY_TIME = 200; //ticks
     public static long menuDisplayed = -1;
     public static boolean menuWasDisplayed = false;
     public static double firstTransitionStart = 0;
@@ -76,19 +74,12 @@ public class GuiCustomMainMenu extends Screen {
 
     public double tick;
     public boolean isMusicPlaying = false;
-    public final EnumMainMenuGateType gateType;
     private long lastTipChange = 0;
 
     public List<JSGButtonClassic> buttonList = new ArrayList<>();
     public MainMenuMusicSlider musicSlider;
 
-    private double backgroundScale = 1;
-    private int currentBackground = 0;
-    private float backgroundTransition = 0;
     private EnumMainMenuTips tipEnum = EnumMainMenuTips.random(null);
-
-    @NotNull
-    public final MainMenuTheme theme;
 
     public int lastMouseX;
     public int lastMouseY;
@@ -97,25 +88,18 @@ public class GuiCustomMainMenu extends Screen {
     public double zoomInStart;
     public double zoomOutCoef = 0;
 
+    @NotNull
+    public final MainMenuTheme theme;
+    public final EnumMainMenuGateType gateType;
+
     public GuiCustomMainMenu() {
         super(Component.translatable("narrator.screen.title"));
         tick();
-        theme = getTheme();
-        var gateType = JSGConfig.General.mainMenuGateType.get();
-        if (gateType == null || gateType == EnumMainMenuGateType.BY_ACT)
-            this.gateType = EnumMainMenuGateType.byGateType(theme.gateType);
-        else this.gateType = gateType;
-    }
+        Screen.PANORAMA = new GuiStargateBackgroundRenderer();
 
-    protected MainMenuTheme getTheme() {
-        MainMenuTheme.load();
-        var t = MainMenuTheme.THEMES.entrySet().stream().sorted(Comparator.comparingInt(e -> e.getValue().getPriority())).toList();
-        for (var e : t) {
-            if (e.getValue().canBeChosen()) {
-                return e.getValue();
-            }
-        }
-        return MainMenuTheme.ACT_1;
+        var gateRenderer = (GuiStargateBackgroundRenderer) Screen.PANORAMA;
+        this.theme = gateRenderer.theme;
+        this.gateType = gateRenderer.gateType;
     }
 
     public static Float musicVolume = null;
@@ -486,55 +470,7 @@ public class GuiCustomMainMenu extends Screen {
     }
 
     public void drawBackground() {
-        double startTick = tick;
-        if (JSGConfig.General.enableLogo.get())
-            startTick = Math.max(0, (tick - firstTransitionStart - FIRST_TRANSITION_LENGTH));
-
-        RenderSystem.enableBlend();
-        double currentImgCoef = ((startTick % (double) BACKGROUND_STAY_TIME) / (double) BACKGROUND_STAY_TIME);
-        double backgroundProgress = ((startTick % ((double) BACKGROUND_STAY_TIME * (double) theme.getBackgrounds().size())) / ((double) BACKGROUND_STAY_TIME * (double) theme.getBackgrounds().size()));
-
-        float scale = 1f + (float) ((Math.sin((startTick / 400.0) * Math.PI) / 2.0 + 0.5f) * 0.2f);
-
-        currentBackground = (int) (Math.floor(startTick / BACKGROUND_STAY_TIME) % theme.getBackgrounds().size());
-        var nextBackground = ((currentBackground + 1) % theme.getBackgrounds().size());
-
-        var backChangeTime = (BACKGROUND_CHANGE_ANIMATION_LENGTH / (double) BACKGROUND_STAY_TIME);
-        backgroundTransition = (float) (((currentImgCoef > (1 - backChangeTime)) ? ((currentImgCoef - (1.0 - backChangeTime)) / backChangeTime) : 0));
-        if (backgroundTransition > 0.98f)
-            currentBackground = nextBackground;
-
-        poseStack.pushPose();
-        int[] center = getCenterPos(0, 0);
-        poseStack.translate(center[0], center[1], 0);
-        poseStack.scale(scale, scale, 1);
-        backgroundScale = scale;
-
-        var w = width;
-        var h = height;
-        if ((h / (double) w) < (1016 / 1919.0))
-            h = (int) ((1016.0 * w) / 1919.0);
-        else
-            w = (int) ((1919.0 * h) / 1016.0);
-
-        // current background
-        ITexture.bindTextureWithMc(theme.getBackground(currentBackground));
-        drawScaledCustomSizeModalRect(-(width / 2), -(height / 2), 0, 0, 1919, 1016, w, h, 1920, 1017);
-
-        if (backgroundTransition > 0) {
-            // if transitioning - render next background as overlay
-            ITexture.bindTextureWithMc(theme.getBackground(nextBackground));
-            drawScaledCustomSizeModalRectColor(-(width / 2), -(height / 2), 0, 0, 1919, 1016, w, h, 1920, 1017, 1, 1, 1, backgroundTransition);
-        }
-
-        poseStack.popPose();
-
-        // Back progress
-        drawRect(0, height - 2, width, height, 0xFF6E6E6E);
-        drawRect(0, height - 2, (int) ((double) width * backgroundProgress), height, 0xFFEBEBEB);
-        RenderSystem.disableBlend();
-
-        MainMenuGateRenderer.renderGate(gateType, (int) (width + 20 + (zoomOutCoef * width)), getCenterPos(0, 0)[1], 45, tick);
+        Screen.PANORAMA.render(graphics, width, height, 1 - (float) zoomOutCoef, 0);
     }
 
     /**
@@ -550,11 +486,11 @@ public class GuiCustomMainMenu extends Screen {
             graphics.drawString(font, "width: " + width, PADDING, center[1] + (10 * (++i)), 0xffffff);
             graphics.drawString(font, "height: " + height, PADDING, center[1] + (10 * (++i)), 0xffffff);
             graphics.drawString(font, "time: " + String.format("%.4f", tick), PADDING, center[1] + (10 * (++i)), 0xffffff);
-            graphics.drawString(font, "timeHere: " + String.format("%.4f", (tick % BACKGROUND_STAY_TIME)), PADDING, center[1] + (10 * (++i)), 0xffffff);
-            graphics.drawString(font, "backgroundScale: " + String.format("%.4f", backgroundScale), PADDING, center[1] + (10 * (++i)), 0xffffff);
-            graphics.drawString(font, "backgroundTransition: " + String.format("%.4f", backgroundTransition), PADDING, center[1] + (10 * (++i)), 0xffffff);
-            graphics.drawString(font, "currentBackground: " + currentBackground, PADDING, center[1] + (10 * (++i)), 0xffffff);
-            graphics.drawString(font, "gateType: " + gateType.toString(), PADDING, center[1] + (10 * (++i)), 0xffffff);
+            //graphics.drawString(font, "timeHere: " + String.format("%.4f", (tick % BACKGROUND_STAY_TIME)), PADDING, center[1] + (10 * (++i)), 0xffffff);
+            //graphics.drawString(font, "backgroundScale: " + String.format("%.4f", backgroundScale), PADDING, center[1] + (10 * (++i)), 0xffffff);
+            //graphics.drawString(font, "backgroundTransition: " + String.format("%.4f", backgroundTransition), PADDING, center[1] + (10 * (++i)), 0xffffff);
+            //graphics.drawString(font, "currentBackground: " + currentBackground, PADDING, center[1] + (10 * (++i)), 0xffffff);
+            //graphics.drawString(font, "gateType: " + gateType.toString(), PADDING, center[1] + (10 * (++i)), 0xffffff);
             graphics.drawString(font, "currentButton: " + currentButton, PADDING, center[1] + (10 * (++i)), 0xffffff);
             graphics.drawString(font, "currentAct: " + ProgressJSON.get().currentActId, PADDING, center[1] + (10 * (++i)), 0xffffff);
         }
