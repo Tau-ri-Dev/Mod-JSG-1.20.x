@@ -107,7 +107,7 @@ public interface Stargate<E extends JSGEnergyStorage> extends IPreparable, ITick
     StargateType<?> getStargateType();
 
     default int getMaxChevrons() {
-        return 7;
+        return 9;
     }
 
     default boolean receiveIrisCode(CodeSender sender, String code) {

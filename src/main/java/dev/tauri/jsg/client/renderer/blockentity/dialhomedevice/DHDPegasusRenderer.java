@@ -29,6 +29,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DHDPegasusRenderer extends DHDAbstractRenderer<DHDPegasusRendererState> {
     public DHDPegasusRenderer(BlockEntityRendererProvider.Context ignored) {
@@ -80,6 +81,15 @@ public class DHDPegasusRenderer extends DHDAbstractRenderer<DHDPegasusRendererSt
     public void renderDHD(PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
         ElementEnum.PEGASUS_DHD_BASE.bindTexture(rendererState.getBiomeOverlay()).render(poseStack, bufferSource, combinedLight, combinedOverlay);
         ElementEnum.PEGASUS_DHD_CRYSTAL_HOLDER.render(poseStack, bufferSource, combinedLight, combinedOverlay);
+
+        var slot = new AtomicInteger(0);
+        DHDMilkyWayRenderer.UPGRADE_POSES.forEach(pose -> {
+            if (!rendererState.hasUpgrade(slot.getAndIncrement())) return;
+            poseStack.pushPose();
+            poseStack.translate(pose.x(), pose.y(), -0.083);
+            ElementEnum.PEGASUS_DHD_UPGRADE_CRYSTAL.bindTexture(rendererState.getBiomeOverlay()).render(poseStack, bufferSource, combinedLight, combinedOverlay);
+            poseStack.popPose();
+        });
     }
 
     @Override

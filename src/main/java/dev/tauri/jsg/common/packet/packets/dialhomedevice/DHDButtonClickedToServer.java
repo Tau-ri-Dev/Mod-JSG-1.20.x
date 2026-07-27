@@ -1,4 +1,4 @@
-package dev.tauri.jsg.common.packet.packets.stargate;
+package dev.tauri.jsg.common.packet.packets.dialhomedevice;
 
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
 import dev.tauri.jsg.core.common.packet.packets.PositionedPacket;

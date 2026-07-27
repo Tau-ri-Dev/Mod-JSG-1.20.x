@@ -1,11 +1,9 @@
 package dev.tauri.jsg.common.dialhomedevice.manager;
 
-import dev.tauri.jsg.JSG;
 import dev.tauri.jsg.api.config.JSGConfig;
 import dev.tauri.jsg.api.dialhomedevice.DHDReactorState;
 import dev.tauri.jsg.api.dialhomedevice.manager.IDHDReactorManager;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
-import dev.tauri.jsg.core.common.item.CommonUpgrade;
 import dev.tauri.jsg.core.common.power.JSGEnergyStorage;
 import dev.tauri.jsg.core.common.registry.CoreStateTypes;
 import dev.tauri.jsg.core.common.util.FluidTank;
@@ -50,7 +48,7 @@ public class DHDReactorManager extends AbstractDHDManager<DHDAbstractBE> impleme
     public void tick(@NotNull Level level) {
         if (level.isClientSide()) return;
 
-        if (lastAmount != getTank().getFluidAmount() && level.getGameTime() % 20 == 0) {
+        if ((lastAmount > getTank().getFluidAmount() && level.getGameTime() % 20 == 0) && lastAmount < getTank().getFluidAmount()) {
             lastAmount = getTank().getFluidAmount();
             dhd.getStateManager().getAndSendState(CoreStateTypes.RENDERER_STATE.get());
         }
@@ -67,18 +65,6 @@ public class DHDReactorManager extends AbstractDHDManager<DHDAbstractBE> impleme
         if (!canStartOrContinueReaction.test(tank)) {
             state = DHDReactorState.NO_CRYSTAL;
             return;
-        }
-
-        // Fluid upgrades
-        double newFluidCapacity = JSGConfig.DialHomeDevice.fluidCapacity.get();
-        if (dhd.hasUpgrade(CommonUpgrade.CAPACITY_UPGRADE))
-            newFluidCapacity *= JSGConfig.DialHomeDevice.capacityUpgradeMultiplier.get();
-
-        if (getTank().getCapacity() != newFluidCapacity) {
-            getTank().setCapacity((int) newFluidCapacity);
-            dhd.setDHDChanged();
-            dhd.getStateManager().getAndSendState(CoreStateTypes.RENDERER_STATE.get());
-            JSG.logger.debug("DHD at {} set itself new capacity! ({}mb)", dhd.getBlockPos().toShortString(), newFluidCapacity);
         }
 
         dhd.getLinkedDeviceOptional().ifPresentOrElse((gateTile) -> {

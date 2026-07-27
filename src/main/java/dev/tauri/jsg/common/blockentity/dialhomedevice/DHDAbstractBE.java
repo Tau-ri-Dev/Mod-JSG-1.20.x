@@ -10,6 +10,7 @@ import dev.tauri.jsg.api.integration.StargateComputerEvents;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
 import dev.tauri.jsg.api.stargate.StargateClosedReasonEnum;
+import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.api.stargate.result.StargateCloseResult;
 import dev.tauri.jsg.api.stargate.result.StargateOpenResult;
 import dev.tauri.jsg.common.advancements.JSGCriterions;
@@ -26,7 +27,6 @@ import dev.tauri.jsg.core.common.entity.BiomeOverlayInstance;
 import dev.tauri.jsg.core.common.entity.State;
 import dev.tauri.jsg.core.common.entity.StateType;
 import dev.tauri.jsg.core.common.helper.LinkingHelper;
-import dev.tauri.jsg.core.common.item.CommonUpgrade;
 import dev.tauri.jsg.core.common.registry.CoreFluids;
 import dev.tauri.jsg.core.common.sound.ISoundEvent;
 import dev.tauri.jsg.core.common.sound.JSGSoundHelper;
@@ -68,7 +68,9 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDHD, ILinkable<Stargate<?>>, BEStateProvider {
     // ====================================================================================
@@ -93,8 +95,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
             }
         }, (tank) -> hasControlCrystal(), (tank) -> {
             double energyPerOne = JSGConfig.DialHomeDevice.energyPerNaquadah.get();
-            if (hasUpgrade(CommonUpgrade.EFFICIENCY_UPGRADE)) {
-                energyPerOne *= JSGConfig.DialHomeDevice.efficiencyUpgradeMultiplier.get();
+            for (var behavior : getBehaviors()) {
+                energyPerOne = behavior.modifyEnergyPerNaquadah(energyPerOne);
             }
             return (int) energyPerOne;
         });
@@ -137,6 +139,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     public void activateSymbol(SymbolInterface symbol) {
         if (level == null) return;
         if (getStateManager().getButtonsState().get(symbol).isActive()) return;
+        if (getBehaviors().stream().anyMatch(behavior -> !behavior.onSymbolActivated(symbol)))
+            return;
         var playSound = getLinkedDeviceOptional().map(gateTile -> {
             if (!gateTile.getDialingManager().getStargateState().dialingComputer()) return true;
             return (gateTile instanceof IConfigurable configurable && configurable.getConfig().getValueOrDefault(StargateConfigOptions.Classic.DHD_OC_PRESS_SOUND));
@@ -167,6 +171,8 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
     // TODO(Mine): Refactor "dhd_milkyway" key to just "dhd"
     @Override
     public void pushSymbolButton(SymbolInterface symbol, @Nullable ServerPlayer player, boolean force) {
+        if (getBehaviors().stream().anyMatch(behavior -> !behavior.onSymbolButtonPushed(symbol, player, force)))
+            return;
         if (!hasControlCrystal()) {
             if (player != null)
                 player.sendSystemMessage(Component.translatable("block.jsg.dhd_milkyway.no_crystal_warn"), true);
@@ -213,6 +219,22 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
 
     public Collection<IDHDUpgradeBehavior> getBehaviors() {
         return behaviors.values();
+    }
+
+    public Collection<Integer> getBehaviorsUsedSlots() {
+        return behaviors.entrySet().stream()
+                .filter(e -> e.getValue() != null)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toUnmodifiableSet());
+    }
+
+    @Override
+    public int getMaxSymbols(@Nullable StargateAddressDynamic dialedAddress) {
+        var maxSymbols = 7;
+        for (var behavior : getBehaviors()) {
+            maxSymbols = behavior.modifyMaxSymbolsInAddress(maxSymbols, dialedAddress);
+        }
+        return maxSymbols;
     }
 
     // ====================================================================================
@@ -263,10 +285,15 @@ public abstract class DHDAbstractBE extends JSGBlockEntity implements StargateDH
                 else if (!isAssembled((IDHDPartItem) getControlCrystal()))
                     getStateManager().assemblePart((IDHDPartItem) getControlCrystal());
             } else {
-                if (getStackInSlot(slot).isEmpty() && behaviors.containsKey(slot))
+                var level = getLevel();
+                if (getStackInSlot(slot).isEmpty() && behaviors.containsKey(slot)) {
+                    if (level != null)
+                        Optional.ofNullable(behaviors.get(slot)).ifPresent(behavior -> behavior.onDetach(level));
                     behaviors.remove(slot);
-                else if (getStackInSlot(slot).getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade) {
+                } else if (getStackInSlot(slot).getItem() instanceof IDHDUpgradeItem dhdUpgradeItem && dhdUpgradeItem.getUpgrade() instanceof IDHDUpgrade dhdUpgrade) {
                     behaviors.put(slot, dhdUpgrade.createBehavior(DHDAbstractBE.this));
+                    if (level != null)
+                        Optional.ofNullable(behaviors.get(slot)).ifPresent(behavior -> behavior.onAttach(level));
                 }
             }
             setChanged();

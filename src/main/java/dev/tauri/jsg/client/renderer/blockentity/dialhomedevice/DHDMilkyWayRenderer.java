@@ -8,7 +8,6 @@ import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.registry.JSGSymbolTypes;
 import dev.tauri.jsg.api.stargate.StargatePointOfOriginsDefaults;
 import dev.tauri.jsg.api.stargate.network.address.symbol.types.SymbolMilkyWayEnum;
-import dev.tauri.jsg.client.renderer.blockentity.dialhomedevice.DHDAbstractRenderer.PartRenderable;
 import dev.tauri.jsg.common.dialhomedevice.animation.DHDButtonsState;
 import dev.tauri.jsg.common.loader.ElementEnum;
 import dev.tauri.jsg.common.raycaster.RaycasterMilkyWayDHD;
@@ -31,8 +30,16 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2d;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DHDMilkyWayRenderer extends DHDAbstractRenderer<DHDMilkyWayRendererState> {
+    public static final List<Vector2d> UPGRADE_POSES = List.of(
+            new Vector2d(0, 0.108),
+            new Vector2d(0.08, 0.251),
+            new Vector2d(-0.076, 0.251),
+            new Vector2d(-0.120, 0.3825),
+            new Vector2d(0.120, 0.3825)
+    );
 
     public DHDMilkyWayRenderer(BlockEntityRendererProvider.Context ignored) {
         super(ignored);
@@ -101,15 +108,9 @@ public class DHDMilkyWayRenderer extends DHDAbstractRenderer<DHDMilkyWayRenderer
         ElementEnum.MILKYWAY_DHD_BASE.bindTexture(rendererState.getBiomeOverlay()).render(stack, bufferSource, combinedLight, combinedOverlay);
         ElementEnum.MILKYWAY_DHD_CRYSTAL_HOLDER.render(stack, bufferSource, combinedLight, combinedOverlay);
 
-        var upgradePoses = List.of(
-                new Vector2d(0, 0.108),
-                new Vector2d(0.08, 0.251),
-                new Vector2d(-0.076, 0.251),
-                new Vector2d(-0.120, 0.3825),
-                new Vector2d(0.120, 0.3825)
-        );
-
-        upgradePoses.forEach(pose -> {
+        var slot = new AtomicInteger(0);
+        UPGRADE_POSES.forEach(pose -> {
+            if (!rendererState.hasUpgrade(slot.getAndIncrement())) return;
             stack.pushPose();
             stack.translate(pose.x(), pose.y(), -0.083);
             ElementEnum.MILKYWAY_DHD_UPGRADE_CRYSTAL.bindTexture(rendererState.getBiomeOverlay()).render(stack, bufferSource, combinedLight, combinedOverlay);
@@ -123,7 +124,7 @@ public class DHDMilkyWayRenderer extends DHDAbstractRenderer<DHDMilkyWayRenderer
     }
 
     @Override
-    protected IDHDPartItem getUpgradesCover(){
+    protected IDHDPartItem getUpgradesCover() {
         return JSGItems.MILKYWAY_DHD_UPGRADES_COVER.get();
     }
 

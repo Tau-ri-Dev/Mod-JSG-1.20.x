@@ -9,9 +9,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class DHDAbstractRendererState extends State {
     public DHDAbstractRendererState() {
@@ -23,6 +21,7 @@ public abstract class DHDAbstractRendererState extends State {
     public int naquadahAmount;
     public int naquadahMaxAmount;
     public DHDReactorState reactorState = DHDReactorState.NO_CRYSTAL;
+    public final Map<Integer, Boolean> upgradeSlots = new HashMap<>();
 
     public BiomeOverlayInstance getBiomeOverlay() {
         if (biomeOverlay == null) return CoreBiomeOverlays.NORMAL.get();
@@ -31,6 +30,10 @@ public abstract class DHDAbstractRendererState extends State {
 
     public boolean isAssembled(IDHDPartItem part) {
         return assembledParts.contains(part);
+    }
+
+    public boolean hasUpgrade(int slot) {
+        return Optional.ofNullable(upgradeSlots.get(slot)).orElse(false);
     }
 
     @Override
@@ -46,6 +49,11 @@ public abstract class DHDAbstractRendererState extends State {
         buf.writeInt(naquadahAmount);
         buf.writeInt(naquadahMaxAmount);
         buf.writeInt(reactorState.ordinal());
+        buf.writeInt(upgradeSlots.size());
+        upgradeSlots.forEach((slot, value) -> {
+            buf.writeInt(slot);
+            buf.writeBoolean(value);
+        });
     }
 
     @Override
@@ -61,5 +69,12 @@ public abstract class DHDAbstractRendererState extends State {
         naquadahAmount = buf.readInt();
         naquadahMaxAmount = buf.readInt();
         reactorState = DHDReactorState.values()[buf.readInt()];
+        upgradeSlots.clear();
+        size = buf.readInt();
+        for (int i = 0; i < size; i++) {
+            var slot = buf.readInt();
+            var value = buf.readBoolean();
+            upgradeSlots.put(slot, value);
+        }
     }
 }

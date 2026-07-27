@@ -511,4 +511,9 @@ public class RaycasterMilkyWayDHD extends RaycasterDHD {
     public IDHDPartItem getDHDButtonsConsolePart() {
         return JSGItems.MILKYWAY_DHD_BUTTONS_CONSOLE.get();
     }
+
+    @Override
+    public IDHDPartItem getDHDUpgradesCoverPart() {
+        return JSGItems.MILKYWAY_DHD_UPGRADES_COVER.get();
+    }
 }

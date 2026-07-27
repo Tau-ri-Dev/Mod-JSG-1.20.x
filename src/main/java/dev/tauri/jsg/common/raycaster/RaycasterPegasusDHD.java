@@ -511,4 +511,9 @@ public class RaycasterPegasusDHD extends RaycasterDHD {
     public IDHDPartItem getDHDButtonsConsolePart() {
         return JSGItems.PEGASUS_DHD_BUTTONS_CONSOLE.get();
     }
+
+    @Override
+    public IDHDPartItem getDHDUpgradesCoverPart() {
+        return JSGItems.PEGASUS_DHD_UPGRADES_COVER.get();
+    }
 }

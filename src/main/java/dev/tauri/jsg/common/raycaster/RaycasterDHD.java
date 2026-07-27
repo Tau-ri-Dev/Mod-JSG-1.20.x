@@ -3,9 +3,10 @@ package dev.tauri.jsg.common.raycaster;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.common.blockentity.dialhomedevice.DHDAbstractBE;
 import dev.tauri.jsg.common.packet.JSGPacketHandler;
-import dev.tauri.jsg.common.packet.packets.stargate.DHDAssemblyClickToServer;
-import dev.tauri.jsg.common.packet.packets.stargate.DHDButtonClickedToServer;
-import dev.tauri.jsg.common.packet.packets.stargate.DHDFluidInsertionToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDAssemblyClickToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDButtonClickedToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDFluidInsertionToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDUpgradeAssemblyClickToServer;
 import dev.tauri.jsg.core.common.raycaster.Raycaster;
 import dev.tauri.jsg.core.common.registry.CoreItems;
 import dev.tauri.jsg.core.common.symbol.SymbolInterface;
@@ -44,10 +45,15 @@ public abstract class RaycasterDHD extends Raycaster {
 
     public abstract IDHDPartItem getDHDButtonsConsolePart();
 
+    public abstract IDHDPartItem getDHDUpgradesCoverPart();
+
     @Override
     public boolean isButtonEnabled(Level level, Player player, int buttonId, BlockPos pos, InteractionHand hand) {
         var dhdTile = (DHDAbstractBE) level.getBlockEntity(pos);
         if (dhdTile != null) {
+            if (buttonId >= UPGRADE_SLOT_TL_IMM_BUTTON_ID && buttonId <= UPGRADE_SLOT_B_IMM_BUTTON_ID) {
+                return !dhdTile.isAssembled(getDHDUpgradesCoverPart());
+            }
             if (!dhdTile.isAssembled(getDHDButtonsConsolePart()) && buttonId < 100) return false;
             var item = player.getItemInHand(hand);
             var fluidCap = item.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
@@ -129,6 +135,11 @@ public abstract class RaycasterDHD extends Raycaster {
                         JSGPacketHandler.sendToServer(new DHDAssemblyClickToServer(pos, part.get(), true));
                         return true;
                     }
+                }
+                if (buttonId >= UPGRADE_SLOT_TL_IMM_BUTTON_ID && buttonId <= UPGRADE_SLOT_B_IMM_BUTTON_ID) {
+                    // upgrades
+                    JSGPacketHandler.sendToServer(new DHDUpgradeAssemblyClickToServer(pos, buttonId - UPGRADE_SLOT_TL_IMM_BUTTON_ID, hand, isSneaking || player.getItemInHand(hand).isEmpty()));
+                    return true;
                 }
                 if (dhdTile.isAssembled() && buttonId != -1 && buttonId < 100) {
                     SymbolInterface symbol = dhdTile.getSymbolType().valueOf(buttonId);

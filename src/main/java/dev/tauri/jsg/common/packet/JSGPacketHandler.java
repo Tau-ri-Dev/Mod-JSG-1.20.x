@@ -11,11 +11,18 @@ import dev.tauri.jsg.common.packet.packets.admincontroller.ACResponsePacketToCli
 import dev.tauri.jsg.common.packet.packets.admincontroller.event.ACStargateEngageSymbolPacketToClient;
 import dev.tauri.jsg.common.packet.packets.admincontroller.handshake.ACStargateDataPacketToClient;
 import dev.tauri.jsg.common.packet.packets.admincontroller.handshake.ACStargateDataRequestPacketToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDAssemblyClickToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDButtonClickedToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDFluidInsertionToServer;
+import dev.tauri.jsg.common.packet.packets.dialhomedevice.DHDUpgradeAssemblyClickToServer;
 import dev.tauri.jsg.common.packet.packets.effect.StargateWormholeEffectToClient;
 import dev.tauri.jsg.common.packet.packets.linkable.GDOCodeKeyPressedToServer;
 import dev.tauri.jsg.common.packet.packets.linkable.UniverseDialerActionPacketToServer;
 import dev.tauri.jsg.common.packet.packets.linkable.UniverseDialerKeyPressedToServer;
-import dev.tauri.jsg.common.packet.packets.stargate.*;
+import dev.tauri.jsg.common.packet.packets.stargate.SaveIrisCodeToServer;
+import dev.tauri.jsg.common.packet.packets.stargate.StargateMotionAndRotationToClient;
+import dev.tauri.jsg.common.packet.packets.stargate.StargatePlayerMotionRequestToClient;
+import dev.tauri.jsg.common.packet.packets.stargate.StargatePlayerMotionToServer;
 import dev.tauri.jsg.core.common.packet.SimplePacketHandler;
 import dev.tauri.jsg.core.mapping.JSGMapping;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,6 +49,7 @@ public class JSGPacketHandler {
         HANDLER.registerPacketToServer(DHDButtonClickedToServer.class);
         HANDLER.registerPacketToServer(DHDAssemblyClickToServer.class);
         HANDLER.registerPacketToServer(DHDFluidInsertionToServer.class);
+        HANDLER.registerPacketToServer(DHDUpgradeAssemblyClickToServer.class);
         HANDLER.registerPacketToServer(SaveIrisCodeToServer.class);
         HANDLER.registerPacketToServer(UniverseDialerActionPacketToServer.class);
         HANDLER.registerPacketToServer(GDOCodeKeyPressedToServer.class);

@@ -24,23 +24,23 @@ public class DHDUpgradeBehaviorImpl implements IDHDUpgradeBehavior {
     }
 
     @Override
-    public long modifyEnergyPerNaquadah(long baseEnergy) {
-        return 0;
+    public double modifyEnergyPerNaquadah(double baseEnergy) {
+        return baseEnergy;
     }
 
     @Override
     public boolean onSymbolActivated(SymbolInterface symbol) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean onSymbolButtonPushed(SymbolInterface symbol, @Nullable ServerPlayer player, boolean force) {
-        return false;
+        return true;
     }
 
     @Override
     public int modifyMaxSymbolsInAddress(int symbolsCount, StargateAddressDynamic dialedAddress) {
-        return 0;
+        return symbolsCount;
     }
 
     @Override

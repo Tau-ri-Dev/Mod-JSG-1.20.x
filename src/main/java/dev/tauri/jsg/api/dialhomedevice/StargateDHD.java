@@ -3,6 +3,7 @@ package dev.tauri.jsg.api.dialhomedevice;
 import dev.tauri.jsg.api.item.IDHDFluidTank;
 import dev.tauri.jsg.api.item.IDHDPartItem;
 import dev.tauri.jsg.api.stargate.Stargate;
+import dev.tauri.jsg.api.stargate.network.address.StargateAddressDynamic;
 import dev.tauri.jsg.common.dialhomedevice.manager.DHDReactorManager;
 import dev.tauri.jsg.common.dialhomedevice.manager.state.DHDAbstractStateManager;
 import dev.tauri.jsg.core.common.blockentity.*;
@@ -79,6 +80,8 @@ public interface StargateDHD extends ILinkableBE<Stargate<?>>, ITickable, IPrepa
     boolean isAssembled(IDHDPartItem part);
 
     boolean isAssembled();
+
+    int getMaxSymbols(@Nullable StargateAddressDynamic dialedAddress);
 
     /**
      * Called before assembling/disassembling part

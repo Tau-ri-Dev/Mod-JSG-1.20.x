@@ -118,6 +118,8 @@ public abstract class DHDAbstractStateManager<DHD extends DHDAbstractBE, S exten
         rendererStateClient.naquadahAmount = dhd.getReactorManager().getTank().getFluidAmount();
         rendererStateClient.naquadahMaxAmount = dhd.getReactorManager().getTank().getCapacity();
         rendererStateClient.reactorState = dhd.getReactorManager().getState();
+        rendererStateClient.upgradeSlots.clear();
+        dhd.getBehaviorsUsedSlots().forEach(upgradeSlot -> rendererStateClient.upgradeSlots.put(upgradeSlot, true));
         return rendererStateClient;
     }
 
