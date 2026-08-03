@@ -47,17 +47,6 @@ public enum ElementEnum implements IModelsHolder {
 
     // --------------------------------------------------------------------------------------------
     // Movie
-
-    /*MOVIE_GATE("movie/gate.obj", "movie/gatering", true),
-    MOVIE_RING("movie/ring.obj", "movie/gatering", true),
-
-    MOVIE_CHEVRON_LIGHT("movie/chevron_light.obj", "movie/chevron", true),
-    MOVIE_CHEVRON_FRAME("movie/chevron_frame.obj", "movie/gatering", true),
-    MOVIE_CHEVRON_MOVING("movie/chevron_moving.obj", "movie/chevron", true),
-    MOVIE_CHEVRON_MOVING_TOP("movie/chevron_moving_top.obj", "movie/chevron", true),
-    MOVIE_CHEVRON_BACK("movie/chevron_back.obj", "movie/gatering", true),*/
-
-
     //NEW
     MOVIE_GATE("movie/gate.obj", "movie/gate", true),
     MOVIE_RING("movie/ring.obj", "movie/ring", true),
